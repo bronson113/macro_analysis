@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+data/*.db
+logs/*.log
+output/*.json
+output/*.md
