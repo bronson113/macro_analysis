@@ -8,12 +8,9 @@ Ingests raw macro JSON payload and performs dynamic, un-hardcoded Defiant Gateke
 Guarantees 100% defensive dictionary access safety (.get()).
 """
 
-import json
 import logging
-import pandas as pd
-from typing import Dict, List, Any, Optional
+from typing import Dict, Any, Optional
 from storage import MacroStorage
-from config import OUTPUT_DIR
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 

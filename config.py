@@ -3,7 +3,6 @@ Configuration for Macro Economic Analysis & Data Capture System
 Based on Defiant Gatekeeper macro framework.
 """
 
-import os
 from pathlib import Path
 
 # Base Paths
@@ -11,11 +10,20 @@ BASE_DIR = Path(__file__).parent.resolve()
 DATA_DIR = BASE_DIR / "data"
 LOG_DIR = BASE_DIR / "logs"
 OUTPUT_DIR = BASE_DIR / "output"
+CACHE_DIR = BASE_DIR / "cache"
+YFINANCE_CACHE_DIR = CACHE_DIR / "yfinance"
 
-for d in [DATA_DIR, LOG_DIR, OUTPUT_DIR]:
+for d in [DATA_DIR, LOG_DIR, OUTPUT_DIR, YFINANCE_CACHE_DIR]:
     d.mkdir(parents=True, exist_ok=True)
 
 DB_PATH = DATA_DIR / "macro_data.db"
+
+
+def configure_yfinance_cache(yf_module) -> None:
+    """Point yfinance at a writable project-local cache when the API is available."""
+    cache_setter = getattr(yf_module, "set_tz_cache_location", None)
+    if cache_setter is not None:
+        cache_setter(str(YFINANCE_CACHE_DIR))
 
 # FRED Series Mapping
 # Maps human-readable key to FRED Series ID and description

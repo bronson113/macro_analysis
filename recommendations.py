@@ -72,6 +72,8 @@ class SectorRecommendationEngine:
 
             fwd_pe = val_data.get("forward_pe") if val_data else None
             ev_ebitda = val_data.get("ev_ebitda") if val_data else None
+            valuation_stretched = fwd_pe is not None and fwd_pe > norm_pe * 1.15
+            valuation_severely_stretched = fwd_pe is not None and fwd_pe > norm_pe * 1.35
 
             erp = None
             if fwd_pe and treasury_10y:
@@ -112,7 +114,7 @@ class SectorRecommendationEngine:
                     conviction = "HIGH (Risk Mitigation)"
                     rationale = f"Elevated credit stress (HY OAS {hy_oas:.2f}%). Protect capital as financial conditions tighten."
 
-            elif (macro_quality != "INSUFFICIENT_DATA" and fwd_pe and fwd_pe > norm_pe * 1.35 and ("Contracting" in liq_regime or "LIQUIDITY DRAIN" in overall_regime)):
+            elif (macro_quality != "INSUFFICIENT_DATA" and valuation_severely_stretched and ("Contracting" in liq_regime or "LIQUIDITY DRAIN" in overall_regime)):
                 action = "SELL / TRIM"
                 conviction = "HIGH (Risk Mitigation)"
                 rationale = f"Elevated valuation stretch ({fwd_pe:.1f}x Fwd P/E vs {norm_pe:.1f}x norm) combined with liquidity tightening."
@@ -149,19 +151,31 @@ class SectorRecommendationEngine:
                         rationale = "Domestic revenue base provides safety during global Dollar wrecking-ball periods."
 
             # Real Yield Overrides
-            if breakeven_10y is not None:
+            if treasury_10y is not None and breakeven_10y is not None:
                 real_yield = treasury_10y - breakeven_10y
                 if real_yield > 2.0 and ("Technology" in sec_name or "AI" in sec_name or "Robotics" in sec_name):
-                    action = "SELL / TRIM"
-                    conviction = "HIGH (Restrictive Real Yields)"
-                    rationale = f"Real Yields ({real_yield:.2f}%) are aggressively restrictive. Severe multiple compression risk for long-duration tech."
+                    if valuation_stretched:
+                        action = "SELL / TRIM"
+                        conviction = "HIGH (Restrictive Real Yields + Valuation Stretch)"
+                        rationale = f"Real yields ({real_yield:.2f}%) are restrictive and valuation is stretched ({fwd_pe:.1f}x vs {norm_pe:.1f}x norm), creating multiple-compression risk."
+                    elif "SELL" not in action:
+                        action = "HOLD / CAUTION"
+                        conviction = "MODERATE (Restrictive Real Yield Headwind)"
+                        rationale = f"Real yields ({real_yield:.2f}%) are a headwind for long-duration growth, but valuation is not stretched versus norm. Hold existing exposure and require earnings confirmation before adding."
 
-            # ERP Overrides (Final Boss)
+            # ERP Overrides
             if erp is not None:
-                if erp < 0.0:
+                if erp < -1.0 and valuation_stretched:
                     action = "SELL / TRIM"
-                    conviction = "HIGH (Negative Equity Risk Premium)"
-                    rationale = f"Negative ERP ({erp:.2f}%). The risk-free rate ({treasury_10y:.2f}%) exceeds the sector's earnings yield. Severe structural overvaluation."
+                    conviction = "HIGH (Negative ERP + Valuation Stretch)"
+                    rationale = f"Negative ERP ({erp:.2f}%) combined with valuation stretch ({fwd_pe:.1f}x vs {norm_pe:.1f}x norm). Risk-free yield competes strongly with sector earnings yield."
+                elif erp < 0.0 and "SELL" not in action:
+                    if "BUY" in action:
+                        action = "HOLD / SELECTIVE"
+                    else:
+                        action = "HOLD / CAUTION"
+                    conviction = "MODERATE (Rate/Valuation Headwind)"
+                    rationale = f"Negative ERP ({erp:.2f}%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell."
                 elif erp > 4.0 and "SELL" not in action:
                     action = "BUY / ACCUMULATE"
                     conviction = "HIGH (Deep Value Risk Premium)"

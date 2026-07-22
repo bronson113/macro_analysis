@@ -5,11 +5,9 @@ Manages daily execution via cron, launchd, or daemon background loop.
 
 import sys
 import time
-import os
 import subprocess
 import logging
-from datetime import datetime, timedelta
-from pathlib import Path
+from datetime import datetime
 from config import BASE_DIR, LOG_DIR
 from fetcher import MacroFetcher
 from analyzer import MacroAnalyzer

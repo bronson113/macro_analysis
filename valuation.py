@@ -9,6 +9,9 @@ import yfinance as yf
 import pandas as pd
 from typing import Dict, List, Any, Optional
 from storage import MacroStorage
+from config import configure_yfinance_cache
+
+configure_yfinance_cache(yf)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 

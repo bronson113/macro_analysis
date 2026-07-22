@@ -5,7 +5,7 @@ Interest Rates (Cutting vs Raising) x Fed Balance Sheet (Expanding vs Contractin
 Recommends specific sectors and company characteristics based on the active quadrant.
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 
 class MacroMatrixEngine:
@@ -24,6 +24,20 @@ class MacroMatrixEngine:
             }
 
         rates_easing = effr_trend in ["CUTTING", "EASING", "DOVISH"]
+        policy_restrictive = effr_trend in ["RAISING", "HAWKISH", "HOLDING_RESTRICTIVE", "RESTRICTIVE"]
+        if not rates_easing and not policy_restrictive:
+            return {
+                "situation_id": 0,
+                "name": "NO ACTIONABLE MACRO QUADRANT: POLICY HOLDING / NEUTRAL",
+                "rates_label": "Interest Rates: Holding / Neutral",
+                "bs_label": "Reserve Liquidity: direction observed but policy stance is not restrictive or easing",
+                "description": "Policy-rate trend is flat without enough restrictive-rate evidence. Treat the matrix as neutral and let valuation, credit, earnings, and tax constraints drive sector actions.",
+                "favored_sectors": [],
+                "favored_company_types": [],
+                "disfavored_sectors": [],
+                "quality": "INSUFFICIENT_DATA"
+            }
+
         balance_sheet_expanding = liq_trend_30d is not None and liq_trend_30d > 0
         is_sticky_inflation = cpi_yoy is not None and cpi_yoy > 3.0
 
@@ -70,7 +84,7 @@ class MacroMatrixEngine:
             favored_company_types = ["Defensive cash flow", "Low debt"]
             disfavored_sectors = ["Technology (XLK)", "Consumer Discretionary (XLY)", "Industrials (XLI)", "AI Compute & Accelerators", "Physical AI & Robotics"]
 
-        elif not rates_easing and not balance_sheet_expanding:
+        elif policy_restrictive and not balance_sheet_expanding:
             situation_id = 3
             name = "SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION"
             rates_label = "Interest Rates: Raising / Holding Restrictive"

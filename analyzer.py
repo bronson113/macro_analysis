@@ -7,9 +7,8 @@ Dynamic Raw Data JSON Payload Export, Tax-Aware Mid-Term Recommendations, and Ma
 """
 
 import pandas as pd
-import numpy as np
-from datetime import datetime, timedelta
-from typing import Dict, Any, Optional, Tuple, List
+from datetime import datetime
+from typing import Dict, Any, Optional
 from config import REGIME_THRESHOLDS
 from storage import MacroStorage
 from news_analyzer import MacroNewsAnalyzer
@@ -145,6 +144,11 @@ class MacroAnalyzer:
         target_date = latest["date"] - pd.Timedelta(days=30)
         prior_rate = _value_on_or_before(df_rates, target_date)
         change_30d = latest_rate - prior_rate if prior_rate is not None else None
+        treasury_10y = self.get_latest_value("treasury_10y")
+        breakeven_10y = self.get_latest_value("breakeven_10y")
+        real_yield_10y = None
+        if treasury_10y is not None and breakeven_10y is not None:
+            real_yield_10y = treasury_10y - breakeven_10y
 
         if change_30d is None:
             policy_stance = "UNKNOWN"
@@ -159,13 +163,18 @@ class MacroAnalyzer:
             rate_trend = "HAWKISH"
             quality = "OK"
         else:
-            policy_stance = "HOLDING"
-            rate_trend = "NEUTRAL"
+            if real_yield_10y is not None and real_yield_10y >= 1.50:
+                policy_stance = "HOLDING_RESTRICTIVE"
+                rate_trend = "RESTRICTIVE"
+            else:
+                policy_stance = "HOLDING"
+                rate_trend = "NEUTRAL"
             quality = "OK"
 
         return {
             "policy_rate": round(latest_rate, 2) if latest_rate is not None else None,
             "policy_rate_change_30d": round(change_30d, 2) if change_30d is not None else None,
+            "real_yield_10y": round(real_yield_10y, 2) if real_yield_10y is not None else None,
             "policy_stance": policy_stance,
             "rate_trend": rate_trend,
             "source": source,
@@ -354,6 +363,7 @@ class MacroAnalyzer:
             "m2_yoy": liq.get("m2_yoy"),
             "policy_rate": policy.get("policy_rate"),
             "policy_rate_change_30d": policy.get("policy_rate_change_30d"),
+            "real_yield_10y": policy.get("real_yield_10y"),
             "liquidity_regime": liquidity_regime,
             "yield_curve_regime": yc["regime"],
             "credit_regime": credit["regime"],
@@ -387,7 +397,7 @@ class MacroAnalyzer:
             rec["selective_stock_pick"] = "None"
             for lag in lagging_opportunities:
                 if lag["group"] == grp:
-                    if macro_situation.get("quality") != "INSUFFICIENT_DATA" and "HOLD" in rec["action"]:
+                    if macro_situation.get("quality") != "INSUFFICIENT_DATA" and rec["action"] == "HOLD":
                         rec["action"] = f"HOLD SECTOR / SELECTIVE BUY [{lag['ticker']}]"
                         rec["selective_stock_pick"] = lag["ticker"]
                         rec["rationale"] += f" Selective buying of lagging constituent {lag['ticker']} justified due to deep peer discount."

@@ -5,8 +5,8 @@ Manages SQLite database schema, data insertion, time series queries, daily snaps
 
 import sqlite3
 import pandas as pd
-from datetime import datetime, date
-from typing import Dict, List, Optional, Tuple, Any
+from datetime import datetime
+from typing import Dict, List, Optional, Any
 from contextlib import closing
 from config import DB_PATH, FRED_SERIES, YAHOO_TICKERS
 
@@ -73,6 +73,7 @@ class MacroStorage:
                     m2_yoy REAL,
                     policy_rate REAL,
                     policy_rate_change_30d REAL,
+                    real_yield_10y REAL,
                     liquidity_regime TEXT,
                     yield_curve_regime TEXT,
                     credit_regime TEXT,
@@ -123,6 +124,7 @@ class MacroStorage:
             "m2_yoy": "REAL",
             "policy_rate": "REAL",
             "policy_rate_change_30d": "REAL",
+            "real_yield_10y": "REAL",
         }.items():
             if column_name not in existing:
                 cursor.execute(f"ALTER TABLE daily_snapshots ADD COLUMN {column_name} {column_type}")

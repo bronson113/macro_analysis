@@ -4,11 +4,9 @@ Main CLI entry point for Macro Economic Analysis & Data Capture System.
 
 import sys
 import argparse
-from datetime import datetime
-from config import BASE_DIR, DB_PATH
+from config import DB_PATH
 from contextlib import closing
 from storage import MacroStorage
-from fetcher import MacroFetcher
 from analyzer import MacroAnalyzer
 from reporter import MacroReporter
 from scheduler import run_daily_job, install_cron_job, run_daemon

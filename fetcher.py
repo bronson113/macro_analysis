@@ -13,9 +13,11 @@ import yfinance as yf
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, Any, Tuple, Optional
-from config import FRED_SERIES, YAHOO_TICKERS, LOG_DIR
+from config import FRED_SERIES, YAHOO_TICKERS, LOG_DIR, configure_yfinance_cache
 from storage import MacroStorage
 from news_analyzer import MacroNewsAnalyzer
+
+configure_yfinance_cache(yf)
 
 logging.basicConfig(
     filename=LOG_DIR / "fetcher.log",

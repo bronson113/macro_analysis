@@ -7,14 +7,8 @@ Sector Bellwether Contagion, and News Event analysis.
 Guarantees 100% defensive type safety against missing or None metrics.
 """
 
-import os
-import pandas as pd
-import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 from datetime import datetime
+from pathlib import Path
 from tabulate import tabulate
 from typing import Dict, Any, Optional
 from config import OUTPUT_DIR
@@ -22,13 +16,13 @@ from storage import MacroStorage
 from analyzer import MacroAnalyzer
 
 
-def fmt_num(val: Optional[float], fmt_spec: str = ":,.2f", suffix: str = "", default: str = "N/A") -> str:
-    """Safely formats a numerical value or returns default if None."""
+def fmt_num(val: Optional[float], fmt_spec: str = ":,.2f", suffix: str = "", prefix: str = "", default: str = "N/A") -> str:
+    """Safely formats a numerical value with optional prefix/suffix or returns default if None."""
     if val is None:
         return default
     try:
         format_str = "{" + fmt_spec + "}"
-        return format_str.format(val) + suffix
+        return prefix + format_str.format(val) + suffix
     except Exception:
         return default
 
@@ -41,9 +35,12 @@ def md_cell(value: Any) -> str:
 
 
 class MacroReporter:
-    def __init__(self, storage: Optional[MacroStorage] = None, analyzer: Optional[MacroAnalyzer] = None):
+    def __init__(self, storage: Optional[MacroStorage] = None, analyzer: Optional[MacroAnalyzer] = None, output_dir: Optional[Path] = None, verbose: bool = True):
         self.storage = storage or MacroStorage()
         self.analyzer = analyzer or MacroAnalyzer(self.storage)
+        self.output_dir = Path(output_dir) if output_dir is not None else OUTPUT_DIR
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.verbose = verbose
 
     def print_terminal_dashboard(self, analysis: Dict[str, Any]):
         """Prints a clean, institutional-grade ASCII dashboard to terminal."""
@@ -98,20 +95,21 @@ class MacroReporter:
         print(f"[Credit Risk Regime]:   {summary.get('credit_regime', 'N/A')}")
         print("-" * 100)
 
-        # 1. Federal Reserve & Liquidity Table
+        # 1. Federal Reserve & Reserve Liquidity Proxy Table
         liq_table = [
-            ["Net Bank Liquidity", fmt_num(liq.get('net_liquidity'), ":,.2f", " B", prefix="$"), fmt_num(liq.get('change_30d_billion'), ":+.2f", " B (30d)")],
+            ["Reserve Liquidity Proxy", fmt_num(liq.get('net_liquidity'), ":,.2f", " B", prefix="$"), fmt_num(liq.get('change_30d_billion'), ":+.2f", " B (30d)")],
             ["Fed Total Assets", fmt_num(liq.get('fed_assets_billion'), ":,.2f", " B", prefix="$"), "Weekly FRED"],
             ["Treasury Gen Acct (TGA)", fmt_num(liq.get('tga_billion'), ":,.2f", " B", prefix="$"), "Fed Balance"],
             ["Reverse Repo (RRP)", fmt_num(liq.get('rrp_billion'), ":,.2f", " B", prefix="$"), "Overnight Facility"]
         ]
-        print("\n--- 1. FEDERAL RESERVE & NET BANK LIQUIDITY ---")
+        print("\n--- 1. FEDERAL RESERVE & RESERVE LIQUIDITY PROXY ---")
         print(tabulate(liq_table, headers=["Metric", "Current Value", "Note"], tablefmt="grid"))
 
         # 2. Rates & Yield Curve Table
         yc_table = [
             ["Policy Rate", fmt_num(policy.get('policy_rate'), ":.2f", "%")],
             ["Policy Rate 30d Change", fmt_num(policy.get('policy_rate_change_30d'), ":+.2f", "%")],
+            ["10Y Real Yield Proxy", fmt_num(policy.get('real_yield_10y'), ":+.2f", "%")],
             ["10-Year Treasury Yield", fmt_num(yc.get('treasury_10y'), ":.2f", "%")],
             ["2-Year Treasury Yield", fmt_num(yc.get('treasury_2y'), ":.2f", "%")],
             ["10Y - 2Y Yield Spread", fmt_num(yc.get('spread_10y_2y'), ":+.2f", "%")],
@@ -275,6 +273,7 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
         policy_rate_val = fmt_num(policy.get('policy_rate'), ":.2f", "%")
         policy_change_val = fmt_num(policy.get('policy_rate_change_30d'), ":+.2f", "%")
+        real_yield_val = fmt_num(policy.get('real_yield_10y'), ":+.2f", "%")
         t10_val = fmt_num(yc.get('treasury_10y'), ":.2f", "%")
         t2_val = fmt_num(yc.get('treasury_2y'), ":.2f", "%")
         s10_2_val = fmt_num(yc.get('spread_10y_2y'), ":+.2f", "%")
@@ -298,13 +297,13 @@ Tracking valuation multiples and downstream physical dependencies across compute
 {sit_section_md}
 ---
 
-## 2. Federal Reserve & Net Bank Liquidity
+## 2. Federal Reserve & Reserve Liquidity Proxy
 
-Net Bank Liquidity is calculated as `Fed Total Assets - TGA Balance - Reverse Repo Facility (RRP)`.
+Reserve liquidity proxy is calculated as `Fed Total Assets - TGA Balance - Reverse Repo Facility (RRP)`. It is a useful banking-system liquidity heuristic, not a complete measure of money supply or global liquidity.
 
 | Component | Value (Billions USD) | Notes / Description |
 | :--- | :--- | :--- |
-| **Net Bank Liquidity** | **{net_liq_val}** | **30-Day Change: {change_30d_val}** |
+| **Reserve Liquidity Proxy** | **{net_liq_val}** | **30-Day Change: {change_30d_val}** |
 | Fed Total Assets | {fed_assets_val} | Total Balance Sheet Size |
 | Treasury General Account (TGA) | {tga_val} | Treasury Cash Buffer at Fed |
 | Reverse Repo Facility (RRP) | {rrp_val} | Overnight Liquidity Drain |
@@ -313,12 +312,13 @@ Net Bank Liquidity is calculated as `Fed Total Assets - TGA Balance - Reverse Re
 
 ## 3. Yield Curve & Interest Rates
 
-The yield curve slope is the primary indicator of economic cycle transitions and recession timing.
+The yield curve slope is a key indicator of economic cycle transitions and recession risk, especially when confirmed by labor, credit, and earnings data.
 
 | Rate / Spread | Current Level | Institutional Signal |
 | :--- | :--- | :--- |
 | **Policy Rate** | `{policy_rate_val}` | Source: `{policy.get('source', 'N/A')}` / Stance: `{policy.get('policy_stance', 'N/A')}` |
 | **Policy Rate 30d Change** | `{policy_change_val}` | Used for Rates Stance in Matrix |
+| **10Y Real Yield Proxy** | `{real_yield_val}` | 10Y Treasury minus 10Y breakeven |
 | **10-Year Treasury Yield** | `{t10_val}` | Benchmark Long Rate |
 | **2-Year Treasury Yield** | `{t2_val}` | Short Rate / Fed Expectations |
 | **10Y - 2Y Spread** | `{s10_2_val}` | **Regime: {yc.get('regime', 'N/A')}** |
@@ -359,8 +359,8 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 *Report auto-generated by 4-Quadrant Macro & Dynamic Sector Strategy Engine.*
 """
 
-        report_filename = OUTPUT_DIR / f"macro_report_{today_str}.md"
-        latest_filename = OUTPUT_DIR / "latest_report.md"
+        report_filename = self.output_dir / f"macro_report_{today_str}.md"
+        latest_filename = self.output_dir / "latest_report.md"
 
         with open(report_filename, "w", encoding="utf-8") as f:
             f.write(report_content)
@@ -368,16 +368,6 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
         with open(latest_filename, "w", encoding="utf-8") as f:
             f.write(report_content)
 
-        print(f"--> Daily Markdown Report with 4 Macro Situations generated: {report_filename}")
+        if self.verbose:
+            print(f"--> Daily Markdown Report with 4 Macro Situations generated: {report_filename}")
         return str(report_filename)
-
-
-def fmt_num(val: Optional[float], fmt_spec: str = ":,.2f", suffix: str = "", prefix: str = "", default: str = "N/A") -> str:
-    """Safely formats a numerical value with optional prefix/suffix or returns default if None."""
-    if val is None:
-        return default
-    try:
-        format_str = "{" + fmt_spec + "}"
-        return prefix + format_str.format(val) + suffix
-    except Exception:
-        return default

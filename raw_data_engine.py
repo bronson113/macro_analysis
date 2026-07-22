@@ -7,12 +7,14 @@ Outputs structured JSON payload for Gemini LLM analysis.
 
 import json
 import logging
-import pandas as pd
 import yfinance as yf
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, List, Any, Optional
 from storage import MacroStorage
-from config import OUTPUT_DIR
+from config import OUTPUT_DIR, configure_yfinance_cache
+
+configure_yfinance_cache(yf)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
@@ -34,8 +36,11 @@ CONSTITUENT_GROUPS = {
 
 
 class RawDataEngine:
-    def __init__(self, storage: Optional[MacroStorage] = None):
+    def __init__(self, storage: Optional[MacroStorage] = None, output_dir: Optional[Path] = None, verbose: bool = True):
         self.storage = storage or MacroStorage()
+        self.output_dir = Path(output_dir) if output_dir is not None else OUTPUT_DIR
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.verbose = verbose
 
     def fetch_individual_stock_metrics(self) -> List[Dict[str, Any]]:
         """
@@ -122,8 +127,8 @@ class RawDataEngine:
         }
 
         # Save to output files
-        payload_path = OUTPUT_DIR / f"raw_macro_payload_{today_str}.json"
-        latest_path = OUTPUT_DIR / "latest_raw_payload.json"
+        payload_path = self.output_dir / f"raw_macro_payload_{today_str}.json"
+        latest_path = self.output_dir / "latest_raw_payload.json"
 
         with open(payload_path, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=2)
@@ -131,7 +136,8 @@ class RawDataEngine:
         with open(latest_path, "w", encoding="utf-8") as f:
             json.dump(payload, f, indent=2)
 
-        logging.info(f"Raw data payload generated: {payload_path}")
-        print(f"--> Raw Data Payload generated: {payload_path} ({len(stock_constituents)} stock constituents included)")
+        if self.verbose:
+            logging.info(f"Raw data payload generated: {payload_path}")
+            print(f"--> Raw Data Payload generated: {payload_path} ({len(stock_constituents)} stock constituents included)")
 
         return payload

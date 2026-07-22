@@ -4,7 +4,6 @@ Fetches, categorizes, and evaluates sentiment/impact for major macroeconomic new
 and performs Sector Bellwether Contagion Analysis (e.g., Micron, Nvidia, JPMorgan news impacting entire sectors).
 """
 
-import io
 import re
 import logging
 import urllib.request
@@ -13,6 +12,9 @@ from datetime import datetime
 from typing import Dict, List, Any, Optional
 import yfinance as yf
 from storage import MacroStorage
+from config import configure_yfinance_cache
+
+configure_yfinance_cache(yf)
 
 logging.basicConfig(
     level=logging.INFO,

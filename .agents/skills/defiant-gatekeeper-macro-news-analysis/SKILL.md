@@ -66,9 +66,10 @@ Classify policy-rate trend from actual policy-rate data:
 - `CUTTING`: 30-day policy-rate change <= -10 bps, or explicit FOMC cut.
 - `RAISING`: 30-day policy-rate change >= +10 bps, or explicit FOMC hike.
 - `HOLDING`: change is between -10 bps and +10 bps.
+- `HOLDING_RESTRICTIVE`: policy rate is flat, but real-yield evidence is restrictive. Use 10Y Treasury minus 10Y breakeven; a 10Y real yield around 1.50% or higher is restrictive enough to enter the restrictive quadrants unless stronger context says otherwise.
 - `UNKNOWN`: insufficient policy-rate data.
 
-For the 4-quadrant matrix, `CUTTING` is easing. `RAISING` is hawkish. `HOLDING` should be treated as restrictive/hawkish only when the policy rate is still high relative to inflation, real yields are elevated, or FOMC communication is explicitly restrictive.
+For the 4-quadrant matrix, `CUTTING` is easing. `RAISING` and `HOLDING_RESTRICTIVE` are restrictive. Plain `HOLDING` is not an actionable quadrant by itself; fall back to valuation, credit, earnings, and tax constraints.
 
 ## 4 Macro Situations
 
@@ -154,6 +155,13 @@ For each sector, combine:
 - Dollar/commodities: DXY, oil, gold, copper.
 - Sector-specific catalysts: earnings, supply chain, regulation, credit contagion.
 - Tax friction: prefer HOLD unless expected risk/reward clears a meaningful threshold.
+
+Scoring discipline:
+
+- Negative ERP is a rate/valuation headwind, not a standalone sell trigger.
+- `SELL / TRIM` from ERP should require both meaningfully negative ERP and valuation stretch versus the sector norm.
+- Restrictive real yields should downgrade long-duration growth to `HOLD / CAUTION` unless valuation is also stretched.
+- Financials require credit-quality confirmation; do not buy them solely because the macro quadrant favors them.
 
 Recommended action vocabulary:
 
