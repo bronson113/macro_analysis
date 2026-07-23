@@ -14,6 +14,7 @@ import pandas as pd
 from datetime import datetime
 from pathlib import Path
 from storage import MacroStorage
+from fetcher import MacroFetcher
 from analyzer import MacroAnalyzer
 from valuation import SectorValuationEngine
 from ai_ecosystem import AIRoboticsEcosystemTracker
@@ -381,6 +382,166 @@ class TestMacroPipeline(unittest.TestCase):
                 self.assertTrue((Path(tmp_dir) / "latest_report.md").exists())
             except Exception as e:
                 self.fail(f"Reporter raised unexpected exception on None inputs: {e}")
+
+    def test_06b_fetch_cnn_fear_greed_index_saves_daily_score(self):
+        """CNN Fear & Greed should be fetched as a numeric market sentiment observation."""
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            fetcher = MacroFetcher(storage)
+
+            class FakeResponse:
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self):
+                    return json.dumps({
+                        "fear_and_greed": {
+                            "score": 78.4,
+                            "rating": "extreme greed",
+                        }
+                    }).encode("utf-8")
+
+            original_urlopen = fetcher._urlopen
+            fetcher._urlopen = lambda request, timeout=15: FakeResponse()
+            try:
+                count, err = fetcher.fetch_cnn_fear_greed_index()
+            finally:
+                fetcher._urlopen = original_urlopen
+
+            latest = storage.get_latest_observation("cnn_fear_greed_index")
+
+        self.assertIsNone(err)
+        self.assertEqual(count, 1)
+        self.assertIsNotNone(latest)
+        self.assertEqual(latest["date"], datetime.now().strftime("%Y-%m-%d"))
+        self.assertAlmostEqual(latest["value"], 78.4)
+
+    def test_06c_analyzer_interprets_cnn_fear_greed_as_market_overlay(self):
+        """Fear & Greed should enrich market sentiment without becoming a core quadrant input."""
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            storage.save_observations("cnn_fear_greed_index", pd.DataFrame([
+                {"date": datetime.now().strftime("%Y-%m-%d"), "value": 81.0},
+            ]))
+
+            market = MacroAnalyzer(storage).analyze_market_sentiment()
+
+        self.assertEqual(market["cnn_fear_greed_index"], 81.0)
+        self.assertEqual(market["cnn_fear_greed_rating"], "Extreme Greed")
+        self.assertIn("overlay", market["cnn_fear_greed_signal"].lower())
+
+    def test_06c2_analyzer_suppresses_stale_cnn_fear_greed_readings(self):
+        """Old Fear & Greed observations should not be surfaced as current market sentiment."""
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            storage.save_observations("cnn_fear_greed_index", pd.DataFrame([
+                {"date": "2020-01-01", "value": 90.0},
+            ]))
+
+            market = MacroAnalyzer(storage).analyze_market_sentiment()
+
+        self.assertIsNone(market["cnn_fear_greed_index"])
+        self.assertEqual(market["cnn_fear_greed_rating"], "Stale")
+        self.assertIn("stale", market["cnn_fear_greed_signal"].lower())
+
+    def test_06d_report_includes_fresh_extreme_fear_greed_overlay(self):
+        """Report should show CNN Fear & Greed and mention only extreme readings up top."""
+        analysis = {
+            "summary": {
+                "date": "2026-07-22",
+                "overall_regime": "TEST REGIME",
+                "liquidity_regime": "Neutral",
+                "yield_curve_regime": "Normal",
+                "credit_regime": "Normal",
+            },
+            "liquidity_details": {"net_liquidity": None, "fed_assets_billion": None, "tga_billion": None, "rrp_billion": None, "change_30d_billion": None},
+            "policy_details": {"policy_rate": None, "policy_rate_change_30d": None, "real_yield_10y": None, "source": None, "policy_stance": "UNKNOWN"},
+            "yield_curve_details": {"treasury_10y": None, "treasury_2y": None, "spread_10y_2y": None, "spread_10y_3m": None, "regime": "Normal"},
+            "credit_details": {"high_yield_oas": None, "invest_grade_oas": None, "chicago_fed_nfci": None, "regime": "Normal"},
+            "market_details": {
+                "vix": 15.0,
+                "dxy": 101.0,
+                "sp500": 6500.0,
+                "crude_oil": 70.0,
+                "gold": 2500.0,
+                "copper": 4.5,
+                "vix_state": "Normal",
+                "cnn_fear_greed_index": 82.0,
+                "cnn_fear_greed_rating": "Extreme Greed",
+                "cnn_fear_greed_signal": "Extreme greed risk-appetite overlay: avoid chasing crowded risk without valuation support.",
+            },
+            "macro_details": {},
+            "news_events": [],
+            "sector_valuations": [],
+            "ai_ecosystem": [],
+            "macro_situation": {},
+            "lagging_stock_opportunities": [],
+            "recommendations": [],
+        }
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            reporter = MacroReporter(self.storage, self.analyzer, output_dir=Path(tmp_dir), verbose=False)
+            report_path = reporter.generate_markdown_report(analysis)
+            content = Path(report_path).read_text(encoding="utf-8")
+
+        self.assertIn("CNN Fear & Greed Index", content)
+        self.assertIn("82.00", content)
+        self.assertIn("Extreme Greed", content)
+        self.assertIn("avoid chasing crowded risk", content)
+        self.assertIn("**Sentiment:** CNN Fear & Greed Index is `82.00` (`Extreme Greed`)", content.split("## 1. Active Macro Situation")[0])
+
+    def test_07_markdown_report_starts_with_notable_summary_only(self):
+        """Daily report should open with a concise notable-events/news/decisions summary."""
+        analysis = {
+            "summary": {
+                "date": "2026-07-22",
+                "overall_regime": "RESERVE LIQUIDITY EXPANSION (Rates Cutting | Balance Sheet Expanding)",
+                "liquidity_regime": "Expanding (+30d)",
+                "yield_curve_regime": "Inverted",
+                "credit_regime": "Normal",
+            },
+            "liquidity_details": {"net_liquidity": 6000.0, "fed_assets_billion": 7000.0, "tga_billion": 900.0, "rrp_billion": 100.0, "change_30d_billion": 75.0},
+            "policy_details": {"policy_rate": 4.25, "policy_rate_change_30d": -0.25, "real_yield_10y": 1.8, "source": "Fed Funds", "policy_stance": "CUTTING"},
+            "yield_curve_details": {"treasury_10y": 4.1, "treasury_2y": 4.3, "spread_10y_2y": -0.2, "spread_10y_3m": -0.5, "regime": "Inverted"},
+            "credit_details": {"high_yield_oas": 3.5, "invest_grade_oas": 1.0, "chicago_fed_nfci": -0.2, "regime": "Normal"},
+            "market_details": {"vix": 15.0, "dxy": 101.0, "sp500": 6500.0, "crude_oil": 70.0, "gold": 2500.0, "copper": 4.5, "vix_state": "Normal"},
+            "macro_details": {},
+            "news_events": [
+                {"title": "Fed signals a major policy shift", "category": "Federal Reserve & Liquidity", "impact_score": 9, "sentiment": "Positive", "source": "Example News"},
+                {"title": "Routine market color", "category": "Market Commentary", "impact_score": 3, "sentiment": "Neutral", "source": "Example News"},
+            ],
+            "sector_valuations": [],
+            "ai_ecosystem": [],
+            "macro_situation": {
+                "name": "RESERVE LIQUIDITY EXPANSION",
+                "rates_label": "Rates Cutting",
+                "bs_label": "Balance Sheet Expanding",
+                "description": "Liquidity tailwind with easier policy.",
+                "favored_sectors": [],
+                "favored_company_types": [],
+                "disfavored_sectors": [],
+            },
+            "lagging_stock_opportunities": [],
+            "recommendations": [
+                {"sector_group": "Semiconductors", "action": "HOLD SECTOR / SELECTIVE BUY [MU]", "conviction": "HIGH", "avg_forward_pe": 18.0, "selective_stock_pick": "MU", "rationale": "Deep peer discount."},
+                {"sector_group": "Utilities", "action": "HOLD", "conviction": "LOW", "avg_forward_pe": 16.0, "selective_stock_pick": "None", "rationale": "No material change."},
+            ],
+        }
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            reporter = MacroReporter(self.storage, self.analyzer, output_dir=Path(tmp_dir), verbose=False)
+            report_path = reporter.generate_markdown_report(analysis)
+            content = Path(report_path).read_text(encoding="utf-8")
+
+        self.assertIn("## Notable Summary", content)
+        self.assertLess(content.index("## Notable Summary"), content.index("## 1. Active Macro Situation"))
+        self.assertIn("Fed signals a major policy shift", content)
+        self.assertIn("HOLD SECTOR / SELECTIVE BUY [MU]", content)
+        self.assertNotIn("Routine market color", content.split("## 1. Active Macro Situation")[0])
+        self.assertNotIn("Utilities", content.split("## 1. Active Macro Situation")[0])
 
 
 if __name__ == "__main__":

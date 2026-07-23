@@ -42,6 +42,74 @@ class MacroReporter:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.verbose = verbose
 
+    def _build_notable_summary_md(self, analysis: Dict[str, Any]) -> str:
+        """Build a concise top-of-report summary limited to notable items."""
+        macro_sit = analysis.get("macro_situation", {})
+        news_events = analysis.get("news_events", [])
+        recommendations = analysis.get("recommendations", [])
+        lagging_stocks = analysis.get("lagging_stock_opportunities", [])
+        market_details = analysis.get("market_details", {})
+
+        lines = []
+
+        if macro_sit:
+            name = md_cell(macro_sit.get("name", "N/A"))
+            rates = md_cell(macro_sit.get("rates_label", "N/A"))
+            liquidity = md_cell(macro_sit.get("bs_label", "N/A"))
+            description = md_cell(macro_sit.get("description", ""))
+            lines.append(f"- **Decision:** Active quadrant is `{name}` ({rates}; {liquidity}). {description}".strip())
+
+        notable_news = sorted(
+            [n for n in news_events if (n.get("impact_score") or 0) >= 7],
+            key=lambda n: n.get("impact_score") or 0,
+            reverse=True,
+        )
+        for event in notable_news[:3]:
+            title = md_cell(event.get("title", "Untitled event"))
+            category = md_cell(event.get("category", "News"))
+            impact = event.get("impact_score", "N/A")
+            sentiment = md_cell(event.get("sentiment", "N/A"))
+            lines.append(f"- **News:** {title} ({category}; impact {impact}; {sentiment}).")
+
+        decision_keywords = ("BUY", "SELL", "CAUTION", "WAIT", "WATCHLIST", "REDUCE", "ADD")
+        notable_recommendations = []
+        for rec in recommendations:
+            action = str(rec.get("action", "")).upper()
+            if action != "HOLD" and any(keyword in action for keyword in decision_keywords):
+                notable_recommendations.append(rec)
+
+        for rec in notable_recommendations[:3]:
+            sector = md_cell(rec.get("sector_group", "Unknown sector"))
+            action = md_cell(rec.get("action", "N/A"))
+            conviction = md_cell(rec.get("conviction", "N/A"))
+            pick = rec.get("selective_stock_pick")
+            pick_text = f"; pick `{md_cell(pick)}`" if pick and pick != "None" else ""
+            lines.append(f"- **Decision:** {sector}: **{action}** ({conviction}{pick_text}).")
+
+        notable_lagging = []
+        for stock in lagging_stocks:
+            action = str(stock.get("action", "")).upper()
+            if any(keyword in action for keyword in decision_keywords):
+                notable_lagging.append(stock)
+
+        for stock in notable_lagging[:2]:
+            ticker = md_cell(stock.get("ticker", "N/A"))
+            action = md_cell(stock.get("action", "N/A"))
+            rationale = md_cell(stock.get("rationale", ""))
+            lines.append(f"- **Decision:** `{ticker}`: **{action}**. {rationale}".strip())
+
+        fg_value = market_details.get("cnn_fear_greed_index")
+        fg_rating = market_details.get("cnn_fear_greed_rating")
+        if fg_value is not None and fg_rating in {"Extreme Fear", "Extreme Greed"}:
+            fg_display = fmt_num(fg_value, ":.2f")
+            signal = md_cell(market_details.get("cnn_fear_greed_signal", ""))
+            lines.append(f"- **Sentiment:** CNN Fear & Greed Index is `{fg_display}` (`{md_cell(fg_rating)}`). {signal}".strip())
+
+        if not lines:
+            lines.append("- No notable events, news, or decisions met the reporting threshold.")
+
+        return "## Notable Summary\n\n" + "\n".join(lines) + "\n"
+
     def print_terminal_dashboard(self, analysis: Dict[str, Any]):
         """Prints a clean, institutional-grade ASCII dashboard to terminal."""
         summary = analysis["summary"]
@@ -93,6 +161,8 @@ class MacroReporter:
         print(f"[Liquidity Regime]:    {summary.get('liquidity_regime', 'N/A')}")
         print(f"[Yield Curve Regime]:  {summary.get('yield_curve_regime', 'N/A')}")
         print(f"[Credit Risk Regime]:   {summary.get('credit_regime', 'N/A')}")
+        if mkt.get("cnn_fear_greed_index") is not None:
+            print(f"[CNN Fear & Greed]:     {fmt_num(mkt.get('cnn_fear_greed_index'), ':.2f')} ({mkt.get('cnn_fear_greed_rating', 'N/A')})")
         print("-" * 100)
 
         # 1. Federal Reserve & Reserve Liquidity Proxy Table
@@ -289,10 +359,15 @@ Tracking valuation multiples and downstream physical dependencies across compute
         crude_val = fmt_num(mkt.get('crude_oil'), ":.2f", prefix="$")
         gold_val = fmt_num(mkt.get('gold'), ":,.2f", prefix="$")
         copper_val = fmt_num(mkt.get('copper'), ":.2f", prefix="$")
+        fear_greed_val = fmt_num(mkt.get('cnn_fear_greed_index'), ":.2f")
+        fear_greed_signal = md_cell(mkt.get('cnn_fear_greed_signal', 'N/A'))
+        notable_summary_md = self._build_notable_summary_md(analysis)
 
         report_content = f"""# Daily 4-Quadrant Macro & Dynamic Sector Strategy Report ({today_str})
 *Automated Capture Engine & Institutional Framework (Defiant Gatekeeper)*
 {stale_warning_md}
+---
+{notable_summary_md}
 ---
 {sit_section_md}
 ---
@@ -351,6 +426,7 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 | **CBOE Volatility (VIX)** | `{vix_val}` | `{mkt.get('vix_state', 'N/A')}` |
 | **US Dollar Index (DXY)** | `{dxy_val}` | Global Currency Tightness |
 | **S&P 500 Index** | `{sp500_val}` | US Equity Benchmark |
+| **CNN Fear & Greed Index** | `{fear_greed_val}` | `{fear_greed_signal}` |
 | **WTI Crude Oil** | `{crude_val}` | Energy Cost Drivers |
 | **Gold** | `{gold_val}` | Monetary Protection / Safe Haven |
 | **Copper** | `{copper_val}` | Industrial Demand Indicator |

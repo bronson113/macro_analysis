@@ -8,7 +8,7 @@ import pandas as pd
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 from contextlib import closing
-from config import DB_PATH, FRED_SERIES, YAHOO_TICKERS
+from config import DB_PATH, FRED_SERIES, YAHOO_TICKERS, MARKET_SENTIMENT_INDICATORS
 
 
 class MacroStorage:
@@ -74,6 +74,7 @@ class MacroStorage:
                     policy_rate REAL,
                     policy_rate_change_30d REAL,
                     real_yield_10y REAL,
+                    cnn_fear_greed_index REAL,
                     liquidity_regime TEXT,
                     yield_curve_regime TEXT,
                     credit_regime TEXT,
@@ -125,6 +126,7 @@ class MacroStorage:
             "policy_rate": "REAL",
             "policy_rate_change_30d": "REAL",
             "real_yield_10y": "REAL",
+            "cnn_fear_greed_index": "REAL",
         }.items():
             if column_name not in existing:
                 cursor.execute(f"ALTER TABLE daily_snapshots ADD COLUMN {column_name} {column_type}")
@@ -146,6 +148,19 @@ class MacroStorage:
                 INSERT OR REPLACE INTO indicators (key, name, source, category, frequency, last_updated)
                 VALUES (?, ?, 'YAHOO', 'Market Prices', 'daily', ?)
             """, (key, f"{key.upper()} ({ticker})", now))
+
+        for key, info in MARKET_SENTIMENT_INDICATORS.items():
+            cursor.execute("""
+                INSERT OR REPLACE INTO indicators (key, name, source, category, frequency, last_updated)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (
+                key,
+                info["name"],
+                info["source"],
+                info.get("category", "Market Sentiment"),
+                info.get("frequency", "daily"),
+                now,
+            ))
             
         conn.commit()
 
@@ -160,6 +175,8 @@ class MacroStorage:
             return "Labor Market"
         elif any(k in key for k in ['cpi', 'pce', 'breakeven']):
             return "Inflation"
+        elif any(k in key for k in ['fear_greed', 'sentiment']):
+            return "Market Sentiment"
         else:
             return "Economic Growth"
 

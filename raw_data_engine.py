@@ -7,6 +7,7 @@ Outputs structured JSON payload for Gemini LLM analysis.
 
 import json
 import logging
+import math
 import yfinance as yf
 from datetime import datetime
 from pathlib import Path
@@ -125,6 +126,19 @@ class RawDataEngine:
             "recent_news_events": news_events,
             "individual_stock_constituents": stock_constituents
         }
+
+        def _clean_for_json(obj):
+            if isinstance(obj, float):
+                if math.isnan(obj) or math.isinf(obj):
+                    return None
+                return obj
+            elif isinstance(obj, dict):
+                return {k: _clean_for_json(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [_clean_for_json(v) for v in obj]
+            return obj
+
+        payload = _clean_for_json(payload)
 
         # Save to output files
         payload_path = self.output_dir / f"raw_macro_payload_{today_str}.json"

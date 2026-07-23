@@ -5,6 +5,7 @@ Features exponential backoff retries and parallel execution for maximum resilien
 """
 
 import io
+import json
 import time
 import logging
 import urllib.request
@@ -27,10 +28,13 @@ logging.basicConfig(
 
 
 class MacroFetcher:
+    CNN_FEAR_GREED_URL = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
+
     def __init__(self, storage: Optional[MacroStorage] = None):
         self.storage = storage or MacroStorage()
         self.news_analyzer = MacroNewsAnalyzer(self.storage)
         self.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) MacroAnalysis/2.0"
+        self._urlopen = urllib.request.urlopen
 
     def fetch_fred_series(self, key: str, series_info: Dict[str, Any], max_retries: int = 3) -> Tuple[int, Optional[str]]:
         """
@@ -113,6 +117,46 @@ class MacroFetcher:
         logging.error(err_msg)
         return 0, err_msg
 
+    def fetch_cnn_fear_greed_index(self) -> Tuple[int, Optional[str]]:
+        """Fetch CNN Fear & Greed Index and store the current 0-100 score."""
+        today = datetime.now().strftime("%Y-%m-%d")
+        url = f"{self.CNN_FEAR_GREED_URL}/{today}"
+        request = urllib.request.Request(url, headers={
+            "User-Agent": self.user_agent,
+            "Accept": "application/json",
+            "Referer": "https://www.cnn.com/markets/fear-and-greed",
+        })
+
+        try:
+            with self._urlopen(request, timeout=15) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+
+            fg = payload.get("fear_and_greed") or {}
+            score = fg.get("score")
+            if score is None:
+                return 0, "CNN Fear & Greed payload missing score"
+
+            score = float(score)
+            if score < 0 or score > 100:
+                return 0, f"CNN Fear & Greed score outside 0-100 range: {score}"
+
+            obs_date = today
+            timestamp = fg.get("timestamp")
+            if timestamp:
+                try:
+                    obs_date = pd.to_datetime(timestamp).strftime("%Y-%m-%d")
+                except Exception:
+                    obs_date = today
+
+            df = pd.DataFrame([{"date": obs_date, "value": score}])
+            count = self.storage.save_observations("cnn_fear_greed_index", df)
+            logging.info("Successfully saved CNN Fear & Greed Index score: %.2f", score)
+            return count, None
+        except Exception as e:
+            err_msg = f"Failed to fetch CNN Fear & Greed Index: {e}"
+            logging.error(err_msg)
+            return 0, err_msg
+
     def fetch_all(self) -> Dict[str, Any]:
         """
         Executes parallel resilient data fetching across all FRED series, Yahoo market prices, and news feeds.
@@ -161,6 +205,15 @@ class MacroFetcher:
                 except Exception as e:
                     failed_keys.append(key)
                     errors[key] = str(e)
+
+        print("--> Fetching CNN Fear & Greed Index...")
+        count, err = self.fetch_cnn_fear_greed_index()
+        if err is None:
+            success_keys.append("cnn_fear_greed_index")
+            total_records += count
+        else:
+            failed_keys.append("cnn_fear_greed_index")
+            errors["cnn_fear_greed_index"] = err
 
         print("--> Fetching Major Macro News & Event Feeds...")
         news_count = self.news_analyzer.fetch_and_store_news()

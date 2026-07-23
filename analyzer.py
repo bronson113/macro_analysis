@@ -37,6 +37,34 @@ def _value_on_or_before(df: pd.DataFrame, target_date: pd.Timestamp) -> Optional
     return eligible.iloc[-1]["value"]
 
 
+def _classify_fear_greed(score: Optional[float]) -> Optional[str]:
+    if score is None:
+        return None
+    if score <= 25:
+        return "Extreme Fear"
+    if score < 45:
+        return "Fear"
+    if score <= 55:
+        return "Neutral"
+    if score < 75:
+        return "Greed"
+    return "Extreme Greed"
+
+
+def _fear_greed_signal(rating: Optional[str]) -> Optional[str]:
+    if rating == "Extreme Fear":
+        return "Extreme fear risk-appetite overlay: panic conditions may create selective opportunities only if credit and liquidity confirm."
+    if rating == "Fear":
+        return "Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation."
+    if rating == "Neutral":
+        return "Neutral risk-appetite overlay: sentiment is not providing a strong contrarian or caution signal."
+    if rating == "Greed":
+        return "Greed risk-appetite overlay: risk appetite is firm, so avoid chasing weak valuation setups."
+    if rating == "Extreme Greed":
+        return "Extreme greed risk-appetite overlay: avoid chasing crowded risk without valuation support."
+    return None
+
+
 class MacroAnalyzer:
     def __init__(self, storage: Optional[MacroStorage] = None):
         self.storage = storage or MacroStorage()
@@ -241,6 +269,21 @@ class MacroAnalyzer:
         crude = self.get_latest_value("crude_oil")
         gold = self.get_latest_value("gold")
         copper = self.get_latest_value("copper")
+        cnn_fg_obs = self.storage.get_latest_observation("cnn_fear_greed_index")
+        cnn_fg = cnn_fg_obs["value"] if cnn_fg_obs else None
+        cnn_fg_rating = _classify_fear_greed(cnn_fg)
+        cnn_fg_signal = _fear_greed_signal(cnn_fg_rating)
+        if cnn_fg_obs:
+            try:
+                age_days = (pd.Timestamp(datetime.now().date()) - pd.to_datetime(cnn_fg_obs["date"])).days
+                if age_days > 7:
+                    cnn_fg = None
+                    cnn_fg_rating = "Stale"
+                    cnn_fg_signal = "CNN Fear & Greed reading is stale; refresh the fetch job before using it as a risk-appetite overlay."
+            except Exception:
+                cnn_fg = None
+                cnn_fg_rating = "Stale"
+                cnn_fg_signal = "CNN Fear & Greed reading has an invalid date; refresh the fetch job before using it."
 
         vix_state = "Low Volatility (Complacency)"
         if vix is not None:
@@ -256,7 +299,11 @@ class MacroAnalyzer:
             "crude_oil": round(crude, 2) if crude else None,
             "gold": round(gold, 2) if gold else None,
             "copper": round(copper, 2) if copper else None,
-            "vix_state": vix_state
+            "vix_state": vix_state,
+            "cnn_fear_greed_index": round(cnn_fg, 2) if cnn_fg is not None else None,
+            "cnn_fear_greed_rating": cnn_fg_rating,
+            "cnn_fear_greed_signal": cnn_fg_signal,
+            "cnn_fear_greed_date": cnn_fg_obs["date"] if cnn_fg_obs else None,
         }
 
     def analyze_labor_and_inflation(self) -> Dict[str, Any]:
@@ -364,6 +411,7 @@ class MacroAnalyzer:
             "policy_rate": policy.get("policy_rate"),
             "policy_rate_change_30d": policy.get("policy_rate_change_30d"),
             "real_yield_10y": policy.get("real_yield_10y"),
+            "cnn_fear_greed_index": market.get("cnn_fear_greed_index"),
             "liquidity_regime": liquidity_regime,
             "yield_curve_regime": yc["regime"],
             "credit_regime": credit["regime"],

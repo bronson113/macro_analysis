@@ -88,6 +88,15 @@ YAHOO_TICKERS = {
     "treasury_20y_etf": "TLT"
 }
 
+MARKET_SENTIMENT_INDICATORS = {
+    "cnn_fear_greed_index": {
+        "name": "CNN Fear & Greed Index",
+        "source": "CNN",
+        "category": "Market Sentiment",
+        "frequency": "daily",
+    }
+}
+
 # Thresholds & Regime Rules (Defiant Gatekeeper Logic)
 REGIME_THRESHOLDS = {
     "yield_curve_inverted": 0.0,  # 10Y-2Y < 0 is inverted
