@@ -1,5 +1,7 @@
 import React from 'react';
 
+const yahooFinanceUrl = (ticker) => `https://finance.yahoo.com/quote/${encodeURIComponent(ticker)}`;
+
 const StockMatrix = ({ stocks = [] }) => {
   if (!stocks.length) return null;
 
@@ -27,7 +29,17 @@ const StockMatrix = ({ stocks = [] }) => {
               
               return (
                 <tr key={i}>
-                  <td style={{ fontWeight: 600 }}>{s.ticker}</td>
+                  <td style={{ fontWeight: 600 }}>
+                    <a
+                      className="ticker-link"
+                      href={yahooFinanceUrl(s.ticker)}
+                      target="_blank"
+                      rel="noreferrer"
+                      title={`Open ${s.ticker} on Yahoo Finance`}
+                    >
+                      {s.ticker}
+                    </a>
+                  </td>
                   <td>{s.name}</td>
                   <td><span className="text-muted">{s.group}</span></td>
                   <td>${Number(s.price).toFixed(2)}</td>

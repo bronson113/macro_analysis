@@ -13,4 +13,5 @@ python extract_dashboard_data.py
 cp output/latest_raw_payload.json web/public/data.json
 cp output/history.json web/public/history.json
 cp output/latest_report.md web/public/latest_report.md
-echo "Successfully copied data.json, history.json, and latest_report.md to web/public/"
+python report_manifest.py
+echo "Successfully copied data.json, history.json, latest_report.md, and report history to web/public/"

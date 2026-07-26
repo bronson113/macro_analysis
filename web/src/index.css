@@ -184,6 +184,43 @@ h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
   margin-bottom: 0;
 }
 
+.big-update-header {
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.report-date-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.report-date-picker input {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  border: var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.65rem;
+  font: inherit;
+  color-scheme: dark;
+}
+
+.report-date-picker input:disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .report-date-picker {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
 /* News List */
 .news-list {
   display: flex;
@@ -253,6 +290,17 @@ h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
 
 .data-table tbody tr:hover {
   background: rgba(255, 255, 255, 0.02);
+}
+
+.ticker-link {
+  color: var(--accent-primary);
+  text-decoration: none;
+}
+
+.ticker-link:hover,
+.ticker-link:focus-visible {
+  color: var(--accent-secondary);
+  text-decoration: underline;
 }
 
 /* Utility classes */
@@ -470,7 +518,17 @@ h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
   color: var(--text-primary);
 }
 
+.range-btn:disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
 .range-btn.active {
   background: rgba(255, 255, 255, 0.15);
   color: var(--text-primary);
+}
+
+.preset-zoom-chart {
+  height: 100%;
+  width: 100%;
 }
