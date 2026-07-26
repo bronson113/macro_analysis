@@ -11,8 +11,9 @@ import tempfile
 import contextlib
 import io
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
+from unittest.mock import patch
 from storage import MacroStorage
 from fetcher import MacroFetcher
 from analyzer import MacroAnalyzer
@@ -53,6 +54,82 @@ class TestMacroPipeline(unittest.TestCase):
         latest = self.storage.get_latest_observation("test_metric")
         self.assertIsNotNone(latest)
         self.assertEqual(latest["value"], 101.2)
+
+    def test_01b_fred_fetch_keeps_ten_year_history_window(self):
+        """FRED backfill should retain observations inside the dashboard's 10-year window."""
+        class FakeResponse:
+            def __init__(self, body):
+                self.body = body
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def read(self):
+                return self.body.encode("utf-8")
+
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            fetcher = MacroFetcher(storage)
+            inside_window = (datetime.now() - timedelta(days=365 * 8)).strftime("%Y-%m-%d")
+            outside_window = (datetime.now() - timedelta(days=365 * 11)).strftime("%Y-%m-%d")
+            today = datetime.now().strftime("%Y-%m-%d")
+            csv_body = "\n".join([
+                "DATE,TEST",
+                f"{outside_window},1.0",
+                f"{inside_window},2.0",
+                f"{today},3.0",
+            ])
+
+            with patch("fetcher.urllib.request.urlopen", return_value=FakeResponse(csv_body)):
+                count, err = fetcher.fetch_fred_series("test_fred", {"id": "TEST"})
+
+            series = storage.get_indicator_series("test_fred", limit=5000)
+
+        self.assertIsNone(err)
+        self.assertEqual(count, 2)
+        self.assertIn(inside_window, set(series["date"].dt.strftime("%Y-%m-%d")))
+        self.assertNotIn(outside_window, set(series["date"].dt.strftime("%Y-%m-%d")))
+
+    def test_01c_cpi_fetch_keeps_extra_year_for_yoy_dashboard_history(self):
+        """CPI needs one extra source year so CPI YoY covers the full 10-year dashboard."""
+        class FakeResponse:
+            def __init__(self, body):
+                self.body = body
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def read(self):
+                return self.body.encode("utf-8")
+
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            fetcher = MacroFetcher(storage)
+            extra_year_date = (datetime.now() - timedelta(days=365 * 10 + 180)).strftime("%Y-%m-%d")
+            too_old_date = (datetime.now() - timedelta(days=365 * 12)).strftime("%Y-%m-%d")
+            today = datetime.now().strftime("%Y-%m-%d")
+            csv_body = "\n".join([
+                "DATE,CPIAUCSL",
+                f"{too_old_date},100.0",
+                f"{extra_year_date},110.0",
+                f"{today},120.0",
+            ])
+
+            with patch("fetcher.urllib.request.urlopen", return_value=FakeResponse(csv_body)):
+                count, err = fetcher.fetch_fred_series("cpi", {"id": "CPIAUCSL"})
+
+            series = storage.get_indicator_series("cpi", limit=5000)
+
+        self.assertIsNone(err)
+        self.assertEqual(count, 2)
+        self.assertIn(extra_year_date, set(series["date"].dt.strftime("%Y-%m-%d")))
+        self.assertNotIn(too_old_date, set(series["date"].dt.strftime("%Y-%m-%d")))
 
     def test_02_macro_matrix_classification(self):
         """Test all 4 quadrants of the Defiant Gatekeeper Macro Matrix."""
@@ -189,6 +266,26 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertGreater(len(payload["individual_stock_constituents"]), 10)
         self.assertTrue((self.tmp_path / "raw_output" / "latest_raw_payload.json").exists())
 
+    def test_04b_raw_payload_saves_current_stock_sector_relative_multiples(self):
+        """Raw stock collection should persist relative multiple observations for future history."""
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            raw_engine = RawDataEngine(storage, output_dir=self.tmp_path / "raw_relative_output", verbose=False)
+            raw_engine.fetch_individual_stock_metrics = lambda: [
+                {"ticker": "NVDA", "name": "Nvidia", "group": "Tech", "price": 125.0, "forward_pe": 39.0, "ev_ebitda": 30.0},
+                {"ticker": "AMD", "name": "AMD", "group": "Tech", "price": 160.0, "forward_pe": 39.0, "ev_ebitda": 28.0},
+                {"ticker": "MU", "name": "Micron", "group": "Tech", "price": 95.0, "forward_pe": 12.0, "ev_ebitda": 10.0},
+            ]
+
+            raw_engine.build_raw_payload()
+            latest_fpe = storage.get_latest_observation("stock_rel_fpe_tech_mu")
+            latest_eve = storage.get_latest_observation("stock_rel_eve_tech_mu")
+
+        self.assertIsNotNone(latest_fpe)
+        self.assertAlmostEqual(latest_fpe["value"], 12.0 / 30.0)
+        self.assertIsNotNone(latest_eve)
+        self.assertAlmostEqual(latest_eve["value"], 10.0 / (68.0 / 3.0))
+
     def test_05_single_stock_lagging_detection(self):
         """Test single-stock peer lag detection in LLM analyst."""
         mock_payload = {
@@ -205,6 +302,62 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertGreaterEqual(len(lags), 1)
         self.assertEqual(lags[0]["ticker"], "MU")
         self.assertIn("Lagging Value", lags[0]["action"])
+
+    def test_05a_peer_discount_must_be_cheap_vs_historical_relative_norm(self):
+        """A structurally low-multiple stock should not be flagged just for trading below peers."""
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            storage.save_observations("stock_rel_fpe_tech_mu", pd.DataFrame([
+                {"date": "2026-07-01", "value": 0.39},
+                {"date": "2026-07-08", "value": 0.40},
+                {"date": "2026-07-15", "value": 0.41},
+            ]))
+            analyst = DynamicMacroAnalyst(storage)
+            mock_payload = {
+                "macro_quantitative": {"fed_total_assets": {"value": 7000000.0}},
+                "recent_news_events": [],
+                "individual_stock_constituents": [
+                    {"ticker": "NVDA", "name": "Nvidia", "group": "Tech", "price": 125.0, "forward_pe": 39.0, "ev_ebitda": 30.0, "dist_from_52w_high_pct": -5.0},
+                    {"ticker": "AMD", "name": "AMD", "group": "Tech", "price": 160.0, "forward_pe": 39.0, "ev_ebitda": 28.0, "dist_from_52w_high_pct": -8.0},
+                    {"ticker": "MU", "name": "Micron", "group": "Tech", "price": 95.0, "forward_pe": 12.0, "ev_ebitda": 10.0, "dist_from_52w_high_pct": -25.0}
+                ]
+            }
+
+            res = analyst.analyze_raw_payload(mock_payload)
+
+        lags = res["single_stock_lagging_opportunities"]
+        self.assertEqual(lags, [])
+        mu_summary = next(s for s in res["sector_dispersion"] if s["group"] == "Tech")["constituent_relative_valuation"][0]
+        self.assertEqual(mu_summary["ticker"], "MU")
+        self.assertEqual(mu_summary["relative_valuation_status"], "Fair vs Historical Sector Relationship")
+
+    def test_05a2_relative_discount_flags_when_current_ratio_is_below_history(self):
+        """A stock should be flagged when it is cheap versus its own normal sector relationship."""
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            storage.save_observations("stock_rel_fpe_tech_mu", pd.DataFrame([
+                {"date": "2026-07-01", "value": 0.70},
+                {"date": "2026-07-08", "value": 0.72},
+                {"date": "2026-07-15", "value": 0.68},
+            ]))
+            analyst = DynamicMacroAnalyst(storage)
+            mock_payload = {
+                "macro_quantitative": {"fed_total_assets": {"value": 7000000.0}},
+                "recent_news_events": [],
+                "individual_stock_constituents": [
+                    {"ticker": "NVDA", "name": "Nvidia", "group": "Tech", "price": 125.0, "forward_pe": 39.0, "ev_ebitda": 30.0, "dist_from_52w_high_pct": -5.0},
+                    {"ticker": "AMD", "name": "AMD", "group": "Tech", "price": 160.0, "forward_pe": 39.0, "ev_ebitda": 28.0, "dist_from_52w_high_pct": -8.0},
+                    {"ticker": "MU", "name": "Micron", "group": "Tech", "price": 95.0, "forward_pe": 12.0, "ev_ebitda": 10.0, "dist_from_52w_high_pct": -25.0}
+                ]
+            }
+
+            res = analyst.analyze_raw_payload(mock_payload)
+
+        lags = res["single_stock_lagging_opportunities"]
+        self.assertEqual(len(lags), 1)
+        self.assertEqual(lags[0]["ticker"], "MU")
+        self.assertIn("historical sector-relative norm", lags[0]["rationale"])
+        self.assertGreater(lags[0]["relative_fpe_discount_pct"], 20.0)
 
     def test_05b_financials_not_bought_when_credit_stress_is_elevated(self):
         """Financials need a credit-quality check even in a macro-favored quadrant."""
@@ -382,6 +535,53 @@ class TestMacroPipeline(unittest.TestCase):
                 self.assertTrue((Path(tmp_dir) / "latest_report.md").exists())
             except Exception as e:
                 self.fail(f"Reporter raised unexpected exception on None inputs: {e}")
+
+    def test_06a_report_describes_lagging_stocks_as_historical_relative_discounts(self):
+        """Lagging-stock section should explain relative valuation versus the stock's own sector history."""
+        analysis = {
+            "summary": {
+                "date": "2026-07-22",
+                "overall_regime": "TEST REGIME",
+                "liquidity_regime": "Neutral",
+                "yield_curve_regime": "Normal",
+                "credit_regime": "Normal",
+            },
+            "liquidity_details": {"net_liquidity": None, "fed_assets_billion": None, "tga_billion": None, "rrp_billion": None, "change_30d_billion": None},
+            "policy_details": {"policy_rate": None, "policy_rate_change_30d": None, "real_yield_10y": None, "source": None, "policy_stance": "UNKNOWN"},
+            "yield_curve_details": {"treasury_10y": None, "treasury_2y": None, "spread_10y_2y": None, "spread_10y_3m": None, "regime": "Normal"},
+            "credit_details": {"high_yield_oas": None, "invest_grade_oas": None, "chicago_fed_nfci": None, "regime": "Normal"},
+            "market_details": {"vix": None, "dxy": None, "sp500": None, "crude_oil": None, "gold": None, "copper": None, "vix_state": "Normal"},
+            "macro_details": {},
+            "news_events": [],
+            "sector_valuations": [],
+            "ai_ecosystem": [],
+            "macro_situation": {},
+            "lagging_stock_opportunities": [
+                {
+                    "ticker": "MU",
+                    "name": "Micron",
+                    "group": "Tech",
+                    "forward_pe": 12.0,
+                    "peer_avg_fpe": 30.0,
+                    "current_relative_fpe": 0.4,
+                    "historical_relative_fpe": 0.7,
+                    "relative_fpe_discount_pct": 42.9,
+                    "action": "WATCHLIST / SELECTIVE REVIEW (Lagging Value)",
+                    "rationale": "Discounted versus historical sector-relative norm.",
+                }
+            ],
+            "recommendations": [],
+        }
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            reporter = MacroReporter(self.storage, self.analyzer, output_dir=Path(tmp_dir), verbose=False)
+            report_path = reporter.generate_markdown_report(analysis)
+            content = Path(report_path).read_text(encoding="utf-8")
+
+        self.assertIn("Historical Sector-Relative Valuation", content)
+        self.assertIn("Current Relative Fwd P/E", content)
+        self.assertIn("Historical Relative Norm", content)
+        self.assertIn("42.9%", content)
 
     def test_06b_fetch_cnn_fear_greed_index_saves_daily_score(self):
         """CNN Fear & Greed should be fetched as a numeric market sentiment observation."""
@@ -661,6 +861,62 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertIn("HOLD SECTOR / SELECTIVE BUY [MU]", content)
         self.assertNotIn("Routine market color", content.split("## 1. Active Macro Situation")[0])
         self.assertNotIn("Utilities", content.split("## 1. Active Macro Situation")[0])
+
+    def test_07a_notable_summary_compares_against_previous_report(self):
+        """Daily report should flag changed, unchanged, new, and removed notable summary items."""
+        previous_report = """# Daily 4-Quadrant Macro & Dynamic Sector Strategy Report (2026-07-22)
+---
+## Notable Summary
+
+- **Decision:** Active quadrant is `RESERVE LIQUIDITY EXPANSION` (Rates Cutting; Balance Sheet Expanding). Liquidity tailwind with easier policy.
+- **News:** Fed signals a major policy shift (Federal Reserve & Liquidity; impact 9; Positive).
+- **Decision:** Semiconductors: **HOLD SECTOR / SELECTIVE BUY [MU]** (HIGH; pick `MU`).
+- **Decision:** `AAPL`: **WATCHLIST**. Prior lagging-stock setup.
+---
+## 1. Active Macro Situation (2x2 Matrix Analysis)
+"""
+        analysis = {
+            "summary": {"date": "2026-07-23"},
+            "liquidity_details": {},
+            "policy_details": {},
+            "yield_curve_details": {},
+            "credit_details": {},
+            "market_details": {},
+            "macro_details": {},
+            "news_events": [
+                {"title": "Fed signals a major policy shift", "category": "Federal Reserve & Liquidity", "impact_score": 9, "sentiment": "Positive"},
+                {"title": "Credit spreads widen abruptly", "category": "Credit", "impact_score": 8, "sentiment": "Negative"},
+            ],
+            "sector_valuations": [],
+            "ai_ecosystem": [],
+            "macro_situation": {
+                "name": "RESERVE LIQUIDITY EXPANSION",
+                "rates_label": "Rates Cutting",
+                "bs_label": "Balance Sheet Expanding",
+                "description": "Liquidity tailwind is fading.",
+                "favored_sectors": [],
+                "favored_company_types": [],
+                "disfavored_sectors": [],
+            },
+            "lagging_stock_opportunities": [],
+            "recommendations": [
+                {"sector_group": "Semiconductors", "action": "HOLD SECTOR / SELECTIVE BUY [MU]", "conviction": "HIGH", "avg_forward_pe": 18.0, "selective_stock_pick": "MU", "rationale": "Deep peer discount."},
+            ],
+        }
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            (tmp_path / "macro_report_2026-07-22.md").write_text(previous_report, encoding="utf-8")
+            reporter = MacroReporter(self.storage, self.analyzer, output_dir=tmp_path, verbose=False)
+            report_path = reporter.generate_markdown_report(analysis)
+            summary = Path(report_path).read_text(encoding="utf-8").split("## 1. Active Macro Situation")[0]
+
+        self.assertIn("**Changed:** **Decision:** Active quadrant", summary)
+        self.assertIn("Previously: **Decision:** Active quadrant", summary)
+        self.assertIn("**Unchanged:** **News:** Fed signals a major policy shift", summary)
+        self.assertIn("**Unchanged:** **Decision:** Semiconductors", summary)
+        self.assertIn("**New:** **News:** Credit spreads widen abruptly", summary)
+        self.assertIn("**Removed:** **Decision:** `AAPL`: **WATCHLIST**", summary)
 
 
 if __name__ == "__main__":

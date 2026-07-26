@@ -1,7 +1,7 @@
 import sqlite3
 import pandas as pd
 from datetime import datetime, timedelta
-from config import DB_PATH
+from config import DASHBOARD_HISTORY_DAYS, DB_PATH
 from analyzer import MacroAnalyzer
 
 def backfill():
@@ -10,8 +10,8 @@ def backfill():
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
-    # Get distinct dates from macro_observations for the last 365 days
-    cutoff = (datetime.now() - timedelta(days=365)).strftime("%Y-%m-%d")
+    # Get distinct dates from macro_observations for the dashboard history window.
+    cutoff = (datetime.now() - timedelta(days=DASHBOARD_HISTORY_DAYS)).strftime("%Y-%m-%d")
     cursor.execute("""
         SELECT DISTINCT date 
         FROM macro_observations 

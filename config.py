@@ -17,6 +17,7 @@ for d in [DATA_DIR, LOG_DIR, OUTPUT_DIR, YFINANCE_CACHE_DIR]:
     d.mkdir(parents=True, exist_ok=True)
 
 DB_PATH = DATA_DIR / "macro_data.db"
+DASHBOARD_HISTORY_DAYS = 365 * 10
 
 
 def configure_yfinance_cache(yf_module) -> None:

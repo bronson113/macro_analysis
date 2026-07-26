@@ -2,7 +2,7 @@ import sqlite3
 import json
 import logging
 from pathlib import Path
-from config import DB_PATH, OUTPUT_DIR
+from config import DASHBOARD_HISTORY_DAYS, DB_PATH, OUTPUT_DIR
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
@@ -13,7 +13,7 @@ def extract_history():
     cursor = conn.cursor()
     
     try:
-        # Fetch up to the last 365 days of data, ordered chronologically
+        # Fetch up to the last ten years of data, ordered chronologically.
         cursor.execute("""
             SELECT 
                 date, 
@@ -33,8 +33,8 @@ def extract_history():
                 real_yield_10y
             FROM daily_snapshots 
             ORDER BY date DESC
-            LIMIT 365
-        """)
+            LIMIT ?
+        """, (DASHBOARD_HISTORY_DAYS,))
         
         rows = cursor.fetchall()
         

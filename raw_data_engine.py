@@ -8,12 +8,14 @@ Outputs structured JSON payload for Gemini LLM analysis.
 import json
 import logging
 import math
+import pandas as pd
 import yfinance as yf
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from storage import MacroStorage
 from config import OUTPUT_DIR, configure_yfinance_cache
+from stock_relative_valuation import relative_multiple_key, safe_ratio
 
 configure_yfinance_cache(yf)
 
@@ -63,7 +65,6 @@ class RawDataEngine:
                     eve = info.get("enterpriseToEbitda")
                     pb = info.get("priceToBook")
                     high_52 = info.get("fiftyTwoWeekHigh")
-                    low_52 = info.get("fiftyTwoWeekLow")
 
                     # Calculate distance from 52-week high %
                     dist_52h = None
@@ -97,6 +98,48 @@ class RawDataEngine:
 
         return stock_metrics
 
+    def save_relative_multiple_observations(self, stock_metrics: List[Dict[str, Any]], today_str: str) -> int:
+        """Persist current stock multiples as ratios to their peer-group average."""
+        grouped = {}
+        for stock in stock_metrics:
+            grouped.setdefault(stock.get("group", "Other"), []).append(stock)
+
+        saved = 0
+        for group_name, group_stocks in grouped.items():
+            valid_fpes = [
+                s.get("forward_pe")
+                for s in group_stocks
+                if s.get("forward_pe") and 0 < s.get("forward_pe", 0) < 150
+            ]
+            valid_eves = [
+                s.get("ev_ebitda")
+                for s in group_stocks
+                if s.get("ev_ebitda") and 0 < s.get("ev_ebitda", 0) < 150
+            ]
+            avg_fpe = sum(valid_fpes) / len(valid_fpes) if valid_fpes else None
+            avg_eve = sum(valid_eves) / len(valid_eves) if valid_eves else None
+
+            for stock in group_stocks:
+                ticker = stock.get("ticker")
+                if not ticker:
+                    continue
+
+                rel_fpe = safe_ratio(stock.get("forward_pe"), avg_fpe)
+                if rel_fpe is not None and 0 < rel_fpe < 5:
+                    saved += self.storage.save_observations(
+                        relative_multiple_key(group_name, ticker, "fpe"),
+                        pd.DataFrame([{"date": today_str, "value": rel_fpe}]),
+                    )
+
+                rel_eve = safe_ratio(stock.get("ev_ebitda"), avg_eve)
+                if rel_eve is not None and 0 < rel_eve < 5:
+                    saved += self.storage.save_observations(
+                        relative_multiple_key(group_name, ticker, "eve"),
+                        pd.DataFrame([{"date": today_str, "value": rel_eve}]),
+                    )
+
+        return saved
+
     def build_raw_payload(self) -> Dict[str, Any]:
         """
         Builds the complete raw data JSON payload containing quantitative macro series,
@@ -115,6 +158,7 @@ class RawDataEngine:
 
         # 3. Individual Stock Level Granular Metrics
         stock_constituents = self.fetch_individual_stock_metrics()
+        self.save_relative_multiple_observations(stock_constituents, today_str)
 
         payload = {
             "metadata": {

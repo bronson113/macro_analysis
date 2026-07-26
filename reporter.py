@@ -7,10 +7,11 @@ Sector Bellwether Contagion, and News Event analysis.
 Guarantees 100% defensive type safety against missing or None metrics.
 """
 
+import re
 from datetime import datetime
 from pathlib import Path
 from tabulate import tabulate
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List, Tuple
 from config import OUTPUT_DIR
 from storage import MacroStorage
 from analyzer import MacroAnalyzer
@@ -42,7 +43,109 @@ class MacroReporter:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.verbose = verbose
 
-    def _build_notable_summary_md(self, analysis: Dict[str, Any]) -> str:
+    def _notable_item_key(self, body: str) -> str:
+        """Build a stable comparison key for a notable-summary bullet."""
+        stock_match = re.match(r"\*\*Decision:\*\* `([^`]+)`:", body)
+        if stock_match:
+            return f"stock:{stock_match.group(1).lower()}"
+
+        sector_match = re.match(r"\*\*Decision:\*\* ([^:]+):", body)
+        if sector_match:
+            return f"recommendation:{sector_match.group(1).strip().lower()}"
+
+        news_match = re.match(r"\*\*News:\*\* (.+?) \(", body)
+        if news_match:
+            normalized_title = re.sub(r"\s+", " ", news_match.group(1).strip().lower())
+            return f"news:{normalized_title}"
+
+        if body.startswith("**Decision:** Active quadrant"):
+            return "macro_situation"
+
+        if body.startswith("**Sentiment:** CNN Fear & Greed Index"):
+            return "sentiment:cnn_fear_greed"
+
+        if body.startswith("**Valuation:** Shiller PE Ratio"):
+            return "valuation:shiller_pe"
+
+        normalized_body = re.sub(r"\s+", " ", body.strip().lower())
+        return f"other:{normalized_body}"
+
+    def _strip_change_label(self, bullet_body: str) -> str:
+        """Return the original notable body from a possibly comparison-labeled bullet."""
+        for label in ("**New:** ", "**Changed:** ", "**Unchanged:** ", "**Removed:** "):
+            if bullet_body.startswith(label):
+                bullet_body = bullet_body[len(label):]
+                break
+        return bullet_body.split(" Previously: ", 1)[0].strip()
+
+    def _extract_notable_items_from_report(self, report_content: str) -> List[Tuple[str, str]]:
+        """Extract notable-summary bullet keys and bodies from an existing markdown report."""
+        start_marker = "## Notable Summary"
+        start_idx = report_content.find(start_marker)
+        if start_idx == -1:
+            return []
+
+        remainder = report_content[start_idx + len(start_marker):]
+        end_candidates = [idx for idx in (remainder.find("\n---"), remainder.find("\n## ")) if idx != -1]
+        section = remainder[:min(end_candidates)] if end_candidates else remainder
+
+        items = []
+        for line in section.splitlines():
+            if not line.startswith("- "):
+                continue
+            body = self._strip_change_label(line[2:].strip())
+            if body:
+                items.append((self._notable_item_key(body), body))
+        return items
+
+    def _find_previous_report_path(self, today_str: str) -> Optional[Path]:
+        """Find the newest dated report before today's report in the output directory."""
+        report_paths = []
+        for path in self.output_dir.glob("macro_report_*.md"):
+            match = re.match(r"macro_report_(\d{4}-\d{2}-\d{2})\.md$", path.name)
+            if match and match.group(1) < today_str:
+                report_paths.append((match.group(1), path))
+        if not report_paths:
+            return None
+        return sorted(report_paths, reverse=True)[0][1]
+
+    def _load_previous_notable_items(self, today_str: str) -> List[Tuple[str, str]]:
+        """Load comparable notable-summary items from the prior dated report, if available."""
+        previous_path = self._find_previous_report_path(today_str)
+        if previous_path is None:
+            return []
+        try:
+            return self._extract_notable_items_from_report(previous_path.read_text(encoding="utf-8"))
+        except OSError:
+            return []
+
+    def _apply_notable_change_labels(self, lines: List[str], previous_items: List[Tuple[str, str]]) -> List[str]:
+        """Annotate notable bullets with new/changed/unchanged/removed status."""
+        if not previous_items:
+            return lines
+
+        previous_by_key = dict(previous_items)
+        current_keys = []
+        labeled_lines = []
+
+        for body in lines:
+            key = self._notable_item_key(body)
+            current_keys.append(key)
+            previous_body = previous_by_key.get(key)
+            if previous_body is None:
+                labeled_lines.append(f"**New:** {body}")
+            elif previous_body == body:
+                labeled_lines.append(f"**Unchanged:** {body}")
+            else:
+                labeled_lines.append(f"**Changed:** {body} Previously: {previous_body}")
+
+        for previous_key, previous_body in previous_items:
+            if previous_key not in current_keys:
+                labeled_lines.append(f"**Removed:** {previous_body}")
+
+        return labeled_lines
+
+    def _build_notable_summary_md(self, analysis: Dict[str, Any], previous_items: Optional[List[Tuple[str, str]]] = None) -> str:
         """Build a concise top-of-report summary limited to notable items."""
         macro_sit = analysis.get("macro_situation", {})
         news_events = analysis.get("news_events", [])
@@ -115,7 +218,9 @@ class MacroReporter:
         if not lines:
             lines.append("- No notable events, news, or decisions met the reporting threshold.")
 
-        return "## Notable Summary\n\n" + "\n".join(lines) + "\n"
+        comparable_lines = [line[2:] if line.startswith("- ") else line for line in lines]
+        labeled_lines = self._apply_notable_change_labels(comparable_lines, previous_items or [])
+        return "## Notable Summary\n\n" + "\n".join([f"- {line}" for line in labeled_lines]) + "\n"
 
     def print_terminal_dashboard(self, analysis: Dict[str, Any]):
         """Prints a clean, institutional-grade ASCII dashboard to terminal."""
@@ -202,10 +307,12 @@ class MacroReporter:
             lag_table = []
             for s in lagging_stocks[:6]:
                 fwd_pe = fmt_num(s.get('forward_pe'), ":.1f", "x")
-                p_avg = fmt_num(s.get('peer_avg_fpe'), ":.1f", "x")
-                lag_table.append([s.get('ticker', ''), s.get('name', ''), s.get('group', ''), fwd_pe, p_avg, s.get('action', '')])
-            print("\n--- 3. SINGLE-STOCK LAGGING VALUE OPPORTUNITIES (PEER DISPERSION) ---")
-            print(tabulate(lag_table, headers=["Ticker", "Company Name", "Sector Group", "Fwd P/E", "Peer Avg", "Recommended Action"], tablefmt="grid"))
+                rel_fpe = fmt_num(s.get('current_relative_fpe'), ":.2f", "x")
+                hist_rel = fmt_num(s.get('historical_relative_fpe'), ":.2f", "x")
+                discount = fmt_num(s.get('relative_fpe_discount_pct'), ":.1f", "%")
+                lag_table.append([s.get('ticker', ''), s.get('name', ''), s.get('group', ''), fwd_pe, rel_fpe, hist_rel, discount, s.get('action', '')])
+            print("\n--- 3. SINGLE-STOCK HISTORICAL SECTOR-RELATIVE VALUATION ---")
+            print(tabulate(lag_table, headers=["Ticker", "Company Name", "Sector Group", "Fwd P/E", "Current Rel", "Hist Rel Norm", "Discount", "Recommended Action"], tablefmt="grid"))
 
         # 4. Tax-Aware Mid-Term Sector Recommendations (3M - 1Y Horizon)
         if recommendations:
@@ -243,7 +350,6 @@ class MacroReporter:
         valuations = analysis.get("sector_valuations", [])
         ai_ecosystem = analysis.get("ai_ecosystem", [])
         recommendations = analysis.get("recommendations", [])
-        lagging_stocks = analysis.get("lagging_stock_opportunities", [])
         lagging_stocks = analysis.get("lagging_stock_opportunities", [])
         macro_sit = analysis.get("macro_situation", {})
 
@@ -292,16 +398,18 @@ class MacroReporter:
             lag_rows = []
             for s in lagging_stocks:
                 fwd_pe = fmt_num(s.get('forward_pe'), ":.1f", "x")
-                p_avg = fmt_num(s.get('peer_avg_fpe'), ":.1f", "x")
-                lag_rows.append(f"| `{md_cell(s.get('ticker',''))}` | **{md_cell(s.get('name',''))}** | {md_cell(s.get('group',''))} | `{fwd_pe}` | `{p_avg}` | **{md_cell(s.get('action',''))}** | {md_cell(s.get('rationale',''))} |")
+                rel_fpe = fmt_num(s.get('current_relative_fpe'), ":.2f", "x")
+                hist_rel = fmt_num(s.get('historical_relative_fpe'), ":.2f", "x")
+                discount = fmt_num(s.get('relative_fpe_discount_pct'), ":.1f", "%")
+                lag_rows.append(f"| `{md_cell(s.get('ticker',''))}` | **{md_cell(s.get('name',''))}** | {md_cell(s.get('group',''))} | `{fwd_pe}` | `{rel_fpe}` | `{hist_rel}` | `{discount}` | **{md_cell(s.get('action',''))}** | {md_cell(s.get('rationale',''))} |")
             lag_table_md = "\n".join(lag_rows)
             lag_section_md = f"""
-## 5. Single-Stock Lagging Value Opportunities (Peer Dispersion Analysis)
+## 5. Single-Stock Historical Sector-Relative Valuation
 
-The following individual constituent stocks were identified as trading at deep peer discounts or lagging sector price performance while underlying fundamentals remain solid:
+The following individual constituent stocks were identified as trading below their own historical relationship to the sector. This is a valuation screen, not a standalone buy signal; earnings quality, balance sheet, macro regime, and catalysts still need confirmation.
 
-| Ticker | Company Name | Sector Group | Forward P/E | Peer Group Avg | Action Posture | Strategic Rationale |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Ticker | Company Name | Sector Group | Forward P/E | Current Relative Fwd P/E | Historical Relative Norm | Relative Discount | Action Posture | Strategic Rationale |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 {lag_table_md}
 """
 
@@ -372,7 +480,8 @@ Tracking valuation multiples and downstream physical dependencies across compute
         fear_greed_signal = md_cell(mkt.get('cnn_fear_greed_signal', 'N/A'))
         shiller_pe_val = fmt_num(mkt.get('shiller_pe'), ":.2f")
         shiller_pe_signal = md_cell(mkt.get('shiller_pe_signal', 'N/A'))
-        notable_summary_md = self._build_notable_summary_md(analysis)
+        previous_notable_items = self._load_previous_notable_items(today_str)
+        notable_summary_md = self._build_notable_summary_md(analysis, previous_notable_items)
 
         report_content = f"""# Daily 4-Quadrant Macro & Dynamic Sector Strategy Report ({today_str})
 *Automated Capture Engine & Institutional Framework (Defiant Gatekeeper)*

@@ -15,7 +15,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, Any, Tuple, Optional
-from config import FRED_SERIES, YAHOO_TICKERS, LOG_DIR, configure_yfinance_cache
+from config import DASHBOARD_HISTORY_DAYS, FRED_SERIES, YAHOO_TICKERS, LOG_DIR, configure_yfinance_cache
 from storage import MacroStorage
 from news_analyzer import MacroNewsAnalyzer
 
@@ -70,7 +70,8 @@ class MacroFetcher:
                 df = df.dropna(subset=["value"])
                 df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
                 
-                cutoff_date = (datetime.now() - timedelta(days=1825)).strftime("%Y-%m-%d")
+                history_days = DASHBOARD_HISTORY_DAYS + 365 if key == "cpi" else DASHBOARD_HISTORY_DAYS
+                cutoff_date = (datetime.now() - timedelta(days=history_days)).strftime("%Y-%m-%d")
                 df = df[df["date"] >= cutoff_date]
                 
                 count = self.storage.save_observations(key, df[["date", "value"]])
