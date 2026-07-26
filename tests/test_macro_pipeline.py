@@ -419,6 +419,47 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertEqual(latest["date"], datetime.now().strftime("%Y-%m-%d"))
         self.assertAlmostEqual(latest["value"], 78.4)
 
+    def test_06b2_fetch_shiller_pe_saves_current_multpl_value(self):
+        """Shiller PE should be fetched as a numeric secondary valuation observation."""
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            fetcher = MacroFetcher(storage)
+
+            class FakeResponse:
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, exc_type, exc, tb):
+                    return False
+
+                def read(self):
+                    return b"""
+                    <html>
+                      <head>
+                        <meta name="description" content="Shiller PE Ratio chart, historic, and current data. Current Shiller PE Ratio is 40.46, a change of +0.04 from previous market close." />
+                      </head>
+                      <body>
+                        <h1>Shiller PE Ratio</h1>
+                        <div>4:00 PM EDT, Fri Jul 24</div>
+                      </body>
+                    </html>
+                    """
+
+            original_urlopen = fetcher._urlopen
+            fetcher._urlopen = lambda request, timeout=15: FakeResponse()
+            try:
+                count, err = fetcher.fetch_shiller_pe_ratio()
+            finally:
+                fetcher._urlopen = original_urlopen
+
+            latest = storage.get_latest_observation("shiller_pe")
+
+        self.assertIsNone(err)
+        self.assertEqual(count, 1)
+        self.assertIsNotNone(latest)
+        self.assertEqual(latest["date"], datetime.now().strftime("%Y-%m-%d"))
+        self.assertAlmostEqual(latest["value"], 40.46)
+
     def test_06c_analyzer_interprets_cnn_fear_greed_as_market_overlay(self):
         """Fear & Greed should enrich market sentiment without becoming a core quadrant input."""
         with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
@@ -433,6 +474,22 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertEqual(market["cnn_fear_greed_rating"], "Extreme Greed")
         self.assertIn("overlay", market["cnn_fear_greed_signal"].lower())
 
+    def test_06c1_analyzer_interprets_shiller_pe_as_secondary_overlay(self):
+        """Shiller PE should inform valuation context without becoming a core quadrant input."""
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            storage.save_observations("shiller_pe", pd.DataFrame([
+                {"date": datetime.now().strftime("%Y-%m-%d"), "value": 40.46},
+            ]))
+
+            market = MacroAnalyzer(storage).analyze_market_sentiment()
+            quadrant = MacroMatrixEngine().classify_situation("CUTTING", 50.0, 2.5, False, -0.50)
+
+        self.assertEqual(market["shiller_pe"], 40.46)
+        self.assertEqual(market["shiller_pe_rating"], "Very Expensive")
+        self.assertIn("secondary valuation overlay", market["shiller_pe_signal"].lower())
+        self.assertEqual(quadrant["situation_id"], 1)
+
     def test_06c2_analyzer_suppresses_stale_cnn_fear_greed_readings(self):
         """Old Fear & Greed observations should not be surfaced as current market sentiment."""
         with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
@@ -446,6 +503,20 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertIsNone(market["cnn_fear_greed_index"])
         self.assertEqual(market["cnn_fear_greed_rating"], "Stale")
         self.assertIn("stale", market["cnn_fear_greed_signal"].lower())
+
+    def test_06c3_analyzer_suppresses_stale_shiller_pe_readings(self):
+        """Old Shiller PE observations should not be surfaced as current valuation context."""
+        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
+            storage = MacroStorage(tmp.name)
+            storage.save_observations("shiller_pe", pd.DataFrame([
+                {"date": "2020-01-01", "value": 40.0},
+            ]))
+
+            market = MacroAnalyzer(storage).analyze_market_sentiment()
+
+        self.assertIsNone(market["shiller_pe"])
+        self.assertEqual(market["shiller_pe_rating"], "Stale")
+        self.assertIn("stale", market["shiller_pe_signal"].lower())
 
     def test_06d_report_includes_fresh_extreme_fear_greed_overlay(self):
         """Report should show CNN Fear & Greed and mention only extreme readings up top."""
@@ -492,6 +563,54 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertIn("Extreme Greed", content)
         self.assertIn("avoid chasing crowded risk", content)
         self.assertIn("**Sentiment:** CNN Fear & Greed Index is `82.00` (`Extreme Greed`)", content.split("## 1. Active Macro Situation")[0])
+
+    def test_06e_report_includes_shiller_pe_as_secondary_overlay(self):
+        """Report should show Shiller PE beside Fear & Greed as valuation context."""
+        analysis = {
+            "summary": {
+                "date": "2026-07-22",
+                "overall_regime": "TEST REGIME",
+                "liquidity_regime": "Neutral",
+                "yield_curve_regime": "Normal",
+                "credit_regime": "Normal",
+            },
+            "liquidity_details": {"net_liquidity": None, "fed_assets_billion": None, "tga_billion": None, "rrp_billion": None, "change_30d_billion": None},
+            "policy_details": {"policy_rate": None, "policy_rate_change_30d": None, "real_yield_10y": None, "source": None, "policy_stance": "UNKNOWN"},
+            "yield_curve_details": {"treasury_10y": None, "treasury_2y": None, "spread_10y_2y": None, "spread_10y_3m": None, "regime": "Normal"},
+            "credit_details": {"high_yield_oas": None, "invest_grade_oas": None, "chicago_fed_nfci": None, "regime": "Normal"},
+            "market_details": {
+                "vix": 15.0,
+                "dxy": 101.0,
+                "sp500": 6500.0,
+                "crude_oil": 70.0,
+                "gold": 2500.0,
+                "copper": 4.5,
+                "vix_state": "Normal",
+                "cnn_fear_greed_index": 42.0,
+                "cnn_fear_greed_rating": "Fear",
+                "cnn_fear_greed_signal": "Fear risk-appetite overlay.",
+                "shiller_pe": 40.46,
+                "shiller_pe_rating": "Very Expensive",
+                "shiller_pe_signal": "Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.",
+            },
+            "macro_details": {},
+            "news_events": [],
+            "sector_valuations": [],
+            "ai_ecosystem": [],
+            "macro_situation": {},
+            "lagging_stock_opportunities": [],
+            "recommendations": [],
+        }
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            reporter = MacroReporter(self.storage, self.analyzer, output_dir=Path(tmp_dir), verbose=False)
+            report_path = reporter.generate_markdown_report(analysis)
+            content = Path(report_path).read_text(encoding="utf-8")
+
+        self.assertIn("Shiller PE Ratio", content)
+        self.assertIn("40.46", content)
+        self.assertIn("Very Expensive", content)
+        self.assertIn("secondary valuation overlay", content)
 
     def test_07_markdown_report_starts_with_notable_summary_only(self):
         """Daily report should open with a concise notable-events/news/decisions summary."""

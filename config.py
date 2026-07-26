@@ -94,6 +94,12 @@ MARKET_SENTIMENT_INDICATORS = {
         "source": "CNN",
         "category": "Market Sentiment",
         "frequency": "daily",
+    },
+    "shiller_pe": {
+        "name": "Shiller PE Ratio",
+        "source": "Multpl",
+        "category": "Market Valuation",
+        "frequency": "daily",
     }
 }
 

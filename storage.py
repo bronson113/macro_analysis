@@ -75,6 +75,7 @@ class MacroStorage:
                     policy_rate_change_30d REAL,
                     real_yield_10y REAL,
                     cnn_fear_greed_index REAL,
+                    shiller_pe REAL,
                     liquidity_regime TEXT,
                     yield_curve_regime TEXT,
                     credit_regime TEXT,
@@ -127,6 +128,7 @@ class MacroStorage:
             "policy_rate_change_30d": "REAL",
             "real_yield_10y": "REAL",
             "cnn_fear_greed_index": "REAL",
+            "shiller_pe": "REAL",
         }.items():
             if column_name not in existing:
                 cursor.execute(f"ALTER TABLE daily_snapshots ADD COLUMN {column_name} {column_type}")

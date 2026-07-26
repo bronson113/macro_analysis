@@ -65,6 +65,34 @@ def _fear_greed_signal(rating: Optional[str]) -> Optional[str]:
     return None
 
 
+def _classify_shiller_pe(value: Optional[float]) -> Optional[str]:
+    if value is None:
+        return None
+    if value < 15:
+        return "Inexpensive"
+    if value < 20:
+        return "Fair"
+    if value < 30:
+        return "Elevated"
+    if value < 35:
+        return "Expensive"
+    return "Very Expensive"
+
+
+def _shiller_pe_signal(rating: Optional[str]) -> Optional[str]:
+    if rating == "Inexpensive":
+        return "Inexpensive secondary valuation overlay: broad equity valuations may support adding risk when macro, credit, and earnings also confirm."
+    if rating == "Fair":
+        return "Fair secondary valuation overlay: broad market valuation is not a major standalone headwind."
+    if rating == "Elevated":
+        return "Elevated secondary valuation overlay: broad market valuation requires selectivity and confirmation from liquidity, credit, and earnings."
+    if rating == "Expensive":
+        return "Expensive secondary valuation overlay: broad equity valuations are stretched, so avoid chasing weak setups without macro and earnings support."
+    if rating == "Very Expensive":
+        return "Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta."
+    return None
+
+
 class MacroAnalyzer:
     def __init__(self, storage: Optional[MacroStorage] = None):
         self.storage = storage or MacroStorage()
@@ -273,6 +301,10 @@ class MacroAnalyzer:
         cnn_fg = cnn_fg_obs["value"] if cnn_fg_obs else None
         cnn_fg_rating = _classify_fear_greed(cnn_fg)
         cnn_fg_signal = _fear_greed_signal(cnn_fg_rating)
+        shiller_pe_obs = self.storage.get_latest_observation("shiller_pe")
+        shiller_pe = shiller_pe_obs["value"] if shiller_pe_obs else None
+        shiller_pe_rating = _classify_shiller_pe(shiller_pe)
+        shiller_pe_signal = _shiller_pe_signal(shiller_pe_rating)
         if cnn_fg_obs:
             try:
                 age_days = (pd.Timestamp(datetime.now().date()) - pd.to_datetime(cnn_fg_obs["date"])).days
@@ -284,6 +316,17 @@ class MacroAnalyzer:
                 cnn_fg = None
                 cnn_fg_rating = "Stale"
                 cnn_fg_signal = "CNN Fear & Greed reading has an invalid date; refresh the fetch job before using it."
+        if shiller_pe_obs:
+            try:
+                age_days = (pd.Timestamp(datetime.now().date()) - pd.to_datetime(shiller_pe_obs["date"])).days
+                if age_days > 45:
+                    shiller_pe = None
+                    shiller_pe_rating = "Stale"
+                    shiller_pe_signal = "Shiller PE reading is stale; refresh the fetch job before using it as a secondary valuation overlay."
+            except Exception:
+                shiller_pe = None
+                shiller_pe_rating = "Stale"
+                shiller_pe_signal = "Shiller PE reading has an invalid date; refresh the fetch job before using it."
 
         vix_state = "Low Volatility (Complacency)"
         if vix is not None:
@@ -304,6 +347,10 @@ class MacroAnalyzer:
             "cnn_fear_greed_rating": cnn_fg_rating,
             "cnn_fear_greed_signal": cnn_fg_signal,
             "cnn_fear_greed_date": cnn_fg_obs["date"] if cnn_fg_obs else None,
+            "shiller_pe": round(shiller_pe, 2) if shiller_pe is not None else None,
+            "shiller_pe_rating": shiller_pe_rating,
+            "shiller_pe_signal": shiller_pe_signal,
+            "shiller_pe_date": shiller_pe_obs["date"] if shiller_pe_obs else None,
         }
 
     def analyze_labor_and_inflation(self) -> Dict[str, Any]:
@@ -412,6 +459,7 @@ class MacroAnalyzer:
             "policy_rate_change_30d": policy.get("policy_rate_change_30d"),
             "real_yield_10y": policy.get("real_yield_10y"),
             "cnn_fear_greed_index": market.get("cnn_fear_greed_index"),
+            "shiller_pe": market.get("shiller_pe"),
             "liquidity_regime": liquidity_regime,
             "yield_curve_regime": yc["regime"],
             "credit_regime": credit["regime"],

@@ -8,6 +8,7 @@ import io
 import json
 import time
 import logging
+import re
 import urllib.request
 import pandas as pd
 import yfinance as yf
@@ -29,6 +30,7 @@ logging.basicConfig(
 
 class MacroFetcher:
     CNN_FEAR_GREED_URL = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
+    SHILLER_PE_URL = "https://www.multpl.com/shiller-pe"
 
     def __init__(self, storage: Optional[MacroStorage] = None):
         self.storage = storage or MacroStorage()
@@ -157,6 +159,35 @@ class MacroFetcher:
             logging.error(err_msg)
             return 0, err_msg
 
+    def fetch_shiller_pe_ratio(self) -> Tuple[int, Optional[str]]:
+        """Fetch the current Shiller PE ratio and store it as a valuation overlay."""
+        today = datetime.now().strftime("%Y-%m-%d")
+        request = urllib.request.Request(self.SHILLER_PE_URL, headers={
+            "User-Agent": self.user_agent,
+            "Accept": "text/html,application/xhtml+xml",
+        })
+
+        try:
+            with self._urlopen(request, timeout=15) as response:
+                html = response.read().decode("utf-8", errors="replace")
+
+            match = re.search(r"Current\s+Shiller\s+PE\s+Ratio\s*(?::|is)\s*([0-9]+(?:\.[0-9]+)?)", html, re.IGNORECASE)
+            if not match:
+                return 0, "Multpl Shiller PE page missing current ratio"
+
+            value = float(match.group(1))
+            if value <= 0 or value > 200:
+                return 0, f"Shiller PE value outside expected range: {value}"
+
+            df = pd.DataFrame([{"date": today, "value": value}])
+            count = self.storage.save_observations("shiller_pe", df)
+            logging.info("Successfully saved Shiller PE ratio: %.2f", value)
+            return count, None
+        except Exception as e:
+            err_msg = f"Failed to fetch Shiller PE ratio: {e}"
+            logging.error(err_msg)
+            return 0, err_msg
+
     def fetch_all(self) -> Dict[str, Any]:
         """
         Executes parallel resilient data fetching across all FRED series, Yahoo market prices, and news feeds.
@@ -214,6 +245,15 @@ class MacroFetcher:
         else:
             failed_keys.append("cnn_fear_greed_index")
             errors["cnn_fear_greed_index"] = err
+
+        print("--> Fetching Shiller PE Ratio...")
+        count, err = self.fetch_shiller_pe_ratio()
+        if err is None:
+            success_keys.append("shiller_pe")
+            total_records += count
+        else:
+            failed_keys.append("shiller_pe")
+            errors["shiller_pe"] = err
 
         print("--> Fetching Major Macro News & Event Feeds...")
         news_count = self.news_analyzer.fetch_and_store_news()

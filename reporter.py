@@ -105,6 +105,13 @@ class MacroReporter:
             signal = md_cell(market_details.get("cnn_fear_greed_signal", ""))
             lines.append(f"- **Sentiment:** CNN Fear & Greed Index is `{fg_display}` (`{md_cell(fg_rating)}`). {signal}".strip())
 
+        shiller_pe = market_details.get("shiller_pe")
+        shiller_rating = market_details.get("shiller_pe_rating")
+        if shiller_pe is not None and shiller_rating in {"Expensive", "Very Expensive"}:
+            shiller_display = fmt_num(shiller_pe, ":.2f")
+            signal = md_cell(market_details.get("shiller_pe_signal", ""))
+            lines.append(f"- **Valuation:** Shiller PE Ratio is `{shiller_display}` (`{md_cell(shiller_rating)}`). {signal}".strip())
+
         if not lines:
             lines.append("- No notable events, news, or decisions met the reporting threshold.")
 
@@ -163,6 +170,8 @@ class MacroReporter:
         print(f"[Credit Risk Regime]:   {summary.get('credit_regime', 'N/A')}")
         if mkt.get("cnn_fear_greed_index") is not None:
             print(f"[CNN Fear & Greed]:     {fmt_num(mkt.get('cnn_fear_greed_index'), ':.2f')} ({mkt.get('cnn_fear_greed_rating', 'N/A')})")
+        if mkt.get("shiller_pe") is not None:
+            print(f"[Shiller PE Ratio]:    {fmt_num(mkt.get('shiller_pe'), ':.2f')} ({mkt.get('shiller_pe_rating', 'N/A')})")
         print("-" * 100)
 
         # 1. Federal Reserve & Reserve Liquidity Proxy Table
@@ -361,6 +370,8 @@ Tracking valuation multiples and downstream physical dependencies across compute
         copper_val = fmt_num(mkt.get('copper'), ":.2f", prefix="$")
         fear_greed_val = fmt_num(mkt.get('cnn_fear_greed_index'), ":.2f")
         fear_greed_signal = md_cell(mkt.get('cnn_fear_greed_signal', 'N/A'))
+        shiller_pe_val = fmt_num(mkt.get('shiller_pe'), ":.2f")
+        shiller_pe_signal = md_cell(mkt.get('shiller_pe_signal', 'N/A'))
         notable_summary_md = self._build_notable_summary_md(analysis)
 
         report_content = f"""# Daily 4-Quadrant Macro & Dynamic Sector Strategy Report ({today_str})
@@ -427,6 +438,7 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 | **US Dollar Index (DXY)** | `{dxy_val}` | Global Currency Tightness |
 | **S&P 500 Index** | `{sp500_val}` | US Equity Benchmark |
 | **CNN Fear & Greed Index** | `{fear_greed_val}` | `{fear_greed_signal}` |
+| **Shiller PE Ratio** | `{shiller_pe_val}` | `{shiller_pe_signal}` |
 | **WTI Crude Oil** | `{crude_val}` | Energy Cost Drivers |
 | **Gold** | `{gold_val}` | Monetary Protection / Safe Haven |
 | **Copper** | `{copper_val}` | Industrial Demand Indicator |
