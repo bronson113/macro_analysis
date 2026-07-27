@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-26T22:42:41.600555",
+    "generated_at": "2026-07-26T23:40:40.390204",
     "date": "2026-07-26",
     "engine_version": "2.0-GeminiRawPayload"
   },
@@ -9,51 +9,56 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-22",
       "value": 6747378.0,
-      "updated_at": "2026-07-26T22:41:34.292730"
+      "updated_at": "2026-07-26T23:39:54.616767"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-22",
       "value": 835417.0,
-      "updated_at": "2026-07-26T22:41:34.690212"
+      "updated_at": "2026-07-26T23:39:54.735094"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-24",
       "value": 0.675,
-      "updated_at": "2026-07-26T22:41:34.467543"
+      "updated_at": "2026-07-26T23:39:54.676143"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
-      "date": "2019-07-08",
-      "value": 2.05,
-      "updated_at": "2026-07-26T22:41:36.572111"
+      "date": "2026-07-23",
+      "value": 4.71,
+      "updated_at": "2026-07-26T23:39:55.036615"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
-      "date": "2016-07-27",
-      "value": 0.73,
-      "updated_at": "2026-07-24T23:46:21.090783"
+      "date": "2026-07-23",
+      "value": 4.37,
+      "updated_at": "2026-07-26T23:39:55.097270"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
-      "date": "2016-07-27",
-      "value": 0.79,
-      "updated_at": "2026-07-24T23:46:26.227767"
+      "date": "2026-07-24",
+      "value": 0.36,
+      "updated_at": "2026-07-26T23:39:55.284843"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
-      "date": "2023-07-24",
-      "value": 3.82,
-      "updated_at": "2026-07-23T22:11:55.826348"
+      "date": "2026-07-23",
+      "value": 2.77,
+      "updated_at": "2026-07-26T23:39:55.406599"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
-      "date": "2023-07-24",
-      "value": 0.51,
-      "updated_at": "2026-07-23T22:11:56.356153"
+      "date": "2026-07-23",
+      "value": 0.43,
+      "updated_at": "2026-07-26T23:39:55.464435"
     },
-    "chicago_fed_nfci": null,
+    "chicago_fed_nfci": {
+      "indicator_key": "chicago_fed_nfci",
+      "date": "2026-07-17",
+      "value": -0.55,
+      "updated_at": "2026-07-26T23:39:55.577008"
+    },
     "vix": {
       "indicator_key": "vix",
       "date": "2026-07-24",
@@ -62,9 +67,9 @@
     },
     "dxy": {
       "indicator_key": "dxy",
-      "date": "2026-07-24",
-      "value": 101.33599853515624,
-      "updated_at": "2026-07-24T09:30:32.389317"
+      "date": "2026-07-27",
+      "value": 101.15299987792967,
+      "updated_at": "2026-07-26T23:39:56.970324"
     },
     "sp500": {
       "indicator_key": "sp500",
@@ -74,47 +79,57 @@
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
-      "date": "2026-07-24",
-      "value": 88.47000122070312,
-      "updated_at": "2026-07-24T09:30:32.373196"
+      "date": "2026-07-27",
+      "value": 83.83999633789062,
+      "updated_at": "2026-07-26T23:39:56.861677"
     },
     "gold": {
       "indicator_key": "gold",
-      "date": "2026-07-24",
-      "value": 4076.300048828125,
-      "updated_at": "2026-07-24T09:30:32.455099"
+      "date": "2026-07-27",
+      "value": 4097.7001953125,
+      "updated_at": "2026-07-26T23:39:57.079959"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-27",
-      "value": 6.3460001945495605,
-      "updated_at": "2026-07-26T22:41:53.698354"
+      "value": 6.363999843597412,
+      "updated_at": "2026-07-26T23:39:57.147290"
     },
-    "unemployment_rate": null,
-    "cpi": null,
+    "unemployment_rate": {
+      "indicator_key": "unemployment_rate",
+      "date": "2026-06-01",
+      "value": 4.2,
+      "updated_at": "2026-07-26T23:39:55.691206"
+    },
+    "cpi": {
+      "indicator_key": "cpi",
+      "date": "2026-06-01",
+      "value": 332.568,
+      "updated_at": "2026-07-26T23:39:55.980938"
+    },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
-      "date": "2016-07-27",
-      "value": 1.31,
-      "updated_at": "2026-07-24T23:46:34.602119"
+      "date": "2026-07-24",
+      "value": 2.24,
+      "updated_at": "2026-07-26T23:39:56.219734"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
       "date": "2026-07-24",
       "value": 39.4285714285714,
-      "updated_at": "2026-07-26T22:41:53.904271"
+      "updated_at": "2026-07-26T23:39:57.416787"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
       "date": "2026-07-26",
       "value": 40.46,
-      "updated_at": "2026-07-26T22:41:54.120473"
+      "updated_at": "2026-07-26T23:39:57.548607"
     }
   },
   "recent_news_events": [
     {
-      "id": 219.0,
-      "date": "2026-07-26",
+      "id": 263.0,
+      "date": "2026-07-27",
       "title": "[UNH - UnitedHealth Group] The Real Price of UnitedHealth Stock Is Two Years Away",
       "summary": "The healthcare giant looks expensive on today's numbers, but a patient investor is effectively buying it at a significant discount to that price.",
       "source": "Yahoo Finance (UNH)",
@@ -122,11 +137,11 @@
       "category": "Sector Bellwether: UNH (Healthcare / Managed Care)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119253"
+      "created_at": "2026-07-27T05:47:57.228251"
     },
     {
-      "id": 218.0,
-      "date": "2026-07-26",
+      "id": 262.0,
+      "date": "2026-07-27",
       "title": "[UNH - UnitedHealth Group] This Industrial Stock Is Up 533% in 2 Years. I Predict It Will Join the Dow if Caterpillar Issues a Stock Split.",
       "summary": "Artificial intelligence (AI) infrastructure spending is vaulting GE Vernova to new heights.",
       "source": "Yahoo Finance (UNH)",
@@ -134,11 +149,11 @@
       "category": "Sector Bellwether: UNH (Healthcare / Managed Care)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119246"
+      "created_at": "2026-07-27T05:47:57.228247"
     },
     {
-      "id": 217.0,
-      "date": "2026-07-26",
+      "id": 261.0,
+      "date": "2026-07-27",
       "title": "[UNH - UnitedHealth Group] Where Does UnitedHealth Group (UNH) Valuation Sit After Its Second Quarter 2026 Results?",
       "summary": "UnitedHealth Group (UNH) just released its second quarter 2026 results, giving investors fresh insight into how the healthcare giant is performing and what its latest capital returns and earnings figu",
       "source": "Yahoo Finance (UNH)",
@@ -146,11 +161,11 @@
       "category": "Sector Bellwether: UNH (Healthcare / Managed Care)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119240"
+      "created_at": "2026-07-27T05:47:57.228243"
     },
     {
-      "id": 216.0,
-      "date": "2026-07-26",
+      "id": 260.0,
+      "date": "2026-07-27",
       "title": "[CAT - Caterpillar] This Industrial Stock Is Up 533% in 2 Years. I Predict It Will Join the Dow if Caterpillar Issues a Stock Split.",
       "summary": "Artificial intelligence (AI) infrastructure spending is vaulting GE Vernova to new heights.",
       "source": "Yahoo Finance (CAT)",
@@ -158,11 +173,11 @@
       "category": "Sector Bellwether: CAT (Industrials / Global Equipment)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119233"
+      "created_at": "2026-07-27T05:47:57.228239"
     },
     {
-      "id": 215.0,
-      "date": "2026-07-26",
+      "id": 259.0,
+      "date": "2026-07-27",
       "title": "[CAT - Caterpillar] Caterpillar Stock Is Up 100% in a Year. Here's the Data Center Math Behind the Rally.",
       "summary": "Caterpillar's stock has rocketed higher, but so has the outlook for the company's business.",
       "source": "Yahoo Finance (CAT)",
@@ -170,11 +185,11 @@
       "category": "Sector Bellwether: CAT (Industrials / Global Equipment)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119227"
+      "created_at": "2026-07-27T05:47:57.228235"
     },
     {
-      "id": 214.0,
-      "date": "2026-07-26",
+      "id": 258.0,
+      "date": "2026-07-27",
       "title": "[CAT - Caterpillar] China\u2019s Rare Earth Strategy Is Forcing a U.S. Manufacturing Revolution",
       "summary": "Escalating Chinese export controls are driving a major push to establish a secure North American rare earth supply chain from mining to magnet production.",
       "source": "Yahoo Finance (CAT)",
@@ -182,11 +197,11 @@
       "category": "Sector Bellwether: CAT (Industrials / Global Equipment)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119220"
+      "created_at": "2026-07-27T05:47:57.228230"
     },
     {
-      "id": 213.0,
-      "date": "2026-07-26",
+      "id": 257.0,
+      "date": "2026-07-27",
       "title": "[TSLA - Tesla] Dow Jones Futures Rise, Oil Prices Dive On Iran Hopes; Apple Leads Earnings Wave, Fed Meeting Ahead",
       "summary": "U.S.-Iran attacks have paused amid deal hopes. Apple, Amazon, Meta lead an earnings wave. A Fed rate hike is on the table.",
       "source": "Yahoo Finance (TSLA)",
@@ -194,11 +209,11 @@
       "category": "Sector Bellwether: TSLA (Consumer Discretionary / EV)",
       "impact_score": -0.4,
       "sentiment": "Hawkish / Tightening Bias | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119212"
+      "created_at": "2026-07-27T05:47:57.228226"
     },
     {
-      "id": 212.0,
-      "date": "2026-07-26",
+      "id": 256.0,
+      "date": "2026-07-27",
       "title": "[TSLA - Tesla] 4 Big Tech earnings reports, a Fed meeting, and $100 oil: It's the busiest week of the quarter",
       "summary": "Investors step into the busiest week of the quarter with hyperscaler earnings, the June Fed meeting, and escalations in the Middle East all in focus.",
       "source": "Yahoo Finance (TSLA)",
@@ -206,11 +221,11 @@
       "category": "Sector Bellwether: TSLA (Consumer Discretionary / EV)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119204"
+      "created_at": "2026-07-27T05:47:57.228222"
     },
     {
-      "id": 211.0,
-      "date": "2026-07-26",
+      "id": 255.0,
+      "date": "2026-07-27",
       "title": "[TSLA - Tesla] 'The AI trade is still on': Wall Street sees Big Tech's spending as positive for semiconductor stocks",
       "summary": "Alphabet's increased capex forecast for 2026 this week was the latest tailwind for AI infrastructure stocks.",
       "source": "Yahoo Finance (TSLA)",
@@ -218,11 +233,11 @@
       "category": "Sector Bellwether: TSLA (Consumer Discretionary / EV)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119197"
+      "created_at": "2026-07-27T05:47:57.228218"
     },
     {
-      "id": 210.0,
-      "date": "2026-07-26",
+      "id": 254.0,
+      "date": "2026-07-27",
       "title": "[XOM - ExxonMobil] Fed Meeting, Inflation, Boeing, Meta, Apple, Exxon, and More to Watch This Week",
       "summary": "This is a huge earnings week, with nearly a third of S&P 500 companies reporting. The Fed is expected to hold rates steady after its confab ends Wednesday, and we\u2019ll see key inflation data on Thursday",
       "source": "Yahoo Finance (XOM)",
@@ -230,11 +245,11 @@
       "category": "Sector Bellwether: XOM (Energy / Oil & Gas)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119191"
+      "created_at": "2026-07-27T05:47:57.228213"
     },
     {
-      "id": 209.0,
-      "date": "2026-07-26",
+      "id": 253.0,
+      "date": "2026-07-27",
       "title": "[XOM - ExxonMobil] ExxonMobil (XOM) Stock Could Be Cheap On Value Despite A 228% Run",
       "summary": "ExxonMobil Holdings has delivered a very strong 227.6% return over the past 5 years, yet both its Discounted Cash Flow (DCF) intrinsic value estimate and market multiples still point to the stock trad",
       "source": "Yahoo Finance (XOM)",
@@ -242,11 +257,11 @@
       "category": "Sector Bellwether: XOM (Energy / Oil & Gas)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119181"
+      "created_at": "2026-07-27T05:47:57.228209"
     },
     {
-      "id": 208.0,
-      "date": "2026-07-26",
+      "id": 252.0,
+      "date": "2026-07-27",
       "title": "[XOM - ExxonMobil] Palantir\u2019s Infamy Opens Doors for French Challenger",
       "summary": "(Bloomberg) -- The latest transatlantic technology brouhaha unfolded on Instagram. Most Read from BloombergDeepSeek Suspends Fundraising After Viral US-China PostsSpaceX at $100 Would Imply Zero AI Va",
       "source": "Yahoo Finance (XOM)",
@@ -254,11 +269,11 @@
       "category": "Sector Bellwether: XOM (Energy / Oil & Gas)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119172"
+      "created_at": "2026-07-27T05:47:57.228205"
     },
     {
-      "id": 207.0,
-      "date": "2026-07-26",
+      "id": 251.0,
+      "date": "2026-07-27",
       "title": "[JPM - JPMorgan Chase] Jamie Dimon Said Markets Are Underestimating Risks Shifting \"Like Tectonic Plates.\" He Made the Warning Right After JPMorgan Posted Its Best Quarter Ever.",
       "summary": "The CEO of JPMorgan Chase thinks investors may be ignoring risks such as geopolitical conflict and spending deficits.",
       "source": "Yahoo Finance (JPM)",
@@ -266,11 +281,11 @@
       "category": "Sector Bellwether: JPM (Financials / Banking System)",
       "impact_score": -0.8,
       "sentiment": "Sector Contagion / Stress Warning | HIGH SECTOR RISK (XLF)",
-      "created_at": "2026-07-26T22:41:58.119164"
+      "created_at": "2026-07-27T05:47:57.228201"
     },
     {
-      "id": 206.0,
-      "date": "2026-07-26",
+      "id": 250.0,
+      "date": "2026-07-27",
       "title": "[JPM - JPMorgan Chase] Why Did IMAX, JPM, CSX Stocks Surge To 52-Week Highs Last Week?",
       "summary": "IMAX, JPMorgan Chase and CSX jumped to 52-week highs on Friday amid growing Wall Street optimism after all companies posted strong Q2 results last week.",
       "source": "Yahoo Finance (JPM)",
@@ -278,11 +293,11 @@
       "category": "Sector Bellwether: JPM (Financials / Banking System)",
       "impact_score": -0.4,
       "sentiment": "Hawkish / Tightening Bias | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119155"
+      "created_at": "2026-07-27T05:47:57.228196"
     },
     {
-      "id": 205.0,
-      "date": "2026-07-26",
+      "id": 249.0,
+      "date": "2026-07-27",
       "title": "[JPM - JPMorgan Chase] SoftBank\u2019s $40 Billion Loan for OpenAI Stake Gets 21 New Lenders",
       "summary": "(Bloomberg) -- SoftBank Group Corp.\u2019s $40 billion bridge loan for its investment in US tech giant OpenAI has attracted a new group of 21 lenders in a broader syndication phase, according to people fam",
       "source": "Yahoo Finance (JPM)",
@@ -290,11 +305,11 @@
       "category": "Sector Bellwether: JPM (Financials / Banking System)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119140"
+      "created_at": "2026-07-27T05:47:57.228192"
     },
     {
-      "id": 204.0,
-      "date": "2026-07-26",
+      "id": 248.0,
+      "date": "2026-07-27",
       "title": "[AAPL - Apple] 5 Earnings Reports to Watch as Big Tech\u2019s AI Spending Faces a Test",
       "summary": "Microsoft, Apple, Amazon and SK Hynix report this week as investors test Big Tech's AI spending against real returns.",
       "source": "Yahoo Finance (AAPL)",
@@ -302,11 +317,11 @@
       "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119132"
+      "created_at": "2026-07-27T05:47:57.228188"
     },
     {
-      "id": 203.0,
-      "date": "2026-07-26",
+      "id": 247.0,
+      "date": "2026-07-27",
       "title": "[AAPL - Apple] Dow Jones Futures Rise, Oil Prices Dive On Iran Hopes; Apple Leads Earnings Wave, Fed Meeting Ahead",
       "summary": "U.S.-Iran attacks have paused amid deal hopes. Apple, Amazon, Meta lead an earnings wave. A Fed rate hike is on the table.",
       "source": "Yahoo Finance (AAPL)",
@@ -314,11 +329,11 @@
       "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
       "impact_score": -0.4,
       "sentiment": "Hawkish / Tightening Bias | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119123"
+      "created_at": "2026-07-27T05:47:57.228183"
     },
     {
-      "id": 202.0,
-      "date": "2026-07-26",
+      "id": 246.0,
+      "date": "2026-07-27",
       "title": "[AAPL - Apple] 4 Big Tech earnings reports, a Fed meeting, and $100 oil: It's the busiest week of the quarter",
       "summary": "Investors step into the busiest week of the quarter with hyperscaler earnings, the June Fed meeting, and escalations in the Middle East all in focus.",
       "source": "Yahoo Finance (AAPL)",
@@ -326,11 +341,11 @@
       "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119113"
+      "created_at": "2026-07-27T05:47:57.228179"
     },
     {
-      "id": 201.0,
-      "date": "2026-07-26",
+      "id": 245.0,
+      "date": "2026-07-27",
       "title": "[NVDA - NVIDIA] Prediction: CEO Andy Jassy Will Raise Amazon's Full-Year 2026 Capex Guide on July 30",
       "summary": "Amazon has already guided for $200 billion of artificial intelligence (AI)-related capital expenditures in 2026.",
       "source": "Yahoo Finance (NVDA)",
@@ -338,11 +353,11 @@
       "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119102"
+      "created_at": "2026-07-27T05:47:57.228175"
     },
     {
-      "id": 200.0,
-      "date": "2026-07-26",
+      "id": 244.0,
+      "date": "2026-07-27",
       "title": "[NVDA - NVIDIA] What's Next For Rigetti Computing Stock?",
       "summary": "This company is completely dependent on its collaborations and milestone payments to survive.",
       "source": "Yahoo Finance (NVDA)",
@@ -350,11 +365,11 @@
       "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119095"
+      "created_at": "2026-07-27T05:47:57.228170"
     },
     {
-      "id": 199.0,
-      "date": "2026-07-26",
+      "id": 243.0,
+      "date": "2026-07-27",
       "title": "[NVDA - NVIDIA] Warren Buffett's Favorite Stock Market Indicator Is Sounding the Alarm. History Suggests Investors Are \"Playing With Fire.\"",
       "summary": "Investors may want to be careful.",
       "source": "Yahoo Finance (NVDA)",
@@ -362,23 +377,23 @@
       "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119089"
+      "created_at": "2026-07-27T05:47:57.228166"
     },
     {
-      "id": 198.0,
-      "date": "2026-07-26",
-      "title": "[MU - Micron Technology] Chinese chipmaker CXMT soars more than 500% on debut",
-      "summary": "China's leading memory chipmaker CXMT became the most valuable company in the mainland after soaring 500 percent on its market debut Monday, underscoring the impact of AI-driven demand on the semicond",
+      "id": 242.0,
+      "date": "2026-07-27",
+      "title": "[MU - Micron Technology] Chinese chipmaker CXMT soars 500% on debut as AI fuels shortages",
+      "summary": "China's leading memory chipmaker CXMT became the most valuable company in the mainland after soaring more than 500 percent on its market debut Monday, underscoring how AI demand is boosting the semico",
       "source": "Yahoo Finance (MU)",
       "link": "https://finance.yahoo.com/technology/articles/chinese-chipmaker-cxmt-soars-more-033846433.html",
       "category": "Sector Bellwether: MU (Technology / Semiconductors)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119081"
+      "created_at": "2026-07-27T05:47:57.228162"
     },
     {
-      "id": 197.0,
-      "date": "2026-07-26",
+      "id": 241.0,
+      "date": "2026-07-27",
       "title": "[MU - Micron Technology] China memory chipmaker CXMT's shares soar in a blockbuster share listing in Shanghai",
       "summary": "Shares of CXMT, China's largest memory chipmaker, soared Monday after they began trading in Shanghai in mainland China\u2019s biggest initial public stock offering in recent years.  CXMT's shares surged 47",
       "source": "Yahoo Finance (MU)",
@@ -386,11 +401,11 @@
       "category": "Sector Bellwether: MU (Technology / Semiconductors)",
       "impact_score": -0.4,
       "sentiment": "Hawkish / Tightening Bias | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119071"
+      "created_at": "2026-07-27T05:47:57.228157"
     },
     {
-      "id": 196.0,
-      "date": "2026-07-26",
+      "id": 240.0,
+      "date": "2026-07-27",
       "title": "[MU - Micron Technology] 'The AI trade is still on': Wall Street sees Big Tech's spending as positive for semiconductor stocks",
       "summary": "Alphabet's increased capex forecast for 2026 this week was the latest tailwind for AI infrastructure stocks.",
       "source": "Yahoo Finance (MU)",
@@ -398,11 +413,11 @@
       "category": "Sector Bellwether: MU (Technology / Semiconductors)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119057"
+      "created_at": "2026-07-27T05:47:57.228153"
     },
     {
-      "id": 195.0,
-      "date": "2026-07-26",
+      "id": 239.0,
+      "date": "2026-07-27",
       "title": "DR Congo: Oil Company Operations Pose Grave Pollution Threat - Human Rights Watch",
       "summary": "DR Congo: Oil Company Operations Pose Grave Pollution Threat&nbsp;&nbsp;Human Rights Watch",
       "source": "Human Rights Watch",
@@ -410,7 +425,7 @@
       "category": "Geopolitics & Oil",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed",
-      "created_at": "2026-07-26T22:41:58.119047"
+      "created_at": "2026-07-27T05:47:57.228148"
     }
   ],
   "individual_stock_constituents": [
@@ -456,7 +471,7 @@
       "group": "Technology & Semiconductors",
       "price": 381.92,
       "trailing_pe": 63.65,
-      "forward_pe": 19.63,
+      "forward_pe": 19.57,
       "ev_ebitda": 44.25,
       "price_to_book": 20.72,
       "dist_from_52w_high_pct": -22.84,
@@ -1056,7 +1071,7 @@
       "group": "Consumer Staples",
       "price": 136.64,
       "trailing_pe": 17.93,
-      "forward_pe": 15.2,
+      "forward_pe": 15.22,
       "ev_ebitda": 12.14,
       "price_to_book": 8.45,
       "dist_from_52w_high_pct": -20.32,

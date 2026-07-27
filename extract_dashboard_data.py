@@ -1,10 +1,16 @@
 import json
 import logging
+import math
 import pandas as pd
 import os
 from config import DASHBOARD_HISTORY_DAYS, SNAPSHOTS_CSV, OUTPUT_DIR
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+
+def _sanitize(val):
+    if isinstance(val, float) and (math.isnan(val) or math.isinf(val)):
+        return None
+    return val
 
 def extract_history():
     """Extract historical daily snapshots for dashboard timeline charts."""
@@ -32,6 +38,7 @@ def extract_history():
 
         # Reverse to have chronological order for graphs (oldest to newest)
         history = df_sorted.sort_values(by='date', ascending=True).to_dict('records')
+        history = [{k: _sanitize(v) for k, v in record.items()} for record in history]
         
         history_path = OUTPUT_DIR / "history.json"
         
