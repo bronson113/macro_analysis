@@ -31,7 +31,7 @@ class TestMacroPipeline(unittest.TestCase):
     def setUpClass(cls):
         cls._tmpdir = tempfile.TemporaryDirectory()
         cls.tmp_path = Path(cls._tmpdir.name)
-        cls.storage = MacroStorage(cls.tmp_path / "macro_test.db")
+        cls.storage = MacroStorage(indicators_csv=cls.tmp_path / "ind.csv", observations_csv=cls.tmp_path / "obs.csv", snapshots_csv=cls.tmp_path / "snap.csv", news_csv=cls.tmp_path / "news.csv", run_logs_csv=cls.tmp_path / "logs.csv")
         cls.analyzer = MacroAnalyzer(cls.storage)
         cls.matrix_engine = MacroMatrixEngine()
         cls.llm_analyst = DynamicMacroAnalyst(cls.storage)
@@ -70,8 +70,8 @@ class TestMacroPipeline(unittest.TestCase):
             def read(self):
                 return self.body.encode("utf-8")
 
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             fetcher = MacroFetcher(storage)
             inside_window = (datetime.now() - timedelta(days=365 * 8)).strftime("%Y-%m-%d")
             outside_window = (datetime.now() - timedelta(days=365 * 11)).strftime("%Y-%m-%d")
@@ -108,8 +108,8 @@ class TestMacroPipeline(unittest.TestCase):
             def read(self):
                 return self.body.encode("utf-8")
 
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             fetcher = MacroFetcher(storage)
             extra_year_date = (datetime.now() - timedelta(days=365 * 10 + 180)).strftime("%Y-%m-%d")
             too_old_date = (datetime.now() - timedelta(days=365 * 12)).strftime("%Y-%m-%d")
@@ -163,8 +163,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_03b_net_liquidity_requires_all_components(self):
         """Net liquidity should not be reported when TGA or RRP are missing."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("fed_total_assets", pd.DataFrame([
                 {"date": "2026-07-15", "value": 6743028.0}
             ]))
@@ -178,8 +178,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_03c_net_liquidity_uses_roughly_30_day_delta(self):
         """30-day liquidity change should compare against the nearest 30-day history point."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("fed_total_assets", pd.DataFrame([
                 {"date": "2026-01-01", "value": 6000000.0},
                 {"date": "2026-06-15", "value": 6500000.0},
@@ -205,8 +205,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_03d_policy_stance_uses_policy_rate_trend_not_yield_curve(self):
         """A positive yield curve alone must not be treated as Fed easing."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("dff", pd.DataFrame([
                 {"date": "2026-06-15", "value": 3.63},
                 {"date": "2026-07-15", "value": 3.63},
@@ -219,8 +219,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_03f_flat_policy_rate_can_be_restrictive_when_real_yields_are_high(self):
         """Holding policy should be classified as restrictive only with real-yield evidence."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("dff", pd.DataFrame([
                 {"date": "2026-06-15", "value": 4.75},
                 {"date": "2026-07-15", "value": 4.75},
@@ -268,8 +268,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_04b_raw_payload_saves_current_stock_sector_relative_multiples(self):
         """Raw stock collection should persist relative multiple observations for future history."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             raw_engine = RawDataEngine(storage, output_dir=self.tmp_path / "raw_relative_output", verbose=False)
             raw_engine.fetch_individual_stock_metrics = lambda: [
                 {"ticker": "NVDA", "name": "Nvidia", "group": "Tech", "price": 125.0, "forward_pe": 39.0, "ev_ebitda": 30.0},
@@ -305,8 +305,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_05a_peer_discount_must_be_cheap_vs_historical_relative_norm(self):
         """A structurally low-multiple stock should not be flagged just for trading below peers."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("stock_rel_fpe_tech_mu", pd.DataFrame([
                 {"date": "2026-07-01", "value": 0.39},
                 {"date": "2026-07-08", "value": 0.40},
@@ -333,8 +333,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_05a2_relative_discount_flags_when_current_ratio_is_below_history(self):
         """A stock should be flagged when it is cheap versus its own normal sector relationship."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("stock_rel_fpe_tech_mu", pd.DataFrame([
                 {"date": "2026-07-01", "value": 0.70},
                 {"date": "2026-07-08", "value": 0.72},
@@ -438,8 +438,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_05e_caution_sector_is_not_upgraded_to_selective_buy(self):
         """Lagging-stock watchlist should not override a sector-level caution signal."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             analyzer = MacroAnalyzer(storage)
             analyzer.calculate_net_liquidity = lambda: {
                 "net_liquidity": 100.0,
@@ -585,8 +585,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_06b_fetch_cnn_fear_greed_index_saves_daily_score(self):
         """CNN Fear & Greed should be fetched as a numeric market sentiment observation."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             fetcher = MacroFetcher(storage)
 
             class FakeResponse:
@@ -621,8 +621,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_06b2_fetch_shiller_pe_saves_current_multpl_value(self):
         """Shiller PE should be fetched as a numeric secondary valuation observation."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             fetcher = MacroFetcher(storage)
 
             class FakeResponse:
@@ -662,8 +662,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_06c_analyzer_interprets_cnn_fear_greed_as_market_overlay(self):
         """Fear & Greed should enrich market sentiment without becoming a core quadrant input."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("cnn_fear_greed_index", pd.DataFrame([
                 {"date": datetime.now().strftime("%Y-%m-%d"), "value": 81.0},
             ]))
@@ -676,8 +676,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_06c1_analyzer_interprets_shiller_pe_as_secondary_overlay(self):
         """Shiller PE should inform valuation context without becoming a core quadrant input."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("shiller_pe", pd.DataFrame([
                 {"date": datetime.now().strftime("%Y-%m-%d"), "value": 40.46},
             ]))
@@ -692,8 +692,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_06c2_analyzer_suppresses_stale_cnn_fear_greed_readings(self):
         """Old Fear & Greed observations should not be surfaced as current market sentiment."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("cnn_fear_greed_index", pd.DataFrame([
                 {"date": "2020-01-01", "value": 90.0},
             ]))
@@ -706,8 +706,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_06c3_analyzer_suppresses_stale_shiller_pe_readings(self):
         """Old Shiller PE observations should not be surfaced as current valuation context."""
-        with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
-            storage = MacroStorage(tmp.name)
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             storage.save_observations("shiller_pe", pd.DataFrame([
                 {"date": "2020-01-01", "value": 40.0},
             ]))

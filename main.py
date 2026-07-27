@@ -4,8 +4,9 @@ Main CLI entry point for Macro Economic Analysis & Data Capture System.
 
 import sys
 import argparse
-from config import DB_PATH
-from contextlib import closing
+import pandas as pd
+import os
+from config import DATA_DIR, INDICATORS_CSV, OBSERVATIONS_CSV, SNAPSHOTS_CSV, RUN_LOGS_CSV
 from storage import MacroStorage
 from analyzer import MacroAnalyzer
 from reporter import MacroReporter
@@ -14,26 +15,20 @@ from scheduler import run_daily_job, install_cron_job, run_daemon
 
 def print_status():
     """Prints system status, indicator record counts, and last run log."""
-    storage = MacroStorage()
-    with closing(storage.get_connection()) as conn:
-        cursor = conn.cursor()
+    ind_count = len(pd.read_csv(INDICATORS_CSV)) if os.path.exists(INDICATORS_CSV) else 0
+    obs_count = len(pd.read_csv(OBSERVATIONS_CSV)) if os.path.exists(OBSERVATIONS_CSV) else 0
+    snap_count = len(pd.read_csv(SNAPSHOTS_CSV)) if os.path.exists(SNAPSHOTS_CSV) else 0
     
-        cursor.execute("SELECT COUNT(*) FROM indicators")
-        ind_count = cursor.fetchone()[0]
-    
-        cursor.execute("SELECT COUNT(*) FROM macro_observations")
-        obs_count = cursor.fetchone()[0]
-    
-        cursor.execute("SELECT COUNT(*) FROM daily_snapshots")
-        snap_count = cursor.fetchone()[0]
-    
-        cursor.execute("SELECT * FROM run_logs ORDER BY run_time DESC LIMIT 5")
-        logs = cursor.fetchall()
+    logs = []
+    if os.path.exists(RUN_LOGS_CSV):
+        df_logs = pd.read_csv(RUN_LOGS_CSV)
+        if not df_logs.empty:
+            logs = df_logs.sort_values(by='run_time', ascending=False).head(5).to_dict('records')
 
     print("\n" + "=" * 60)
     print("        MACRO ANALYSIS SYSTEM STATUS")
     print("=" * 60)
-    print(f"Database Path:         {DB_PATH}")
+    print(f"Data Directory:        {DATA_DIR}")
     print(f"Tracked Indicators:   {ind_count}")
     print(f"Total Observations:    {obs_count:,}")
     print(f"Daily Snapshots Saved: {snap_count}")

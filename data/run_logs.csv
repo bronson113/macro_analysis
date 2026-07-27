@@ -1,0 +1,11 @@
+id,run_time,status,records_updated,message
+1,2026-07-22 22:10:54,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516"
+2,2026-07-22 22:13:41,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516, News Events: 25"
+3,2026-07-22 22:16:26,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516, News Events: 0"
+4,2026-07-22 22:19:20,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516, News Events: 0"
+5,2026-07-22 22:21:06,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516, News Events: 24"
+6,2026-07-22 22:22:22,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516, News Events: 2"
+7,2026-07-22 22:24:54,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516, News Events: 0"
+8,2026-07-22 22:26:47,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516, News Events: 0"
+9,2026-07-22 22:27:33,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516, News Events: 0"
+10,2026-07-22 22:28:34,PARTIAL,2516,"Fetch complete. Success: 10, Failed: 33, Total Records: 2516, News Events: 0"

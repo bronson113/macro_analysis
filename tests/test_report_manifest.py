@@ -24,8 +24,8 @@ class TestReportManifest(unittest.TestCase):
             self.assertEqual(
                 manifest,
                 [
-                    {"date": "2026-07-23", "path": "/reports/macro_report_2026-07-23.md"},
-                    {"date": "2026-07-22", "path": "/reports/macro_report_2026-07-22.md"},
+                    {"date": "2026-07-23", "path": "reports/macro_report_2026-07-23.md"},
+                    {"date": "2026-07-22", "path": "reports/macro_report_2026-07-22.md"},
                 ],
             )
             self.assertEqual((public_dir / "reports" / "macro_report_2026-07-23.md").read_text(encoding="utf-8"), "newer")

@@ -14,7 +14,7 @@ const BigUpdate = () => {
   const dateInputRef = useRef(null);
 
   useEffect(() => {
-    fetch('/reports/index.json?t=' + new Date().getTime())
+    fetch(import.meta.env.BASE_URL + 'reports/index.json?t=' + new Date().getTime())
       .then(res => {
         if (!res.ok) throw new Error('Failed to load report history.');
         return res.json();
@@ -34,7 +34,7 @@ const BigUpdate = () => {
 
     const fetchReport = () => {
       setReportError('');
-      fetch(selectedReport.path + '?t=' + new Date().getTime())
+      fetch(import.meta.env.BASE_URL + selectedReport.path + '?t=' + new Date().getTime())
         .then(res => {
           if (!res.ok) throw new Error('Failed to load the selected report.');
           return res.text();

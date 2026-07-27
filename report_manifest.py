@@ -27,7 +27,7 @@ def build_report_manifest(output_dir: Path = OUTPUT_DIR, public_dir: Path = Path
         shutil.copy2(report_path, destination)
         reports.append({
             "date": match.group(1),
-            "path": f"/reports/{report_path.name}",
+            "path": f"reports/{report_path.name}",
         })
 
     index_path = reports_dir / "index.json"

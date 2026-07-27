@@ -1,45 +1,37 @@
-import sqlite3
 import json
 import logging
-from pathlib import Path
-from config import DASHBOARD_HISTORY_DAYS, DB_PATH, OUTPUT_DIR
+import pandas as pd
+import os
+from config import DASHBOARD_HISTORY_DAYS, SNAPSHOTS_CSV, OUTPUT_DIR
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 def extract_history():
     """Extract historical daily snapshots for dashboard timeline charts."""
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-    
+    if not os.path.exists(SNAPSHOTS_CSV):
+        logging.warning("No snapshots CSV found.")
+        return
+
     try:
+        df = pd.read_csv(SNAPSHOTS_CSV)
+        if df.empty:
+            logging.info("Snapshots CSV is empty.")
+            return
+
         # Fetch up to the last ten years of data, ordered chronologically.
-        cursor.execute("""
-            SELECT 
-                date, 
-                net_liquidity, 
-                fed_assets, 
-                tga, 
-                rrp, 
-                treasury_10y, 
-                treasury_2y, 
-                spread_10y_2y, 
-                high_yield_oas, 
-                sp500,
-                vix,
-                dxy,
-                cpi_yoy,
-                policy_rate,
-                real_yield_10y
-            FROM daily_snapshots 
-            ORDER BY date DESC
-            LIMIT ?
-        """, (DASHBOARD_HISTORY_DAYS,))
+        df_sorted = df.sort_values(by='date', ascending=False).head(DASHBOARD_HISTORY_DAYS)
         
-        rows = cursor.fetchall()
-        
+        # Keep only required columns, if they exist
+        required_cols = [
+            'date', 'net_liquidity', 'fed_assets', 'tga', 'rrp', 
+            'treasury_10y', 'treasury_2y', 'spread_10y_2y', 'high_yield_oas', 
+            'sp500', 'vix', 'dxy', 'cpi_yoy', 'policy_rate', 'real_yield_10y'
+        ]
+        available_cols = [c for c in required_cols if c in df_sorted.columns]
+        df_sorted = df_sorted[available_cols]
+
         # Reverse to have chronological order for graphs (oldest to newest)
-        history = [dict(row) for row in rows][::-1]
+        history = df_sorted.sort_values(by='date', ascending=True).to_dict('records')
         
         history_path = OUTPUT_DIR / "history.json"
         
@@ -50,8 +42,6 @@ def extract_history():
         
     except Exception as e:
         logging.error(f"Failed to extract history: {e}")
-    finally:
-        conn.close()
 
 if __name__ == "__main__":
     extract_history()

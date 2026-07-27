@@ -21,7 +21,7 @@ const TrendGraphs = () => {
 
   useEffect(() => {
     const fetchHistory = () => {
-      fetch('/history.json?t=' + new Date().getTime())
+      fetch(import.meta.env.BASE_URL + 'history.json?t=' + new Date().getTime())
         .then(res => res.json())
         .then(json => {
           setData(json);

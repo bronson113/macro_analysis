@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() => {
     const loadData = () => {
-      fetch('/data.json?t=' + new Date().getTime())
+      fetch(import.meta.env.BASE_URL + 'data.json?t=' + new Date().getTime())
         .then(res => {
           if (!res.ok) throw new Error('Failed to load data.json');
           return res.json();

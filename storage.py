@@ -1,170 +1,100 @@
 """
 Storage module for Macro Analysis Data Capture System.
-Manages SQLite database schema, data insertion, time series queries, daily snapshots, and news events.
+Manages data insertion, time series queries, daily snapshots, and news events using CSV files via pandas.
 """
 
-import sqlite3
+import os
 import pandas as pd
 from datetime import datetime
 from typing import Dict, List, Optional, Any
-from contextlib import closing
-from config import DB_PATH, FRED_SERIES, YAHOO_TICKERS, MARKET_SENTIMENT_INDICATORS
+from config import (
+    FRED_SERIES, YAHOO_TICKERS, MARKET_SENTIMENT_INDICATORS,
+    INDICATORS_CSV, OBSERVATIONS_CSV, SNAPSHOTS_CSV, NEWS_CSV, RUN_LOGS_CSV
+)
 
 
 class MacroStorage:
-    def __init__(self, db_path=DB_PATH):
-        self.db_path = str(db_path)
-        self._init_db()
+    def __init__(
+        self,
+        indicators_csv=INDICATORS_CSV,
+        observations_csv=OBSERVATIONS_CSV,
+        snapshots_csv=SNAPSHOTS_CSV,
+        news_csv=NEWS_CSV,
+        run_logs_csv=RUN_LOGS_CSV
+    ):
+        self.indicators_csv = str(indicators_csv)
+        self.observations_csv = str(observations_csv)
+        self.snapshots_csv = str(snapshots_csv)
+        self.news_csv = str(news_csv)
+        self.run_logs_csv = str(run_logs_csv)
+        
+        self._init_csvs()
 
-    def get_connection(self):
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        return conn
-
-    def _init_db(self):
-        """Initialize SQLite tables."""
-        with closing(self.get_connection()) as conn:
-            cursor = conn.cursor()
+    def _init_csvs(self):
+        """Initialize CSV files with headers if they do not exist."""
+        # Indicators
+        if not os.path.exists(self.indicators_csv):
+            pd.DataFrame(columns=['key', 'name', 'source', 'category', 'frequency', 'unit', 'last_updated']).to_csv(self.indicators_csv, index=False)
+        
+        # Observations
+        if not os.path.exists(self.observations_csv):
+            pd.DataFrame(columns=['indicator_key', 'date', 'value', 'updated_at']).to_csv(self.observations_csv, index=False)
+        
+        # Snapshots
+        if not os.path.exists(self.snapshots_csv):
+            pd.DataFrame(columns=[
+                'date', 'net_liquidity', 'fed_assets', 'tga', 'rrp', 'treasury_10y', 'treasury_2y',
+                'spread_10y_2y', 'high_yield_oas', 'vix', 'dxy', 'sp500', 'unemployment_rate',
+                'cpi_yoy', 'housing_yoy', 'breakeven_10y', 'm2_yoy', 'policy_rate', 'policy_rate_change_30d',
+                'real_yield_10y', 'cnn_fear_greed_index', 'shiller_pe', 'liquidity_regime',
+                'yield_curve_regime', 'credit_regime', 'overall_regime', 'created_at'
+            ]).to_csv(self.snapshots_csv, index=False)
             
-            # Indicators Metadata
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS indicators (
-                    key TEXT PRIMARY KEY,
-                    name TEXT NOT NULL,
-                    source TEXT NOT NULL,
-                    category TEXT,
-                    frequency TEXT,
-                    unit TEXT,
-                    last_updated TIMESTAMP
-                )
-            """)
+        # News
+        if not os.path.exists(self.news_csv):
+            pd.DataFrame(columns=['id', 'date', 'title', 'summary', 'source', 'link', 'category', 'impact_score', 'sentiment', 'created_at']).to_csv(self.news_csv, index=False)
+            
+        # Run logs
+        if not os.path.exists(self.run_logs_csv):
+            pd.DataFrame(columns=['id', 'run_time', 'status', 'records_updated', 'message']).to_csv(self.run_logs_csv, index=False)
 
-            # Raw Observations
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS macro_observations (
-                    indicator_key TEXT NOT NULL,
-                    date TEXT NOT NULL,
-                    value REAL NOT NULL,
-                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    PRIMARY KEY (indicator_key, date),
-                    FOREIGN KEY (indicator_key) REFERENCES indicators (key)
-                )
-            """)
+        self._seed_indicator_metadata()
 
-            # Daily Snapshots
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS daily_snapshots (
-                    date TEXT PRIMARY KEY,
-                    net_liquidity REAL,
-                    fed_assets REAL,
-                    tga REAL,
-                    rrp REAL,
-                    treasury_10y REAL,
-                    treasury_2y REAL,
-                    spread_10y_2y REAL,
-                    high_yield_oas REAL,
-                    vix REAL,
-                    dxy REAL,
-                    sp500 REAL,
-                    unemployment_rate REAL,
-                    cpi_yoy REAL,
-                    housing_yoy REAL,
-                    breakeven_10y REAL,
-                    m2_yoy REAL,
-                    policy_rate REAL,
-                    policy_rate_change_30d REAL,
-                    real_yield_10y REAL,
-                    cnn_fear_greed_index REAL,
-                    shiller_pe REAL,
-                    liquidity_regime TEXT,
-                    yield_curve_regime TEXT,
-                    credit_regime TEXT,
-                    overall_regime TEXT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            """)
-
-            # News & Major Events Table
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS macro_news (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    date TEXT NOT NULL,
-                    title TEXT NOT NULL,
-                    summary TEXT,
-                    source TEXT,
-                    link TEXT,
-                    category TEXT,
-                    impact_score REAL,
-                    sentiment TEXT,
-                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                )
-            """)
-
-            # Run Audit Logs
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS run_logs (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    run_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    status TEXT,
-                    records_updated INTEGER,
-                    message TEXT
-                )
-            """)
-
-            conn.commit()
-            self._ensure_daily_snapshot_columns(conn)
-            self._seed_indicator_metadata(conn)
-
-    def _ensure_daily_snapshot_columns(self, conn):
-        """Add newer snapshot columns when opening an older local database."""
-        cursor = conn.cursor()
-        cursor.execute("PRAGMA table_info(daily_snapshots)")
-        existing = {row[1] for row in cursor.fetchall()}
-        for column_name, column_type in {
-            "housing_yoy": "REAL",
-            "breakeven_10y": "REAL",
-            "m2_yoy": "REAL",
-            "policy_rate": "REAL",
-            "policy_rate_change_30d": "REAL",
-            "real_yield_10y": "REAL",
-            "cnn_fear_greed_index": "REAL",
-            "shiller_pe": "REAL",
-        }.items():
-            if column_name not in existing:
-                cursor.execute(f"ALTER TABLE daily_snapshots ADD COLUMN {column_name} {column_type}")
-        conn.commit()
-
-    def _seed_indicator_metadata(self, conn):
+    def _seed_indicator_metadata(self):
         """Seed metadata for known FRED series and Yahoo tickers."""
-        cursor = conn.cursor()
         now = datetime.now().isoformat()
         
+        records = []
         for key, info in FRED_SERIES.items():
-            cursor.execute("""
-                INSERT OR REPLACE INTO indicators (key, name, source, category, frequency, last_updated)
-                VALUES (?, ?, 'FRED', ?, ?, ?)
-            """, (key, info['name'], self._categorize_key(key), info.get('frequency', 'daily'), now))
+            records.append({
+                'key': key, 'name': info['name'], 'source': 'FRED',
+                'category': self._categorize_key(key), 'frequency': info.get('frequency', 'daily'),
+                'last_updated': now
+            })
             
         for key, ticker in YAHOO_TICKERS.items():
-            cursor.execute("""
-                INSERT OR REPLACE INTO indicators (key, name, source, category, frequency, last_updated)
-                VALUES (?, ?, 'YAHOO', 'Market Prices', 'daily', ?)
-            """, (key, f"{key.upper()} ({ticker})", now))
+            records.append({
+                'key': key, 'name': f"{key.upper()} ({ticker})", 'source': 'YAHOO',
+                'category': 'Market Prices', 'frequency': 'daily',
+                'last_updated': now
+            })
 
         for key, info in MARKET_SENTIMENT_INDICATORS.items():
-            cursor.execute("""
-                INSERT OR REPLACE INTO indicators (key, name, source, category, frequency, last_updated)
-                VALUES (?, ?, ?, ?, ?, ?)
-            """, (
-                key,
-                info["name"],
-                info["source"],
-                info.get("category", "Market Sentiment"),
-                info.get("frequency", "daily"),
-                now,
-            ))
+            records.append({
+                'key': key, 'name': info['name'], 'source': info['source'],
+                'category': info.get('category', 'Market Sentiment'), 'frequency': info.get('frequency', 'daily'),
+                'last_updated': now
+            })
             
-        conn.commit()
+        df_new = pd.DataFrame(records)
+        if os.path.exists(self.indicators_csv):
+            df_existing = pd.read_csv(self.indicators_csv)
+            # combine and drop duplicates keeping the newer ones
+            df_combined = pd.concat([df_existing, df_new]).drop_duplicates(subset=['key'], keep='last')
+        else:
+            df_combined = df_new
+            
+        df_combined.to_csv(self.indicators_csv, index=False)
 
     def _categorize_key(self, key: str) -> str:
         if any(k in key for k in ['fed', 'repo', 'tga', 'm2', 'deposits', 'effr', 'dff']):
@@ -189,117 +119,105 @@ class MacroStorage:
         df_to_save = df_obs.copy()
         df_to_save['indicator_key'] = indicator_key
         df_to_save['updated_at'] = datetime.now().isoformat()
+        df_to_save = df_to_save[['indicator_key', 'date', 'value', 'updated_at']]
 
-        records = df_to_save[['indicator_key', 'date', 'value', 'updated_at']].to_dict('records')
+        df_existing = pd.read_csv(self.observations_csv)
+        df_combined = pd.concat([df_existing, df_to_save])
+        df_combined = df_combined.drop_duplicates(subset=['indicator_key', 'date'], keep='last')
+        df_combined.to_csv(self.observations_csv, index=False)
         
-        with closing(self.get_connection()) as conn:
-            cursor = conn.cursor()
-            cursor.executemany("""
-                INSERT OR REPLACE INTO macro_observations (indicator_key, date, value, updated_at)
-                VALUES (:indicator_key, :date, :value, :updated_at)
-            """, records)
-            
-            cursor.execute("""
-                UPDATE indicators SET last_updated = ? WHERE key = ?
-            """, (datetime.now().isoformat(), indicator_key))
-            
-            conn.commit()
-            return len(records)
+        # update indicators last_updated
+        df_ind = pd.read_csv(self.indicators_csv)
+        df_ind.loc[df_ind['key'] == indicator_key, 'last_updated'] = datetime.now().isoformat()
+        df_ind.to_csv(self.indicators_csv, index=False)
+        
+        return len(df_to_save)
 
     def save_news_events(self, news_items: List[Dict[str, Any]]) -> int:
         """Save a list of news event dictionaries into macro_news table."""
         if not news_items:
             return 0
+            
+        df_existing = pd.read_csv(self.news_csv)
+        max_id = df_existing['id'].max() if not df_existing.empty and pd.notna(df_existing['id'].max()) else 0
 
-        count = 0
-        with closing(self.get_connection()) as conn:
-            cursor = conn.cursor()
-            for item in news_items:
-                # Deduplicate by title & date
-                cursor.execute("""
-                    SELECT id FROM macro_news WHERE title = ? AND date = ?
-                """, (item["title"], item["date"]))
-                if not cursor.fetchone():
-                    cursor.execute("""
-                        INSERT INTO macro_news (date, title, summary, source, link, category, impact_score, sentiment)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                    """, (
-                        item.get("date", datetime.now().strftime("%Y-%m-%d")),
-                        item["title"],
-                        item.get("summary", ""),
-                        item.get("source", "News"),
-                        item.get("link", ""),
-                        item.get("category", "General Macro"),
-                        item.get("impact_score", 0.0),
-                        item.get("sentiment", "Neutral")
-                    ))
-                    count += 1
-            conn.commit()
-        return count
+        new_rows = []
+        for item in news_items:
+            new_rows.append({
+                'date': item.get("date", datetime.now().strftime("%Y-%m-%d")),
+                'title': item["title"],
+                'summary': item.get("summary", ""),
+                'source': item.get("source", "News"),
+                'link': item.get("link", ""),
+                'category': item.get("category", "General Macro"),
+                'impact_score': item.get("impact_score", 0.0),
+                'sentiment': item.get("sentiment", "Neutral"),
+                'created_at': datetime.now().isoformat()
+            })
+            
+        df_new = pd.DataFrame(new_rows)
+        # Deduplicate
+        df_combined = pd.concat([df_existing, df_new]).drop_duplicates(subset=['title', 'date'], keep='first')
+        
+        # add ids to new ones if missing
+        mask = df_combined['id'].isna()
+        if mask.any():
+            num_missing = mask.sum()
+            df_combined.loc[mask, 'id'] = range(int(max_id) + 1, int(max_id) + 1 + num_missing)
+            
+        df_combined.to_csv(self.news_csv, index=False)
+        return len(df_new) - (len(df_existing) + len(df_new) - len(df_combined))
 
     def get_recent_news(self, limit: int = 15) -> List[Dict[str, Any]]:
-        with closing(self.get_connection()) as conn:
-            cursor = conn.cursor()
-            cursor.execute("""
-                SELECT * FROM macro_news ORDER BY date DESC, id DESC LIMIT ?
-            """, (limit,))
-            rows = cursor.fetchall()
-            return [dict(r) for r in rows]
+        df = pd.read_csv(self.news_csv)
+        if df.empty:
+            return []
+        df = df.sort_values(by=['date', 'id'], ascending=[False, False]).head(limit)
+        return df.to_dict('records')
 
     def get_latest_observation(self, indicator_key: str) -> Optional[Dict[str, Any]]:
-        with closing(self.get_connection()) as conn:
-            cursor = conn.cursor()
-            cursor.execute("""
-                SELECT date, value, updated_at 
-                FROM macro_observations 
-                WHERE indicator_key = ? 
-                ORDER BY date DESC LIMIT 1
-            """, (indicator_key,))
-            row = cursor.fetchone()
-            if row:
-                return dict(row)
+        df = pd.read_csv(self.observations_csv)
+        df_filtered = df[df['indicator_key'] == indicator_key]
+        if df_filtered.empty:
             return None
+        df_sorted = df_filtered.sort_values(by='date', ascending=False)
+        return df_sorted.iloc[0].to_dict()
 
     def get_indicator_series(self, indicator_key: str, limit: int = 365) -> pd.DataFrame:
-        with closing(self.get_connection()) as conn:
-            query = """
-                SELECT date, value 
-                FROM macro_observations 
-                WHERE indicator_key = ? 
-                ORDER BY date DESC LIMIT ?
-            """
-            df = pd.read_sql_query(query, conn, params=(indicator_key, limit))
-            if not df.empty:
-                df['date'] = pd.to_datetime(df['date'])
-                df = df.sort_values('date').reset_index(drop=True)
-            return df
+        df = pd.read_csv(self.observations_csv)
+        df_filtered = df[df['indicator_key'] == indicator_key]
+        if df_filtered.empty:
+            return pd.DataFrame(columns=['date', 'value'])
+        df_sorted = df_filtered.sort_values(by='date', ascending=False).head(limit)
+        df_sorted['date'] = pd.to_datetime(df_sorted['date'])
+        return df_sorted.sort_values('date').reset_index(drop=True)[['date', 'value']]
 
     def save_daily_snapshot(self, snapshot_data: Dict[str, Any]):
-        with closing(self.get_connection()) as conn:
-            cursor = conn.cursor()
-            columns = list(snapshot_data.keys())
-            placeholders = ", ".join([":" + col for col in columns])
-            col_names = ", ".join(columns)
+        df_existing = pd.read_csv(self.snapshots_csv)
+        df_new = pd.DataFrame([snapshot_data])
+        if 'created_at' not in df_new.columns:
+            df_new['created_at'] = datetime.now().isoformat()
             
-            query = f"""
-                INSERT OR REPLACE INTO daily_snapshots ({col_names})
-                VALUES ({placeholders})
-            """
-            cursor.execute(query, snapshot_data)
-            conn.commit()
+        df_combined = pd.concat([df_existing, df_new])
+        df_combined = df_combined.drop_duplicates(subset=['date'], keep='last')
+        df_combined.to_csv(self.snapshots_csv, index=False)
 
     def get_recent_snapshots(self, limit: int = 30) -> pd.DataFrame:
-        with closing(self.get_connection()) as conn:
-            df = pd.read_sql_query("""
-                SELECT * FROM daily_snapshots ORDER BY date DESC LIMIT ?
-            """, conn, params=(limit,))
+        df = pd.read_csv(self.snapshots_csv)
+        if df.empty:
             return df
+        return df.sort_values(by='date', ascending=False).head(limit).reset_index(drop=True)
 
     def log_run(self, status: str, records_updated: int, message: str):
-        with closing(self.get_connection()) as conn:
-            cursor = conn.cursor()
-            cursor.execute("""
-                INSERT INTO run_logs (status, records_updated, message)
-                VALUES (?, ?, ?)
-            """, (status, records_updated, message))
-            conn.commit()
+        df_existing = pd.read_csv(self.run_logs_csv)
+        max_id = df_existing['id'].max() if not df_existing.empty and pd.notna(df_existing['id'].max()) else 0
+        new_row = {
+            'id': int(max_id) + 1,
+            'run_time': datetime.now().isoformat(),
+            'status': status,
+            'records_updated': records_updated,
+            'message': message
+        }
+        df_new = pd.DataFrame([new_row])
+        df_combined = pd.concat([df_existing, df_new])
+        df_combined.to_csv(self.run_logs_csv, index=False)

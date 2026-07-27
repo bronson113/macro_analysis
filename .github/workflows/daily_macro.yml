@@ -1,16 +1,25 @@
-name: Daily Macro Analysis
+name: Daily Macro Analysis & Deploy
 
 on:
   schedule:
-    # 9:00 AM UTC translates to 5:00 AM EDT (or 4:00 AM EST)
     - cron: '0 9 * * *'
-  workflow_dispatch: # Allows manual triggering from the GitHub UI
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  run-macro-analysis:
+  run-macro-analysis-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # Needed to push data and reports back to the repo
 
     steps:
       - name: Checkout repository
@@ -22,14 +31,42 @@ jobs:
           python-version: '3.10'
           cache: 'pip'
 
-      - name: Install dependencies
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Python dependencies
         run: pip install -r requirements.txt
 
       - name: Run macro analysis pipeline
         run: python main.py run
 
+      - name: Update Web Data
+        run: bash update_web_data.sh
+
       - name: Commit and push state changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Automated daily macro data update and report"
-          file_pattern: "data/macro_data.db output/*.md"
+          file_pattern: "data/*.csv output/*.md output/*.json web/public/*"
+
+      - name: Install Node dependencies
+        working-directory: ./web
+        run: npm install
+
+      - name: Build static site
+        working-directory: ./web
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './web/dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
