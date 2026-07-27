@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated_at": "2026-07-26T23:40:40.390204",
-    "date": "2026-07-26",
+    "generated_at": "2026-07-27T06:53:23.148931",
+    "date": "2026-07-27",
     "engine_version": "2.0-GeminiRawPayload"
   },
   "macro_quantitative": {
@@ -9,55 +9,55 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-22",
       "value": 6747378.0,
-      "updated_at": "2026-07-26T23:39:54.616767"
+      "updated_at": "2026-07-27T06:52:30.372431"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-22",
       "value": 835417.0,
-      "updated_at": "2026-07-26T23:39:54.735094"
+      "updated_at": "2026-07-27T06:52:30.612987"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-24",
       "value": 0.675,
-      "updated_at": "2026-07-26T23:39:54.676143"
+      "updated_at": "2026-07-27T06:52:30.494480"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
       "date": "2026-07-23",
       "value": 4.71,
-      "updated_at": "2026-07-26T23:39:55.036615"
+      "updated_at": "2026-07-27T06:52:31.218981"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
       "date": "2026-07-23",
       "value": 4.37,
-      "updated_at": "2026-07-26T23:39:55.097270"
+      "updated_at": "2026-07-27T06:52:31.344113"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
       "date": "2026-07-24",
       "value": 0.36,
-      "updated_at": "2026-07-26T23:39:55.284843"
+      "updated_at": "2026-07-27T06:52:31.717492"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
       "date": "2026-07-23",
       "value": 2.77,
-      "updated_at": "2026-07-26T23:39:55.406599"
+      "updated_at": "2026-07-27T06:52:31.954718"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
       "date": "2026-07-23",
       "value": 0.43,
-      "updated_at": "2026-07-26T23:39:55.464435"
+      "updated_at": "2026-07-27T06:52:32.069352"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
       "date": "2026-07-17",
       "value": -0.55,
-      "updated_at": "2026-07-26T23:39:55.577008"
+      "updated_at": "2026-07-27T06:52:32.300193"
     },
     "vix": {
       "indicator_key": "vix",
@@ -68,8 +68,8 @@
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-07-27",
-      "value": 101.15299987792967,
-      "updated_at": "2026-07-26T23:39:56.970324"
+      "value": 101.13300323486328,
+      "updated_at": "2026-07-27T06:52:35.215085"
     },
     "sp500": {
       "indicator_key": "sp500",
@@ -80,53 +80,113 @@
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-07-27",
-      "value": 83.83999633789062,
-      "updated_at": "2026-07-26T23:39:56.861677"
+      "value": 83.94000244140625,
+      "updated_at": "2026-07-27T06:52:34.822820"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-07-27",
-      "value": 4097.7001953125,
-      "updated_at": "2026-07-26T23:39:57.079959"
+      "value": 4099.10009765625,
+      "updated_at": "2026-07-27T06:52:35.333571"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-27",
-      "value": 6.363999843597412,
-      "updated_at": "2026-07-26T23:39:57.147290"
+      "value": 6.368500232696533,
+      "updated_at": "2026-07-27T06:52:35.462129"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
       "date": "2026-06-01",
       "value": 4.2,
-      "updated_at": "2026-07-26T23:39:55.691206"
+      "updated_at": "2026-07-27T06:52:32.526342"
     },
     "cpi": {
       "indicator_key": "cpi",
       "date": "2026-06-01",
       "value": 332.568,
-      "updated_at": "2026-07-26T23:39:55.980938"
+      "updated_at": "2026-07-27T06:52:33.101415"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
       "date": "2026-07-24",
       "value": 2.24,
-      "updated_at": "2026-07-26T23:39:56.219734"
+      "updated_at": "2026-07-27T06:52:33.560602"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
       "date": "2026-07-24",
       "value": 39.4285714285714,
-      "updated_at": "2026-07-26T23:39:57.416787"
+      "updated_at": "2026-07-27T06:52:36.170601"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
-      "date": "2026-07-26",
+      "date": "2026-07-27",
       "value": 40.46,
-      "updated_at": "2026-07-26T23:39:57.548607"
+      "updated_at": "2026-07-27T06:52:36.496348"
     }
   },
   "recent_news_events": [
+    {
+      "id": 275.0,
+      "date": "2026-07-27",
+      "title": "[AAPL - Apple] S&P 500 On Track To Post Best Net Profit Margin Since 2009: Market Strategist Says Big Tech Is Driving An \u2018Unprecedented Boom\u2019",
+      "summary": "As per The Kobeissi Letter, the S&P 500's net profit margin is on track to surge to 15.7% for Q2 2026, the highest since 2009.",
+      "source": "Yahoo Finance (AAPL)",
+      "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-on-track-to-post-best-net-profit-margin-since-2009-market-strategist-says-big-tech-is-driving-an-unprecedented-boom/cZZxdNHR7Ce",
+      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
+      "impact_score": -0.4,
+      "sentiment": "Hawkish / Tightening Bias | Low Risk",
+      "created_at": "2026-07-27T06:52:39.483785"
+    },
+    {
+      "id": 274.0,
+      "date": "2026-07-27",
+      "title": "[NVDA - NVIDIA] Is Intel Stock a Buy as AI Revenue Surges Nearly 60%?",
+      "summary": "Intel has joined the AI infrastructure party, but that doesn't make its stock a buy.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/07/27/is-intel-stock-a-buy-as-ai-reveneu-surges-nearly-6/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "impact_score": -0.4,
+      "sentiment": "Hawkish / Tightening Bias | Low Risk",
+      "created_at": "2026-07-27T06:52:39.483777"
+    },
+    {
+      "id": 273.0,
+      "date": "2026-07-27",
+      "title": "[NVDA - NVIDIA] NVDA Stock Rises Overnight: Chip Giant\u2019s Deals With South Korea\u2019s SK Hynix, Naver Revive \u2018Breakout\u2019 View",
+      "summary": "Nvidia is investing $1 billion in Naver, which is referred to as South Korea\u2019s Google.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://stocktwits.com/news-articles/markets/equity/nvda-stock-rises-overnight-deals-with-south-korea-sk-hynix-naver-revive-breakout-view/cZZx3jGR7CB",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-27T06:52:39.483773"
+    },
+    {
+      "id": 272.0,
+      "date": "2026-07-27",
+      "title": "[NVDA - NVIDIA] Should Nebius and CoreWeave Investors Be Worried About Meta's Latest AI Infrastructure Plans?",
+      "summary": "Is Meta a customer or a competitor? Or is it both?",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/07/27/should-nebius-and-coreweave-investors-be-worried-a/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-27T06:52:39.483769"
+    },
+    {
+      "id": 271.0,
+      "date": "2026-07-27",
+      "title": "Institution: Geopolitical risks have spread from the Strait of Hormuz to the Bab al-Mandeb, and the oil price correction is temporary. - Moomoo",
+      "summary": "Institution: Geopolitical risks have spread from the Strait of Hormuz to the Bab al-Mandeb, and the oil price correction is temporary.&nbsp;&nbsp;Moomoo",
+      "source": "Moomoo",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQcWktWVFfQjdydmdmQkRGVkQzZ1J1WEs5VmV4V28zaDkxYWp6bnF2TG1Cd21Rb0t2WjN4TEV6OWlYYlpQMVBrT3FlQUZmN2pkLWhwX1lFczc5UjhXYVF4QUJaLUFUanljdU15ZjVXb21yaDZ0U05scnlZNzM5RzFPRWEyNVZMTU9jZ1ZGTlA5REltQXRrdzdkRXZYMlRISTNHeHd5QkRRMTRHVDExd19v?oc=5",
+      "category": "Geopolitics & Oil",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed",
+      "created_at": "2026-07-27T06:52:39.483739"
+    },
     {
       "id": 263.0,
       "date": "2026-07-27",
@@ -366,66 +426,6 @@
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
       "created_at": "2026-07-27T05:47:57.228170"
-    },
-    {
-      "id": 243.0,
-      "date": "2026-07-27",
-      "title": "[NVDA - NVIDIA] Warren Buffett's Favorite Stock Market Indicator Is Sounding the Alarm. History Suggests Investors Are \"Playing With Fire.\"",
-      "summary": "Investors may want to be careful.",
-      "source": "Yahoo Finance (NVDA)",
-      "link": "https://www.fool.com/investing/2026/07/27/warren-buffetts-favorite-stock-market-indicator-is/",
-      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-27T05:47:57.228166"
-    },
-    {
-      "id": 242.0,
-      "date": "2026-07-27",
-      "title": "[MU - Micron Technology] Chinese chipmaker CXMT soars 500% on debut as AI fuels shortages",
-      "summary": "China's leading memory chipmaker CXMT became the most valuable company in the mainland after soaring more than 500 percent on its market debut Monday, underscoring how AI demand is boosting the semico",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://finance.yahoo.com/technology/articles/chinese-chipmaker-cxmt-soars-more-033846433.html",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-27T05:47:57.228162"
-    },
-    {
-      "id": 241.0,
-      "date": "2026-07-27",
-      "title": "[MU - Micron Technology] China memory chipmaker CXMT's shares soar in a blockbuster share listing in Shanghai",
-      "summary": "Shares of CXMT, China's largest memory chipmaker, soared Monday after they began trading in Shanghai in mainland China\u2019s biggest initial public stock offering in recent years.  CXMT's shares surged 47",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://finance.yahoo.com/technology/articles/china-memory-chipmaker-cxmt-shares-043327941.html",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "impact_score": -0.4,
-      "sentiment": "Hawkish / Tightening Bias | Low Risk",
-      "created_at": "2026-07-27T05:47:57.228157"
-    },
-    {
-      "id": 240.0,
-      "date": "2026-07-27",
-      "title": "[MU - Micron Technology] 'The AI trade is still on': Wall Street sees Big Tech's spending as positive for semiconductor stocks",
-      "summary": "Alphabet's increased capex forecast for 2026 this week was the latest tailwind for AI infrastructure stocks.",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://finance.yahoo.com/markets/article/the-ai-trade-is-still-on-wall-street-sees-big-techs-spending-as-positive-for-semiconductor-stocks-121056519.html",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-27T05:47:57.228153"
-    },
-    {
-      "id": 239.0,
-      "date": "2026-07-27",
-      "title": "DR Congo: Oil Company Operations Pose Grave Pollution Threat - Human Rights Watch",
-      "summary": "DR Congo: Oil Company Operations Pose Grave Pollution Threat&nbsp;&nbsp;Human Rights Watch",
-      "source": "Human Rights Watch",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOMkdlZHN4bXhLZGRmQ0xtMU1ISHB0UHdjU042b0UwNVdkdVF1U052X0kwWlFpdC1SMUkyeXhHSEIxVlVUVXpmUjE5WDNuTTl1N0NCUzlMSE55SEJDbUZxOFRRemRVWVQycmFHNy0tdHkwam1DU21FWm10SFNNVngtVG1zMVN6eHNvWHk1RzRyVWthaTFRUEZFT2RSNA?oc=5",
-      "category": "Geopolitics & Oil",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed",
-      "created_at": "2026-07-27T05:47:57.228148"
     }
   ],
   "individual_stock_constituents": [
@@ -639,7 +639,7 @@
       "group": "Financials & Banking",
       "price": 101.97,
       "trailing_pe": 18.57,
-      "forward_pe": 13.08,
+      "forward_pe": 13.04,
       "ev_ebitda": null,
       "price_to_book": 4.17,
       "dist_from_52w_high_pct": -5.14,
