@@ -32,6 +32,14 @@ class MacroStorage:
         
         self._init_csvs()
 
+    def _safe_concat(self, dfs: List[pd.DataFrame]) -> pd.DataFrame:
+        non_empty = [df for df in dfs if df is not None and not df.empty and not df.dropna(how='all').empty]
+        if not non_empty:
+            return pd.DataFrame()
+        if len(non_empty) == 1:
+            return non_empty[0].copy()
+        return pd.concat(non_empty)
+
     def _init_csvs(self):
         """Initialize CSV files with headers if they do not exist."""
         # Indicators
@@ -92,7 +100,7 @@ class MacroStorage:
         if os.path.exists(self.indicators_csv):
             df_existing = pd.read_csv(self.indicators_csv)
             # combine and drop duplicates keeping the newer ones
-            df_combined = pd.concat([df_existing, df_new]).drop_duplicates(subset=['key'], keep='last')
+            df_combined = self._safe_concat([df_existing, df_new]).drop_duplicates(subset=['key'], keep='last')
         else:
             df_combined = df_new
             
@@ -125,7 +133,7 @@ class MacroStorage:
             df_to_save = df_to_save[['indicator_key', 'date', 'value', 'updated_at']]
 
             df_existing = pd.read_csv(self.observations_csv)
-            df_combined = pd.concat([df_existing, df_to_save])
+            df_combined = self._safe_concat([df_existing, df_to_save])
             df_combined = df_combined.drop_duplicates(subset=['indicator_key', 'date'], keep='last')
             df_combined.to_csv(self.observations_csv, index=False)
             
@@ -160,7 +168,7 @@ class MacroStorage:
             
         df_new = pd.DataFrame(new_rows)
         # Deduplicate
-        df_combined = pd.concat([df_existing, df_new]).drop_duplicates(subset=['title', 'date'], keep='first')
+        df_combined = self._safe_concat([df_existing, df_new]).drop_duplicates(subset=['title', 'date'], keep='first')
         
         # add ids to new ones if missing
         mask = df_combined['id'].isna()
@@ -203,7 +211,7 @@ class MacroStorage:
         if 'created_at' not in df_new.columns:
             df_new['created_at'] = datetime.now().isoformat()
             
-        df_combined = pd.concat([df_existing, df_new])
+        df_combined = self._safe_concat([df_existing, df_new])
         df_combined = df_combined.drop_duplicates(subset=['date'], keep='last')
         df_combined.to_csv(self.snapshots_csv, index=False)
 
@@ -224,5 +232,5 @@ class MacroStorage:
             'message': message
         }
         df_new = pd.DataFrame([new_row])
-        df_combined = pd.concat([df_existing, df_new])
+        df_combined = self._safe_concat([df_existing, df_new])
         df_combined.to_csv(self.run_logs_csv, index=False)

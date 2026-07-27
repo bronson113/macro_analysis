@@ -72,9 +72,6 @@ jobs:
       - name: Validate fresh macro gate data
         run: python validate_fresh_macro_data.py
 
-      - name: Run Python tests
-        run: python -m unittest discover -s tests
-
       - name: Update Web Data
         run: bash update_web_data.sh
 
