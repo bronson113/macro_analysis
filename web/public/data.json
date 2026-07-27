@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated_at": "2026-07-26T22:42:41.600555",
-    "date": "2026-07-26",
+    "generated_at": "2026-07-27T06:48:37.034609",
+    "date": "2026-07-27",
     "engine_version": "2.0-GeminiRawPayload"
   },
   "macro_quantitative": {
@@ -9,112 +9,187 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-22",
       "value": 6747378.0,
-      "updated_at": "2026-07-26T22:41:34.292730"
+      "updated_at": "2026-07-27T06:47:35.299278"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-22",
       "value": 835417.0,
-      "updated_at": "2026-07-26T22:41:34.690212"
+      "updated_at": "2026-07-27T06:47:35.548186"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-24",
       "value": 0.675,
-      "updated_at": "2026-07-26T22:41:34.467543"
+      "updated_at": "2026-07-27T06:47:35.426848"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
-      "date": "2019-07-08",
-      "value": 2.05,
-      "updated_at": "2026-07-26T22:41:36.572111"
+      "date": "2026-07-23",
+      "value": 4.71,
+      "updated_at": "2026-07-27T06:47:36.165757"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
-      "date": "2016-07-27",
-      "value": 0.73,
-      "updated_at": "2026-07-24T23:46:21.090783"
+      "date": "2026-07-23",
+      "value": 4.37,
+      "updated_at": "2026-07-27T06:47:36.293660"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
-      "date": "2016-07-27",
-      "value": 0.79,
-      "updated_at": "2026-07-24T23:46:26.227767"
+      "date": "2026-07-24",
+      "value": 0.36,
+      "updated_at": "2026-07-27T06:47:36.668234"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
-      "date": "2023-07-24",
-      "value": 3.82,
-      "updated_at": "2026-07-23T22:11:55.826348"
+      "date": "2026-07-23",
+      "value": 2.77,
+      "updated_at": "2026-07-27T06:47:36.910924"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
-      "date": "2023-07-24",
-      "value": 0.51,
-      "updated_at": "2026-07-23T22:11:56.356153"
+      "date": "2026-07-23",
+      "value": 0.43,
+      "updated_at": "2026-07-27T06:47:37.028114"
     },
-    "chicago_fed_nfci": null,
+    "chicago_fed_nfci": {
+      "indicator_key": "chicago_fed_nfci",
+      "date": "2026-07-17",
+      "value": -0.55,
+      "updated_at": "2026-07-27T06:47:37.262536"
+    },
     "vix": {
       "indicator_key": "vix",
       "date": "2026-07-24",
-      "value": 17.579999923706055,
-      "updated_at": "2026-07-24T09:30:32.383016"
+      "value": 18.57999992370605,
+      "updated_at": "2026-07-27T06:47:39.981163"
     },
     "dxy": {
       "indicator_key": "dxy",
-      "date": "2026-07-24",
-      "value": 101.33599853515624,
-      "updated_at": "2026-07-24T09:30:32.389317"
+      "date": "2026-07-27",
+      "value": 101.1500015258789,
+      "updated_at": "2026-07-27T06:47:39.713276"
     },
     "sp500": {
       "indicator_key": "sp500",
       "date": "2026-07-24",
-      "value": 7452.1201171875,
-      "updated_at": "2026-07-24T09:30:32.404047"
+      "value": 7411.97998046875,
+      "updated_at": "2026-07-27T06:47:39.844577"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
-      "date": "2026-07-24",
-      "value": 88.47000122070312,
-      "updated_at": "2026-07-24T09:30:32.373196"
+      "date": "2026-07-27",
+      "value": 83.76000213623047,
+      "updated_at": "2026-07-27T06:47:39.557387"
     },
     "gold": {
       "indicator_key": "gold",
-      "date": "2026-07-24",
-      "value": 4076.300048828125,
-      "updated_at": "2026-07-24T09:30:32.455099"
+      "date": "2026-07-27",
+      "value": 4099.5,
+      "updated_at": "2026-07-27T06:47:40.098548"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-27",
-      "value": 6.3460001945495605,
-      "updated_at": "2026-07-26T22:41:53.698354"
+      "value": 6.365499973297119,
+      "updated_at": "2026-07-27T06:47:40.232986"
     },
-    "unemployment_rate": null,
-    "cpi": null,
+    "unemployment_rate": {
+      "indicator_key": "unemployment_rate",
+      "date": "2026-06-01",
+      "value": 4.2,
+      "updated_at": "2026-07-27T06:47:37.507571"
+    },
+    "cpi": {
+      "indicator_key": "cpi",
+      "date": "2026-06-01",
+      "value": 332.568,
+      "updated_at": "2026-07-27T06:47:38.093063"
+    },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
-      "date": "2016-07-27",
-      "value": 1.31,
-      "updated_at": "2026-07-24T23:46:34.602119"
+      "date": "2026-07-24",
+      "value": 2.24,
+      "updated_at": "2026-07-27T06:47:38.566971"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
       "date": "2026-07-24",
       "value": 39.4285714285714,
-      "updated_at": "2026-07-26T22:41:53.904271"
+      "updated_at": "2026-07-27T06:47:41.314606"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
-      "date": "2026-07-26",
+      "date": "2026-07-27",
       "value": 40.46,
-      "updated_at": "2026-07-26T22:41:54.120473"
+      "updated_at": "2026-07-27T06:47:41.649364"
     }
   },
   "recent_news_events": [
     {
-      "id": 219.0,
-      "date": "2026-07-26",
+      "id": 268.0,
+      "date": "2026-07-27",
+      "title": "[AAPL - Apple] S&P 500 On Track To Post Best Net Profit Margin Since 2009: Market Strategist Says Big Tech Is Driving An \u2018Unprecedented Boom\u2019",
+      "summary": "As per The Kobeissi Letter, the S&P 500's net profit margin is on track to surge to 15.7% for Q2 2026, the highest since 2009.",
+      "source": "Yahoo Finance (AAPL)",
+      "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-on-track-to-post-best-net-profit-margin-since-2009-market-strategist-says-big-tech-is-driving-an-unprecedented-boom/cZZxdNHR7Ce",
+      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
+      "impact_score": -0.4,
+      "sentiment": "Hawkish / Tightening Bias | Low Risk",
+      "created_at": "2026-07-27T06:47:45.301390"
+    },
+    {
+      "id": 267.0,
+      "date": "2026-07-27",
+      "title": "[NVDA - NVIDIA] Is Intel Stock a Buy as AI Revenue Surges Nearly 60%?",
+      "summary": "Intel has joined the AI infrastructure party, but that doesn't make its stock a buy.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/07/27/is-intel-stock-a-buy-as-ai-reveneu-surges-nearly-6/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "impact_score": -0.4,
+      "sentiment": "Hawkish / Tightening Bias | Low Risk",
+      "created_at": "2026-07-27T06:47:45.301381"
+    },
+    {
+      "id": 266.0,
+      "date": "2026-07-27",
+      "title": "[NVDA - NVIDIA] NVDA Stock Rises Overnight: Chip Giant\u2019s Deals With South Korea\u2019s SK Hynix, Naver Revive \u2018Breakout\u2019 View",
+      "summary": "Nvidia is investing $1 billion in Naver, which is referred to as South Korea\u2019s Google.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://stocktwits.com/news-articles/markets/equity/nvda-stock-rises-overnight-deals-with-south-korea-sk-hynix-naver-revive-breakout-view/cZZx3jGR7CB",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-27T06:47:45.301376"
+    },
+    {
+      "id": 265.0,
+      "date": "2026-07-27",
+      "title": "[NVDA - NVIDIA] Should Nebius and CoreWeave Investors Be Worried About Meta's Latest AI Infrastructure Plans?",
+      "summary": "Is Meta a customer or a competitor? Or is it both?",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/07/27/should-nebius-and-coreweave-investors-be-worried-a/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-27T06:47:45.301372"
+    },
+    {
+      "id": 264.0,
+      "date": "2026-07-27",
+      "title": "Institution: Geopolitical risks have spread from the Strait of Hormuz to the Bab al-Mandeb, and the oil price correction is temporary. - Moomoo",
+      "summary": "Institution: Geopolitical risks have spread from the Strait of Hormuz to the Bab al-Mandeb, and the oil price correction is temporary.&nbsp;&nbsp;Moomoo",
+      "source": "Moomoo",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQcWktWVFfQjdydmdmQkRGVkQzZ1J1WEs5VmV4V28zaDkxYWp6bnF2TG1Cd21Rb0t2WjN4TEV6OWlYYlpQMVBrT3FlQUZmN2pkLWhwX1lFczc5UjhXYVF4QUJaLUFUanljdU15ZjVXb21yaDZ0U05scnlZNzM5RzFPRWEyNVZMTU9jZ1ZGTlA5REltQXRrdzdkRXZYMlRISTNHeHd5QkRRMTRHVDExd19v?oc=5",
+      "category": "Geopolitics & Oil",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed",
+      "created_at": "2026-07-27T06:47:45.301338"
+    },
+    {
+      "id": 263.0,
+      "date": "2026-07-27",
       "title": "[UNH - UnitedHealth Group] The Real Price of UnitedHealth Stock Is Two Years Away",
       "summary": "The healthcare giant looks expensive on today's numbers, but a patient investor is effectively buying it at a significant discount to that price.",
       "source": "Yahoo Finance (UNH)",
@@ -122,11 +197,11 @@
       "category": "Sector Bellwether: UNH (Healthcare / Managed Care)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119253"
+      "created_at": "2026-07-27T05:47:57.228251"
     },
     {
-      "id": 218.0,
-      "date": "2026-07-26",
+      "id": 262.0,
+      "date": "2026-07-27",
       "title": "[UNH - UnitedHealth Group] This Industrial Stock Is Up 533% in 2 Years. I Predict It Will Join the Dow if Caterpillar Issues a Stock Split.",
       "summary": "Artificial intelligence (AI) infrastructure spending is vaulting GE Vernova to new heights.",
       "source": "Yahoo Finance (UNH)",
@@ -134,11 +209,11 @@
       "category": "Sector Bellwether: UNH (Healthcare / Managed Care)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119246"
+      "created_at": "2026-07-27T05:47:57.228247"
     },
     {
-      "id": 217.0,
-      "date": "2026-07-26",
+      "id": 261.0,
+      "date": "2026-07-27",
       "title": "[UNH - UnitedHealth Group] Where Does UnitedHealth Group (UNH) Valuation Sit After Its Second Quarter 2026 Results?",
       "summary": "UnitedHealth Group (UNH) just released its second quarter 2026 results, giving investors fresh insight into how the healthcare giant is performing and what its latest capital returns and earnings figu",
       "source": "Yahoo Finance (UNH)",
@@ -146,11 +221,11 @@
       "category": "Sector Bellwether: UNH (Healthcare / Managed Care)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119240"
+      "created_at": "2026-07-27T05:47:57.228243"
     },
     {
-      "id": 216.0,
-      "date": "2026-07-26",
+      "id": 260.0,
+      "date": "2026-07-27",
       "title": "[CAT - Caterpillar] This Industrial Stock Is Up 533% in 2 Years. I Predict It Will Join the Dow if Caterpillar Issues a Stock Split.",
       "summary": "Artificial intelligence (AI) infrastructure spending is vaulting GE Vernova to new heights.",
       "source": "Yahoo Finance (CAT)",
@@ -158,11 +233,11 @@
       "category": "Sector Bellwether: CAT (Industrials / Global Equipment)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119233"
+      "created_at": "2026-07-27T05:47:57.228239"
     },
     {
-      "id": 215.0,
-      "date": "2026-07-26",
+      "id": 259.0,
+      "date": "2026-07-27",
       "title": "[CAT - Caterpillar] Caterpillar Stock Is Up 100% in a Year. Here's the Data Center Math Behind the Rally.",
       "summary": "Caterpillar's stock has rocketed higher, but so has the outlook for the company's business.",
       "source": "Yahoo Finance (CAT)",
@@ -170,11 +245,11 @@
       "category": "Sector Bellwether: CAT (Industrials / Global Equipment)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119227"
+      "created_at": "2026-07-27T05:47:57.228235"
     },
     {
-      "id": 214.0,
-      "date": "2026-07-26",
+      "id": 258.0,
+      "date": "2026-07-27",
       "title": "[CAT - Caterpillar] China\u2019s Rare Earth Strategy Is Forcing a U.S. Manufacturing Revolution",
       "summary": "Escalating Chinese export controls are driving a major push to establish a secure North American rare earth supply chain from mining to magnet production.",
       "source": "Yahoo Finance (CAT)",
@@ -182,11 +257,11 @@
       "category": "Sector Bellwether: CAT (Industrials / Global Equipment)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119220"
+      "created_at": "2026-07-27T05:47:57.228230"
     },
     {
-      "id": 213.0,
-      "date": "2026-07-26",
+      "id": 257.0,
+      "date": "2026-07-27",
       "title": "[TSLA - Tesla] Dow Jones Futures Rise, Oil Prices Dive On Iran Hopes; Apple Leads Earnings Wave, Fed Meeting Ahead",
       "summary": "U.S.-Iran attacks have paused amid deal hopes. Apple, Amazon, Meta lead an earnings wave. A Fed rate hike is on the table.",
       "source": "Yahoo Finance (TSLA)",
@@ -194,11 +269,11 @@
       "category": "Sector Bellwether: TSLA (Consumer Discretionary / EV)",
       "impact_score": -0.4,
       "sentiment": "Hawkish / Tightening Bias | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119212"
+      "created_at": "2026-07-27T05:47:57.228226"
     },
     {
-      "id": 212.0,
-      "date": "2026-07-26",
+      "id": 256.0,
+      "date": "2026-07-27",
       "title": "[TSLA - Tesla] 4 Big Tech earnings reports, a Fed meeting, and $100 oil: It's the busiest week of the quarter",
       "summary": "Investors step into the busiest week of the quarter with hyperscaler earnings, the June Fed meeting, and escalations in the Middle East all in focus.",
       "source": "Yahoo Finance (TSLA)",
@@ -206,11 +281,11 @@
       "category": "Sector Bellwether: TSLA (Consumer Discretionary / EV)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119204"
+      "created_at": "2026-07-27T05:47:57.228222"
     },
     {
-      "id": 211.0,
-      "date": "2026-07-26",
+      "id": 255.0,
+      "date": "2026-07-27",
       "title": "[TSLA - Tesla] 'The AI trade is still on': Wall Street sees Big Tech's spending as positive for semiconductor stocks",
       "summary": "Alphabet's increased capex forecast for 2026 this week was the latest tailwind for AI infrastructure stocks.",
       "source": "Yahoo Finance (TSLA)",
@@ -218,11 +293,11 @@
       "category": "Sector Bellwether: TSLA (Consumer Discretionary / EV)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119197"
+      "created_at": "2026-07-27T05:47:57.228218"
     },
     {
-      "id": 210.0,
-      "date": "2026-07-26",
+      "id": 254.0,
+      "date": "2026-07-27",
       "title": "[XOM - ExxonMobil] Fed Meeting, Inflation, Boeing, Meta, Apple, Exxon, and More to Watch This Week",
       "summary": "This is a huge earnings week, with nearly a third of S&P 500 companies reporting. The Fed is expected to hold rates steady after its confab ends Wednesday, and we\u2019ll see key inflation data on Thursday",
       "source": "Yahoo Finance (XOM)",
@@ -230,11 +305,11 @@
       "category": "Sector Bellwether: XOM (Energy / Oil & Gas)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119191"
+      "created_at": "2026-07-27T05:47:57.228213"
     },
     {
-      "id": 209.0,
-      "date": "2026-07-26",
+      "id": 253.0,
+      "date": "2026-07-27",
       "title": "[XOM - ExxonMobil] ExxonMobil (XOM) Stock Could Be Cheap On Value Despite A 228% Run",
       "summary": "ExxonMobil Holdings has delivered a very strong 227.6% return over the past 5 years, yet both its Discounted Cash Flow (DCF) intrinsic value estimate and market multiples still point to the stock trad",
       "source": "Yahoo Finance (XOM)",
@@ -242,11 +317,11 @@
       "category": "Sector Bellwether: XOM (Energy / Oil & Gas)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119181"
+      "created_at": "2026-07-27T05:47:57.228209"
     },
     {
-      "id": 208.0,
-      "date": "2026-07-26",
+      "id": 252.0,
+      "date": "2026-07-27",
       "title": "[XOM - ExxonMobil] Palantir\u2019s Infamy Opens Doors for French Challenger",
       "summary": "(Bloomberg) -- The latest transatlantic technology brouhaha unfolded on Instagram. Most Read from BloombergDeepSeek Suspends Fundraising After Viral US-China PostsSpaceX at $100 Would Imply Zero AI Va",
       "source": "Yahoo Finance (XOM)",
@@ -254,11 +329,11 @@
       "category": "Sector Bellwether: XOM (Energy / Oil & Gas)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119172"
+      "created_at": "2026-07-27T05:47:57.228205"
     },
     {
-      "id": 207.0,
-      "date": "2026-07-26",
+      "id": 251.0,
+      "date": "2026-07-27",
       "title": "[JPM - JPMorgan Chase] Jamie Dimon Said Markets Are Underestimating Risks Shifting \"Like Tectonic Plates.\" He Made the Warning Right After JPMorgan Posted Its Best Quarter Ever.",
       "summary": "The CEO of JPMorgan Chase thinks investors may be ignoring risks such as geopolitical conflict and spending deficits.",
       "source": "Yahoo Finance (JPM)",
@@ -266,11 +341,11 @@
       "category": "Sector Bellwether: JPM (Financials / Banking System)",
       "impact_score": -0.8,
       "sentiment": "Sector Contagion / Stress Warning | HIGH SECTOR RISK (XLF)",
-      "created_at": "2026-07-26T22:41:58.119164"
+      "created_at": "2026-07-27T05:47:57.228201"
     },
     {
-      "id": 206.0,
-      "date": "2026-07-26",
+      "id": 250.0,
+      "date": "2026-07-27",
       "title": "[JPM - JPMorgan Chase] Why Did IMAX, JPM, CSX Stocks Surge To 52-Week Highs Last Week?",
       "summary": "IMAX, JPMorgan Chase and CSX jumped to 52-week highs on Friday amid growing Wall Street optimism after all companies posted strong Q2 results last week.",
       "source": "Yahoo Finance (JPM)",
@@ -278,11 +353,11 @@
       "category": "Sector Bellwether: JPM (Financials / Banking System)",
       "impact_score": -0.4,
       "sentiment": "Hawkish / Tightening Bias | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119155"
+      "created_at": "2026-07-27T05:47:57.228196"
     },
     {
-      "id": 205.0,
-      "date": "2026-07-26",
+      "id": 249.0,
+      "date": "2026-07-27",
       "title": "[JPM - JPMorgan Chase] SoftBank\u2019s $40 Billion Loan for OpenAI Stake Gets 21 New Lenders",
       "summary": "(Bloomberg) -- SoftBank Group Corp.\u2019s $40 billion bridge loan for its investment in US tech giant OpenAI has attracted a new group of 21 lenders in a broader syndication phase, according to people fam",
       "source": "Yahoo Finance (JPM)",
@@ -290,11 +365,11 @@
       "category": "Sector Bellwether: JPM (Financials / Banking System)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119140"
+      "created_at": "2026-07-27T05:47:57.228192"
     },
     {
-      "id": 204.0,
-      "date": "2026-07-26",
+      "id": 248.0,
+      "date": "2026-07-27",
       "title": "[AAPL - Apple] 5 Earnings Reports to Watch as Big Tech\u2019s AI Spending Faces a Test",
       "summary": "Microsoft, Apple, Amazon and SK Hynix report this week as investors test Big Tech's AI spending against real returns.",
       "source": "Yahoo Finance (AAPL)",
@@ -302,11 +377,11 @@
       "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119132"
+      "created_at": "2026-07-27T05:47:57.228188"
     },
     {
-      "id": 203.0,
-      "date": "2026-07-26",
+      "id": 247.0,
+      "date": "2026-07-27",
       "title": "[AAPL - Apple] Dow Jones Futures Rise, Oil Prices Dive On Iran Hopes; Apple Leads Earnings Wave, Fed Meeting Ahead",
       "summary": "U.S.-Iran attacks have paused amid deal hopes. Apple, Amazon, Meta lead an earnings wave. A Fed rate hike is on the table.",
       "source": "Yahoo Finance (AAPL)",
@@ -314,11 +389,11 @@
       "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
       "impact_score": -0.4,
       "sentiment": "Hawkish / Tightening Bias | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119123"
+      "created_at": "2026-07-27T05:47:57.228183"
     },
     {
-      "id": 202.0,
-      "date": "2026-07-26",
+      "id": 246.0,
+      "date": "2026-07-27",
       "title": "[AAPL - Apple] 4 Big Tech earnings reports, a Fed meeting, and $100 oil: It's the busiest week of the quarter",
       "summary": "Investors step into the busiest week of the quarter with hyperscaler earnings, the June Fed meeting, and escalations in the Middle East all in focus.",
       "source": "Yahoo Finance (AAPL)",
@@ -326,11 +401,11 @@
       "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119113"
+      "created_at": "2026-07-27T05:47:57.228179"
     },
     {
-      "id": 201.0,
-      "date": "2026-07-26",
+      "id": 245.0,
+      "date": "2026-07-27",
       "title": "[NVDA - NVIDIA] Prediction: CEO Andy Jassy Will Raise Amazon's Full-Year 2026 Capex Guide on July 30",
       "summary": "Amazon has already guided for $200 billion of artificial intelligence (AI)-related capital expenditures in 2026.",
       "source": "Yahoo Finance (NVDA)",
@@ -338,11 +413,11 @@
       "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119102"
+      "created_at": "2026-07-27T05:47:57.228175"
     },
     {
-      "id": 200.0,
-      "date": "2026-07-26",
+      "id": 244.0,
+      "date": "2026-07-27",
       "title": "[NVDA - NVIDIA] What's Next For Rigetti Computing Stock?",
       "summary": "This company is completely dependent on its collaborations and milestone payments to survive.",
       "source": "Yahoo Finance (NVDA)",
@@ -350,67 +425,7 @@
       "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119095"
-    },
-    {
-      "id": 199.0,
-      "date": "2026-07-26",
-      "title": "[NVDA - NVIDIA] Warren Buffett's Favorite Stock Market Indicator Is Sounding the Alarm. History Suggests Investors Are \"Playing With Fire.\"",
-      "summary": "Investors may want to be careful.",
-      "source": "Yahoo Finance (NVDA)",
-      "link": "https://www.fool.com/investing/2026/07/27/warren-buffetts-favorite-stock-market-indicator-is/",
-      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119089"
-    },
-    {
-      "id": 198.0,
-      "date": "2026-07-26",
-      "title": "[MU - Micron Technology] Chinese chipmaker CXMT soars more than 500% on debut",
-      "summary": "China's leading memory chipmaker CXMT became the most valuable company in the mainland after soaring 500 percent on its market debut Monday, underscoring the impact of AI-driven demand on the semicond",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://finance.yahoo.com/technology/articles/chinese-chipmaker-cxmt-soars-more-033846433.html",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119081"
-    },
-    {
-      "id": 197.0,
-      "date": "2026-07-26",
-      "title": "[MU - Micron Technology] China memory chipmaker CXMT's shares soar in a blockbuster share listing in Shanghai",
-      "summary": "Shares of CXMT, China's largest memory chipmaker, soared Monday after they began trading in Shanghai in mainland China\u2019s biggest initial public stock offering in recent years.  CXMT's shares surged 47",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://finance.yahoo.com/technology/articles/china-memory-chipmaker-cxmt-shares-043327941.html",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "impact_score": -0.4,
-      "sentiment": "Hawkish / Tightening Bias | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119071"
-    },
-    {
-      "id": 196.0,
-      "date": "2026-07-26",
-      "title": "[MU - Micron Technology] 'The AI trade is still on': Wall Street sees Big Tech's spending as positive for semiconductor stocks",
-      "summary": "Alphabet's increased capex forecast for 2026 this week was the latest tailwind for AI infrastructure stocks.",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://finance.yahoo.com/markets/article/the-ai-trade-is-still-on-wall-street-sees-big-techs-spending-as-positive-for-semiconductor-stocks-121056519.html",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-26T22:41:58.119057"
-    },
-    {
-      "id": 195.0,
-      "date": "2026-07-26",
-      "title": "DR Congo: Oil Company Operations Pose Grave Pollution Threat - Human Rights Watch",
-      "summary": "DR Congo: Oil Company Operations Pose Grave Pollution Threat&nbsp;&nbsp;Human Rights Watch",
-      "source": "Human Rights Watch",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOMkdlZHN4bXhLZGRmQ0xtMU1ISHB0UHdjU042b0UwNVdkdVF1U052X0kwWlFpdC1SMUkyeXhHSEIxVlVUVXpmUjE5WDNuTTl1N0NCUzlMSE55SEJDbUZxOFRRemRVWVQycmFHNy0tdHkwam1DU21FWm10SFNNVngtVG1zMVN6eHNvWHk1RzRyVWthaTFRUEZFT2RSNA?oc=5",
-      "category": "Geopolitics & Oil",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed",
-      "created_at": "2026-07-26T22:41:58.119047"
+      "created_at": "2026-07-27T05:47:57.228170"
     }
   ],
   "individual_stock_constituents": [
@@ -422,9 +437,9 @@
       "trailing_pe": 20.83,
       "forward_pe": 5.99,
       "ev_ebitda": 14.96,
-      "price_to_book": 14.34,
+      "price_to_book": 10.32,
       "dist_from_52w_high_pct": -26.62,
-      "return_30d_pct": null
+      "return_30d_pct": -24.1
     },
     {
       "ticker": "NVDA",
@@ -436,7 +451,7 @@
       "ev_ebitda": 30.0,
       "price_to_book": 25.63,
       "dist_from_52w_high_pct": -12.56,
-      "return_30d_pct": null
+      "return_30d_pct": 5.67
     },
     {
       "ticker": "AMD",
@@ -448,7 +463,7 @@
       "ev_ebitda": 113.41,
       "price_to_book": 13.2,
       "dist_from_52w_high_pct": -10.74,
-      "return_30d_pct": null
+      "return_30d_pct": -1.99
     },
     {
       "ticker": "AVGO",
@@ -456,11 +471,11 @@
       "group": "Technology & Semiconductors",
       "price": 381.92,
       "trailing_pe": 63.65,
-      "forward_pe": 19.63,
+      "forward_pe": 19.57,
       "ev_ebitda": 44.25,
       "price_to_book": 20.72,
       "dist_from_52w_high_pct": -22.84,
-      "return_30d_pct": null
+      "return_30d_pct": 0.79
     },
     {
       "ticker": "TSM",
@@ -472,7 +487,7 @@
       "ev_ebitda": 4.49,
       "price_to_book": 84.03,
       "dist_from_52w_high_pct": -15.78,
-      "return_30d_pct": null
+      "return_30d_pct": -7.26
     },
     {
       "ticker": "AAPL",
@@ -484,7 +499,7 @@
       "ev_ebitda": 30.68,
       "price_to_book": 45.87,
       "dist_from_52w_high_pct": -0.59,
-      "return_30d_pct": null
+      "return_30d_pct": 21.03
     },
     {
       "ticker": "MSFT",
@@ -496,7 +511,7 @@
       "ev_ebitda": 15.63,
       "price_to_book": 6.84,
       "dist_from_52w_high_pct": -31.28,
-      "return_30d_pct": null
+      "return_30d_pct": 8.18
     },
     {
       "ticker": "ORCL",
@@ -508,7 +523,7 @@
       "ev_ebitda": 15.49,
       "price_to_book": 8.82,
       "dist_from_52w_high_pct": -66.74,
-      "return_30d_pct": null
+      "return_30d_pct": -24.31
     },
     {
       "ticker": "QCOM",
@@ -520,7 +535,7 @@
       "ev_ebitda": 13.96,
       "price_to_book": 6.48,
       "dist_from_52w_high_pct": -35.76,
-      "return_30d_pct": null
+      "return_30d_pct": -18.51
     },
     {
       "ticker": "JPM",
@@ -532,7 +547,7 @@
       "ev_ebitda": null,
       "price_to_book": 2.66,
       "dist_from_52w_high_pct": -0.05,
-      "return_30d_pct": null
+      "return_30d_pct": 5.87
     },
     {
       "ticker": "BAC",
@@ -544,7 +559,7 @@
       "ev_ebitda": null,
       "price_to_book": 1.58,
       "dist_from_52w_high_pct": -0.37,
-      "return_30d_pct": null
+      "return_30d_pct": 6.63
     },
     {
       "ticker": "WFC",
@@ -556,7 +571,7 @@
       "ev_ebitda": null,
       "price_to_book": 1.62,
       "dist_from_52w_high_pct": -11.71,
-      "return_30d_pct": null
+      "return_30d_pct": 1.85
     },
     {
       "ticker": "C",
@@ -568,7 +583,7 @@
       "ev_ebitda": null,
       "price_to_book": 1.15,
       "dist_from_52w_high_pct": -10.66,
-      "return_30d_pct": null
+      "return_30d_pct": -8.82
     },
     {
       "ticker": "GS",
@@ -580,7 +595,7 @@
       "ev_ebitda": null,
       "price_to_book": 2.9,
       "dist_from_52w_high_pct": -8.04,
-      "return_30d_pct": null
+      "return_30d_pct": -0.36
     },
     {
       "ticker": "MS",
@@ -592,7 +607,7 @@
       "ev_ebitda": null,
       "price_to_book": 3.24,
       "dist_from_52w_high_pct": -7.65,
-      "return_30d_pct": null
+      "return_30d_pct": -2.97
     },
     {
       "ticker": "BLK",
@@ -604,7 +619,7 @@
       "ev_ebitda": 15.49,
       "price_to_book": 2.89,
       "dist_from_52w_high_pct": -13.47,
-      "return_30d_pct": null
+      "return_30d_pct": 8.62
     },
     {
       "ticker": "AXP",
@@ -614,9 +629,9 @@
       "trailing_pe": 19.8,
       "forward_pe": 16.22,
       "ev_ebitda": null,
-      "price_to_book": 6.54,
+      "price_to_book": 6.42,
       "dist_from_52w_high_pct": -15.82,
-      "return_30d_pct": null
+      "return_30d_pct": -4.5
     },
     {
       "ticker": "SCHW",
@@ -628,7 +643,7 @@
       "ev_ebitda": null,
       "price_to_book": 4.17,
       "dist_from_52w_high_pct": -5.14,
-      "return_30d_pct": null
+      "return_30d_pct": 14.01
     },
     {
       "ticker": "UNH",
@@ -640,7 +655,7 @@
       "ev_ebitda": 17.5,
       "price_to_book": 3.65,
       "dist_from_52w_high_pct": -8.86,
-      "return_30d_pct": null
+      "return_30d_pct": 1.25
     },
     {
       "ticker": "JNJ",
@@ -652,7 +667,7 @@
       "ev_ebitda": 19.01,
       "price_to_book": 7.81,
       "dist_from_52w_high_pct": -2.24,
-      "return_30d_pct": null
+      "return_30d_pct": 7.56
     },
     {
       "ticker": "LLY",
@@ -664,7 +679,7 @@
       "ev_ebitda": 30.5,
       "price_to_book": 34.25,
       "dist_from_52w_high_pct": -4.28,
-      "return_30d_pct": null
+      "return_30d_pct": 6.06
     },
     {
       "ticker": "ABBV",
@@ -676,7 +691,7 @@
       "ev_ebitda": 17.44,
       "price_to_book": -68.85,
       "dist_from_52w_high_pct": -0.87,
-      "return_30d_pct": null
+      "return_30d_pct": 7.43
     },
     {
       "ticker": "MRK",
@@ -688,7 +703,7 @@
       "ev_ebitda": 12.44,
       "price_to_book": 7.06,
       "dist_from_52w_high_pct": -0.51,
-      "return_30d_pct": null
+      "return_30d_pct": 4.48
     },
     {
       "ticker": "TMO",
@@ -700,7 +715,7 @@
       "ev_ebitda": 21.25,
       "price_to_book": 4.07,
       "dist_from_52w_high_pct": -11.76,
-      "return_30d_pct": null
+      "return_30d_pct": 12.36
     },
     {
       "ticker": "PFE",
@@ -712,7 +727,7 @@
       "ev_ebitda": 7.53,
       "price_to_book": 1.55,
       "dist_from_52w_high_pct": -14.64,
-      "return_30d_pct": null
+      "return_30d_pct": 5.49
     },
     {
       "ticker": "ABT",
@@ -724,7 +739,7 @@
       "ev_ebitda": 17.44,
       "price_to_book": 3.45,
       "dist_from_52w_high_pct": -25.04,
-      "return_30d_pct": null
+      "return_30d_pct": 11.32
     },
     {
       "ticker": "XOM",
@@ -736,7 +751,7 @@
       "ev_ebitda": 12.43,
       "price_to_book": 2.56,
       "dist_from_52w_high_pct": -11.04,
-      "return_30d_pct": null
+      "return_30d_pct": 14.1
     },
     {
       "ticker": "CVX",
@@ -748,7 +763,7 @@
       "ev_ebitda": 11.37,
       "price_to_book": 2.1,
       "dist_from_52w_high_pct": -9.28,
-      "return_30d_pct": null
+      "return_30d_pct": 13.09
     },
     {
       "ticker": "COP",
@@ -760,7 +775,7 @@
       "ev_ebitda": 7.0,
       "price_to_book": 2.27,
       "dist_from_52w_high_pct": -11.49,
-      "return_30d_pct": null
+      "return_30d_pct": 13.02
     },
     {
       "ticker": "EOG",
@@ -772,7 +787,7 @@
       "ev_ebitda": 6.55,
       "price_to_book": 2.53,
       "dist_from_52w_high_pct": -3.61,
-      "return_30d_pct": null
+      "return_30d_pct": 10.39
     },
     {
       "ticker": "SLB",
@@ -780,11 +795,11 @@
       "group": "Energy & Oil/Gas",
       "price": 52.42,
       "trailing_pe": 25.57,
-      "forward_pe": 15.93,
+      "forward_pe": 16.0,
       "ev_ebitda": 11.76,
       "price_to_book": 2.99,
       "dist_from_52w_high_pct": -10.88,
-      "return_30d_pct": null
+      "return_30d_pct": 10.54
     },
     {
       "ticker": "MPC",
@@ -796,7 +811,7 @@
       "ev_ebitda": 12.59,
       "price_to_book": 5.41,
       "dist_from_52w_high_pct": -5.41,
-      "return_30d_pct": null
+      "return_30d_pct": 21.96
     },
     {
       "ticker": "PSX",
@@ -808,7 +823,7 @@
       "ev_ebitda": 15.06,
       "price_to_book": 2.91,
       "dist_from_52w_high_pct": -4.31,
-      "return_30d_pct": null
+      "return_30d_pct": 20.38
     },
     {
       "ticker": "VLO",
@@ -820,7 +835,7 @@
       "ev_ebitda": 10.72,
       "price_to_book": 3.76,
       "dist_from_52w_high_pct": -5.54,
-      "return_30d_pct": null
+      "return_30d_pct": 18.6
     },
     {
       "ticker": "GE",
@@ -830,9 +845,9 @@
       "trailing_pe": 41.66,
       "forward_pe": 39.05,
       "ev_ebitda": 32.88,
-      "price_to_book": 20.44,
+      "price_to_book": 20.81,
       "dist_from_52w_high_pct": -7.64,
-      "return_30d_pct": null
+      "return_30d_pct": -4.63
     },
     {
       "ticker": "CAT",
@@ -844,7 +859,7 @@
       "ev_ebitda": 30.85,
       "price_to_book": 21.94,
       "dist_from_52w_high_pct": -17.21,
-      "return_30d_pct": null
+      "return_30d_pct": -15.76
     },
     {
       "ticker": "RTX",
@@ -856,7 +871,7 @@
       "ev_ebitda": 20.08,
       "price_to_book": 4.32,
       "dist_from_52w_high_pct": -0.98,
-      "return_30d_pct": null
+      "return_30d_pct": 14.04
     },
     {
       "ticker": "HON",
@@ -868,7 +883,7 @@
       "ev_ebitda": 12.12,
       "price_to_book": 5.67,
       "dist_from_52w_high_pct": -6.58,
-      "return_30d_pct": null
+      "return_30d_pct": 0.26
     },
     {
       "ticker": "UNP",
@@ -880,7 +895,7 @@
       "ev_ebitda": 16.43,
       "price_to_book": 9.4,
       "dist_from_52w_high_pct": -2.74,
-      "return_30d_pct": null
+      "return_30d_pct": 14.79
     },
     {
       "ticker": "BA",
@@ -892,7 +907,7 @@
       "ev_ebitda": -59.71,
       "price_to_book": 27.6,
       "dist_from_52w_high_pct": -17.63,
-      "return_30d_pct": null
+      "return_30d_pct": -3.94
     },
     {
       "ticker": "DE",
@@ -904,7 +919,7 @@
       "ev_ebitda": 24.29,
       "price_to_book": 6.19,
       "dist_from_52w_high_pct": -6.83,
-      "return_30d_pct": null
+      "return_30d_pct": -0.15
     },
     {
       "ticker": "LMT",
@@ -916,7 +931,7 @@
       "ev_ebitda": 15.62,
       "price_to_book": 17.89,
       "dist_from_52w_high_pct": -15.81,
-      "return_30d_pct": null
+      "return_30d_pct": 15.36
     },
     {
       "ticker": "AMZN",
@@ -928,7 +943,7 @@
       "ev_ebitda": 16.61,
       "price_to_book": 5.65,
       "dist_from_52w_high_pct": -16.68,
-      "return_30d_pct": null
+      "return_30d_pct": 2.25
     },
     {
       "ticker": "TSLA",
@@ -938,9 +953,9 @@
       "trailing_pe": 284.57,
       "forward_pe": 141.03,
       "ev_ebitda": 112.46,
-      "price_to_book": 14.3,
+      "price_to_book": 13.97,
       "dist_from_52w_high_pct": -37.25,
-      "return_30d_pct": null
+      "return_30d_pct": -16.55
     },
     {
       "ticker": "HD",
@@ -952,7 +967,7 @@
       "ev_ebitda": 15.8,
       "price_to_book": 23.93,
       "dist_from_52w_high_pct": -21.97,
-      "return_30d_pct": null
+      "return_30d_pct": -3.48
     },
     {
       "ticker": "MCD",
@@ -964,7 +979,7 @@
       "ev_ebitda": 16.27,
       "price_to_book": -146.28,
       "dist_from_52w_high_pct": -22.53,
-      "return_30d_pct": null
+      "return_30d_pct": 0.08
     },
     {
       "ticker": "NKE",
@@ -976,7 +991,7 @@
       "ev_ebitda": 12.96,
       "price_to_book": 4.16,
       "dist_from_52w_high_pct": -47.99,
-      "return_30d_pct": null
+      "return_30d_pct": 1.96
     },
     {
       "ticker": "LOW",
@@ -988,7 +1003,7 @@
       "ev_ebitda": 12.56,
       "price_to_book": -12.57,
       "dist_from_52w_high_pct": -29.15,
-      "return_30d_pct": null
+      "return_30d_pct": -5.86
     },
     {
       "ticker": "SBUX",
@@ -1000,7 +1015,7 @@
       "ev_ebitda": 26.02,
       "price_to_book": -13.9,
       "dist_from_52w_high_pct": -5.47,
-      "return_30d_pct": null
+      "return_30d_pct": 0.09
     },
     {
       "ticker": "BKNG",
@@ -1012,7 +1027,7 @@
       "ev_ebitda": 13.55,
       "price_to_book": -15.87,
       "dist_from_52w_high_pct": -23.44,
-      "return_30d_pct": null
+      "return_30d_pct": 0.23
     },
     {
       "ticker": "PG",
@@ -1024,7 +1039,7 @@
       "ev_ebitda": 14.73,
       "price_to_book": 6.39,
       "dist_from_52w_high_pct": -11.86,
-      "return_30d_pct": null
+      "return_30d_pct": 0.01
     },
     {
       "ticker": "COST",
@@ -1036,7 +1051,7 @@
       "ev_ebitda": 29.95,
       "price_to_book": 25.08,
       "dist_from_52w_high_pct": -14.73,
-      "return_30d_pct": null
+      "return_30d_pct": -0.61
     },
     {
       "ticker": "KO",
@@ -1048,7 +1063,7 @@
       "ev_ebitda": 23.14,
       "price_to_book": 10.52,
       "dist_from_52w_high_pct": -4.0,
-      "return_30d_pct": null
+      "return_30d_pct": 2.28
     },
     {
       "ticker": "PEP",
@@ -1056,11 +1071,11 @@
       "group": "Consumer Staples",
       "price": 136.64,
       "trailing_pe": 17.93,
-      "forward_pe": 15.2,
+      "forward_pe": 15.22,
       "ev_ebitda": 12.14,
       "price_to_book": 8.45,
       "dist_from_52w_high_pct": -20.32,
-      "return_30d_pct": null
+      "return_30d_pct": -2.06
     },
     {
       "ticker": "WMT",
@@ -1072,7 +1087,7 @@
       "ev_ebitda": 21.02,
       "price_to_book": 9.24,
       "dist_from_52w_high_pct": -19.01,
-      "return_30d_pct": null
+      "return_30d_pct": -5.45
     },
     {
       "ticker": "PM",
@@ -1084,7 +1099,7 @@
       "ev_ebitda": 17.37,
       "price_to_book": -32.42,
       "dist_from_52w_high_pct": -3.39,
-      "return_30d_pct": null
+      "return_30d_pct": 7.86
     },
     {
       "ticker": "MDLZ",
@@ -1096,7 +1111,7 @@
       "ev_ebitda": 18.76,
       "price_to_book": 3.02,
       "dist_from_52w_high_pct": -13.95,
-      "return_30d_pct": null
+      "return_30d_pct": -0.28
     },
     {
       "ticker": "CL",
@@ -1108,7 +1123,7 @@
       "ev_ebitda": 16.16,
       "price_to_book": 501.38,
       "dist_from_52w_high_pct": -8.64,
-      "return_30d_pct": null
+      "return_30d_pct": 0.23
     },
     {
       "ticker": "TSLA",
@@ -1118,9 +1133,9 @@
       "trailing_pe": 284.57,
       "forward_pe": 141.03,
       "ev_ebitda": 112.46,
-      "price_to_book": 14.3,
+      "price_to_book": 13.97,
       "dist_from_52w_high_pct": -37.25,
-      "return_30d_pct": null
+      "return_30d_pct": -16.55
     },
     {
       "ticker": "SYM",
@@ -1132,7 +1147,7 @@
       "ev_ebitda": 153.15,
       "price_to_book": 7.43,
       "dist_from_52w_high_pct": -54.31,
-      "return_30d_pct": null
+      "return_30d_pct": -1.52
     },
     {
       "ticker": "TER",
@@ -1144,7 +1159,7 @@
       "ev_ebitda": 47.02,
       "price_to_book": 17.42,
       "dist_from_52w_high_pct": -28.28,
-      "return_30d_pct": null
+      "return_30d_pct": -25.86
     },
     {
       "ticker": "ROK",
@@ -1156,7 +1171,7 @@
       "ev_ebitda": 27.99,
       "price_to_book": 14.6,
       "dist_from_52w_high_pct": -7.08,
-      "return_30d_pct": null
+      "return_30d_pct": -3.59
     },
     {
       "ticker": "ISRG",
@@ -1168,7 +1183,7 @@
       "ev_ebitda": 27.3,
       "price_to_book": 6.57,
       "dist_from_52w_high_pct": -44.11,
-      "return_30d_pct": null
+      "return_30d_pct": -15.56
     },
     {
       "ticker": "CEG",
@@ -1180,7 +1195,7 @@
       "ev_ebitda": 15.21,
       "price_to_book": 2.97,
       "dist_from_52w_high_pct": -33.52,
-      "return_30d_pct": null
+      "return_30d_pct": 2.11
     },
     {
       "ticker": "VST",
@@ -1192,7 +1207,7 @@
       "ev_ebitda": 11.41,
       "price_to_book": 17.7,
       "dist_from_52w_high_pct": -25.68,
-      "return_30d_pct": null
+      "return_30d_pct": -2.62
     },
     {
       "ticker": "ETN",
@@ -1204,7 +1219,7 @@
       "ev_ebitda": 28.07,
       "price_to_book": 7.96,
       "dist_from_52w_high_pct": -7.48,
-      "return_30d_pct": null
+      "return_30d_pct": -3.76
     },
     {
       "ticker": "GEV",
@@ -1216,7 +1231,7 @@
       "ev_ebitda": 66.83,
       "price_to_book": 22.6,
       "dist_from_52w_high_pct": -15.15,
-      "return_30d_pct": null
+      "return_30d_pct": -6.52
     },
     {
       "ticker": "VRT",
@@ -1228,7 +1243,7 @@
       "ev_ebitda": 47.12,
       "price_to_book": 26.26,
       "dist_from_52w_high_pct": -23.58,
-      "return_30d_pct": null
+      "return_30d_pct": -10.81
     },
     {
       "ticker": "MOD",
@@ -1240,7 +1255,7 @@
       "ev_ebitda": 29.62,
       "price_to_book": 10.69,
       "dist_from_52w_high_pct": -25.2,
-      "return_30d_pct": null
+      "return_30d_pct": -14.76
     },
     {
       "ticker": "SMCI",
@@ -1252,7 +1267,7 @@
       "ev_ebitda": 16.44,
       "price_to_book": 2.39,
       "dist_from_52w_high_pct": -51.73,
-      "return_30d_pct": null
+      "return_30d_pct": -4.99
     },
     {
       "ticker": "ASML",
@@ -1262,9 +1277,9 @@
       "trailing_pe": 60.61,
       "forward_pe": 30.34,
       "ev_ebitda": 2779.33,
-      "price_to_book": 1581.46,
+      "price_to_book": 1581.72,
       "dist_from_52w_high_pct": -12.14,
-      "return_30d_pct": null
+      "return_30d_pct": -4.57
     },
     {
       "ticker": "AMAT",
@@ -1276,7 +1291,7 @@
       "ev_ebitda": 45.8,
       "price_to_book": 17.81,
       "dist_from_52w_high_pct": -27.5,
-      "return_30d_pct": null
+      "return_30d_pct": -19.72
     },
     {
       "ticker": "LRCX",
@@ -1288,7 +1303,7 @@
       "ev_ebitda": 48.51,
       "price_to_book": 36.06,
       "dist_from_52w_high_pct": -30.4,
-      "return_30d_pct": null
+      "return_30d_pct": -24.04
     },
     {
       "ticker": "KLAC",
@@ -1300,7 +1315,7 @@
       "ev_ebitda": 47.21,
       "price_to_book": 47.19,
       "dist_from_52w_high_pct": -31.51,
-      "return_30d_pct": null
+      "return_30d_pct": -18.66
     },
     {
       "ticker": "FCX",
@@ -1312,7 +1327,7 @@
       "ev_ebitda": 11.1,
       "price_to_book": 4.36,
       "dist_from_52w_high_pct": -13.39,
-      "return_30d_pct": null
+      "return_30d_pct": -0.08
     },
     {
       "ticker": "MP",
@@ -1324,7 +1339,7 @@
       "ev_ebitda": -1726.16,
       "price_to_book": 3.73,
       "dist_from_52w_high_pct": -58.8,
-      "return_30d_pct": null
+      "return_30d_pct": -25.75
     }
   ]
 }

@@ -1,15 +1,15 @@
-# Daily 4-Quadrant Macro & Dynamic Sector Strategy Report (2026-07-26)
+# Daily 4-Quadrant Macro & Dynamic Sector Strategy Report (2026-07-27)
 *Automated Capture Engine & Institutional Framework (Defiant Gatekeeper)*
 
 ---
 ## Notable Summary
 
-- **New:** **Decision:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT: POLICY HOLDING / NEUTRAL` (Interest Rates: Holding / Neutral; Reserve Liquidity: direction observed but policy stance is not restrictive or easing). Policy-rate trend is flat without enough restrictive-rate evidence. Treat the matrix as neutral and let valuation, credit, earnings, and tax constraints drive sector actions.
-- **Changed:** **Decision:** Technology (XLK): **BUY / ACCUMULATE** (MODERATE TO HIGH). Previously: **Decision:** Technology (XLK): **HOLD / CAUTION** (MODERATE (Restrictive Real Yield Headwind)).
-- **Changed:** **Decision:** Financials (XLF): **BUY / ACCUMULATE** (HIGH (Deep Value Risk Premium)). Previously: **Decision:** Financials (XLF): **BUY / ACCUMULATE** (HIGH (Macro Quadrant Tailwinds)).
-- **Changed:** **Decision:** Energy (XLE): **BUY / ACCUMULATE** (HIGH (Deep Value Risk Premium)). Previously: **Decision:** Energy (XLE): **BUY / ACCUMULATE** (HIGH (Macro Quadrant Tailwinds)).
-- **New:** **Valuation:** Shiller PE Ratio is `40.46` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
-- **Removed:** **Decision:** Active quadrant is `SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Expanding (+30d)). Policy/liquidity conflict: reserve liquidity is expanding while policy remains restrictive. Identify whether the liquidity source is Fed assets, TGA, RRP, or emergency facilities before drawing conclusions. Sticky inflation confirmed (3.7% CPI).
+- **Unchanged:** **Decision:** Active quadrant is `SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Expanding (+30d)). Policy/liquidity conflict: reserve liquidity is expanding while policy remains restrictive. Identify whether the liquidity source is Fed assets, TGA, RRP, or emergency facilities before drawing conclusions. Sticky inflation confirmed (3.7% CPI).
+- **Changed:** **Decision:** Technology (XLK): **HOLD / CAUTION** (MODERATE (Restrictive Real Yield Headwind)). Previously: **Decision:** Technology (XLK): **BUY / ACCUMULATE** (MODERATE TO HIGH).
+- **Changed:** **Decision:** Financials (XLF): **BUY / ACCUMULATE** (HIGH (Macro Quadrant Tailwinds)). Previously: **Decision:** Financials (XLF): **BUY / ACCUMULATE** (HIGH (Deep Value Risk Premium)).
+- **Changed:** **Decision:** Energy (XLE): **BUY / ACCUMULATE** (HIGH (Macro Quadrant Tailwinds)). Previously: **Decision:** Energy (XLE): **BUY / ACCUMULATE** (HIGH (Deep Value Risk Premium)).
+- **Unchanged:** **Valuation:** Shiller PE Ratio is `40.46` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
+- **Removed:** **Decision:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT: POLICY HOLDING / NEUTRAL` (Interest Rates: Holding / Neutral; Reserve Liquidity: direction observed but policy stance is not restrictive or easing). Policy-rate trend is flat without enough restrictive-rate evidence. Treat the matrix as neutral and let valuation, credit, earnings, and tax constraints drive sector actions.
 - **Removed:** **Decision:** `MU`: **WATCHLIST / SELECTIVE REVIEW (Lagging Value)**. Peer-discount watchlist candidate within Technology & Semiconductors: Micron Technology, Inc. (MU) appears discounted relative to its historical sector-relative norm. Confirm sector signal, earnings quality, balance sheet, and catalyst before buying. Forward P/E (6.1x) is 69.8% below peer group avg (20.2x); historical relative history unavailable; EV/EBITDA (16.1x) is 49.9% below peer group avg (32.1x); historical relative history unavailable; Lagging price performance (-25.1% below 52-week high)
 - **Removed:** **Decision:** `MSFT`: **WATCHLIST / SELECTIVE REVIEW (Lagging Value)**. Peer-discount watchlist candidate within Technology & Semiconductors: Microsoft Corporation (MSFT) appears discounted relative to its historical sector-relative norm. Confirm sector signal, earnings quality, balance sheet, and catalyst before buying. EV/EBITDA (15.6x) is 51.4% below peer group avg (32.1x); historical relative history unavailable; Lagging price performance (-30.7% below 52-week high)
 
@@ -18,21 +18,24 @@
 ## 1. Active Macro Situation (2x2 Matrix Analysis)
 
 > [!IMPORTANT]
-> **Active Quadrant**: `NO ACTIONABLE MACRO QUADRANT: POLICY HOLDING / NEUTRAL`
-> - **Rates Stance**: `Interest Rates: Holding / Neutral`
-> - **Net Liquidity Direction**: `Reserve Liquidity: direction observed but policy stance is not restrictive or easing`
-> - **Macro Environment**: Policy-rate trend is flat without enough restrictive-rate evidence. Treat the matrix as neutral and let valuation, credit, earnings, and tax constraints drive sector actions.
+> **Active Quadrant**: `SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION`
+> - **Rates Stance**: `Interest Rates: Raising / Holding Restrictive`
+> - **Net Liquidity Direction**: `Reserve Liquidity: Expanding (+30d)`
+> - **Macro Environment**: Policy/liquidity conflict: reserve liquidity is expanding while policy remains restrictive. Identify whether the liquidity source is Fed assets, TGA, RRP, or emergency facilities before drawing conclusions. Sticky inflation confirmed (3.7% CPI).
 
 ### Sector & Company Type Alignment for Current Situation
 
 #### Favored Sectors
-
+- Energy (XLE)
+- Financials (XLF)
+- Industrials (XLI)
 
 #### Preferred Company Characteristics
-
+- Real asset owners
+- Inflation-indexed revenues
 
 #### Disfavored / High Risk Sectors
-
+- Consumer Discretionary (XLY)
 
 ---
 
@@ -55,13 +58,13 @@ The yield curve slope is a key indicator of economic cycle transitions and reces
 
 | Rate / Spread | Current Level | Institutional Signal |
 | :--- | :--- | :--- |
-| **Policy Rate** | `3.63%` | Source: `dff` / Stance: `HOLDING` |
+| **Policy Rate** | `3.63%` | Source: `dff` / Stance: `HOLDING_RESTRICTIVE` |
 | **Policy Rate 30d Change** | `+0.00%` | Used for Rates Stance in Matrix |
-| **10Y Real Yield Proxy** | `+0.56%` | 10Y Treasury minus 10Y breakeven |
-| **10-Year Treasury Yield** | `2.05%` | Benchmark Long Rate |
-| **2-Year Treasury Yield** | `0.73%` | Short Rate / Fed Expectations |
-| **10Y - 2Y Spread** | `+0.79%` | **Regime: Normal (Steep)** |
-| **10Y - 3M Spread** | `+1.21%` | Classic Recession Gauge |
+| **10Y Real Yield Proxy** | `+2.45%` | 10Y Treasury minus 10Y breakeven |
+| **10-Year Treasury Yield** | `4.71%` | Benchmark Long Rate |
+| **2-Year Treasury Yield** | `4.37%` | Short Rate / Fed Expectations |
+| **10Y - 2Y Spread** | `+0.36%` | **Regime: Normal (Steep)** |
+| **10Y - 3M Spread** | `+0.73%` | Classic Recession Gauge |
 
 ---
 
@@ -71,9 +74,9 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 
 | Metric | Current Value | Threshold Benchmark |
 | :--- | :--- | :--- |
-| **ICE BofA High Yield OAS** | `3.82%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
-| **Investment Grade OAS** | `0.51%` | High Quality Corporate Premium |
-| **Chicago Fed Financial Conditions** | `N/A` | Negative = Loose, Positive = Tight |
+| **ICE BofA High Yield OAS** | `2.77%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
+| **Investment Grade OAS** | `0.43%` | High Quality Corporate Premium |
+| **Chicago Fed Financial Conditions** | `-0.55` | Negative = Loose, Positive = Tight |
 
 ---
 
@@ -86,17 +89,17 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 
 | Sector / Supply Chain Group | Action Posture | Conviction | Avg Fwd P/E | Selective Stock Pick | Strategic Mid-Term Rationale |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Technology (XLK)** | **BUY / ACCUMULATE** | `MODERATE TO HIGH` | `19.2x` | `None` | Sector is trading at a discount (19.2x Fwd P/E vs 24.0x norm) alongside expanding liquidity. |
-| **Financials (XLF)** | **BUY / ACCUMULATE** | `HIGH (Deep Value Risk Premium)` | `13.7x` | `None` | Extremely attractive ERP (5.25%). Equities offer significant yield over risk-free bonds. |
-| **Healthcare (XLV)** | **HOLD** | `LOW (Macro Data Incomplete)` | `17.7x` | `None` | Macro quadrant is withheld because policy-rate or liquidity data is incomplete. Defaulting to HOLD unless non-macro risk controls provide a stronger signal. |
-| **Energy (XLE)** | **BUY / ACCUMULATE** | `HIGH (Deep Value Risk Premium)` | `12.9x` | `None` | Extremely attractive ERP (5.71%). Equities offer significant yield over risk-free bonds. |
-| **Industrials (XLI)** | **HOLD** | `LOW (Macro Data Incomplete)` | `29.8x` | `None` | Macro quadrant is withheld because policy-rate or liquidity data is incomplete. Defaulting to HOLD unless non-macro risk controls provide a stronger signal. |
-| **Consumer Discretionary (XLY)** | **HOLD** | `LOW (Macro Data Incomplete)` | `35.8x` | `None` | Macro quadrant is withheld because policy-rate or liquidity data is incomplete. Defaulting to HOLD unless non-macro risk controls provide a stronger signal. |
-| **Consumer Staples (XLP)** | **HOLD** | `LOW (Macro Data Incomplete)` | `24.5x` | `None` | Macro quadrant is withheld because policy-rate or liquidity data is incomplete. Defaulting to HOLD unless non-macro risk controls provide a stronger signal. |
-| **AI Compute & Accelerators** | **BUY / ACCUMULATE** | `MODERATE TO HIGH` | `23.2x` | `None` | Sector is trading at a discount (23.2x Fwd P/E vs 28.0x norm) alongside expanding liquidity. |
-| **High-Bandwidth Memory (HBM)** | **HOLD** | `LOW (Macro Data Incomplete)` | `17.0x` | `None` | Macro quadrant is withheld because policy-rate or liquidity data is incomplete. Defaulting to HOLD unless non-macro risk controls provide a stronger signal. |
-| **Physical AI & Robotics** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `58.1x` | `None` | Negative ERP (-0.33%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
-| **Downstream Power & Grid** | **HOLD** | `LOW (Macro Data Incomplete)` | `25.5x` | `None` | Macro quadrant is withheld because policy-rate or liquidity data is incomplete. Defaulting to HOLD unless non-macro risk controls provide a stronger signal. |
+| **Technology (XLK)** | **HOLD / CAUTION** | `MODERATE (Restrictive Real Yield Headwind)` | `19.2x` | `None` | Real yields (2.45%) are a headwind for long-duration growth, but valuation is not stretched versus norm. Hold existing exposure and require earnings confirmation before adding. |
+| **Financials (XLF)** | **BUY / ACCUMULATE** | `HIGH (Macro Quadrant Tailwinds)` | `13.7x` | `None` | Sector is highly favored in the current SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION regime. |
+| **Healthcare (XLV)** | **HOLD** | `HIGH (Tax-Aware Default)` | `17.7x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
+| **Energy (XLE)** | **BUY / ACCUMULATE** | `HIGH (Macro Quadrant Tailwinds)` | `12.9x` | `None` | Sector is highly favored in the current SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION regime. |
+| **Industrials (XLI)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `29.8x` | `None` | Negative ERP (-1.36%) combined with valuation stretch (29.8x vs 19.0x norm). Risk-free yield competes strongly with sector earnings yield. |
+| **Consumer Discretionary (XLY)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `35.8x` | `None` | Negative ERP (-1.91%) combined with valuation stretch (35.8x vs 22.0x norm). Risk-free yield competes strongly with sector earnings yield. |
+| **Consumer Staples (XLP)** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `24.5x` | `None` | Negative ERP (-0.62%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
+| **AI Compute & Accelerators** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `23.2x` | `None` | Negative ERP (-0.40%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
+| **High-Bandwidth Memory (HBM)** | **HOLD** | `HIGH (Tax-Aware Default)` | `17.0x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
+| **Physical AI & Robotics** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `58.1x` | `None` | Negative ERP (-2.99%) combined with valuation stretch (58.1x vs 30.0x norm). Risk-free yield competes strongly with sector earnings yield. |
+| **Downstream Power & Grid** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `25.5x` | `None` | Negative ERP (-0.79%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
 
 ---
 
@@ -106,7 +109,7 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Ecosystem Sub-Group | Key Tickers | Avg Forward P/E | Avg EV / EBITDA | Historical Norm (P/E) | Supply Chain & Valuation Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `23.22x` | `48.04x` | `28.0x` | `Fairly Valued` |
+| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `23.20x` | `48.04x` | `28.0x` | `Fairly Valued` |
 | **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `17.01x` | `30.09x` | `16.0x` | `Fairly Valued` |
 | **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `58.08x` | `53.69x` | `30.0x` | `Rich Multiple / Growth Premium` |
 | **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `25.50x` | `30.38x` | `22.0x` | `Fairly Valued` |
@@ -120,14 +123,14 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
-| **CBOE Volatility (VIX)** | `17.58` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `101.34` | Global Currency Tightness |
-| **S&P 500 Index** | `7,452.12` | US Equity Benchmark |
+| **CBOE Volatility (VIX)** | `18.58` | `Low Volatility (Complacency)` |
+| **US Dollar Index (DXY)** | `101.15` | Global Currency Tightness |
+| **S&P 500 Index** | `7,411.98` | US Equity Benchmark |
 | **CNN Fear & Greed Index** | `39.43` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
 | **Shiller PE Ratio** | `40.46` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$88.47` | Energy Cost Drivers |
-| **Gold** | `$4,076.30` | Monetary Protection / Safe Haven |
-| **Copper** | `$6.35` | Industrial Demand Indicator |
+| **WTI Crude Oil** | `$83.76` | Energy Cost Drivers |
+| **Gold** | `$4,099.50` | Monetary Protection / Safe Haven |
+| **Copper** | `$6.37` | Industrial Demand Indicator |
 
 ---
 *Report auto-generated by 4-Quadrant Macro & Dynamic Sector Strategy Engine.*
