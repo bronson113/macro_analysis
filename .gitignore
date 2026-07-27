@@ -3,8 +3,4 @@ __pycache__/
 .pytest_cache/
 .DS_Store
 cache/
-
-data/*.db
-logs/*.log
-output/*.json
-output/*.md
+logs/
