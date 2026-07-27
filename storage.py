@@ -4,6 +4,7 @@ Manages data insertion, time series queries, daily snapshots, and news events us
 """
 
 import os
+import threading
 import pandas as pd
 from datetime import datetime
 from typing import Dict, List, Optional, Any
@@ -22,6 +23,7 @@ class MacroStorage:
         news_csv=NEWS_CSV,
         run_logs_csv=RUN_LOGS_CSV
     ):
+        self._lock = threading.Lock()
         self.indicators_csv = str(indicators_csv)
         self.observations_csv = str(observations_csv)
         self.snapshots_csv = str(snapshots_csv)
@@ -116,22 +118,23 @@ class MacroStorage:
         if df_obs.empty:
             return 0
 
-        df_to_save = df_obs.copy()
-        df_to_save['indicator_key'] = indicator_key
-        df_to_save['updated_at'] = datetime.now().isoformat()
-        df_to_save = df_to_save[['indicator_key', 'date', 'value', 'updated_at']]
+        with self._lock:
+            df_to_save = df_obs.copy()
+            df_to_save['indicator_key'] = indicator_key
+            df_to_save['updated_at'] = datetime.now().isoformat()
+            df_to_save = df_to_save[['indicator_key', 'date', 'value', 'updated_at']]
 
-        df_existing = pd.read_csv(self.observations_csv)
-        df_combined = pd.concat([df_existing, df_to_save])
-        df_combined = df_combined.drop_duplicates(subset=['indicator_key', 'date'], keep='last')
-        df_combined.to_csv(self.observations_csv, index=False)
-        
-        # update indicators last_updated
-        df_ind = pd.read_csv(self.indicators_csv)
-        df_ind.loc[df_ind['key'] == indicator_key, 'last_updated'] = datetime.now().isoformat()
-        df_ind.to_csv(self.indicators_csv, index=False)
-        
-        return len(df_to_save)
+            df_existing = pd.read_csv(self.observations_csv)
+            df_combined = pd.concat([df_existing, df_to_save])
+            df_combined = df_combined.drop_duplicates(subset=['indicator_key', 'date'], keep='last')
+            df_combined.to_csv(self.observations_csv, index=False)
+            
+            # update indicators last_updated
+            df_ind = pd.read_csv(self.indicators_csv)
+            df_ind.loc[df_ind['key'] == indicator_key, 'last_updated'] = datetime.now().isoformat()
+            df_ind.to_csv(self.indicators_csv, index=False)
+            
+            return len(df_to_save)
 
     def save_news_events(self, news_items: List[Dict[str, Any]]) -> int:
         """Save a list of news event dictionaries into macro_news table."""
@@ -176,21 +179,23 @@ class MacroStorage:
         return df.to_dict('records')
 
     def get_latest_observation(self, indicator_key: str) -> Optional[Dict[str, Any]]:
-        df = pd.read_csv(self.observations_csv)
-        df_filtered = df[df['indicator_key'] == indicator_key]
-        if df_filtered.empty:
-            return None
-        df_sorted = df_filtered.sort_values(by='date', ascending=False)
-        return df_sorted.iloc[0].to_dict()
+        with self._lock:
+            df = pd.read_csv(self.observations_csv)
+            df_filtered = df[df['indicator_key'] == indicator_key]
+            if df_filtered.empty:
+                return None
+            df_sorted = df_filtered.sort_values(by='date', ascending=False)
+            return df_sorted.iloc[0].to_dict()
 
     def get_indicator_series(self, indicator_key: str, limit: int = 365) -> pd.DataFrame:
-        df = pd.read_csv(self.observations_csv)
-        df_filtered = df[df['indicator_key'] == indicator_key]
-        if df_filtered.empty:
-            return pd.DataFrame(columns=['date', 'value'])
-        df_sorted = df_filtered.sort_values(by='date', ascending=False).head(limit)
-        df_sorted['date'] = pd.to_datetime(df_sorted['date'])
-        return df_sorted.sort_values('date').reset_index(drop=True)[['date', 'value']]
+        with self._lock:
+            df = pd.read_csv(self.observations_csv)
+            df_filtered = df[df['indicator_key'] == indicator_key]
+            if df_filtered.empty:
+                return pd.DataFrame(columns=['date', 'value'])
+            df_sorted = df_filtered.sort_values(by='date', ascending=False).head(limit)
+            df_sorted['date'] = pd.to_datetime(df_sorted['date'])
+            return df_sorted.sort_values('date').reset_index(drop=True)[['date', 'value']]
 
     def save_daily_snapshot(self, snapshot_data: Dict[str, Any]):
         df_existing = pd.read_csv(self.snapshots_csv)
