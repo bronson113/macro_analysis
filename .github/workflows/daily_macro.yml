@@ -1,6 +1,9 @@
 name: Daily Macro Analysis & Deploy
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
   schedule:
     # GitHub cron is UTC. Trigger both UTC offsets, then gate on 06:30

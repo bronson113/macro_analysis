@@ -10,6 +10,7 @@ import time
 import logging
 import re
 import urllib.request
+import requests
 import pandas as pd
 import yfinance as yf
 from datetime import datetime, timedelta
@@ -48,14 +49,33 @@ class MacroFetcher:
         last_exception = None
         for attempt in range(1, max_retries + 1):
             try:
-                req = urllib.request.Request(url, headers={'User-Agent': self.user_agent})
-                with urllib.request.urlopen(req, timeout=25) as response:
-                    csv_bytes = response.read()
+                url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
+                csv_bytes = None
+                
+                try:
+                    import subprocess
+                    curl_cmd = [
+                        "curl", "-s", "-L", 
+                        "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+                        url
+                    ]
+                    result = subprocess.run(curl_cmd, capture_output=True, timeout=30)
+                    if result.returncode == 0 and len(result.stdout) > 0:
+                        if b"<!doctype html" not in result.stdout[:200].lower() and b"<html" not in result.stdout[:200].lower():
+                            csv_bytes = result.stdout
+                except Exception as e:
+                    logging.warning(f"Curl failed for {series_id}: {e}")
+                    
+                if not csv_bytes:
+                    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
+                    response = requests.get(url, headers=headers, timeout=60)
+                    response.raise_for_status()
+                    csv_bytes = response.content
                     
                     if b"<!doctype html" in csv_bytes[:200].lower() or b"<html" in csv_bytes[:200].lower():
                         raise ValueError("FRED returned an HTML error page instead of CSV data. Check user-agent or rate limits.")
                         
-                    df = pd.read_csv(io.BytesIO(csv_bytes))
+                df = pd.read_csv(io.BytesIO(csv_bytes))
                     
                 if df.empty or len(df.columns) < 2:
                     fallback = series_info.get("fallback")
