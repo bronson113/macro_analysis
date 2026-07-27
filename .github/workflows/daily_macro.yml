@@ -2,6 +2,11 @@ name: Daily Macro Analysis & Deploy
 
 on:
   workflow_dispatch:
+  schedule:
+    # GitHub cron is UTC. Trigger both UTC offsets, then gate on 06:30
+    # America/Los_Angeles so daylight-saving changes do not shift local time.
+    - cron: '30 13 * * 1-5'
+    - cron: '30 14 * * 1-5'
 
 permissions:
   contents: write
@@ -13,7 +18,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  pacific-time-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.gate.outputs.should_run }}
+    steps:
+      - name: Check weekday run time
+        id: gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ "$(TZ=America/Los_Angeles date +%H:%M)" = "06:30" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          fi
+
   run-macro-analysis-and-deploy:
+    needs: pacific-time-gate
+    if: needs.pacific-time-gate.outputs.should_run == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -40,22 +63,32 @@ jobs:
       - name: Run macro analysis pipeline
         run: python main.py run
 
+      - name: Validate fresh macro gate data
+        run: python validate_fresh_macro_data.py
+
+      - name: Run Python tests
+        run: python -m unittest discover -s tests
+
       - name: Update Web Data
         run: bash update_web_data.sh
 
-      - name: Commit and push state changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Automated daily macro data update and report"
-          file_pattern: "data/*.csv output/*.md output/*.json web/public/*"
-
       - name: Install Node dependencies
         working-directory: ./web
-        run: npm install
+        run: npm ci
+
+      - name: Run web tests
+        working-directory: ./web
+        run: npm test
 
       - name: Build static site
         working-directory: ./web
         run: npm run build
+
+      - name: Commit and push validated data state
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Automated daily macro data update"
+          file_pattern: "data/*.csv output/*.md output/*.json web/public/*"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
