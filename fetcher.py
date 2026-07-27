@@ -16,7 +16,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, Any, Tuple, Optional
-from config import DASHBOARD_HISTORY_DAYS, FRED_SERIES, YAHOO_TICKERS, LOG_DIR, configure_yfinance_cache
+from config import DASHBOARD_HISTORY_DAYS, FRED_SERIES, YAHOO_TICKERS, LOG_DIR, CACHE_DIR, configure_yfinance_cache
 from storage import MacroStorage
 from news_analyzer import MacroNewsAnalyzer
 
@@ -46,29 +46,64 @@ class MacroFetcher:
         series_id = series_info["id"]
         url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
         
+        # Check local pre-fetched cache first
+        cached_path = CACHE_DIR / "fred" / f"{series_id}.csv"
+        if cached_path.exists() and cached_path.stat().st_size > 0:
+            try:
+                content = cached_path.read_bytes()
+                content_start = content[:200].lower()
+                if b"date" in content_start or b"observation_date" in content_start:
+                    df = pd.read_csv(io.BytesIO(content))
+                    if not df.empty and len(df.columns) >= 2:
+                        date_col = df.columns[0]
+                        val_col = df.columns[1]
+                        df = df.rename(columns={date_col: "date", val_col: "value"})
+                        df = df[df["value"] != "."].copy()
+                        df["value"] = pd.to_numeric(df["value"], errors="coerce")
+                        df = df.dropna(subset=["value"])
+                        df["date"] = pd.to_datetime(df["date"]).dt.strftime("%Y-%m-%d")
+                        
+                        history_days = DASHBOARD_HISTORY_DAYS + 365 if key == "cpi" else DASHBOARD_HISTORY_DAYS
+                        cutoff_date = (datetime.now() - timedelta(days=history_days)).strftime("%Y-%m-%d")
+                        df = df[df["date"] >= cutoff_date]
+                        
+                        count = self.storage.save_observations(key, df[["date", "value"]])
+                        logging.info(f"Successfully loaded {count} records from cached FRED file for {key} ({series_id})")
+                        return count, None
+            except Exception as cache_err:
+                logging.warning(f"Failed loading cache for {series_id}: {cache_err}")
+
         last_exception = None
         for attempt in range(1, max_retries + 1):
             try:
                 url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
                 csv_bytes = None
+                cookie_file = f"/tmp/fred_cookie_{series_id}.txt"
                 
                 try:
                     import subprocess
-                    curl_cmd = [
-                        "curl", "-s", "-L", 
-                        "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-                        url
-                    ]
-                    result = subprocess.run(curl_cmd, capture_output=True, timeout=30)
+                    # Step 1: Perform HEAD request to obtain Akamai Bot Manager cookies (_abck, bm_sz)
+                    subprocess.run(
+                        ["curl", "--http1.1", "-sI", "-c", cookie_file, url],
+                        capture_output=True, timeout=10
+                    )
+                    
+                    # Step 2: Perform GET request passing the cookie jar
+                    result = subprocess.run(
+                        ["curl", "--http1.1", "-s", "-L", "-b", cookie_file, "-c", cookie_file, url],
+                        capture_output=True, timeout=20
+                    )
+                    
                     if result.returncode == 0 and len(result.stdout) > 0:
-                        if b"<!doctype html" not in result.stdout[:200].lower() and b"<html" not in result.stdout[:200].lower():
+                        content_start = result.stdout[:200].lower()
+                        if b"date" in content_start or b"observation_date" in content_start:
                             csv_bytes = result.stdout
                 except Exception as e:
-                    logging.warning(f"Curl failed for {series_id}: {e}")
+                    logging.warning(f"Curl Akamai cookie handshake failed for {series_id}: {e}")
                     
                 if not csv_bytes:
                     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
-                    response = requests.get(url, headers=headers, timeout=60)
+                    response = requests.get(url, headers=headers, timeout=30)
                     response.raise_for_status()
                     csv_bytes = response.content
                     
