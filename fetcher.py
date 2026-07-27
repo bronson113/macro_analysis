@@ -48,8 +48,13 @@ class MacroFetcher:
         last_exception = None
         for attempt in range(1, max_retries + 1):
             try:
-                with urllib.request.urlopen(url, timeout=25) as response:
+                req = urllib.request.Request(url, headers={'User-Agent': self.user_agent})
+                with urllib.request.urlopen(req, timeout=25) as response:
                     csv_bytes = response.read()
+                    
+                    if b"<!doctype html" in csv_bytes[:200].lower() or b"<html" in csv_bytes[:200].lower():
+                        raise ValueError("FRED returned an HTML error page instead of CSV data. Check user-agent or rate limits.")
+                        
                     df = pd.read_csv(io.BytesIO(csv_bytes))
                     
                 if df.empty or len(df.columns) < 2:
