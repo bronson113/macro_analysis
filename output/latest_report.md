@@ -93,12 +93,12 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 | **Healthcare (XLV)** | **HOLD** | `HIGH (Tax-Aware Default)` | `17.7x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
 | **Energy (XLE)** | **BUY / ACCUMULATE** | `HIGH (Macro Quadrant Tailwinds)` | `12.8x` | `None` | Sector is highly favored in the current SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION regime. |
 | **Industrials (XLI)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `29.9x` | `None` | Negative ERP (-1.35%) combined with valuation stretch (29.9x vs 19.0x norm). Risk-free yield competes strongly with sector earnings yield. |
-| **Consumer Discretionary (XLY)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `35.8x` | `None` | Negative ERP (-1.90%) combined with valuation stretch (35.8x vs 22.0x norm). Risk-free yield competes strongly with sector earnings yield. |
+| **Consumer Discretionary (XLY)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `35.8x` | `None` | Negative ERP (-1.89%) combined with valuation stretch (35.8x vs 22.0x norm). Risk-free yield competes strongly with sector earnings yield. |
 | **Consumer Staples (XLP)** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `24.9x` | `None` | Negative ERP (-0.67%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
-| **AI Compute & Accelerators** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `22.4x` | `None` | Negative ERP (-0.22%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
-| **High-Bandwidth Memory (HBM)** | **HOLD / CAUTION** | `MODERATE` | `16.4x` | `None` | Memory supply chain headline volatility present. Maintain position for mid-term HBM structural cycle; avoid panic selling. |
-| **Physical AI & Robotics** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `58.2x` | `None` | Negative ERP (-2.97%) combined with valuation stretch (58.2x vs 30.0x norm). Risk-free yield competes strongly with sector earnings yield. |
-| **Downstream Power & Grid** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `24.9x` | `None` | Negative ERP (-0.68%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
+| **AI Compute & Accelerators** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `22.3x` | `None` | Negative ERP (-0.21%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
+| **High-Bandwidth Memory (HBM)** | **HOLD** | `HIGH (Tax-Aware Default)` | `16.4x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
+| **Physical AI & Robotics** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `58.1x` | `None` | Negative ERP (-2.97%) combined with valuation stretch (58.1x vs 30.0x norm). Risk-free yield competes strongly with sector earnings yield. |
+| **Downstream Power & Grid** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `25.0x` | `None` | Negative ERP (-0.69%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
 
 ---
 
@@ -108,10 +108,10 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Ecosystem Sub-Group | Key Tickers | Avg Forward P/E | Avg EV / EBITDA | Historical Norm (P/E) | Supply Chain & Valuation Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.37x` | `46.20x` | `28.0x` | `Undervalued / Discounted Super-Cycle` |
+| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.33x` | `46.20x` | `28.0x` | `Undervalued / Discounted Super-Cycle` |
 | **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `16.35x` | `28.96x` | `16.0x` | `Fairly Valued` |
-| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `58.16x` | `53.30x` | `30.0x` | `Rich Multiple / Growth Premium` |
-| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `24.93x` | `29.86x` | `22.0x` | `Fairly Valued` |
+| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `58.11x` | `53.30x` | `30.0x` | `Rich Multiple / Growth Premium` |
+| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `24.97x` | `29.86x` | `22.0x` | `Fairly Valued` |
 | **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `20.64x` | `30.43x` | `25.0x` | `Fairly Valued` |
 | **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `33.60x` | `45.36x` | `26.0x` | `Rich Multiple / Growth Premium` |
 | **7. Critical Materials & Magnets** | `FCX`, `MP` | `30.11x` | `11.12x` | `18.0x` | `Rich Multiple / Growth Premium` |
@@ -122,14 +122,14 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
-| **CBOE Volatility (VIX)** | `18.67` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `101.50` | Global Currency Tightness |
+| **CBOE Volatility (VIX)** | `18.75` | `Low Volatility (Complacency)` |
+| **US Dollar Index (DXY)** | `101.56` | Global Currency Tightness |
 | **S&P 500 Index** | `7,413.18` | US Equity Benchmark |
-| **CNN Fear & Greed Index** | `40.03` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
+| **CNN Fear & Greed Index** | `40.71` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
 | **Shiller PE Ratio** | `40.47` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$81.42` | Energy Cost Drivers |
-| **Gold** | `$4,049.40` | Monetary Protection / Safe Haven |
-| **Copper** | `$6.34` | Industrial Demand Indicator |
+| **WTI Crude Oil** | `$81.55` | Energy Cost Drivers |
+| **Gold** | `$4,025.20` | Monetary Protection / Safe Haven |
+| **Copper** | `$6.32` | Industrial Demand Indicator |
 
 ---
 *Report auto-generated by 4-Quadrant Macro & Dynamic Sector Strategy Engine.*
