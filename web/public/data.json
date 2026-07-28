@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-28T04:32:50.341642",
+    "generated_at": "2026-07-28T04:38:44.097672",
     "date": "2026-07-28",
     "engine_version": "2.0-GeminiRawPayload"
   },
@@ -9,124 +9,148 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-22",
       "value": 6747378.0,
-      "updated_at": "2026-07-28T04:31:47.094121"
+      "updated_at": "2026-07-28T04:37:50.040424"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-22",
       "value": 835417.0,
-      "updated_at": "2026-07-28T04:31:47.346716"
+      "updated_at": "2026-07-28T04:37:50.293966"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-27",
       "value": 1.38,
-      "updated_at": "2026-07-28T04:31:47.224540"
+      "updated_at": "2026-07-28T04:37:50.174306"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
       "date": "2026-07-24",
       "value": 4.69,
-      "updated_at": "2026-07-28T04:31:47.991753"
+      "updated_at": "2026-07-28T04:37:50.915580"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
       "date": "2026-07-24",
       "value": 4.33,
-      "updated_at": "2026-07-28T04:31:48.120730"
+      "updated_at": "2026-07-28T04:37:51.042436"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
       "date": "2026-07-27",
       "value": 0.34,
-      "updated_at": "2026-07-28T04:31:48.502310"
+      "updated_at": "2026-07-28T04:37:51.426680"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
       "date": "2026-07-24",
       "value": 2.79,
-      "updated_at": "2026-07-28T04:31:48.745756"
+      "updated_at": "2026-07-28T04:37:51.669772"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
       "date": "2026-07-24",
       "value": 0.45,
-      "updated_at": "2026-07-28T04:31:48.862686"
+      "updated_at": "2026-07-28T04:37:51.786732"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
       "date": "2026-07-17",
       "value": -0.55,
-      "updated_at": "2026-07-28T04:31:49.095890"
+      "updated_at": "2026-07-28T04:37:52.022648"
     },
     "vix": {
       "indicator_key": "vix",
       "date": "2026-07-27",
       "value": 18.670000076293945,
-      "updated_at": "2026-07-28T04:31:51.604532"
+      "updated_at": "2026-07-28T04:37:54.474910"
     },
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-07-28",
-      "value": 101.5,
-      "updated_at": "2026-07-28T04:31:51.741883"
+      "value": 101.51699829101562,
+      "updated_at": "2026-07-28T04:37:54.740152"
     },
     "sp500": {
       "indicator_key": "sp500",
       "date": "2026-07-27",
       "value": 7413.18017578125,
-      "updated_at": "2026-07-28T04:31:51.433962"
+      "updated_at": "2026-07-28T04:37:54.609711"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-07-28",
-      "value": 81.56999969482422,
-      "updated_at": "2026-07-28T04:31:52.011405"
+      "value": 81.66000366210938,
+      "updated_at": "2026-07-28T04:37:54.305767"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-07-28",
-      "value": 4047.60009765625,
-      "updated_at": "2026-07-28T04:31:52.156228"
+      "value": 4046.39990234375,
+      "updated_at": "2026-07-28T04:37:54.994354"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-28",
-      "value": 6.363999843597412,
-      "updated_at": "2026-07-28T04:31:52.317255"
+      "value": 6.364999771118164,
+      "updated_at": "2026-07-28T04:37:55.128989"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
       "date": "2026-06-01",
       "value": 4.2,
-      "updated_at": "2026-07-28T04:31:49.329295"
+      "updated_at": "2026-07-28T04:37:52.255502"
     },
     "cpi": {
       "indicator_key": "cpi",
       "date": "2026-06-01",
       "value": 332.568,
-      "updated_at": "2026-07-28T04:31:49.916049"
+      "updated_at": "2026-07-28T04:37:52.841530"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
       "date": "2026-07-27",
       "value": 2.18,
-      "updated_at": "2026-07-28T04:31:50.387271"
+      "updated_at": "2026-07-28T04:37:53.310427"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
-      "date": "2026-07-27",
-      "value": 39.9428571428571,
-      "updated_at": "2026-07-28T04:31:52.851769"
+      "date": "2026-07-28",
+      "value": 40.0285714285714,
+      "updated_at": "2026-07-28T04:37:55.781710"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
       "date": "2026-07-28",
       "value": 40.47,
-      "updated_at": "2026-07-28T04:31:53.057219"
+      "updated_at": "2026-07-28T04:37:56.127125"
     }
   },
   "recent_news_events": [
+    {
+      "id": 321.0,
+      "date": "2026-07-28",
+      "title": "[TSLA - Tesla] Is Tesla a Buy After Its Latest Earnings Report?",
+      "summary": "The company's second quarter was mixed, with a beat on revenue but a wide miss on profitability.",
+      "source": "Yahoo Finance (TSLA)",
+      "link": "https://www.fool.com/investing/2026/07/27/is-tesla-a-buy-after-its-latest-earnings-report/",
+      "category": "Sector Bellwether: TSLA (Consumer Discretionary / EV)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-28T04:37:59.525019"
+    },
+    {
+      "id": 320.0,
+      "date": "2026-07-28",
+      "title": "[MU - Micron Technology] Micron Has Surged Nearly 700% Over the Past Year -- Here Is What the Valuation Says About Its Next Move",
+      "summary": "Micron's valuation could be a warning sign, but history may not repeat itself this time around.",
+      "source": "Yahoo Finance (MU)",
+      "link": "https://www.fool.com/investing/2026/07/28/micron-has-surged-nearly-700-over-the-past-year-he/",
+      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
+      "impact_score": -0.8,
+      "sentiment": "Sector Contagion / Stress Warning | HIGH SECTOR RISK (XLK / SOXX)",
+      "created_at": "2026-07-28T04:37:59.524949"
+    },
     {
       "id": 319.0,
       "date": "2026-07-28",
@@ -402,30 +426,6 @@
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
       "created_at": "2026-07-28T04:31:56.305223"
-    },
-    {
-      "id": 296.0,
-      "date": "2026-07-28",
-      "title": "[MU - Micron Technology] Elon Musk's Tesla, SpaceX shed $1.2T in July, while Apple sprints ahead: Chart of the Day",
-      "summary": "Yahoo Finance Markets and Data Editor Jared Blikre takes a look at how market capitalization changed in July for the top US stocks: SpaceX (SPCX), Tesla (TSLA), Alphabet (GOOG, GOOGL), and Apple (AAPL",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://finance.yahoo.com/video/elon-musks-tesla-spacex-shed-12t-in-july-while-apple-sprints-ahead-chart-of-the-day-202410236.html",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305218"
-    },
-    {
-      "id": 295.0,
-      "date": "2026-07-28",
-      "title": "Crude Oil Forecast: US-Iran Pause Drives -7% WTI Drop - Will it Reverse? - FOREX.com",
-      "summary": "Crude Oil Forecast: US-Iran Pause Drives -7% WTI Drop - Will it Reverse?&nbsp;&nbsp;FOREX.com",
-      "source": "FOREX.com",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNYVF3RjAyM0V3dGl5WFdmUlhyOHoxYzdtdzc2cUdFX1JtT285eVM3VkZieElDQjd6ZEp4WnJxYTBSd0NFdXB2N1UxbUxlSENPLTZqQ2pBLUpwaHgtUEN2TWRPaGRacGJvZDZQR19UTExmQkRpVklCS2haVDZtNHVKWTA3UFQwVHJYR19zcFdPZDBpeFJ6ZGgyWGhTei1ubnJDUmw3NnY2VGx6ZnYyQmdwbDcyMA?oc=5",
-      "category": "Geopolitics & Oil",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed",
-      "created_at": "2026-07-28T04:31:56.305214"
     }
   ],
   "individual_stock_constituents": [
@@ -1022,7 +1022,7 @@
       "name": "Booking Holdings Inc. Common St",
       "group": "Consumer Discretionary & Retail",
       "price": 186.79,
-      "trailing_pe": 24.64,
+      "trailing_pe": 23.41,
       "forward_pe": 15.22,
       "ev_ebitda": 14.25,
       "price_to_book": -16.7,

@@ -96,7 +96,7 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 | **Consumer Discretionary (XLY)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `35.8x` | `None` | Negative ERP (-1.90%) combined with valuation stretch (35.8x vs 22.0x norm). Risk-free yield competes strongly with sector earnings yield. |
 | **Consumer Staples (XLP)** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `24.9x` | `None` | Negative ERP (-0.67%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
 | **AI Compute & Accelerators** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `22.4x` | `None` | Negative ERP (-0.22%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
-| **High-Bandwidth Memory (HBM)** | **HOLD** | `HIGH (Tax-Aware Default)` | `16.4x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
+| **High-Bandwidth Memory (HBM)** | **HOLD / CAUTION** | `MODERATE` | `16.4x` | `None` | Memory supply chain headline volatility present. Maintain position for mid-term HBM structural cycle; avoid panic selling. |
 | **Physical AI & Robotics** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `58.2x` | `None` | Negative ERP (-2.97%) combined with valuation stretch (58.2x vs 30.0x norm). Risk-free yield competes strongly with sector earnings yield. |
 | **Downstream Power & Grid** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `24.9x` | `None` | Negative ERP (-0.68%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
 
@@ -123,12 +123,12 @@ Tracking valuation multiples and downstream physical dependencies across compute
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
 | **CBOE Volatility (VIX)** | `18.67` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `101.50` | Global Currency Tightness |
+| **US Dollar Index (DXY)** | `101.52` | Global Currency Tightness |
 | **S&P 500 Index** | `7,413.18` | US Equity Benchmark |
-| **CNN Fear & Greed Index** | `39.94` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
+| **CNN Fear & Greed Index** | `40.03` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
 | **Shiller PE Ratio** | `40.47` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$81.57` | Energy Cost Drivers |
-| **Gold** | `$4,047.60` | Monetary Protection / Safe Haven |
+| **WTI Crude Oil** | `$81.66` | Energy Cost Drivers |
+| **Gold** | `$4,046.40` | Monetary Protection / Safe Haven |
 | **Copper** | `$6.36` | Industrial Demand Indicator |
 
 ---
