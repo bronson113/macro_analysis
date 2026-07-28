@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { buildMarkdownUrl } from '../utils/markdownSource';
+import MarkdownContent from './MarkdownComponents';
 
 const LlmAnalysis = () => {
   const [content, setContent] = useState('');
@@ -42,12 +41,7 @@ const LlmAnalysis = () => {
         {!loading && error && <p className="text-secondary">{error}</p>}
         {!loading && !error && (
           <div className="markdown-body">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{ table: ({ children }) => <div className="markdown-table-scroll"><table>{children}</table></div> }}
-            >
-              {content}
-            </ReactMarkdown>
+            <MarkdownContent content={content} />
           </div>
         )}
       </div>

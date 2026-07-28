@@ -130,6 +130,7 @@ const TrendGraphs = () => {
               key={label}
               className={`range-btn ${timeRange === label ? 'active' : ''}`}
               type="button"
+              aria-pressed={timeRange === label}
               onClick={() => handleTimeRangeChange(label)}
             >
               {label}

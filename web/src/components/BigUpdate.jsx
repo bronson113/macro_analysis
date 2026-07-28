@@ -1,9 +1,8 @@
 import React, { useCallback, useState, useEffect, useId, useRef } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { splitReportSections } from '../utils/dashboardPresentation';
 import { useDialogFocus } from '../hooks/useDialogFocus';
 import { getNextTabIndex } from '../utils/keyboardNavigation';
+import MarkdownContent from './MarkdownComponents';
 
 const latestReport = { date: '', path: '/latest_report.md' };
 
@@ -96,10 +95,6 @@ const BigUpdate = ({ reports = [] }) => {
     selectReportDate(dateInputRef.current?.value || '');
   };
 
-  const markdownComponents = {
-    table: ({ children }) => <div className="markdown-table-scroll"><table>{children}</table></div>,
-  };
-
   const handleTabKeyDown = (event, currentIndex) => {
     const nextIndex = getNextTabIndex({
       key: event.key,
@@ -177,7 +172,7 @@ const BigUpdate = ({ reports = [] }) => {
                   aria-labelledby={`${reportId}-${tab.id}-tab`}
                   hidden={visibleTab !== tab.id}
                 >
-                  <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{tab.content}</ReactMarkdown>
+                  <MarkdownContent content={tab.content} />
                 </div>
               ))}
               <button className="link-button" type="button" onClick={() => setIsModalOpen(true)}>
@@ -190,12 +185,13 @@ const BigUpdate = ({ reports = [] }) => {
 
       {isModalOpen && !reportError && (
         <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" ref={dialogRef} tabIndex="-1" role="dialog" aria-modal="true" aria-label="Expanded Big Update report" onClick={e => e.stopPropagation()}>
+          <div className="modal-content" ref={dialogRef} tabIndex="-1" role="dialog" aria-modal="true" aria-labelledby={`${reportId}-expanded-title`} onClick={e => e.stopPropagation()}>
             <button className="modal-close" ref={closeButtonRef} type="button" aria-label="Close expanded report" onClick={closeModal}>
               &#x2715;
             </button>
+            <h2 id={`${reportId}-expanded-title`} className="sr-only">Expanded Big Update report</h2>
             <div className="markdown-body">
-              <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{content}</ReactMarkdown>
+              <MarkdownContent content={content} />
             </div>
           </div>
         </div>
