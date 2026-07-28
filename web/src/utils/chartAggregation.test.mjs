@@ -11,6 +11,18 @@ test('keeps a three-calendar-year chart range at daily granularity', () => {
   assert.equal(prepareChartData(points).length, 2);
 });
 
+test('aggregates one day past a leap-day calendar anniversary', () => {
+  const points = [
+    { date: '2020-02-29', sp500: 100, __index: 0 },
+    { date: '2023-03-01', sp500: 200, __index: 1 },
+  ];
+
+  assert.deepEqual(prepareChartData(points), [
+    { date: '2020-02-29', sp500: 100 },
+    { date: '2023-03-01', sp500: 200 },
+  ]);
+});
+
 test('averages numeric fields into calendar weeks over three years', () => {
   const points = [
     { date: '2020-01-01', sp500: 100, vix: 10, cpi_yoy: null },

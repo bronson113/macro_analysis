@@ -20,10 +20,17 @@ const parseUtcDate = (value) => {
 };
 
 const exceedsThreeCalendarYears = (firstDate, lastDate) => {
+  const anniversaryYear = firstDate.getUTCFullYear() + YEARS_TO_AGGREGATE;
+  const anniversaryMonth = firstDate.getUTCMonth();
+  const lastDayOfAnniversaryMonth = new Date(Date.UTC(
+    anniversaryYear,
+    anniversaryMonth + 1,
+    0,
+  )).getUTCDate();
   const anniversary = new Date(Date.UTC(
-    firstDate.getUTCFullYear() + YEARS_TO_AGGREGATE,
-    firstDate.getUTCMonth(),
-    firstDate.getUTCDate(),
+    anniversaryYear,
+    anniversaryMonth,
+    Math.min(firstDate.getUTCDate(), lastDayOfAnniversaryMonth),
   ));
 
   return lastDate > anniversary;
