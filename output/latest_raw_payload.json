@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-28T04:38:44.097672",
+    "generated_at": "2026-07-28T04:49:36.987022",
     "date": "2026-07-28",
     "engine_version": "2.0-GeminiRawPayload"
   },
@@ -9,124 +9,136 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-22",
       "value": 6747378.0,
-      "updated_at": "2026-07-28T04:37:50.040424"
+      "updated_at": "2026-07-28T04:47:58.904119"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-22",
       "value": 835417.0,
-      "updated_at": "2026-07-28T04:37:50.293966"
+      "updated_at": "2026-07-28T04:47:59.171999"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-27",
       "value": 1.38,
-      "updated_at": "2026-07-28T04:37:50.174306"
+      "updated_at": "2026-07-28T04:47:58.993046"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
       "date": "2026-07-24",
       "value": 4.69,
-      "updated_at": "2026-07-28T04:37:50.915580"
+      "updated_at": "2026-07-28T04:48:00.088921"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
       "date": "2026-07-24",
       "value": 4.33,
-      "updated_at": "2026-07-28T04:37:51.042436"
+      "updated_at": "2026-07-28T04:48:00.179008"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
       "date": "2026-07-27",
       "value": 0.34,
-      "updated_at": "2026-07-28T04:37:51.426680"
+      "updated_at": "2026-07-28T04:48:00.640269"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
       "date": "2026-07-24",
       "value": 2.79,
-      "updated_at": "2026-07-28T04:37:51.669772"
+      "updated_at": "2026-07-28T04:48:00.955471"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
       "date": "2026-07-24",
       "value": 0.45,
-      "updated_at": "2026-07-28T04:37:51.786732"
+      "updated_at": "2026-07-28T04:48:01.205934"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
       "date": "2026-07-17",
       "value": -0.55,
-      "updated_at": "2026-07-28T04:37:52.022648"
+      "updated_at": "2026-07-28T04:48:01.466347"
     },
     "vix": {
       "indicator_key": "vix",
       "date": "2026-07-27",
       "value": 18.670000076293945,
-      "updated_at": "2026-07-28T04:37:54.474910"
+      "updated_at": "2026-07-28T04:48:05.255681"
     },
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-07-28",
-      "value": 101.51699829101562,
-      "updated_at": "2026-07-28T04:37:54.740152"
+      "value": 101.51300048828124,
+      "updated_at": "2026-07-28T04:48:04.934812"
     },
     "sp500": {
       "indicator_key": "sp500",
       "date": "2026-07-27",
       "value": 7413.18017578125,
-      "updated_at": "2026-07-28T04:37:54.609711"
+      "updated_at": "2026-07-28T04:48:04.797935"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-07-28",
-      "value": 81.66000366210938,
-      "updated_at": "2026-07-28T04:37:54.305767"
+      "value": 81.69999694824219,
+      "updated_at": "2026-07-28T04:48:05.048148"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-07-28",
-      "value": 4046.39990234375,
-      "updated_at": "2026-07-28T04:37:54.994354"
+      "value": 4046.0,
+      "updated_at": "2026-07-28T04:48:05.352583"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-28",
-      "value": 6.364999771118164,
-      "updated_at": "2026-07-28T04:37:55.128989"
+      "value": 6.36299991607666,
+      "updated_at": "2026-07-28T04:48:05.535509"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
       "date": "2026-06-01",
       "value": 4.2,
-      "updated_at": "2026-07-28T04:37:52.255502"
+      "updated_at": "2026-07-28T04:48:01.810377"
     },
     "cpi": {
       "indicator_key": "cpi",
       "date": "2026-06-01",
       "value": 332.568,
-      "updated_at": "2026-07-28T04:37:52.841530"
+      "updated_at": "2026-07-28T04:48:02.888523"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
       "date": "2026-07-27",
       "value": 2.18,
-      "updated_at": "2026-07-28T04:37:53.310427"
+      "updated_at": "2026-07-28T04:48:03.263477"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
       "date": "2026-07-28",
       "value": 40.0285714285714,
-      "updated_at": "2026-07-28T04:37:55.781710"
+      "updated_at": "2026-07-28T04:48:06.205345"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
       "date": "2026-07-28",
       "value": 40.47,
-      "updated_at": "2026-07-28T04:37:56.127125"
+      "updated_at": "2026-07-28T04:48:06.551778"
     }
   },
   "recent_news_events": [
+    {
+      "id": 322.0,
+      "date": "2026-07-28",
+      "title": "Hopes for Renewed Negotiations Trigger Pullback in Geopolitical Risk Premium; Crude Oil Drops Sharply - Sunsirs",
+      "summary": "Hopes for Renewed Negotiations Trigger Pullback in Geopolitical Risk Premium; Crude Oil Drops Sharply&nbsp;&nbsp;Sunsirs",
+      "source": "Sunsirs",
+      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9zVlFLcDB4Z3V6SWxKQ3REWmhDYnYyeENadktNeFBzMWFBcS03N0ZqOWVPMW1VSDRoMXZLN1Vjbk9Mem1tRHlPcHlFWTlvZlc1M3dxMEhTN2dEb0FNQ1E?oc=5",
+      "category": "Geopolitics & Oil",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed",
+      "created_at": "2026-07-28T04:48:10.575568"
+    },
     {
       "id": 321.0,
       "date": "2026-07-28",
@@ -414,18 +426,6 @@
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
       "created_at": "2026-07-28T04:31:56.305227"
-    },
-    {
-      "id": 297.0,
-      "date": "2026-07-28",
-      "title": "[MU - Micron Technology] Dow Jones Futures: U.S.-Iran Peace Hopes Send Oil Prices Plunging; Nvidia, Micron, Sandisk, SpaceX, Tesla Sell Off",
-      "summary": "Dow Jones Futures: Oil prices plunged Monday amid U.S.-Iran peace hopes. Nvidia, Micron, Sandisk, SpaceX and Tesla sold off.",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://www.investors.com/market-trend/stock-market-today/dow-jones-futures-us-iran-oil-prices-nvidia-micron-sandisk-spacex-tesla/?src=A00220&yptr=yahoo",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305223"
     }
   ],
   "individual_stock_constituents": [
@@ -434,10 +434,10 @@
       "name": "Micron Technology, Inc.",
       "group": "Technology & Semiconductors",
       "price": 900.2,
-      "trailing_pe": 20.36,
+      "trailing_pe": 20.83,
       "forward_pe": 5.86,
       "ev_ebitda": 14.62,
-      "price_to_book": 14.01,
+      "price_to_book": 10.09,
       "dist_from_52w_high_pct": -28.27,
       "return_30d_pct": -21.39
     },
@@ -494,7 +494,7 @@
       "name": "Apple Inc.",
       "group": "Technology & Semiconductors",
       "price": 336.91,
-      "trailing_pe": 40.79,
+      "trailing_pe": 40.3,
       "forward_pe": 34.93,
       "ev_ebitda": 31.03,
       "price_to_book": 46.41,
@@ -530,7 +530,7 @@
       "name": "QUALCOMM Incorporated",
       "group": "Technology & Semiconductors",
       "price": 170.04,
-      "trailing_pe": 18.28,
+      "trailing_pe": 17.96,
       "forward_pe": 15.47,
       "ev_ebitda": 14.21,
       "price_to_book": 6.6,
@@ -554,8 +554,8 @@
       "name": "Bank of America Corporation",
       "group": "Financials & Banking",
       "price": 62.13,
-      "trailing_pe": 14.35,
-      "forward_pe": 11.81,
+      "trailing_pe": 14.32,
+      "forward_pe": 11.8,
       "ev_ebitda": null,
       "price_to_book": 1.58,
       "dist_from_52w_high_pct": -1.37,
@@ -614,7 +614,7 @@
       "name": "BlackRock, Inc.",
       "group": "Financials & Banking",
       "price": 1062.14,
-      "trailing_pe": 25.47,
+      "trailing_pe": 25.32,
       "forward_pe": 16.5,
       "ev_ebitda": 15.58,
       "price_to_book": 2.91,
@@ -650,7 +650,7 @@
       "name": "UnitedHealth Group Incorporated",
       "group": "Healthcare & Pharma",
       "price": 417.64,
-      "trailing_pe": 31.4,
+      "trailing_pe": 31.64,
       "forward_pe": 18.62,
       "ev_ebitda": 17.38,
       "price_to_book": 3.62,
@@ -674,7 +674,7 @@
       "name": "Eli Lilly and Company",
       "group": "Healthcare & Pharma",
       "price": 1197.53,
-      "trailing_pe": 42.56,
+      "trailing_pe": 42.6,
       "forward_pe": 26.56,
       "ev_ebitda": 30.54,
       "price_to_book": 34.3,
@@ -806,7 +806,7 @@
       "name": "Marathon Petroleum Corporation",
       "group": "Energy & Oil/Gas",
       "price": 312.35,
-      "trailing_pe": 20.58,
+      "trailing_pe": 20.36,
       "forward_pe": 11.25,
       "ev_ebitda": 12.68,
       "price_to_book": 5.46,
@@ -818,7 +818,7 @@
       "name": "Phillips 66",
       "group": "Energy & Oil/Gas",
       "price": 207.82,
-      "trailing_pe": 20.56,
+      "trailing_pe": 20.45,
       "forward_pe": 10.95,
       "ev_ebitda": 15.12,
       "price_to_book": 2.92,
@@ -842,10 +842,10 @@
       "name": "GE Aerospace",
       "group": "Industrials & Machinery",
       "price": 361.61,
-      "trailing_pe": 42.59,
-      "forward_pe": 39.91,
+      "trailing_pe": 41.66,
+      "forward_pe": 39.85,
       "ev_ebitda": 33.59,
-      "price_to_book": 20.89,
+      "price_to_book": 21.27,
       "dist_from_52w_high_pct": -5.58,
       "return_30d_pct": -3.12
     },
@@ -866,7 +866,7 @@
       "name": "RTX Corporation",
       "group": "Industrials & Machinery",
       "price": 218.42,
-      "trailing_pe": 38.45,
+      "trailing_pe": 37.46,
       "forward_pe": 27.99,
       "ev_ebitda": 20.55,
       "price_to_book": 4.44,
@@ -926,7 +926,7 @@
       "name": "Lockheed Martin Corporation",
       "group": "Industrials & Machinery",
       "price": 580.0,
-      "trailing_pe": 21.41,
+      "trailing_pe": 21.51,
       "forward_pe": 17.76,
       "ev_ebitda": 15.56,
       "price_to_book": 17.81,
@@ -953,7 +953,7 @@
       "trailing_pe": 281.11,
       "forward_pe": 139.31,
       "ev_ebitda": 111.06,
-      "price_to_book": 14.12,
+      "price_to_book": 13.8,
       "dist_from_52w_high_pct": -38.01,
       "return_30d_pct": -24.92
     },
@@ -1010,7 +1010,7 @@
       "name": "Starbucks Corporation",
       "group": "Consumer Discretionary & Retail",
       "price": 103.65,
-      "trailing_pe": 79.12,
+      "trailing_pe": 78.52,
       "forward_pe": 34.41,
       "ev_ebitda": 26.11,
       "price_to_book": -13.95,
@@ -1060,7 +1060,7 @@
       "price": 84.07,
       "trailing_pe": 26.44,
       "forward_pe": 24.13,
-      "ev_ebitda": 23.61,
+      "ev_ebitda": 23.14,
       "price_to_book": 10.76,
       "dist_from_52w_high_pct": -1.88,
       "return_30d_pct": 1.72
@@ -1070,7 +1070,7 @@
       "name": "Pepsico, Inc.",
       "group": "Consumer Staples",
       "price": 139.79,
-      "trailing_pe": 18.35,
+      "trailing_pe": 17.92,
       "forward_pe": 15.57,
       "ev_ebitda": 12.37,
       "price_to_book": 8.64,
@@ -1097,7 +1097,7 @@
       "trailing_pe": 215.01,
       "forward_pe": 21.36,
       "ev_ebitda": 17.58,
-      "price_to_book": -32.86,
+      "price_to_book": null,
       "dist_from_52w_high_pct": -2.06,
       "return_30d_pct": 6.99
     },
@@ -1133,7 +1133,7 @@
       "trailing_pe": 281.11,
       "forward_pe": 139.31,
       "ev_ebitda": 111.06,
-      "price_to_book": 14.12,
+      "price_to_book": 13.8,
       "dist_from_52w_high_pct": -38.01,
       "return_30d_pct": -24.92
     },
@@ -1155,7 +1155,7 @@
       "group": "Physical AI & Robotics",
       "price": 334.77,
       "trailing_pe": 62.11,
-      "forward_pe": 32.48,
+      "forward_pe": 32.55,
       "ev_ebitda": 44.98,
       "price_to_book": 16.67,
       "dist_from_52w_high_pct": -31.39,
@@ -1202,7 +1202,7 @@
       "name": "Vistra Corp.",
       "group": "Downstream Power & Grid",
       "price": 157.08,
-      "trailing_pe": 26.27,
+      "trailing_pe": 27.32,
       "forward_pe": 14.52,
       "ev_ebitda": 11.1,
       "price_to_book": 17.01,
@@ -1286,7 +1286,7 @@
       "name": "Applied Materials, Inc.",
       "group": "Semiconductor Equipment",
       "price": 516.89,
-      "trailing_pe": 48.67,
+      "trailing_pe": 50.53,
       "forward_pe": 30.58,
       "ev_ebitda": 44.14,
       "price_to_book": 17.16,
