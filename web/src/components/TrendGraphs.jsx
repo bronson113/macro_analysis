@@ -3,6 +3,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import InfoPanel from './InfoPanel';
 import { descriptions } from '../utils/descriptions';
 import { createTrailingViewport, getVisibleViewport, getWheelAnchorRatio, updateViewportWithWheel } from '../utils/chartViewport';
+import { prepareChartData } from '../utils/chartAggregation';
 
 const TIME_RANGES = [
   { label: '1M', days: 30 },
@@ -63,10 +64,10 @@ const TrendGraphs = () => {
     () => getVisibleViewport(viewport, data.length),
     [viewport, data.length]
   );
-  const visibleData = useMemo(
-    () => indexedData.slice(visibleViewport.start, visibleViewport.end),
-    [indexedData, visibleViewport]
-  );
+  const visibleData = useMemo(() => {
+    const dailyVisibleData = indexedData.slice(visibleViewport.start, visibleViewport.end);
+    return prepareChartData(dailyVisibleData);
+  }, [indexedData, visibleViewport]);
 
   useEffect(() => {
     if (!data.length) return undefined;
