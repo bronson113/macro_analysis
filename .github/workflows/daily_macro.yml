@@ -6,10 +6,8 @@ on:
       - master
   workflow_dispatch:
   schedule:
-    # GitHub cron is UTC. Trigger both UTC offsets, then gate on 04:30
-    # America/Los_Angeles so daylight-saving changes do not shift local time.
-    - cron: '30 11 * * 1-5'
-    - cron: '30 12 * * 1-5'
+    # Run once at a fixed UTC time. This is 2:30 AM PST / 3:30 AM PDT.
+    - cron: '30 10 * * 1-5'
 
 permissions:
   contents: write
@@ -21,25 +19,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  pacific-time-gate:
-    runs-on: ubuntu-latest
-    outputs:
-      should_run: ${{ steps.gate.outputs.should_run }}
-    steps:
-      - name: Check weekday run time
-        id: gate
-        env:
-          EVENT_NAME: ${{ github.event_name }}
-        run: |
-          if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ "$EVENT_NAME" = "push" ] || [ "$(TZ=America/Los_Angeles date +%H:%M)" = "04:30" ]; then
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "should_run=false" >> "$GITHUB_OUTPUT"
-          fi
-
   run-macro-analysis-and-deploy:
-    needs: pacific-time-gate
-    if: needs.pacific-time-gate.outputs.should_run == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

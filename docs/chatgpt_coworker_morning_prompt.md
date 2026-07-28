@@ -71,4 +71,4 @@ Output style:
 
 ## Timing Note
 
-The repo workflow should run before this ChatGPT Work prompt. If the Action runs at 4:30 AM Pacific, schedule this prompt no earlier than 5:00 AM Pacific. After Cowork pushes `web/public/llm_analysis.md`, the push-triggered workflow publishes the LLM note alongside the automated report. Check the website after that second workflow completes.
+The repo workflow should run before this ChatGPT Work prompt. The Action runs once at 10:30 UTC (2:30 AM PST / 3:30 AM PDT); schedule Cowork at 12:00 UTC (4:00 AM PST / 5:00 AM PDT) so the one-hour seasonal shift stays aligned and Cowork has at least 90 minutes of buffer. After Cowork pushes `web/public/llm_analysis.md`, the push-triggered workflow publishes the LLM note alongside the automated report. Check the website after that second workflow completes.
