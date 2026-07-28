@@ -11,16 +11,16 @@ const StockMatrix = ({ stocks = [] }) => {
         <h2>Stock Constituents Matrix</h2>
       </div>
       <div className="data-table-container">
-        <table className="data-table">
+        <table className="data-table" aria-label="Stock constituent research table">
           <thead>
             <tr>
-              <th>Ticker</th>
-              <th>Name</th>
-              <th>Group</th>
-              <th>Price</th>
-              <th>Fwd P/E</th>
-              <th>EV/EBITDA</th>
-              <th>30D Return</th>
+              <th scope="col">Ticker</th>
+              <th scope="col">Name</th>
+              <th scope="col">Group</th>
+              <th scope="col">Price</th>
+              <th scope="col">Fwd P/E</th>
+              <th scope="col">EV/EBITDA</th>
+              <th scope="col">30D Return</th>
             </tr>
           </thead>
           <tbody>
@@ -28,8 +28,8 @@ const StockMatrix = ({ stocks = [] }) => {
               const returnClass = s.return_30d_pct > 0 ? 'positive' : s.return_30d_pct < 0 ? 'negative' : 'neutral';
               
               return (
-                <tr key={i}>
-                  <td style={{ fontWeight: 600 }}>
+                <tr key={s.id || s.ticker || `${s.name || 'stock'}-${i}`}>
+                  <th scope="row" className="ticker-cell">
                     <a
                       className="ticker-link"
                       href={yahooFinanceUrl(s.ticker)}
@@ -39,7 +39,7 @@ const StockMatrix = ({ stocks = [] }) => {
                     >
                       {s.ticker}
                     </a>
-                  </td>
+                  </th>
                   <td>{s.name}</td>
                   <td><span className="text-muted">{s.group}</span></td>
                   <td>${Number(s.price).toFixed(2)}</td>

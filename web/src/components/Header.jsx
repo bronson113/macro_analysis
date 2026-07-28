@@ -12,43 +12,39 @@ const formatRefreshTime = (lastRefresh) => {
 const Header = ({ metadata, reports = [], lastRefresh, onOpenCheatSheet }) => {
   const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
   const newestReport = reports[0]?.date || metadata?.date || 'Unavailable';
-  const oldestReport = reports[reports.length - 1]?.date || 'Unavailable';
+  const oldestReport = reports[reports.length - 1]?.date || metadata?.date || 'Unavailable';
+  const archiveRange = reports.length > 1 ? `${oldestReport}–${newestReport}` : newestReport;
 
   return (
-    <header className="dashboard-header animate-fade-in stagger-1">
-      <div>
-        <h1 className="gradient-text">Macro Analysis Dashboard</h1>
-        <p className="text-secondary">AI-driven financial insights & quantitative macro data.</p>
+    <header className="dashboard-header masthead animate-fade-in stagger-1">
+      <div className="masthead-brand">
+        <h1 className="masthead-wordmark">MACRO / SIGNAL</h1>
+        <p className="masthead-descriptor">Daily market intelligence</p>
       </div>
-      <div className="header-utilities">
-        <button className="cheat-sheet-button" type="button" onClick={onOpenCheatSheet}>
-          &#9432; View Macro Cheat Sheet
-        </button>
-        <div className={`freshness-panel ${freshness.tone}`} aria-label="Data freshness">
-          <div className="freshness-status-row">
+
+      <div className="masthead-utilities">
+        <div className="metadata-chips" aria-label="Report metadata">
+          <span className={`metadata-chip freshness-chip ${freshness.tone}`}>
             <span className="freshness-dot" aria-hidden="true"></span>
-            <strong>{freshness.label}</strong>
-            <span>{freshness.ageLabel}</span>
-          </div>
-          <dl className="freshness-details">
-            <div>
-              <dt>Generated</dt>
-              <dd>{freshness.generatedLabel}</dd>
-            </div>
-            <div>
-              <dt>Report</dt>
-              <dd>{newestReport}</dd>
-            </div>
-            <div>
-              <dt>Archive</dt>
-              <dd>{oldestReport} to {newestReport}</dd>
-            </div>
-            <div>
-              <dt>Browser</dt>
-              <dd>{formatRefreshTime(lastRefresh)}</dd>
-            </div>
-          </dl>
+            <span>Feed</span>
+            <strong>{freshness.label} · {freshness.ageLabel}</strong>
+          </span>
+          <span className="metadata-chip">
+            <span>Report</span>
+            <strong>{newestReport}</strong>
+          </span>
+          <span className="metadata-chip">
+            <span>Archive</span>
+            <strong>{archiveRange}</strong>
+          </span>
+          <span className="metadata-chip">
+            <span>Synced</span>
+            <strong>{formatRefreshTime(lastRefresh)}</strong>
+          </span>
         </div>
+        <button className="cheat-sheet-button" type="button" onClick={onOpenCheatSheet}>
+          Macro cheat sheet
+        </button>
       </div>
     </header>
   );

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import React, { useCallback, useState, useEffect, useId, useRef } from 'react';
 import { splitReportSections } from '../utils/dashboardPresentation';
+import { useDialogFocus } from '../hooks/useDialogFocus';
+import { getNextTabIndex } from '../utils/keyboardNavigation';
+import MarkdownContent from './MarkdownComponents';
 
 const latestReport = { date: '', path: '/latest_report.md' };
 
@@ -13,6 +14,18 @@ const BigUpdate = ({ reports = [] }) => {
   const [reportError, setReportError] = useState('');
   const [activeTab, setActiveTab] = useState('summary');
   const dateInputRef = useRef(null);
+  const dialogRef = useRef(null);
+  const closeButtonRef = useRef(null);
+  const tabRefs = useRef([]);
+  const reportId = useId();
+  const closeModal = useCallback(() => setIsModalOpen(false), []);
+
+  useDialogFocus({
+    isOpen: isModalOpen && !reportError,
+    onClose: closeModal,
+    dialogRef,
+    initialFocusRef: closeButtonRef,
+  });
 
   useEffect(() => {
     const selectedReport = reports.find(report => report.date === selectedDate) || latestReport;
@@ -57,8 +70,7 @@ const BigUpdate = ({ reports = [] }) => {
     { id: 'risks', label: 'Risks', content: reportSections.risks },
     { id: 'full', label: 'Full Report', content: reportSections.full },
   ].filter(tab => tab.content);
-  const visibleTab = reportTabs.some(tab => tab.id === activeTab) ? activeTab : 'summary';
-  const activeContent = reportTabs.find(tab => tab.id === visibleTab)?.content || content;
+  const visibleTab = reportTabs.some(tab => tab.id === activeTab) ? activeTab : reportTabs[0]?.id;
 
   const selectReportDate = nextDate => {
     if (!nextDate || nextDate === newestDate) {
@@ -83,13 +95,29 @@ const BigUpdate = ({ reports = [] }) => {
     selectReportDate(dateInputRef.current?.value || '');
   };
 
+  const handleTabKeyDown = (event, currentIndex) => {
+    const nextIndex = getNextTabIndex({
+      key: event.key,
+      currentIndex,
+      tabCount: reportTabs.length,
+    });
+    if (nextIndex === null) return;
+
+    event.preventDefault();
+    setActiveTab(reportTabs[nextIndex].id);
+    tabRefs.current[nextIndex]?.focus();
+  };
+
   return (
     <>
-      <div className="section animate-fade-in stagger-2">
+      <section className="section animate-fade-in stagger-2" aria-labelledby="big-update-heading">
         <div className="section-header big-update-header">
-          <h2 id="big-update-heading">The Big Update</h2>
+          <div>
+            <p className="section-kicker">Daily Brief</p>
+            <h2 id="big-update-heading">The Big Update</h2>
+          </div>
           <div className="report-date-picker">
-            <label htmlFor="report-date">Report date</label>
+            <label htmlFor="report-date">Date</label>
             <input
               id="report-date"
               ref={dateInputRef}
@@ -101,11 +129,11 @@ const BigUpdate = ({ reports = [] }) => {
               onChange={handleDateChange}
               disabled={!reports.length}
             />
-            <button className="range-btn" onClick={handleLoadSelectedDate} disabled={!reports.length}>
+            <button className="range-btn" type="button" onClick={handleLoadSelectedDate} disabled={!reports.length}>
               Load
             </button>
             {selectedDate && (
-              <button className="range-btn" onClick={() => setSelectedDate('')}>
+              <button className="range-btn" type="button" onClick={() => setSelectedDate('')}>
                 Latest
               </button>
             )}
@@ -116,39 +144,54 @@ const BigUpdate = ({ reports = [] }) => {
             <p className="text-secondary">{reportError}</p>
           ) : (
             <>
-              <div className="report-tabs" role="tablist" aria-label="Big Update report sections">
-                {reportTabs.map(tab => (
+              <div className="report-tabs" role="tablist" aria-label="Big Update report sections" aria-orientation="horizontal">
+                {reportTabs.map((tab, index) => (
                   <button
                     key={tab.id}
+                    ref={element => { tabRefs.current[index] = element; }}
                     className={`report-tab ${visibleTab === tab.id ? 'active' : ''}`}
                     type="button"
                     role="tab"
+                    id={`${reportId}-${tab.id}-tab`}
                     aria-selected={visibleTab === tab.id}
+                    aria-controls={`${reportId}-${tab.id}-panel`}
+                    tabIndex={visibleTab === tab.id ? 0 : -1}
                     onClick={() => setActiveTab(tab.id)}
+                    onKeyDown={event => handleTabKeyDown(event, index)}
                   >
                     {tab.label}
                   </button>
                 ))}
               </div>
-              <div className={`markdown-body report-tab-body ${visibleTab === 'full' ? 'full-report' : ''}`} role="tabpanel">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{activeContent}</ReactMarkdown>
-              </div>
-              <button className="link-button" onClick={() => setIsModalOpen(true)}>
+              {reportTabs.map(tab => (
+                <div
+                  key={tab.id}
+                  className={`markdown-body report-tab-body ${tab.id === 'full' ? 'full-report' : ''}`}
+                  id={`${reportId}-${tab.id}-panel`}
+                  role="tabpanel"
+                  aria-labelledby={`${reportId}-${tab.id}-tab`}
+                  hidden={visibleTab !== tab.id}
+                >
+                  <MarkdownContent content={tab.content} />
+                </div>
+              ))}
+              <button className="link-button" type="button" onClick={() => setIsModalOpen(true)}>
                 Open Expanded Report &rarr;
               </button>
             </>
           )}
         </div>
-      </div>
+      </section>
 
       {isModalOpen && !reportError && (
-        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setIsModalOpen(false)}>
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" ref={dialogRef} tabIndex="-1" role="dialog" aria-modal="true" aria-labelledby={`${reportId}-expanded-title`} onClick={e => e.stopPropagation()}>
+            <button className="modal-close" ref={closeButtonRef} type="button" aria-label="Close expanded report" onClick={closeModal}>
               &#x2715;
             </button>
+            <h2 id={`${reportId}-expanded-title`} className="sr-only">Expanded Big Update report</h2>
             <div className="markdown-body">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+              <MarkdownContent content={content} />
             </div>
           </div>
         </div>

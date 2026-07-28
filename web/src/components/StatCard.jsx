@@ -25,12 +25,12 @@ const StatCard = ({ title, value, date, unit = '', format = 'number', descriptio
 
   return (
     <div className="glass-panel interactive stat-card animate-fade-in stagger-2">
-      <div className="stat-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="stat-title">
         <span>{title}</span>
         <InfoPanel title={title} description={description} />
       </div>
       <div className={`stat-value ${valClass}`}>
-        {displayValue} <span style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>{unit}</span>
+        {displayValue} {unit && <span className="stat-unit">{unit}</span>}
       </div>
       <div className="stat-date">As of {date || 'Unknown Date'}</div>
     </div>
