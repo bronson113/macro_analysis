@@ -9,9 +9,10 @@ Run this every weekday morning after the repo's GitHub Action has had time to fi
 
 Important operating boundary:
 - Own the LLM-written website artifact at `web/public/llm_analysis.md`. Do not overwrite the automated artifacts such as `output/latest_report.md`, `web/public/latest_report.md`, `data/*.csv`, or `web/public/data.json`.
-- After writing the LLM analysis, commit and push `web/public/llm_analysis.md` to the default branch. The push-triggered GitHub Action will build and deploy it to GitHub Pages.
-- Verify the push and the resulting GitHub Action. Only say the website was updated after both have succeeded.
-- If this workspace does not have repository write access or push credentials, state that as a concrete blocker. Do not claim the report was published.
+- Use the connected GitHub tool to create or update `web/public/llm_analysis.md` and commit it directly to the default branch. Do not use `git push`, `gh`, or any local CLI authentication path: the connected GitHub tool has the repository write permission needed for this commit, while the Cowork sandbox may not have CLI credentials.
+- After the GitHub-tool commit, the push-triggered GitHub Action will build and deploy it to GitHub Pages.
+- Verify the GitHub-tool commit and the resulting GitHub Action. Only say the website was updated after both have succeeded.
+- If the connected GitHub tool does not have repository write access, state that as a concrete blocker. Do not claim the report was published.
 
 Morning checklist:
 
@@ -58,8 +59,8 @@ Morning checklist:
 
 7. Publish the LLM analysis.
    - Update only `web/public/llm_analysis.md`; begin with the report date and freshness status so stale notes are obvious on the website.
-   - Rebase or pull the default branch before committing, so the just-finished automated data commit is included.
-   - Commit with a clear message such as `Publish LLM macro analysis for YYYY-MM-DD` and push to the default branch.
+   - Read the latest default-branch commit through the connected GitHub tool before writing, so the just-finished automated data commit is included as the commit parent.
+   - Use the connected GitHub tool's file and commit operations to create or update the file atomically, with a clear message such as `Publish LLM macro analysis for YYYY-MM-DD`. Do not use local git/CLI commands.
    - Confirm the push-triggered GitHub Action completes successfully, then verify the published note at `https://blog.bronson113.org/macro_analysis/llm_analysis.md` (GitHub Pages fallback: `https://bronson113.github.io/macro_analysis/llm_analysis.md`).
 
 Output style:
