@@ -8,7 +8,7 @@
 - **Unchanged:** **Decision:** Technology (XLK): **HOLD / CAUTION** (MODERATE (Restrictive Real Yield Headwind)).
 - **Unchanged:** **Decision:** Financials (XLF): **BUY / ACCUMULATE** (HIGH (Macro Quadrant Tailwinds)).
 - **Unchanged:** **Decision:** Energy (XLE): **BUY / ACCUMULATE** (HIGH (Macro Quadrant Tailwinds)).
-- **Changed:** **Valuation:** Shiller PE Ratio is `40.47` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta. Previously: **Valuation:** Shiller PE Ratio is `40.46` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
+- **Changed:** **Valuation:** Shiller PE Ratio is `40.57` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta. Previously: **Valuation:** Shiller PE Ratio is `40.46` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
 - **Removed:** **Decision:** `MU`: **WATCHLIST / SELECTIVE REVIEW (Lagging Value)**. Peer-discount watchlist candidate within Technology & Semiconductors: Micron Technology, Inc. (MU) appears discounted relative to its historical sector-relative norm. Confirm sector signal, earnings quality, balance sheet, and catalyst before buying. Forward P/E (6.1x) is 69.8% below peer group avg (20.2x); historical relative history unavailable; EV/EBITDA (16.1x) is 49.9% below peer group avg (32.1x); historical relative history unavailable; Lagging price performance (-25.1% below 52-week high)
 - **Removed:** **Decision:** `MSFT`: **WATCHLIST / SELECTIVE REVIEW (Lagging Value)**. Peer-discount watchlist candidate within Technology & Semiconductors: Microsoft Corporation (MSFT) appears discounted relative to its historical sector-relative norm. Confirm sector signal, earnings quality, balance sheet, and catalyst before buying. EV/EBITDA (15.6x) is 51.4% below peer group avg (32.1x); historical relative history unavailable; Lagging price performance (-30.7% below 52-week high)
 
@@ -44,10 +44,10 @@ Reserve liquidity proxy is calculated as `Fed Total Assets - TGA Balance - Rever
 
 | Component | Value (Billions USD) | Notes / Description |
 | :--- | :--- | :--- |
-| **Reserve Liquidity Proxy** | **$5,910.58 B** | **30-Day Change: +134.58 B** |
+| **Reserve Liquidity Proxy** | **$5,910.83 B** | **30-Day Change: +134.84 B** |
 | Fed Total Assets | $6,747.38 B | Total Balance Sheet Size |
 | Treasury General Account (TGA) | $835.42 B | Treasury Cash Buffer at Fed |
-| Reverse Repo Facility (RRP) | $1.38 B | Overnight Liquidity Drain |
+| Reverse Repo Facility (RRP) | $1.13 B | Overnight Liquidity Drain |
 
 ---
 
@@ -59,11 +59,11 @@ The yield curve slope is a key indicator of economic cycle transitions and reces
 | :--- | :--- | :--- |
 | **Policy Rate** | `3.63%` | Source: `dff` / Stance: `HOLDING_RESTRICTIVE` |
 | **Policy Rate 30d Change** | `+0.00%` | Used for Rates Stance in Matrix |
-| **10Y Real Yield Proxy** | `+2.48%` | 10Y Treasury minus 10Y breakeven |
-| **10-Year Treasury Yield** | `4.69%` | Benchmark Long Rate |
-| **2-Year Treasury Yield** | `4.33%` | Short Rate / Fed Expectations |
-| **10Y - 2Y Spread** | `+0.34%` | **Regime: Normal (Steep)** |
-| **10Y - 3M Spread** | `+0.69%` | Classic Recession Gauge |
+| **10Y Real Yield Proxy** | `+2.45%` | 10Y Treasury minus 10Y breakeven |
+| **10-Year Treasury Yield** | `4.65%` | Benchmark Long Rate |
+| **2-Year Treasury Yield** | `4.31%` | Short Rate / Fed Expectations |
+| **10Y - 2Y Spread** | `+0.35%` | **Regime: Normal (Steep)** |
+| **10Y - 3M Spread** | `+0.71%` | Classic Recession Gauge |
 
 ---
 
@@ -73,8 +73,8 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 
 | Metric | Current Value | Threshold Benchmark |
 | :--- | :--- | :--- |
-| **ICE BofA High Yield OAS** | `2.79%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
-| **Investment Grade OAS** | `0.45%` | High Quality Corporate Premium |
+| **ICE BofA High Yield OAS** | `2.81%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
+| **Investment Grade OAS** | `0.46%` | High Quality Corporate Premium |
 | **Chicago Fed Financial Conditions** | `-0.55` | Negative = Loose, Positive = Tight |
 
 ---
@@ -88,17 +88,17 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 
 | Sector / Supply Chain Group | Action Posture | Conviction | Avg Fwd P/E | Selective Stock Pick | Strategic Mid-Term Rationale |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Technology (XLK)** | **HOLD / CAUTION** | `MODERATE (Restrictive Real Yield Headwind)` | `19.1x` | `None` | Real yields (2.48%) are a headwind for long-duration growth, but valuation is not stretched versus norm. Hold existing exposure and require earnings confirmation before adding. |
+| **Technology (XLK)** | **HOLD / CAUTION** | `MODERATE (Restrictive Real Yield Headwind)` | `18.9x` | `None` | Real yields (2.45%) are a headwind for long-duration growth, but valuation is not stretched versus norm. Hold existing exposure and require earnings confirmation before adding. |
 | **Financials (XLF)** | **BUY / ACCUMULATE** | `HIGH (Macro Quadrant Tailwinds)` | `13.8x` | `None` | Sector is highly favored in the current SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION regime. |
-| **Healthcare (XLV)** | **HOLD** | `HIGH (Tax-Aware Default)` | `17.7x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
-| **Energy (XLE)** | **BUY / ACCUMULATE** | `HIGH (Macro Quadrant Tailwinds)` | `12.8x` | `None` | Sector is highly favored in the current SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION regime. |
-| **Industrials (XLI)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `29.9x` | `None` | Negative ERP (-1.35%) combined with valuation stretch (29.9x vs 19.0x norm). Risk-free yield competes strongly with sector earnings yield. |
-| **Consumer Discretionary (XLY)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `35.8x` | `None` | Negative ERP (-1.89%) combined with valuation stretch (35.8x vs 22.0x norm). Risk-free yield competes strongly with sector earnings yield. |
-| **Consumer Staples (XLP)** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `24.9x` | `None` | Negative ERP (-0.67%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
-| **AI Compute & Accelerators** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `22.3x` | `None` | Negative ERP (-0.21%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
-| **High-Bandwidth Memory (HBM)** | **HOLD** | `HIGH (Tax-Aware Default)` | `16.4x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
-| **Physical AI & Robotics** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `58.1x` | `None` | Negative ERP (-2.97%) combined with valuation stretch (58.1x vs 30.0x norm). Risk-free yield competes strongly with sector earnings yield. |
-| **Downstream Power & Grid** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `25.0x` | `None` | Negative ERP (-0.69%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
+| **Healthcare (XLV)** | **HOLD** | `HIGH (Tax-Aware Default)` | `18.1x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
+| **Energy (XLE)** | **BUY / ACCUMULATE** | `HIGH (Macro Quadrant Tailwinds)` | `12.6x` | `None` | Sector is highly favored in the current SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION regime. |
+| **Industrials (XLI)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `30.0x` | `None` | Negative ERP (-1.32%) combined with valuation stretch (30.0x vs 19.0x norm). Risk-free yield competes strongly with sector earnings yield. |
+| **Consumer Discretionary (XLY)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `36.0x` | `None` | Negative ERP (-1.87%) combined with valuation stretch (36.0x vs 22.0x norm). Risk-free yield competes strongly with sector earnings yield. |
+| **Consumer Staples (XLP)** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `25.4x` | `None` | Negative ERP (-0.71%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
+| **AI Compute & Accelerators** | **HOLD / CAUTION** | `MODERATE (Restrictive Real Yield Headwind)` | `21.5x` | `None` | Real yields (2.45%) are a headwind for long-duration growth, but valuation is not stretched versus norm. Hold existing exposure and require earnings confirmation before adding. |
+| **High-Bandwidth Memory (HBM)** | **HOLD / CAUTION** | `MODERATE` | `15.2x` | `None` | Memory supply chain headline volatility present. Maintain position for mid-term HBM structural cycle; avoid panic selling. |
+| **Physical AI & Robotics** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `58.1x` | `None` | Negative ERP (-2.93%) combined with valuation stretch (58.1x vs 30.0x norm). Risk-free yield competes strongly with sector earnings yield. |
+| **Downstream Power & Grid** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `23.9x` | `None` | Negative ERP (-0.46%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
 
 ---
 
@@ -108,13 +108,13 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Ecosystem Sub-Group | Key Tickers | Avg Forward P/E | Avg EV / EBITDA | Historical Norm (P/E) | Supply Chain & Valuation Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.33x` | `46.20x` | `28.0x` | `Undervalued / Discounted Super-Cycle` |
-| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `16.35x` | `28.96x` | `16.0x` | `Fairly Valued` |
-| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `58.11x` | `53.30x` | `30.0x` | `Rich Multiple / Growth Premium` |
-| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `24.97x` | `29.86x` | `22.0x` | `Fairly Valued` |
-| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `20.64x` | `30.43x` | `25.0x` | `Fairly Valued` |
-| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `33.60x` | `45.36x` | `26.0x` | `Rich Multiple / Growth Premium` |
-| **7. Critical Materials & Magnets** | `FCX`, `MP` | `30.11x` | `11.12x` | `18.0x` | `Rich Multiple / Growth Premium` |
+| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `21.50x` | `46.20x` | `28.0x` | `Undervalued / Discounted Super-Cycle` |
+| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `15.16x` | `28.96x` | `16.0x` | `Fairly Valued` |
+| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `58.07x` | `53.30x` | `30.0x` | `Rich Multiple / Growth Premium` |
+| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `23.89x` | `29.86x` | `22.0x` | `Fairly Valued` |
+| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `19.16x` | `30.43x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
+| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `31.40x` | `45.36x` | `26.0x` | `Fairly Valued` |
+| **7. Critical Materials & Magnets** | `FCX`, `MP` | `29.01x` | `11.12x` | `18.0x` | `Rich Multiple / Growth Premium` |
 
 ---
 
@@ -122,14 +122,14 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
-| **CBOE Volatility (VIX)** | `18.75` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `101.56` | Global Currency Tightness |
-| **S&P 500 Index** | `7,413.18` | US Equity Benchmark |
-| **CNN Fear & Greed Index** | `40.71` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
-| **Shiller PE Ratio** | `40.47` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$81.55` | Energy Cost Drivers |
-| **Gold** | `$4,025.20` | Monetary Protection / Safe Haven |
-| **Copper** | `$6.32` | Industrial Demand Indicator |
+| **CBOE Volatility (VIX)** | `18.21` | `Low Volatility (Complacency)` |
+| **US Dollar Index (DXY)** | `101.39` | Global Currency Tightness |
+| **S&P 500 Index** | `7,428.78` | US Equity Benchmark |
+| **CNN Fear & Greed Index** | `38.49` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
+| **Shiller PE Ratio** | `40.57` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
+| **WTI Crude Oil** | `$82.60` | Energy Cost Drivers |
+| **Gold** | `$4,019.90` | Monetary Protection / Safe Haven |
+| **Copper** | `$6.34` | Industrial Demand Indicator |
 
 ---
 *Report auto-generated by 4-Quadrant Macro & Dynamic Sector Strategy Engine.*

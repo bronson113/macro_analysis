@@ -62034,19 +62034,19 @@
   },
   {
     "date": "2026-07-28",
-    "net_liquidity": 5910.58,
+    "net_liquidity": 5910.83,
     "fed_assets": 6747.38,
     "tga": 835.42,
-    "rrp": 1.38,
-    "treasury_10y": 4.69,
-    "treasury_2y": 4.33,
-    "spread_10y_2y": 0.34,
-    "high_yield_oas": 2.79,
-    "sp500": 7413.18,
-    "vix": 18.75,
-    "dxy": 101.56,
+    "rrp": 1.13,
+    "treasury_10y": 4.65,
+    "treasury_2y": 4.31,
+    "spread_10y_2y": 0.35,
+    "high_yield_oas": 2.81,
+    "sp500": 7428.78,
+    "vix": 18.21,
+    "dxy": 101.39,
     "cpi_yoy": 3.73,
     "policy_rate": 3.63,
-    "real_yield_10y": 2.48
+    "real_yield_10y": 2.45
   }
 ]
