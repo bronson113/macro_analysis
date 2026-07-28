@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-28T05:45:56.720254",
+    "generated_at": "2026-07-28T06:46:13.845581",
     "date": "2026-07-28",
     "engine_version": "2.0-GeminiRawPayload"
   },
@@ -9,124 +9,184 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-22",
       "value": 6747378.0,
-      "updated_at": "2026-07-28T05:45:22.114598"
+      "updated_at": "2026-07-28T06:45:37.636920"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-22",
       "value": 835417.0,
-      "updated_at": "2026-07-28T05:45:22.398750"
+      "updated_at": "2026-07-28T06:45:37.792941"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-27",
       "value": 1.38,
-      "updated_at": "2026-07-28T05:45:22.644909"
+      "updated_at": "2026-07-28T06:45:37.953839"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
       "date": "2026-07-24",
       "value": 4.69,
-      "updated_at": "2026-07-28T05:45:22.893097"
+      "updated_at": "2026-07-28T06:45:38.470309"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
       "date": "2026-07-24",
       "value": 4.33,
-      "updated_at": "2026-07-28T05:45:23.008116"
+      "updated_at": "2026-07-28T06:45:38.591391"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
       "date": "2026-07-27",
       "value": 0.34,
-      "updated_at": "2026-07-28T05:45:23.239254"
+      "updated_at": "2026-07-28T06:45:38.830275"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
       "date": "2026-07-24",
       "value": 2.79,
-      "updated_at": "2026-07-28T05:45:23.465468"
+      "updated_at": "2026-07-28T06:45:39.070364"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
       "date": "2026-07-24",
       "value": 0.45,
-      "updated_at": "2026-07-28T05:45:23.581700"
+      "updated_at": "2026-07-28T06:45:39.186871"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
       "date": "2026-07-17",
       "value": -0.55,
-      "updated_at": "2026-07-28T05:45:23.693765"
+      "updated_at": "2026-07-28T06:45:39.301020"
     },
     "vix": {
       "indicator_key": "vix",
       "date": "2026-07-27",
       "value": 18.670000076293945,
-      "updated_at": "2026-07-28T05:45:26.205462"
+      "updated_at": "2026-07-28T06:45:40.847743"
     },
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-07-28",
-      "value": 101.54900360107422,
-      "updated_at": "2026-07-28T05:45:25.286158"
+      "value": 101.4980010986328,
+      "updated_at": "2026-07-28T06:45:41.077137"
     },
     "sp500": {
       "indicator_key": "sp500",
       "date": "2026-07-27",
       "value": 7413.18017578125,
-      "updated_at": "2026-07-28T05:45:24.898129"
+      "updated_at": "2026-07-28T06:45:40.962475"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-07-28",
-      "value": 82.08000183105469,
-      "updated_at": "2026-07-28T05:45:25.046272"
+      "value": 81.41999816894531,
+      "updated_at": "2026-07-28T06:45:40.715370"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-07-28",
-      "value": 4037.39990234375,
-      "updated_at": "2026-07-28T05:45:25.174361"
+      "value": 4049.39990234375,
+      "updated_at": "2026-07-28T06:45:40.546691"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-28",
-      "value": 6.32450008392334,
-      "updated_at": "2026-07-28T05:45:25.395128"
+      "value": 6.3429999351501465,
+      "updated_at": "2026-07-28T06:45:41.193800"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
       "date": "2026-06-01",
       "value": 4.2,
-      "updated_at": "2026-07-28T05:45:23.925140"
+      "updated_at": "2026-07-28T06:45:39.541166"
     },
     "cpi": {
       "indicator_key": "cpi",
       "date": "2026-06-01",
       "value": 332.568,
-      "updated_at": "2026-07-28T05:45:24.152369"
+      "updated_at": "2026-07-28T06:45:39.768799"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
       "date": "2026-07-27",
       "value": 2.18,
-      "updated_at": "2026-07-28T05:45:24.264040"
+      "updated_at": "2026-07-28T06:45:39.881479"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
       "date": "2026-07-28",
       "value": 40.0285714285714,
-      "updated_at": "2026-07-28T05:45:26.640148"
+      "updated_at": "2026-07-28T06:45:41.602022"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
       "date": "2026-07-28",
       "value": 40.47,
-      "updated_at": "2026-07-28T05:45:27.008997"
+      "updated_at": "2026-07-28T06:45:41.949641"
     }
   },
   "recent_news_events": [
+    {
+      "id": 331.0,
+      "date": "2026-07-28",
+      "title": "[TSLA - Tesla] Tesla Is Down 30% This Year. Here's Why I'm Still Waiting on the Sidelines.",
+      "summary": "The stock is still priced in a way that leaves very little room for error.",
+      "source": "Yahoo Finance (TSLA)",
+      "link": "https://www.fool.com/investing/2026/07/28/tesla-is-down-30-this-year-heres-why-im-still-wait/",
+      "category": "Sector Bellwether: TSLA (Consumer Discretionary / EV)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-28T06:45:45.170176"
+    },
+    {
+      "id": 330.0,
+      "date": "2026-07-28",
+      "title": "[NVDA - NVIDIA] My 3 Favorite Artificial Intelligence (AI) Stocks to Buy Right Now",
+      "summary": "We may still be in the early innings of the AI revolution, and these companies could be among the biggest winners.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/07/28/my-3-favorite-artificial-intelligence-ai-stocks-to/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-28T06:45:45.170126"
+    },
+    {
+      "id": 329.0,
+      "date": "2026-07-28",
+      "title": "Saudi Arabia\u2019s Vast Oil Supplies Now Increasingly Depend on a Single Exit - WSJ",
+      "summary": "Saudi Arabia\u2019s Vast Oil Supplies Now Increasingly Depend on a Single Exit&nbsp;&nbsp;WSJ",
+      "source": "WSJ",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNZk1fS0RpYUtCLUVlR2lqUHVNNWcwVVRtSjV6V3ZZYUtqZmNhMWNfU3NSbDJHOWhYdUhxLXRxYktRendzZ3VBVDI4R0w4dTlveWxYUHNiU2dTRG5PbzJkQkxHOGZWVWxSaS0zLTE5LUpuQ3BXSzVaU1BxSlBQMnl4dlNiS2liVUZXMjV3T1Vldm9qMDdHb1ZNRjFpc1JrTFpnalVhYUdJUWNONmdBYkE0VkVieXNTUHNqQWJn?oc=5",
+      "category": "Geopolitics & Oil",
+      "impact_score": 0.5,
+      "sentiment": "Dovish / Easing Bias",
+      "created_at": "2026-07-28T06:45:45.170065"
+    },
+    {
+      "id": 328.0,
+      "date": "2026-07-28",
+      "title": "Data for Afghanistan: Afghanistan Consumer Price Index (CPI) Report \u2014 May 2026 - ReliefWeb",
+      "summary": "Data for Afghanistan: Afghanistan Consumer Price Index (CPI) Report \u2014 May 2026&nbsp;&nbsp;ReliefWeb",
+      "source": "ReliefWeb",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNT3Iwd3p2VXJDMXQzc2xYNG95NjF5MUlXellCcHJxN2daM2xNU0FldjFUVEFLT0ctZXVaTl90ZUY3cG9PRFpSM2R6THRTcmFiemNTazRmNER0VGh1MHRkbElGLVROMzU3cW5waUd6MWJFS2dIdEtvV1hOanRnNlV6bGNPU2UtUmRCOEFYYVRpSlZBbUZpRG1VcVZBR29qRzlDQWJ3dVRZRFVGR2o5VFNN?oc=5",
+      "category": "Inflation & Prices",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed",
+      "created_at": "2026-07-28T06:45:45.170027"
+    },
+    {
+      "id": 327.0,
+      "date": "2026-07-28",
+      "title": "Consumer prices rose 3.5% annually in June, less than expected as energy prices eased - CNBC",
+      "summary": "Consumer prices rose 3.5% annually in June, less than expected as energy prices eased&nbsp;&nbsp;CNBC",
+      "source": "CNBC",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNVUlRVno2bmpjLWRiYnV1M2VxVDZPTGVWa0I4Wk9tY0JHajgxaWcyeUpDbDI5THZKQVBhcEx6WFo1RmszaEh0R19zNU85cXFmOVlxNjB5QWRvNTJncnFZUndDUTVXWXg1Rk5DQTRPREF4OV9DQjRsMVYxV3QxOTY3cnBpWXhFM2lLSVFMMNIBkgFBVV95cUxOVmZJaUpQd0wwYXJrSmp0eVlGbjV6eWhkNGxtZEd1aTlWb2x1cjNNa09ZSnFyMzlpUzRuMV95VW9oQjBXVUlranJLelhyYmVPLTB4UTBqbDZTQ2YtREtSMnVCV1hRbWE3cFJOLU53UkJYeG9OX09PQzU1MDlRaUxnNmZnS3o4dWxyeVdweEVROVIwUQ?oc=5",
+      "category": "Inflation & Prices",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed",
+      "created_at": "2026-07-28T06:45:45.170014"
+    },
     {
       "id": 326.0,
       "date": "2026-07-28",
@@ -366,66 +426,6 @@
       "impact_score": -0.8,
       "sentiment": "Sector Contagion / Stress Warning | HIGH SECTOR RISK (XLF)",
       "created_at": "2026-07-28T04:31:56.305266"
-    },
-    {
-      "id": 306.0,
-      "date": "2026-07-28",
-      "title": "[JPM - JPMorgan Chase] BlackRock Dodges AI Bond Flop as $12.3 Billion Debt Deal Rallies",
-      "summary": "(Bloomberg) -- Bonds that BlackRock Inc. is selling, tied to a Meta Platforms Inc. data center project in Texas, rallied in early trading on Monday before the notes were formally priced, signaling dem",
-      "source": "Yahoo Finance (JPM)",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/blackrock-dodges-ai-bond-flop-211813215.html",
-      "category": "Sector Bellwether: JPM (Financials / Banking System)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305262"
-    },
-    {
-      "id": 305.0,
-      "date": "2026-07-28",
-      "title": "[JPM - JPMorgan Chase] JPMorgan, South Korea's KB Kookmin are moving payments onchain",
-      "summary": "Scott Melker discusses the reported payment service collaboration between KB Kookmin Bank (KB) \u2014 South Korea's largest bank \u2014 and JPMorgan Chase's (JPM) Kinexys platform. \"The Daily Wolf with Scott Me",
-      "source": "Yahoo Finance (JPM)",
-      "link": "https://finance.yahoo.com/video/jpmorgan-south-koreas-kb-kookmin-193000819.html",
-      "category": "Sector Bellwether: JPM (Financials / Banking System)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305258"
-    },
-    {
-      "id": 304.0,
-      "date": "2026-07-28",
-      "title": "[AAPL - Apple] Chinese memory chipmaker CXMT booms in IPO. Does US memory stand a chance?",
-      "summary": "China's biggest memory chipmaker, ChangXin Memory Technologies (CXMT), is surging in its IPO on the Shanghai Stock Exchange. Yahoo Finance Technology Editor Dan Howley explains what investors should k",
-      "source": "Yahoo Finance (AAPL)",
-      "link": "https://finance.yahoo.com/video/chinese-memory-chipmaker-cxmt-booms-in-ipo-does-us-memory-stand-a-chance-161109405.html",
-      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305254"
-    },
-    {
-      "id": 303.0,
-      "date": "2026-07-28",
-      "title": "[AAPL - Apple] Elon Musk's Tesla, SpaceX shed $1.2T in July, while Apple sprints ahead: Chart of the Day",
-      "summary": "Yahoo Finance Markets and Data Editor Jared Blikre takes a look at how market capitalization changed in July for the top US stocks: SpaceX (SPCX), Tesla (TSLA), Alphabet (GOOG, GOOGL), and Apple (AAPL",
-      "source": "Yahoo Finance (AAPL)",
-      "link": "https://finance.yahoo.com/video/elon-musks-tesla-spacex-shed-12t-in-july-while-apple-sprints-ahead-chart-of-the-day-202410236.html",
-      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305249"
-    },
-    {
-      "id": 302.0,
-      "date": "2026-07-28",
-      "title": "[AAPL - Apple] Earnings live: LVMH sales grow as US luxury shoppers boost results",
-      "summary": "Earnings season kicks into high gear this week.",
-      "source": "Yahoo Finance (AAPL)",
-      "link": "https://finance.yahoo.com/markets/live/earnings-live-lvmh-sales-grow-as-us-luxury-shoppers-boost-results-115207214.html",
-      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305244"
     }
   ],
   "individual_stock_constituents": [
@@ -434,10 +434,10 @@
       "name": "Micron Technology, Inc.",
       "group": "Technology & Semiconductors",
       "price": 900.2,
-      "trailing_pe": 20.83,
+      "trailing_pe": 20.36,
       "forward_pe": 5.86,
       "ev_ebitda": 14.62,
-      "price_to_book": 10.09,
+      "price_to_book": 14.01,
       "dist_from_52w_high_pct": -28.27,
       "return_30d_pct": -21.4
     },
@@ -614,7 +614,7 @@
       "name": "BlackRock, Inc.",
       "group": "Financials & Banking",
       "price": 1062.14,
-      "trailing_pe": 25.32,
+      "trailing_pe": 25.47,
       "forward_pe": 16.5,
       "ev_ebitda": 15.58,
       "price_to_book": 2.91,
@@ -650,7 +650,7 @@
       "name": "UnitedHealth Group Incorporated",
       "group": "Healthcare & Pharma",
       "price": 417.64,
-      "trailing_pe": 31.64,
+      "trailing_pe": 31.4,
       "forward_pe": 18.62,
       "ev_ebitda": 17.38,
       "price_to_book": 3.62,
@@ -674,7 +674,7 @@
       "name": "Eli Lilly and Company",
       "group": "Healthcare & Pharma",
       "price": 1197.53,
-      "trailing_pe": 42.6,
+      "trailing_pe": 42.56,
       "forward_pe": 26.56,
       "ev_ebitda": 30.54,
       "price_to_book": 34.3,
@@ -806,7 +806,7 @@
       "name": "Marathon Petroleum Corporation",
       "group": "Energy & Oil/Gas",
       "price": 312.35,
-      "trailing_pe": 20.36,
+      "trailing_pe": 20.58,
       "forward_pe": 11.25,
       "ev_ebitda": 12.68,
       "price_to_book": 5.46,
@@ -845,7 +845,7 @@
       "trailing_pe": 41.66,
       "forward_pe": 39.85,
       "ev_ebitda": 33.59,
-      "price_to_book": 21.27,
+      "price_to_book": 20.89,
       "dist_from_52w_high_pct": -5.58,
       "return_30d_pct": -3.24
     },
@@ -939,7 +939,7 @@
       "group": "Consumer Discretionary & Retail",
       "price": 231.39,
       "trailing_pe": 27.78,
-      "forward_pe": 23.33,
+      "forward_pe": 23.32,
       "ev_ebitda": 16.56,
       "price_to_book": 5.63,
       "dist_from_52w_high_pct": -16.93,
@@ -953,7 +953,7 @@
       "trailing_pe": 286.31,
       "forward_pe": 139.31,
       "ev_ebitda": 111.06,
-      "price_to_book": 13.8,
+      "price_to_book": 14.12,
       "dist_from_52w_high_pct": -38.01,
       "return_30d_pct": -24.92
     },
@@ -1060,7 +1060,7 @@
       "price": 84.07,
       "trailing_pe": 26.44,
       "forward_pe": 24.13,
-      "ev_ebitda": 23.14,
+      "ev_ebitda": 23.61,
       "price_to_book": 10.76,
       "dist_from_52w_high_pct": -1.88,
       "return_30d_pct": 1.72
@@ -1097,7 +1097,7 @@
       "trailing_pe": 215.01,
       "forward_pe": 21.36,
       "ev_ebitda": 17.58,
-      "price_to_book": null,
+      "price_to_book": -32.86,
       "dist_from_52w_high_pct": -2.06,
       "return_30d_pct": 6.99
     },
@@ -1133,7 +1133,7 @@
       "trailing_pe": 286.31,
       "forward_pe": 139.31,
       "ev_ebitda": 111.06,
-      "price_to_book": 13.8,
+      "price_to_book": 14.12,
       "dist_from_52w_high_pct": -38.01,
       "return_30d_pct": -24.92
     },
@@ -1155,7 +1155,7 @@
       "group": "Physical AI & Robotics",
       "price": 334.77,
       "trailing_pe": 64.88,
-      "forward_pe": 32.55,
+      "forward_pe": 32.48,
       "ev_ebitda": 44.98,
       "price_to_book": 16.67,
       "dist_from_52w_high_pct": -31.39,
