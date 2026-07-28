@@ -1,4 +1,5 @@
 import React, { useCallback, useId, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useDialogFocus } from '../hooks/useDialogFocus';
 
 const InfoPanel = ({ title, description }) => {
@@ -28,7 +29,7 @@ const InfoPanel = ({ title, description }) => {
         &#9432;
       </button>
 
-      {isOpen && (
+      {isOpen && createPortal(
         <div className="modal-overlay" onClick={closePanel}>
           <div className="modal-content info-panel-content" ref={dialogRef} tabIndex="-1" role="dialog" aria-modal="true" aria-labelledby={titleId} onClick={e => e.stopPropagation()}>
             <button className="modal-close" ref={closeButtonRef} type="button" aria-label={`Close ${title} details`} onClick={closePanel}>&#x2715;</button>
@@ -37,7 +38,8 @@ const InfoPanel = ({ title, description }) => {
               {description}
             </p>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

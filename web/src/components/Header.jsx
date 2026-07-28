@@ -12,6 +12,8 @@ const formatRefreshTime = (lastRefresh) => {
 const Header = ({ metadata, reports = [], lastRefresh, onOpenCheatSheet }) => {
   const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
   const newestReport = reports[0]?.date || metadata?.date || 'Unavailable';
+  const oldestReport = reports[reports.length - 1]?.date || metadata?.date || 'Unavailable';
+  const archiveRange = reports.length > 1 ? `${oldestReport}–${newestReport}` : newestReport;
 
   return (
     <header className="dashboard-header masthead animate-fade-in stagger-1">
@@ -33,7 +35,7 @@ const Header = ({ metadata, reports = [], lastRefresh, onOpenCheatSheet }) => {
           </span>
           <span className="metadata-chip">
             <span>Archive</span>
-            <strong>{reports.length ? `${reports.length} reports` : 'Unavailable'}</strong>
+            <strong>{archiveRange}</strong>
           </span>
           <span className="metadata-chip">
             <span>Synced</span>
