@@ -34,18 +34,20 @@ const LlmAnalysis = () => {
 
   return (
     <section className="section animate-fade-in llm-analysis" aria-labelledby="llm-analysis-heading">
-      <div className="section-header">
-        <div>
-          <p className="section-kicker">Priority View</p>
-          <h2 id="llm-analysis-heading">LLM Analysis</h2>
-        </div>
-      </div>
-      <div className="glass-panel llm-analysis-panel">
+      <div className="dark-panel llm-analysis-panel">
+        <p className="feature-eyebrow">Priority View</p>
+        <h2 id="llm-analysis-heading">Market signal, distilled</h2>
+        <p className="feature-deck">A live synthesis of the macro signals most likely to shape today’s market regime.</p>
         {loading && <p className="text-secondary">Loading LLM analysis...</p>}
         {!loading && error && <p className="text-secondary">{error}</p>}
         {!loading && !error && (
           <div className="markdown-body">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{ table: ({ children }) => <div className="markdown-table-scroll"><table>{children}</table></div> }}
+            >
+              {content}
+            </ReactMarkdown>
           </div>
         )}
       </div>

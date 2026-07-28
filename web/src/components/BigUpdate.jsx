@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useId, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { splitReportSections } from '../utils/dashboardPresentation';
@@ -13,6 +13,7 @@ const BigUpdate = ({ reports = [] }) => {
   const [reportError, setReportError] = useState('');
   const [activeTab, setActiveTab] = useState('summary');
   const dateInputRef = useRef(null);
+  const reportId = useId();
 
   useEffect(() => {
     const selectedReport = reports.find(report => report.date === selectedDate) || latestReport;
@@ -83,13 +84,20 @@ const BigUpdate = ({ reports = [] }) => {
     selectReportDate(dateInputRef.current?.value || '');
   };
 
+  const markdownComponents = {
+    table: ({ children }) => <div className="markdown-table-scroll"><table>{children}</table></div>,
+  };
+
   return (
     <>
-      <div className="section animate-fade-in stagger-2">
+      <section className="section animate-fade-in stagger-2" aria-labelledby="big-update-heading">
         <div className="section-header big-update-header">
-          <h2 id="big-update-heading">The Big Update</h2>
+          <div>
+            <p className="section-kicker">Daily Brief</p>
+            <h2 id="big-update-heading">The Big Update</h2>
+          </div>
           <div className="report-date-picker">
-            <label htmlFor="report-date">Report date</label>
+            <label htmlFor="report-date">Date</label>
             <input
               id="report-date"
               ref={dateInputRef}
@@ -101,11 +109,11 @@ const BigUpdate = ({ reports = [] }) => {
               onChange={handleDateChange}
               disabled={!reports.length}
             />
-            <button className="range-btn" onClick={handleLoadSelectedDate} disabled={!reports.length}>
+            <button className="range-btn" type="button" onClick={handleLoadSelectedDate} disabled={!reports.length}>
               Load
             </button>
             {selectedDate && (
-              <button className="range-btn" onClick={() => setSelectedDate('')}>
+              <button className="range-btn" type="button" onClick={() => setSelectedDate('')}>
                 Latest
               </button>
             )}
@@ -123,32 +131,39 @@ const BigUpdate = ({ reports = [] }) => {
                     className={`report-tab ${visibleTab === tab.id ? 'active' : ''}`}
                     type="button"
                     role="tab"
+                    id={`${reportId}-${tab.id}-tab`}
                     aria-selected={visibleTab === tab.id}
+                    aria-controls={`${reportId}-${tab.id}-panel`}
                     onClick={() => setActiveTab(tab.id)}
                   >
                     {tab.label}
                   </button>
                 ))}
               </div>
-              <div className={`markdown-body report-tab-body ${visibleTab === 'full' ? 'full-report' : ''}`} role="tabpanel">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{activeContent}</ReactMarkdown>
+              <div
+                className={`markdown-body report-tab-body ${visibleTab === 'full' ? 'full-report' : ''}`}
+                id={`${reportId}-${visibleTab}-panel`}
+                role="tabpanel"
+                aria-labelledby={`${reportId}-${visibleTab}-tab`}
+              >
+                <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{activeContent}</ReactMarkdown>
               </div>
-              <button className="link-button" onClick={() => setIsModalOpen(true)}>
+              <button className="link-button" type="button" onClick={() => setIsModalOpen(true)}>
                 Open Expanded Report &rarr;
               </button>
             </>
           )}
         </div>
-      </div>
+      </section>
 
       {isModalOpen && !reportError && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-content" role="dialog" aria-modal="true" aria-label="Expanded Big Update report" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" type="button" aria-label="Close expanded report" onClick={() => setIsModalOpen(false)}>
               &#x2715;
             </button>
             <div className="markdown-body">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{content}</ReactMarkdown>
             </div>
           </div>
         </div>

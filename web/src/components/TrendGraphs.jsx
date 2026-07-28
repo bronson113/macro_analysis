@@ -13,6 +13,13 @@ const TIME_RANGES = [
   { label: '10Y', days: 365 * 10 },
 ];
 
+const chartTooltipStyle = {
+  backgroundColor: 'var(--paper)',
+  border: '1px solid var(--stone)',
+  borderRadius: 'var(--radius-sm)',
+  boxShadow: 'var(--shadow)',
+};
+
 const TrendGraphs = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -114,14 +121,15 @@ const TrendGraphs = () => {
   if (!data.length) return null;
 
   return (
-    <div className="section animate-fade-in stagger-3" id="trends-heading">
-      <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2>Historical Trends</h2>
+    <section className="section animate-fade-in stagger-3" id="trends-heading" aria-labelledby="trends-title">
+      <div className="section-header trend-section-header">
+        <h2 id="trends-title">Historical Trends</h2>
         <div className="range-selector">
           {TIME_RANGES.map(({ label }) => (
             <button
               key={label}
               className={`range-btn ${timeRange === label ? 'active' : ''}`}
+              type="button"
               onClick={() => handleTimeRangeChange(label)}
             >
               {label}
@@ -130,32 +138,29 @@ const TrendGraphs = () => {
         </div>
       </div>
       
-      <div
-        className="grid grid-cols-2 historical-chart-grid"
-        style={{ gap: '2rem' }}
-      >
+      <div className="grid grid-cols-2 historical-chart-grid">
         
         {/* Liquidity vs S&P 500 Chart */}
-        <div className="glass-panel">
-          <h3 style={{ fontSize: '1.1rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }} className="text-secondary">
+        <div className="glass-panel chart-panel">
+          <h3 className="chart-heading text-secondary">
             Net Liquidity vs S&P 500
             <InfoPanel title="Net Liquidity vs S&P 500" description={descriptions.net_liquidity} />
           </h3>
-          <div style={{ width: '100%', height: 300 }}>
+          <div className="chart-canvas">
             <div
               className="preset-zoom-chart"
               title="Wheel to zoom. Shift-wheel or horizontal scroll to pan."
             >
               <ResponsiveContainer>
                 <LineChart data={visibleData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-                  <XAxis dataKey="date" stroke="var(--text-muted)" tick={{ fontSize: 12 }} minTickGap={30} />
-                  <YAxis yAxisId="left" domain={['auto', 'auto']} stroke="var(--accent-primary)" tick={{ fontSize: 12 }} tickFormatter={(val) => `$${Math.round(val/1000)}k`} />
-                  <YAxis yAxisId="right" orientation="right" domain={['auto', 'auto']} stroke="var(--status-positive)" tick={{ fontSize: 12 }} />
-                  <Tooltip contentStyle={{ backgroundColor: 'var(--bg-surface-hover)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' }} />
+                  <CartesianGrid strokeDasharray="2 3" stroke="var(--stone)" vertical={false} />
+                  <XAxis dataKey="date" stroke="var(--slate)" tick={{ fontSize: 12, fill: 'var(--slate)' }} minTickGap={30} />
+                  <YAxis yAxisId="left" domain={['auto', 'auto']} stroke="var(--cobalt)" tick={{ fontSize: 12, fill: 'var(--slate)' }} tickFormatter={(val) => `$${Math.round(val/1000)}k`} />
+                  <YAxis yAxisId="right" orientation="right" domain={['auto', 'auto']} stroke="var(--forest)" tick={{ fontSize: 12, fill: 'var(--slate)' }} />
+                  <Tooltip contentStyle={chartTooltipStyle} />
                   <Legend />
-                  <Line isAnimationActive={false} yAxisId="left" type="monotone" dataKey="net_liquidity" name="Net Liquidity ($B)" stroke="var(--accent-primary)" strokeWidth={2} dot={false} />
-                  <Line isAnimationActive={false} yAxisId="right" type="monotone" dataKey="sp500" name="S&P 500" stroke="var(--status-positive)" strokeWidth={2} dot={false} />
+                  <Line isAnimationActive={false} yAxisId="left" type="monotone" dataKey="net_liquidity" name="Net Liquidity ($B)" stroke="var(--cobalt)" strokeWidth={2} dot={false} />
+                  <Line isAnimationActive={false} yAxisId="right" type="monotone" dataKey="sp500" name="S&P 500" stroke="var(--forest)" strokeWidth={2} dot={false} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -163,12 +168,12 @@ const TrendGraphs = () => {
         </div>
 
         {/* Yield Curve Area Chart */}
-        <div className="glass-panel">
-          <h3 style={{ fontSize: '1.1rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }} className="text-secondary">
+        <div className="glass-panel chart-panel">
+          <h3 className="chart-heading text-secondary">
             Yield Curve Dynamics (10Y & 2Y)
             <InfoPanel title="Yield Curve Dynamics" description={descriptions.yield_curve} />
           </h3>
-          <div style={{ width: '100%', height: 300 }}>
+          <div className="chart-canvas">
             <div
               className="preset-zoom-chart"
               title="Wheel to zoom. Shift-wheel or horizontal scroll to pan."
@@ -177,21 +182,21 @@ const TrendGraphs = () => {
                 <AreaChart data={visibleData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
                   <defs>
                     <linearGradient id="color10y" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--status-warning)" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="var(--status-warning)" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="var(--ochre)" stopOpacity={0.46}/>
+                      <stop offset="95%" stopColor="var(--ochre)" stopOpacity={0}/>
                     </linearGradient>
                     <linearGradient id="color2y" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--accent-secondary)" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="var(--accent-secondary)" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="var(--cobalt)" stopOpacity={0.42}/>
+                      <stop offset="95%" stopColor="var(--cobalt)" stopOpacity={0}/>
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-                  <XAxis dataKey="date" stroke="var(--text-muted)" tick={{ fontSize: 12 }} minTickGap={30} />
-                  <YAxis domain={['auto', 'auto']} stroke="var(--text-muted)" tick={{ fontSize: 12 }} tickFormatter={(val) => `${val}%`} />
-                  <Tooltip contentStyle={{ backgroundColor: 'var(--bg-surface-hover)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' }} />
+                  <CartesianGrid strokeDasharray="2 3" stroke="var(--stone)" vertical={false} />
+                  <XAxis dataKey="date" stroke="var(--slate)" tick={{ fontSize: 12, fill: 'var(--slate)' }} minTickGap={30} />
+                  <YAxis domain={['auto', 'auto']} stroke="var(--slate)" tick={{ fontSize: 12, fill: 'var(--slate)' }} tickFormatter={(val) => `${val}%`} />
+                  <Tooltip contentStyle={chartTooltipStyle} />
                   <Legend />
-                  <Area isAnimationActive={false} type="monotone" dataKey="treasury_10y" name="10Y Yield" stroke="var(--status-warning)" fillOpacity={1} fill="url(#color10y)" />
-                  <Area isAnimationActive={false} type="monotone" dataKey="treasury_2y" name="2Y Yield" stroke="var(--accent-secondary)" fillOpacity={1} fill="url(#color2y)" />
+                  <Area isAnimationActive={false} type="monotone" dataKey="treasury_10y" name="10Y Yield" stroke="var(--ochre)" fillOpacity={1} fill="url(#color10y)" />
+                  <Area isAnimationActive={false} type="monotone" dataKey="treasury_2y" name="2Y Yield" stroke="var(--cobalt)" fillOpacity={1} fill="url(#color2y)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -199,26 +204,26 @@ const TrendGraphs = () => {
         </div>
         
         {/* Volatility & Dollar Index Chart */}
-        <div className="glass-panel">
-          <h3 style={{ fontSize: '1.1rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }} className="text-secondary">
+        <div className="glass-panel chart-panel">
+          <h3 className="chart-heading text-secondary">
             Market Stress (VIX & DXY)
             <InfoPanel title="Market Stress" description={descriptions.market_stress} />
           </h3>
-          <div style={{ width: '100%', height: 300 }}>
+          <div className="chart-canvas">
             <div
               className="preset-zoom-chart"
               title="Wheel to zoom. Shift-wheel or horizontal scroll to pan."
             >
               <ResponsiveContainer>
                 <LineChart data={visibleData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-                  <XAxis dataKey="date" stroke="var(--text-muted)" tick={{ fontSize: 12 }} minTickGap={30} />
-                  <YAxis yAxisId="left" domain={['auto', 'auto']} stroke="var(--status-negative)" tick={{ fontSize: 12 }} />
-                  <YAxis yAxisId="right" orientation="right" domain={['auto', 'auto']} stroke="var(--text-primary)" tick={{ fontSize: 12 }} />
-                  <Tooltip contentStyle={{ backgroundColor: 'var(--bg-surface-hover)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' }} />
+                  <CartesianGrid strokeDasharray="2 3" stroke="var(--stone)" vertical={false} />
+                  <XAxis dataKey="date" stroke="var(--slate)" tick={{ fontSize: 12, fill: 'var(--slate)' }} minTickGap={30} />
+                  <YAxis yAxisId="left" domain={['auto', 'auto']} stroke="var(--brick)" tick={{ fontSize: 12, fill: 'var(--slate)' }} />
+                  <YAxis yAxisId="right" orientation="right" domain={['auto', 'auto']} stroke="var(--ink)" tick={{ fontSize: 12, fill: 'var(--slate)' }} />
+                  <Tooltip contentStyle={chartTooltipStyle} />
                   <Legend />
-                  <Line isAnimationActive={false} yAxisId="left" type="monotone" dataKey="vix" name="VIX" stroke="var(--status-negative)" strokeWidth={2} dot={false} />
-                  <Line isAnimationActive={false} yAxisId="right" type="monotone" dataKey="dxy" name="DXY" stroke="var(--text-primary)" strokeWidth={2} dot={false} />
+                  <Line isAnimationActive={false} yAxisId="left" type="monotone" dataKey="vix" name="VIX" stroke="var(--brick)" strokeWidth={2} dot={false} />
+                  <Line isAnimationActive={false} yAxisId="right" type="monotone" dataKey="dxy" name="DXY" stroke="var(--ink)" strokeWidth={2} dot={false} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -226,25 +231,25 @@ const TrendGraphs = () => {
         </div>
 
         {/* Inflation vs Policy Rate Chart */}
-        <div className="glass-panel">
-          <h3 style={{ fontSize: '1.1rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }} className="text-secondary">
+        <div className="glass-panel chart-panel">
+          <h3 className="chart-heading text-secondary">
             Inflation (CPI) & Fed Funds Rate
             <InfoPanel title="Inflation vs Policy Rate" description={descriptions.inflation_policy} />
           </h3>
-          <div style={{ width: '100%', height: 300 }}>
+          <div className="chart-canvas">
             <div
               className="preset-zoom-chart"
               title="Wheel to zoom. Shift-wheel or horizontal scroll to pan."
             >
               <ResponsiveContainer>
                 <LineChart data={visibleData} margin={{ top: 5, right: 0, left: 0, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-                  <XAxis dataKey="date" stroke="var(--text-muted)" tick={{ fontSize: 12 }} minTickGap={30} />
-                  <YAxis domain={['auto', 'auto']} stroke="var(--status-warning)" tick={{ fontSize: 12 }} tickFormatter={(val) => `${val}%`} />
-                  <Tooltip contentStyle={{ backgroundColor: 'var(--bg-surface-hover)', borderColor: 'rgba(255,255,255,0.1)', borderRadius: '8px' }} />
+                  <CartesianGrid strokeDasharray="2 3" stroke="var(--stone)" vertical={false} />
+                  <XAxis dataKey="date" stroke="var(--slate)" tick={{ fontSize: 12, fill: 'var(--slate)' }} minTickGap={30} />
+                  <YAxis domain={['auto', 'auto']} stroke="var(--ochre)" tick={{ fontSize: 12, fill: 'var(--slate)' }} tickFormatter={(val) => `${val}%`} />
+                  <Tooltip contentStyle={chartTooltipStyle} />
                   <Legend />
-                  <Line isAnimationActive={false} type="stepAfter" dataKey="policy_rate" name="Fed Funds Rate" stroke="var(--status-neutral)" strokeWidth={2} dot={false} />
-                  <Line isAnimationActive={false} type="monotone" dataKey="cpi_yoy" name="CPI YoY" stroke="var(--status-warning)" strokeWidth={2} dot={false} />
+                  <Line isAnimationActive={false} type="stepAfter" dataKey="policy_rate" name="Fed Funds Rate" stroke="var(--cobalt)" strokeWidth={2} dot={false} />
+                  <Line isAnimationActive={false} type="monotone" dataKey="cpi_yoy" name="CPI YoY" stroke="var(--ochre)" strokeWidth={2} dot={false} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -252,7 +257,7 @@ const TrendGraphs = () => {
         </div>
         
       </div>
-    </div>
+    </section>
   );
 };
 

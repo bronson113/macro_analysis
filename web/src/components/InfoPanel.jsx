@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 const InfoPanel = ({ title, description }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const titleId = useId();
 
   if (!description) return null;
 
@@ -9,6 +10,7 @@ const InfoPanel = ({ title, description }) => {
     <>
       <button 
         className="info-icon-btn" 
+        type="button"
         onClick={(e) => { e.stopPropagation(); setIsOpen(true); }}
         title={`Learn about ${title}`}
       >
@@ -17,10 +19,10 @@ const InfoPanel = ({ title, description }) => {
 
       {isOpen && (
         <div className="modal-overlay" onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}>
-          <div className="modal-content info-panel-content" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setIsOpen(false)}>&#x2715;</button>
-            <h3 style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>{title}</h3>
-            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+          <div className="modal-content info-panel-content" role="dialog" aria-modal="true" aria-labelledby={titleId} onClick={e => e.stopPropagation()}>
+            <button className="modal-close" type="button" aria-label={`Close ${title} details`} onClick={() => setIsOpen(false)}>&#x2715;</button>
+            <h3 id={titleId} className="dialog-title">{title}</h3>
+            <p className="dialog-copy">
               {description}
             </p>
           </div>
