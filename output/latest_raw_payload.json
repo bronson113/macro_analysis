@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-28T05:05:43.650116",
+    "generated_at": "2026-07-28T05:13:08.479627",
     "date": "2026-07-28",
     "engine_version": "2.0-GeminiRawPayload"
   },
@@ -9,121 +9,121 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-22",
       "value": 6747378.0,
-      "updated_at": "2026-07-28T05:04:49.207544"
+      "updated_at": "2026-07-28T05:12:32.161182"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-22",
       "value": 835417.0,
-      "updated_at": "2026-07-28T05:04:49.457627"
+      "updated_at": "2026-07-28T05:12:32.417241"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-27",
       "value": 1.38,
-      "updated_at": "2026-07-28T05:04:49.335864"
+      "updated_at": "2026-07-28T05:12:32.533649"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
       "date": "2026-07-24",
       "value": 4.69,
-      "updated_at": "2026-07-28T05:04:50.096621"
+      "updated_at": "2026-07-28T05:12:32.757256"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
       "date": "2026-07-24",
       "value": 4.33,
-      "updated_at": "2026-07-28T05:04:50.225484"
+      "updated_at": "2026-07-28T05:12:32.865082"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
       "date": "2026-07-27",
       "value": 0.34,
-      "updated_at": "2026-07-28T05:04:50.615088"
+      "updated_at": "2026-07-28T05:12:33.077325"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
       "date": "2026-07-24",
       "value": 2.79,
-      "updated_at": "2026-07-28T05:04:50.863139"
+      "updated_at": "2026-07-28T05:12:33.294865"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
       "date": "2026-07-24",
       "value": 0.45,
-      "updated_at": "2026-07-28T05:04:50.982523"
+      "updated_at": "2026-07-28T05:12:33.401087"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
       "date": "2026-07-17",
       "value": -0.55,
-      "updated_at": "2026-07-28T05:04:51.225674"
+      "updated_at": "2026-07-28T05:12:33.504503"
     },
     "vix": {
       "indicator_key": "vix",
       "date": "2026-07-27",
       "value": 18.670000076293945,
-      "updated_at": "2026-07-28T05:04:53.913168"
+      "updated_at": "2026-07-28T05:12:35.512533"
     },
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-07-28",
-      "value": 101.5250015258789,
-      "updated_at": "2026-07-28T05:04:54.048672"
+      "value": 101.5270004272461,
+      "updated_at": "2026-07-28T05:12:35.038055"
     },
     "sp500": {
       "indicator_key": "sp500",
       "date": "2026-07-27",
       "value": 7413.18017578125,
-      "updated_at": "2026-07-28T05:04:54.175930"
+      "updated_at": "2026-07-28T05:12:35.408975"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-07-28",
-      "value": 81.66000366210938,
-      "updated_at": "2026-07-28T05:04:53.770737"
+      "value": 81.68000030517578,
+      "updated_at": "2026-07-28T05:12:35.171850"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-07-28",
-      "value": 4043.800048828125,
-      "updated_at": "2026-07-28T05:04:54.317751"
+      "value": 4041.199951171875,
+      "updated_at": "2026-07-28T05:12:35.293589"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-28",
-      "value": 6.356500148773193,
-      "updated_at": "2026-07-28T05:04:54.455959"
+      "value": 6.348999977111816,
+      "updated_at": "2026-07-28T05:12:35.615511"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
       "date": "2026-06-01",
       "value": 4.2,
-      "updated_at": "2026-07-28T05:04:51.464500"
+      "updated_at": "2026-07-28T05:12:33.720620"
     },
     "cpi": {
       "indicator_key": "cpi",
       "date": "2026-06-01",
       "value": 332.568,
-      "updated_at": "2026-07-28T05:04:52.063674"
+      "updated_at": "2026-07-28T05:12:33.925611"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
       "date": "2026-07-27",
       "value": 2.18,
-      "updated_at": "2026-07-28T05:04:52.547418"
+      "updated_at": "2026-07-28T05:12:34.026235"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
       "date": "2026-07-28",
       "value": 40.0285714285714,
-      "updated_at": "2026-07-28T05:04:55.198645"
+      "updated_at": "2026-07-28T05:12:35.792165"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
       "date": "2026-07-28",
       "value": 40.47,
-      "updated_at": "2026-07-28T05:04:55.569070"
+      "updated_at": "2026-07-28T05:12:36.099379"
     }
   },
   "recent_news_events": [
@@ -439,7 +439,7 @@
       "ev_ebitda": 14.62,
       "price_to_book": 14.01,
       "dist_from_52w_high_pct": -28.27,
-      "return_30d_pct": -21.39
+      "return_30d_pct": -21.4
     },
     {
       "ticker": "NVDA",
@@ -523,14 +523,14 @@
       "ev_ebitda": 15.95,
       "price_to_book": 9.19,
       "dist_from_52w_high_pct": -65.32,
-      "return_30d_pct": -18.57
+      "return_30d_pct": -18.85
     },
     {
       "ticker": "QCOM",
       "name": "QUALCOMM Incorporated",
       "group": "Technology & Semiconductors",
       "price": 170.04,
-      "trailing_pe": 18.28,
+      "trailing_pe": 17.96,
       "forward_pe": 15.47,
       "ev_ebitda": 14.21,
       "price_to_book": 6.6,
@@ -547,7 +547,7 @@
       "ev_ebitda": null,
       "price_to_book": 2.68,
       "dist_from_52w_high_pct": -0.79,
-      "return_30d_pct": 8.63
+      "return_30d_pct": 8.14
     },
     {
       "ticker": "BAC",
@@ -631,7 +631,7 @@
       "ev_ebitda": null,
       "price_to_book": 6.6,
       "dist_from_52w_high_pct": -13.45,
-      "return_30d_pct": -1.34
+      "return_30d_pct": -1.61
     },
     {
       "ticker": "SCHW",
@@ -691,7 +691,7 @@
       "ev_ebitda": 17.3,
       "price_to_book": -68.2,
       "dist_from_52w_high_pct": -1.98,
-      "return_30d_pct": 1.74
+      "return_30d_pct": 1.02
     },
     {
       "ticker": "MRK",
@@ -727,7 +727,7 @@
       "ev_ebitda": 7.56,
       "price_to_book": 1.56,
       "dist_from_52w_high_pct": -14.19,
-      "return_30d_pct": 3.0
+      "return_30d_pct": 1.23
     },
     {
       "ticker": "ABT",
@@ -739,7 +739,7 @@
       "ev_ebitda": 17.65,
       "price_to_book": 3.5,
       "dist_from_52w_high_pct": -24.0,
-      "return_30d_pct": 13.51
+      "return_30d_pct": 12.71
     },
     {
       "ticker": "XOM",
@@ -787,7 +787,7 @@
       "ev_ebitda": 6.29,
       "price_to_book": 2.43,
       "dist_from_52w_high_pct": -7.61,
-      "return_30d_pct": 7.14
+      "return_30d_pct": 6.35
     },
     {
       "ticker": "SLB",
@@ -847,7 +847,7 @@
       "ev_ebitda": 33.59,
       "price_to_book": 20.89,
       "dist_from_52w_high_pct": -5.58,
-      "return_30d_pct": -3.12
+      "return_30d_pct": -3.24
     },
     {
       "ticker": "CAT",
@@ -859,14 +859,14 @@
       "ev_ebitda": 30.36,
       "price_to_book": 21.56,
       "dist_from_52w_high_pct": -18.65,
-      "return_30d_pct": -15.32
+      "return_30d_pct": -15.48
     },
     {
       "ticker": "RTX",
       "name": "RTX Corporation",
       "group": "Industrials & Machinery",
       "price": 218.42,
-      "trailing_pe": 38.45,
+      "trailing_pe": 37.46,
       "forward_pe": 27.99,
       "ev_ebitda": 20.55,
       "price_to_book": 4.44,
@@ -919,7 +919,7 @@
       "ev_ebitda": 24.19,
       "price_to_book": 6.16,
       "dist_from_52w_high_pct": -7.29,
-      "return_30d_pct": 0.0
+      "return_30d_pct": -0.26
     },
     {
       "ticker": "LMT",
@@ -1003,14 +1003,14 @@
       "ev_ebitda": 12.73,
       "price_to_book": -12.8,
       "dist_from_52w_high_pct": -27.81,
-      "return_30d_pct": -3.09
+      "return_30d_pct": -3.69
     },
     {
       "ticker": "SBUX",
       "name": "Starbucks Corporation",
       "group": "Consumer Discretionary & Retail",
       "price": 103.65,
-      "trailing_pe": 79.12,
+      "trailing_pe": 78.52,
       "forward_pe": 34.41,
       "ev_ebitda": 26.11,
       "price_to_book": -13.95,
@@ -1039,7 +1039,7 @@
       "ev_ebitda": 14.85,
       "price_to_book": 6.44,
       "dist_from_52w_high_pct": -11.13,
-      "return_30d_pct": 0.87
+      "return_30d_pct": 0.12
     },
     {
       "ticker": "COST",
@@ -1051,7 +1051,7 @@
       "ev_ebitda": 30.48,
       "price_to_book": 25.53,
       "dist_from_52w_high_pct": -13.22,
-      "return_30d_pct": 0.68
+      "return_30d_pct": 0.52
     },
     {
       "ticker": "KO",
@@ -1111,7 +1111,7 @@
       "ev_ebitda": 18.79,
       "price_to_book": 3.02,
       "dist_from_52w_high_pct": -13.74,
-      "return_30d_pct": 1.71
+      "return_30d_pct": 0.86
     },
     {
       "ticker": "CL",
@@ -1123,7 +1123,7 @@
       "ev_ebitda": 16.36,
       "price_to_book": 508.18,
       "dist_from_52w_high_pct": -7.4,
-      "return_30d_pct": 0.12
+      "return_30d_pct": -0.45
     },
     {
       "ticker": "TSLA",
@@ -1327,7 +1327,7 @@
       "ev_ebitda": 11.12,
       "price_to_book": 4.37,
       "dist_from_52w_high_pct": -13.23,
-      "return_30d_pct": 2.03
+      "return_30d_pct": 1.79
     },
     {
       "ticker": "MP",
