@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-28T04:49:36.987022",
+    "generated_at": "2026-07-28T05:05:43.650116",
     "date": "2026-07-28",
     "engine_version": "2.0-GeminiRawPayload"
   },
@@ -9,124 +9,136 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-22",
       "value": 6747378.0,
-      "updated_at": "2026-07-28T04:47:58.904119"
+      "updated_at": "2026-07-28T05:04:49.207544"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-22",
       "value": 835417.0,
-      "updated_at": "2026-07-28T04:47:59.171999"
+      "updated_at": "2026-07-28T05:04:49.457627"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-27",
       "value": 1.38,
-      "updated_at": "2026-07-28T04:47:58.993046"
+      "updated_at": "2026-07-28T05:04:49.335864"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
       "date": "2026-07-24",
       "value": 4.69,
-      "updated_at": "2026-07-28T04:48:00.088921"
+      "updated_at": "2026-07-28T05:04:50.096621"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
       "date": "2026-07-24",
       "value": 4.33,
-      "updated_at": "2026-07-28T04:48:00.179008"
+      "updated_at": "2026-07-28T05:04:50.225484"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
       "date": "2026-07-27",
       "value": 0.34,
-      "updated_at": "2026-07-28T04:48:00.640269"
+      "updated_at": "2026-07-28T05:04:50.615088"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
       "date": "2026-07-24",
       "value": 2.79,
-      "updated_at": "2026-07-28T04:48:00.955471"
+      "updated_at": "2026-07-28T05:04:50.863139"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
       "date": "2026-07-24",
       "value": 0.45,
-      "updated_at": "2026-07-28T04:48:01.205934"
+      "updated_at": "2026-07-28T05:04:50.982523"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
       "date": "2026-07-17",
       "value": -0.55,
-      "updated_at": "2026-07-28T04:48:01.466347"
+      "updated_at": "2026-07-28T05:04:51.225674"
     },
     "vix": {
       "indicator_key": "vix",
       "date": "2026-07-27",
       "value": 18.670000076293945,
-      "updated_at": "2026-07-28T04:48:05.255681"
+      "updated_at": "2026-07-28T05:04:53.913168"
     },
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-07-28",
-      "value": 101.51300048828124,
-      "updated_at": "2026-07-28T04:48:04.934812"
+      "value": 101.5250015258789,
+      "updated_at": "2026-07-28T05:04:54.048672"
     },
     "sp500": {
       "indicator_key": "sp500",
       "date": "2026-07-27",
       "value": 7413.18017578125,
-      "updated_at": "2026-07-28T04:48:04.797935"
+      "updated_at": "2026-07-28T05:04:54.175930"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-07-28",
-      "value": 81.69999694824219,
-      "updated_at": "2026-07-28T04:48:05.048148"
+      "value": 81.66000366210938,
+      "updated_at": "2026-07-28T05:04:53.770737"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-07-28",
-      "value": 4046.0,
-      "updated_at": "2026-07-28T04:48:05.352583"
+      "value": 4043.800048828125,
+      "updated_at": "2026-07-28T05:04:54.317751"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-28",
-      "value": 6.36299991607666,
-      "updated_at": "2026-07-28T04:48:05.535509"
+      "value": 6.356500148773193,
+      "updated_at": "2026-07-28T05:04:54.455959"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
       "date": "2026-06-01",
       "value": 4.2,
-      "updated_at": "2026-07-28T04:48:01.810377"
+      "updated_at": "2026-07-28T05:04:51.464500"
     },
     "cpi": {
       "indicator_key": "cpi",
       "date": "2026-06-01",
       "value": 332.568,
-      "updated_at": "2026-07-28T04:48:02.888523"
+      "updated_at": "2026-07-28T05:04:52.063674"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
       "date": "2026-07-27",
       "value": 2.18,
-      "updated_at": "2026-07-28T04:48:03.263477"
+      "updated_at": "2026-07-28T05:04:52.547418"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
       "date": "2026-07-28",
       "value": 40.0285714285714,
-      "updated_at": "2026-07-28T04:48:06.205345"
+      "updated_at": "2026-07-28T05:04:55.198645"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
       "date": "2026-07-28",
       "value": 40.47,
-      "updated_at": "2026-07-28T04:48:06.551778"
+      "updated_at": "2026-07-28T05:04:55.569070"
     }
   },
   "recent_news_events": [
+    {
+      "id": 323.0,
+      "date": "2026-07-28",
+      "title": "[NVDA - NVIDIA] Rocket Lab Debuts a Breakthrough Technology Investors Should Have on Their Radar",
+      "summary": "One underappreciated capability could help Rocket Lab capture a much larger share of future space and defense missions.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/07/28/rocket-lab-debuts-a-breakthrough-technology-invest/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-28T05:04:58.924572"
+    },
     {
       "id": 322.0,
       "date": "2026-07-28",
@@ -414,18 +426,6 @@
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
       "created_at": "2026-07-28T04:31:56.305231"
-    },
-    {
-      "id": 298.0,
-      "date": "2026-07-28",
-      "title": "[MU - Micron Technology] SK Hynix\u2019s Rebound From $470 Billion Rout Hinges on AI Spending",
-      "summary": "(Bloomberg) -- A $470 billion rout in just a little over a month has flipped SK Hynix Inc. from one of the world\u2019s hottest AI trades to one of the biggest portfolio question marks.Most Read from Bloom",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://finance.yahoo.com/technology/ai/articles/sk-hynix-rebound-470-billion-233004396.html",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305227"
     }
   ],
   "individual_stock_constituents": [
@@ -434,10 +434,10 @@
       "name": "Micron Technology, Inc.",
       "group": "Technology & Semiconductors",
       "price": 900.2,
-      "trailing_pe": 20.83,
+      "trailing_pe": 20.36,
       "forward_pe": 5.86,
       "ev_ebitda": 14.62,
-      "price_to_book": 10.09,
+      "price_to_book": 14.01,
       "dist_from_52w_high_pct": -28.27,
       "return_30d_pct": -21.39
     },
@@ -446,7 +446,7 @@
       "name": "NVIDIA Corporation",
       "group": "Technology & Semiconductors",
       "price": 196.51,
-      "trailing_pe": 30.05,
+      "trailing_pe": 31.64,
       "forward_pe": 15.27,
       "ev_ebitda": 28.49,
       "price_to_book": 24.35,
@@ -530,7 +530,7 @@
       "name": "QUALCOMM Incorporated",
       "group": "Technology & Semiconductors",
       "price": 170.04,
-      "trailing_pe": 17.96,
+      "trailing_pe": 18.28,
       "forward_pe": 15.47,
       "ev_ebitda": 14.21,
       "price_to_book": 6.6,
@@ -614,7 +614,7 @@
       "name": "BlackRock, Inc.",
       "group": "Financials & Banking",
       "price": 1062.14,
-      "trailing_pe": 25.32,
+      "trailing_pe": 25.47,
       "forward_pe": 16.5,
       "ev_ebitda": 15.58,
       "price_to_book": 2.91,
@@ -650,7 +650,7 @@
       "name": "UnitedHealth Group Incorporated",
       "group": "Healthcare & Pharma",
       "price": 417.64,
-      "trailing_pe": 31.64,
+      "trailing_pe": 31.4,
       "forward_pe": 18.62,
       "ev_ebitda": 17.38,
       "price_to_book": 3.62,
@@ -674,7 +674,7 @@
       "name": "Eli Lilly and Company",
       "group": "Healthcare & Pharma",
       "price": 1197.53,
-      "trailing_pe": 42.6,
+      "trailing_pe": 42.56,
       "forward_pe": 26.56,
       "ev_ebitda": 30.54,
       "price_to_book": 34.3,
@@ -806,7 +806,7 @@
       "name": "Marathon Petroleum Corporation",
       "group": "Energy & Oil/Gas",
       "price": 312.35,
-      "trailing_pe": 20.36,
+      "trailing_pe": 20.58,
       "forward_pe": 11.25,
       "ev_ebitda": 12.68,
       "price_to_book": 5.46,
@@ -845,7 +845,7 @@
       "trailing_pe": 41.66,
       "forward_pe": 39.85,
       "ev_ebitda": 33.59,
-      "price_to_book": 21.27,
+      "price_to_book": 20.89,
       "dist_from_52w_high_pct": -5.58,
       "return_30d_pct": -3.12
     },
@@ -866,7 +866,7 @@
       "name": "RTX Corporation",
       "group": "Industrials & Machinery",
       "price": 218.42,
-      "trailing_pe": 37.46,
+      "trailing_pe": 38.45,
       "forward_pe": 27.99,
       "ev_ebitda": 20.55,
       "price_to_book": 4.44,
@@ -953,7 +953,7 @@
       "trailing_pe": 281.11,
       "forward_pe": 139.31,
       "ev_ebitda": 111.06,
-      "price_to_book": 13.8,
+      "price_to_book": 14.12,
       "dist_from_52w_high_pct": -38.01,
       "return_30d_pct": -24.92
     },
@@ -1010,7 +1010,7 @@
       "name": "Starbucks Corporation",
       "group": "Consumer Discretionary & Retail",
       "price": 103.65,
-      "trailing_pe": 78.52,
+      "trailing_pe": 79.12,
       "forward_pe": 34.41,
       "ev_ebitda": 26.11,
       "price_to_book": -13.95,
@@ -1060,7 +1060,7 @@
       "price": 84.07,
       "trailing_pe": 26.44,
       "forward_pe": 24.13,
-      "ev_ebitda": 23.14,
+      "ev_ebitda": 23.61,
       "price_to_book": 10.76,
       "dist_from_52w_high_pct": -1.88,
       "return_30d_pct": 1.72
@@ -1097,7 +1097,7 @@
       "trailing_pe": 215.01,
       "forward_pe": 21.36,
       "ev_ebitda": 17.58,
-      "price_to_book": null,
+      "price_to_book": -32.86,
       "dist_from_52w_high_pct": -2.06,
       "return_30d_pct": 6.99
     },
@@ -1133,7 +1133,7 @@
       "trailing_pe": 281.11,
       "forward_pe": 139.31,
       "ev_ebitda": 111.06,
-      "price_to_book": 13.8,
+      "price_to_book": 14.12,
       "dist_from_52w_high_pct": -38.01,
       "return_30d_pct": -24.92
     },
@@ -1155,7 +1155,7 @@
       "group": "Physical AI & Robotics",
       "price": 334.77,
       "trailing_pe": 62.11,
-      "forward_pe": 32.55,
+      "forward_pe": 32.48,
       "ev_ebitda": 44.98,
       "price_to_book": 16.67,
       "dist_from_52w_high_pct": -31.39,
