@@ -184,6 +184,19 @@ h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
   margin-bottom: 0;
 }
 
+.section-kicker {
+  color: var(--status-positive);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.llm-analysis-panel {
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
 .big-update-header {
   justify-content: space-between;
   gap: 1rem;

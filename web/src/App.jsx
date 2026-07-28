@@ -4,6 +4,7 @@ import StatCard from './components/StatCard';
 import NewsFeed from './components/NewsFeed';
 import StockMatrix from './components/StockMatrix';
 import BigUpdate from './components/BigUpdate';
+import LlmAnalysis from './components/LlmAnalysis';
 import TrendGraphs from './components/TrendGraphs';
 import CheatSheet from './components/CheatSheet';
 import { descriptions } from './utils/descriptions';
@@ -66,7 +67,9 @@ function App() {
       </div>
       <Header metadata={metadata} />
 
-      {/* Primary Focus: Graphs and the Big Update */}
+      <LlmAnalysis />
+
+      {/* Supporting automated data and report views */}
       <TrendGraphs />
       <BigUpdate />
 
