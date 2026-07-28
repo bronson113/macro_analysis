@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-07-28T05:22:22.743330",
+    "generated_at": "2026-07-28T05:45:56.720254",
     "date": "2026-07-28",
     "engine_version": "2.0-GeminiRawPayload"
   },
@@ -9,124 +9,160 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-22",
       "value": 6747378.0,
-      "updated_at": "2026-07-28T05:21:49.627677"
+      "updated_at": "2026-07-28T05:45:22.114598"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-22",
       "value": 835417.0,
-      "updated_at": "2026-07-28T05:21:49.197398"
+      "updated_at": "2026-07-28T05:45:22.398750"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-27",
       "value": 1.38,
-      "updated_at": "2026-07-28T05:21:49.754917"
+      "updated_at": "2026-07-28T05:45:22.644909"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
       "date": "2026-07-24",
       "value": 4.69,
-      "updated_at": "2026-07-28T05:21:50.017254"
+      "updated_at": "2026-07-28T05:45:22.893097"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
       "date": "2026-07-24",
       "value": 4.33,
-      "updated_at": "2026-07-28T05:21:50.138825"
+      "updated_at": "2026-07-28T05:45:23.008116"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
       "date": "2026-07-27",
       "value": 0.34,
-      "updated_at": "2026-07-28T05:21:50.380692"
+      "updated_at": "2026-07-28T05:45:23.239254"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
       "date": "2026-07-24",
       "value": 2.79,
-      "updated_at": "2026-07-28T05:21:50.617359"
+      "updated_at": "2026-07-28T05:45:23.465468"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
       "date": "2026-07-24",
       "value": 0.45,
-      "updated_at": "2026-07-28T05:21:50.733404"
+      "updated_at": "2026-07-28T05:45:23.581700"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
       "date": "2026-07-17",
       "value": -0.55,
-      "updated_at": "2026-07-28T05:21:50.851996"
+      "updated_at": "2026-07-28T05:45:23.693765"
     },
     "vix": {
       "indicator_key": "vix",
       "date": "2026-07-27",
       "value": 18.670000076293945,
-      "updated_at": "2026-07-28T05:21:52.607729"
+      "updated_at": "2026-07-28T05:45:26.205462"
     },
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-07-28",
-      "value": 101.55899810791016,
-      "updated_at": "2026-07-28T05:21:52.247113"
+      "value": 101.54900360107422,
+      "updated_at": "2026-07-28T05:45:25.286158"
     },
     "sp500": {
       "indicator_key": "sp500",
       "date": "2026-07-27",
       "value": 7413.18017578125,
-      "updated_at": "2026-07-28T05:21:52.074087"
+      "updated_at": "2026-07-28T05:45:24.898129"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-07-28",
-      "value": 81.62999725341797,
-      "updated_at": "2026-07-28T05:21:52.492946"
+      "value": 82.08000183105469,
+      "updated_at": "2026-07-28T05:45:25.046272"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-07-28",
-      "value": 4041.89990234375,
-      "updated_at": "2026-07-28T05:21:52.376994"
+      "value": 4037.39990234375,
+      "updated_at": "2026-07-28T05:45:25.174361"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-28",
-      "value": 6.352499961853027,
-      "updated_at": "2026-07-28T05:21:52.725586"
+      "value": 6.32450008392334,
+      "updated_at": "2026-07-28T05:45:25.395128"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
       "date": "2026-06-01",
       "value": 4.2,
-      "updated_at": "2026-07-28T05:21:51.095500"
+      "updated_at": "2026-07-28T05:45:23.925140"
     },
     "cpi": {
       "indicator_key": "cpi",
       "date": "2026-06-01",
       "value": 332.568,
-      "updated_at": "2026-07-28T05:21:51.333168"
+      "updated_at": "2026-07-28T05:45:24.152369"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
       "date": "2026-07-27",
       "value": 2.18,
-      "updated_at": "2026-07-28T05:21:51.459746"
+      "updated_at": "2026-07-28T05:45:24.264040"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
       "date": "2026-07-28",
       "value": 40.0285714285714,
-      "updated_at": "2026-07-28T05:21:53.084322"
+      "updated_at": "2026-07-28T05:45:26.640148"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
       "date": "2026-07-28",
       "value": 40.47,
-      "updated_at": "2026-07-28T05:21:53.306329"
+      "updated_at": "2026-07-28T05:45:27.008997"
     }
   },
   "recent_news_events": [
+    {
+      "id": 326.0,
+      "date": "2026-07-28",
+      "title": "[NVDA - NVIDIA] Prediction: SpaceX Stock Will Fall After Aug. 4",
+      "summary": "Is the recent IPO's honeymoon period finally over?",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/07/28/prediction-spacex-stock-will-fall-after-aug-4/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-28T05:45:30.773262"
+    },
+    {
+      "id": 325.0,
+      "date": "2026-07-28",
+      "title": "[MU - Micron Technology] AI Memory Stocks on Rocky Ground: 3 Reasons SK Hynix Fell 13%",
+      "summary": "SK Hynix fell 13% as Nvidia's OpenAI bet, China's CXMT listing, and AI capex doubts hit chip stocks with more volatility.",
+      "source": "Yahoo Finance (MU)",
+      "link": "https://beincrypto.com/sk-hynix-stock-ai-memory-selloff/",
+      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-28T05:45:30.773248"
+    },
+    {
+      "id": 324.0,
+      "date": "2026-07-28",
+      "title": "[MU - Micron Technology] Micron (MU) Faces New China Memory Pressure As CXMT IPO Tests AI Lead",
+      "summary": "China\u2019s ChangXin Memory Technologies completed its IPO, signaling a push to build a domestic DRAM champion. The move highlights rising local competition for Micron Technology in commodity memory segme",
+      "source": "Yahoo Finance (MU)",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/micron-mu-faces-china-memory-051008031.html",
+      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
+      "impact_score": 0.0,
+      "sentiment": "Neutral / Mixed | Low Risk",
+      "created_at": "2026-07-28T05:45:30.773244"
+    },
     {
       "id": 323.0,
       "date": "2026-07-28",
@@ -390,42 +426,6 @@
       "impact_score": 0.0,
       "sentiment": "Neutral / Mixed | Low Risk",
       "created_at": "2026-07-28T04:31:56.305244"
-    },
-    {
-      "id": 301.0,
-      "date": "2026-07-28",
-      "title": "[NVDA - NVIDIA] Is Tesla a Buy After Its Latest Earnings Report?",
-      "summary": "The company's second quarter was mixed, with a beat on revenue but a wide miss on profitability.",
-      "source": "Yahoo Finance (NVDA)",
-      "link": "https://www.fool.com/investing/2026/07/27/is-tesla-a-buy-after-its-latest-earnings-report/",
-      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305240"
-    },
-    {
-      "id": 300.0,
-      "date": "2026-07-28",
-      "title": "[NVDA - NVIDIA] Semiconductor stock charts just formed this bearish shape that signals more potential losses",
-      "summary": "Look out below for semis?",
-      "source": "Yahoo Finance (NVDA)",
-      "link": "https://finance.yahoo.com/markets/article/semiconductor-stock-charts-just-formed-this-bearish-shape-that-signals-more-potential-losses-145440205.html",
-      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305235"
-    },
-    {
-      "id": 299.0,
-      "date": "2026-07-28",
-      "title": "[NVDA - NVIDIA] Nvidia reportedly in talks to finance OpenAI's massive Ohio data center",
-      "summary": "Chipmaker Nvidia (NVDA) is reportedly in talks with OpenAI (OPAI.PVT) to help fund a $250 billion backstop, according to the Wall Street Journal, that would guarantee the latter's plans for an AI data",
-      "source": "Yahoo Finance (NVDA)",
-      "link": "https://finance.yahoo.com/video/nvidia-reportedly-in-talks-to-finance-openais-massive-ohio-data-center-204640730.html",
-      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
-      "impact_score": 0.0,
-      "sentiment": "Neutral / Mixed | Low Risk",
-      "created_at": "2026-07-28T04:31:56.305231"
     }
   ],
   "individual_stock_constituents": [
@@ -470,7 +470,7 @@
       "name": "Broadcom Inc.",
       "group": "Technology & Semiconductors",
       "price": 383.22,
-      "trailing_pe": 63.87,
+      "trailing_pe": 63.66,
       "forward_pe": 19.64,
       "ev_ebitda": 44.4,
       "price_to_book": 20.79,
@@ -686,7 +686,7 @@
       "name": "AbbVie Inc.",
       "group": "Healthcare & Pharma",
       "price": 256.91,
-      "trailing_pe": 125.32,
+      "trailing_pe": 126.56,
       "forward_pe": 15.77,
       "ev_ebitda": 17.3,
       "price_to_book": -68.2,
@@ -698,7 +698,7 @@
       "name": "Merck & Company, Inc.",
       "group": "Healthcare & Pharma",
       "price": 130.76,
-      "trailing_pe": 36.83,
+      "trailing_pe": 36.94,
       "forward_pe": 13.58,
       "ev_ebitda": 12.41,
       "price_to_book": 7.04,
@@ -746,7 +746,7 @@
       "name": "ExxonMobil Holdings Corporation",
       "group": "Energy & Oil/Gas",
       "price": 154.77,
-      "trailing_pe": 26.1,
+      "trailing_pe": 26.46,
       "forward_pe": 14.58,
       "ev_ebitda": 12.27,
       "price_to_book": 2.52,
@@ -758,7 +758,7 @@
       "name": "Chevron Corporation",
       "group": "Energy & Oil/Gas",
       "price": 190.0,
-      "trailing_pe": 33.04,
+      "trailing_pe": 33.93,
       "forward_pe": 14.95,
       "ev_ebitda": 11.12,
       "price_to_book": 2.05,
@@ -962,7 +962,7 @@
       "name": "Home Depot, Inc. (The)",
       "group": "Consumer Discretionary & Retail",
       "price": 336.09,
-      "trailing_pe": 23.85,
+      "trailing_pe": 23.64,
       "forward_pe": 20.89,
       "ev_ebitda": 15.92,
       "price_to_book": 24.15,
@@ -1226,7 +1226,7 @@
       "name": "GE Vernova Inc.",
       "group": "Downstream Power & Grid",
       "price": 996.57,
-      "trailing_pe": 28.55,
+      "trailing_pe": 29.07,
       "forward_pe": 40.03,
       "ev_ebitda": 65.59,
       "price_to_book": 22.2,
@@ -1238,7 +1238,7 @@
       "name": "Vertiv Holdings, LLC",
       "group": "Datacenter Liquid Cooling",
       "price": 287.6,
-      "trailing_pe": 72.26,
+      "trailing_pe": 72.99,
       "forward_pe": 32.57,
       "ev_ebitda": 46.68,
       "price_to_book": 26.01,
@@ -1298,7 +1298,7 @@
       "name": "Lam Research Corporation",
       "group": "Semiconductor Equipment",
       "price": 291.61,
-      "trailing_pe": 55.23,
+      "trailing_pe": 57.86,
       "forward_pe": 35.65,
       "ev_ebitda": 46.34,
       "price_to_book": 34.45,
