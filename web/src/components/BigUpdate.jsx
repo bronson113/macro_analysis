@@ -1,32 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { splitReportSections } from '../utils/dashboardPresentation';
 
 const latestReport = { date: '', path: '/latest_report.md' };
 
-const BigUpdate = () => {
+const BigUpdate = ({ reports = [] }) => {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [reports, setReports] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
   const [reportError, setReportError] = useState('');
+  const [activeTab, setActiveTab] = useState('summary');
   const dateInputRef = useRef(null);
-
-  useEffect(() => {
-    fetch(import.meta.env.BASE_URL + 'reports/index.json?t=' + new Date().getTime())
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to load report history.');
-        return res.json();
-      })
-      .then(json => {
-        setReports(Array.isArray(json) ? json : []);
-      })
-      .catch(err => {
-        console.error(err);
-        setReports([]);
-      });
-  }, []);
 
   useEffect(() => {
     const selectedReport = reports.find(report => report.date === selectedDate) || latestReport;
@@ -61,16 +47,18 @@ const BigUpdate = () => {
 
   if (loading) return <div className="glass-panel text-muted">Loading Big Update...</div>;
 
-  // Extract just the summary section.
-  let summary = content;
-  const splitPoint = content.indexOf('## 1. Active Macro Situation');
-  if (splitPoint !== -1) {
-    summary = content.substring(0, splitPoint);
-  }
-
   const newestDate = reports[0]?.date || '';
   const oldestDate = reports[reports.length - 1]?.date || '';
   const displayedDate = selectedDate || newestDate;
+  const reportSections = splitReportSections(content);
+  const reportTabs = [
+    { id: 'summary', label: 'Summary', content: reportSections.summary },
+    { id: 'active', label: 'Active Situation', content: reportSections.active },
+    { id: 'risks', label: 'Risks', content: reportSections.risks },
+    { id: 'full', label: 'Full Report', content: reportSections.full },
+  ].filter(tab => tab.content);
+  const visibleTab = reportTabs.some(tab => tab.id === activeTab) ? activeTab : 'summary';
+  const activeContent = reportTabs.find(tab => tab.id === visibleTab)?.content || content;
 
   const selectReportDate = nextDate => {
     if (!nextDate || nextDate === newestDate) {
@@ -99,7 +87,7 @@ const BigUpdate = () => {
     <>
       <div className="section animate-fade-in stagger-2">
         <div className="section-header big-update-header">
-          <h2>The Big Update</h2>
+          <h2 id="big-update-heading">The Big Update</h2>
           <div className="report-date-picker">
             <label htmlFor="report-date">Report date</label>
             <input
@@ -128,11 +116,25 @@ const BigUpdate = () => {
             <p className="text-secondary">{reportError}</p>
           ) : (
             <>
-              <div className="markdown-body">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{summary}</ReactMarkdown>
+              <div className="report-tabs" role="tablist" aria-label="Big Update report sections">
+                {reportTabs.map(tab => (
+                  <button
+                    key={tab.id}
+                    className={`report-tab ${visibleTab === tab.id ? 'active' : ''}`}
+                    type="button"
+                    role="tab"
+                    aria-selected={visibleTab === tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+              <div className={`markdown-body report-tab-body ${visibleTab === 'full' ? 'full-report' : ''}`} role="tabpanel">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{activeContent}</ReactMarkdown>
               </div>
               <button className="link-button" onClick={() => setIsModalOpen(true)}>
-                Read Full Report &rarr;
+                Open Expanded Report &rarr;
               </button>
             </>
           )}

@@ -114,7 +114,7 @@ const TrendGraphs = () => {
   if (!data.length) return null;
 
   return (
-    <div className="section animate-fade-in stagger-3">
+    <div className="section animate-fade-in stagger-3" id="trends-heading">
       <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2>Historical Trends</h2>
         <div className="range-selector">
