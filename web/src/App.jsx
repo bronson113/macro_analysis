@@ -8,6 +8,7 @@ import LlmAnalysis from './components/LlmAnalysis';
 import TrendGraphs from './components/TrendGraphs';
 import CheatSheet from './components/CheatSheet';
 import { descriptions } from './utils/descriptions';
+import { buildFreshnessStatus } from './utils/dashboardPresentation';
 
 function App() {
   const [data, setData] = useState(null);
@@ -75,6 +76,7 @@ function App() {
   }
 
   const { metadata, macro_quantitative: mq, recent_news_events, individual_stock_constituents } = data || {};
+  const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
 
   return (
     <div className="container">
@@ -86,13 +88,29 @@ function App() {
       />
 
       <div className="dashboard-shell">
-        <nav className="dashboard-toc" aria-label="Dashboard sections">
-          <a href="#llm-analysis-heading">Priority</a>
-          <a href="#big-update-heading">Big Update</a>
-          <a href="#trends-heading">Trends</a>
-          <a href="#indicators-heading">Indicators</a>
-          <a href="#deep-dive-heading">Deep Dive</a>
-        </nav>
+        <aside className="section-rail">
+          <nav className="dashboard-toc" aria-label="Dashboard sections">
+            <a href="#llm-analysis-heading"><span aria-hidden="true">01</span>Priority</a>
+            <a href="#big-update-heading"><span aria-hidden="true">02</span>Daily Brief</a>
+            <a href="#trends-heading"><span aria-hidden="true">03</span>Trends</a>
+            <a href="#indicators-heading"><span aria-hidden="true">04</span>Indicators</a>
+            <a href="#deep-dive-heading"><span aria-hidden="true">05</span>Deep Dive</a>
+          </nav>
+
+          <section className="data-status" aria-label="Data status">
+            <p className="rail-label">Data status</p>
+            <dl>
+              <div>
+                <dt>Feed</dt>
+                <dd className={`status-${freshness.tone}`}>{freshness.label} · {freshness.ageLabel}</dd>
+              </div>
+              <div>
+                <dt>Archive</dt>
+                <dd>{reports.length ? `${reports.length} reports` : 'Unavailable'}</dd>
+              </div>
+            </dl>
+          </section>
+        </aside>
 
         <main className="dashboard-content">
           <LlmAnalysis />
