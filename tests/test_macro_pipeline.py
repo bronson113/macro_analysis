@@ -10,10 +10,16 @@ import unittest
 import tempfile
 import contextlib
 import io
+import threading
+import time
 import pandas as pd
 from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import patch
+import stock_data
+import raw_data_engine
+import prefetch_fred
+import config
 from storage import MacroStorage
 from fetcher import MacroFetcher
 from analyzer import MacroAnalyzer
@@ -130,6 +136,191 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertEqual(count, 2)
         self.assertIn(extra_year_date, set(series["date"].dt.strftime("%Y-%m-%d")))
         self.assertNotIn(too_old_date, set(series["date"].dt.strftime("%Y-%m-%d")))
+
+    def test_01d_fetch_all_runs_fred_series_concurrently(self):
+        """A slow FRED source should not block every other FRED series one by one."""
+        fetcher = MacroFetcher(self.storage)
+        active = 0
+        max_active = 0
+        lock = threading.Lock()
+
+        def fake_fred_fetch(key, series_info):
+            nonlocal active, max_active
+            with lock:
+                active += 1
+                max_active = max(max_active, active)
+            time.sleep(0.01)
+            with lock:
+                active -= 1
+            return 1, None
+
+        fetcher.fetch_fred_series = fake_fred_fetch
+        fetcher.fetch_yahoo_ticker = lambda key, ticker: (1, None)
+        fetcher.fetch_cnn_fear_greed_index = lambda: (1, None)
+        fetcher.fetch_shiller_pe_ratio = lambda: (1, None)
+        fetcher.news_analyzer.fetch_and_store_news = lambda: 0
+
+        result = fetcher.fetch_all()
+
+        self.assertEqual(result["status"], "SUCCESS")
+        self.assertGreaterEqual(max_active, 2)
+
+    def test_01d2_fetch_all_skips_unused_series_by_default(self):
+        """The daily report fetch should skip configured series that no current report consumes."""
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
+            fetcher = MacroFetcher(storage)
+            fetched_fred = []
+            fetched_yahoo = []
+
+            fetcher.fetch_fred_series = lambda key, series_info: (fetched_fred.append(key) or (1, None))
+            fetcher.fetch_yahoo_ticker = lambda key, ticker: (fetched_yahoo.append(key) or (1, None))
+            fetcher.fetch_cnn_fear_greed_index = lambda: (1, None)
+            fetcher.fetch_shiller_pe_ratio = lambda: (1, None)
+            fetcher.news_analyzer.fetch_and_store_news = lambda: 0
+
+            fetcher.fetch_all()
+
+        self.assertEqual(set(fetched_fred), config.ACTIVE_FRED_SERIES_KEYS)
+        self.assertEqual(set(fetched_yahoo), config.ACTIVE_YAHOO_TICKER_KEYS)
+        self.assertNotIn("core_pce", fetched_fred)
+        self.assertNotIn("nasdaq", fetched_yahoo)
+
+    def test_01d3_prefetch_fred_runs_active_series_concurrently(self):
+        """GitHub Actions FRED prefetch should overlap active series downloads."""
+        active = 0
+        max_active = 0
+        downloaded = []
+        lock = threading.Lock()
+
+        def fake_download(key, series_info, fred_cache, cookie_file):
+            nonlocal active, max_active
+            with lock:
+                active += 1
+                max_active = max(max_active, active)
+            time.sleep(0.01)
+            with lock:
+                active -= 1
+            downloaded.append(key)
+            return True
+
+        with tempfile.TemporaryDirectory() as tmp, patch("prefetch_fred._download_one", side_effect=fake_download):
+            prefetch_fred.prefetch_all(cache_dir=Path(tmp), max_workers=4)
+
+        self.assertEqual(set(downloaded), config.ACTIVE_FRED_SERIES_KEYS)
+        self.assertGreaterEqual(max_active, 2)
+
+    def test_01e_fred_fetch_uses_requests_fallback_after_urlopen_failure(self):
+        """A transient urlopen failure should fall through to the requests CSV fetch."""
+        class FakeRequestsResponse:
+            content = b"DATE,TEST\n2026-07-01,1.0\n"
+
+            def raise_for_status(self):
+                return None
+
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
+            fetcher = MacroFetcher(storage)
+
+            with patch("fetcher.urllib.request.urlopen", side_effect=TimeoutError("urlopen timed out")), \
+                 patch("subprocess.run") as run_curl, \
+                 patch("fetcher.requests.get", return_value=FakeRequestsResponse()):
+                run_curl.return_value.returncode = 1
+                run_curl.return_value.stdout = b""
+
+                count, err = fetcher.fetch_fred_series("test_fred", {"id": "TEST"}, max_retries=1)
+
+        self.assertIsNone(err)
+        self.assertEqual(count, 1)
+
+    def test_01f_ticker_info_is_cached_per_symbol(self):
+        """Repeated valuation consumers should not refetch the same yfinance info."""
+        stock_data.clear_ticker_info_cache()
+        calls = []
+
+        class FakeTicker:
+            def __init__(self, ticker):
+                self.ticker = ticker
+
+            @property
+            def info(self):
+                calls.append(self.ticker)
+                return {"shortName": self.ticker, "forwardPE": 10.0}
+
+        try:
+            with patch("stock_data.yf.Ticker", side_effect=FakeTicker):
+                first = stock_data.get_ticker_info("AAA")
+                second = stock_data.get_ticker_info("AAA")
+        finally:
+            stock_data.clear_ticker_info_cache()
+
+        self.assertEqual(first, second)
+        self.assertEqual(calls, ["AAA"])
+
+    def test_01f2_many_ticker_info_fetches_symbols_concurrently(self):
+        """Batch ticker info warmup should overlap independent yfinance calls."""
+        stock_data.clear_ticker_info_cache()
+        active = 0
+        max_active = 0
+        lock = threading.Lock()
+
+        class FakeTicker:
+            def __init__(self, ticker):
+                self.ticker = ticker
+
+            @property
+            def info(self):
+                nonlocal active, max_active
+                with lock:
+                    active += 1
+                    max_active = max(max_active, active)
+                time.sleep(0.01)
+                with lock:
+                    active -= 1
+                return {"shortName": self.ticker}
+
+        try:
+            with patch("stock_data.yf.Ticker", side_effect=FakeTicker):
+                result = stock_data.get_many_ticker_info(["AAA", "BBB", "CCC"], max_workers=3)
+        finally:
+            stock_data.clear_ticker_info_cache()
+
+        self.assertEqual(set(result), {"AAA", "BBB", "CCC"})
+        self.assertGreaterEqual(max_active, 2)
+
+    def test_01g_raw_stock_metrics_uses_batched_history_download(self):
+        """Raw stock metrics should compute 30-day returns from one batched download."""
+        old_groups = raw_data_engine.CONSTITUENT_GROUPS
+        raw_data_engine.CONSTITUENT_GROUPS = {"Fixture": ["AAA", "BBB"]}
+
+        idx = pd.to_datetime(["2026-07-01", "2026-07-31"])
+        hist = pd.DataFrame(
+            [[10.0, 20.0], [15.0, 18.0]],
+            index=idx,
+            columns=pd.MultiIndex.from_product([["AAA", "BBB"], ["Close"]]),
+        )
+
+        def fake_info(ticker):
+            return {
+                "shortName": ticker,
+                "currentPrice": 100.0,
+                "forwardPE": 10.0,
+                "enterpriseToEbitda": 8.0,
+                "fiftyTwoWeekHigh": 125.0,
+            }
+
+        try:
+            with tempfile.TemporaryDirectory() as tmp, \
+                 patch("raw_data_engine.get_ticker_info", side_effect=fake_info), \
+                 patch("raw_data_engine.yf.download", return_value=hist) as download:
+                storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
+                metrics = RawDataEngine(storage, output_dir=Path(tmp), verbose=False).fetch_individual_stock_metrics()
+        finally:
+            raw_data_engine.CONSTITUENT_GROUPS = old_groups
+
+        returns = {m["ticker"]: m["return_30d_pct"] for m in metrics}
+        self.assertEqual(returns, {"AAA": 50.0, "BBB": -10.0})
+        download.assert_called_once()
 
     def test_02_macro_matrix_classification(self):
         """Test all 4 quadrants of the Defiant Gatekeeper Macro Matrix."""

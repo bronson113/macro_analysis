@@ -95,6 +95,41 @@ YAHOO_TICKERS = {
     "treasury_20y_etf": "TLT"
 }
 
+# Series that feed the current report, raw payload, validation, and web history.
+# Set MACRO_FETCH_ALL_SERIES=1 to refresh every configured series instead.
+ACTIVE_FRED_SERIES_KEYS = {
+    "fed_total_assets",
+    "reverse_repo",
+    "tga_balance",
+    "effr",
+    "dff",
+    "m2_money_supply",
+    "treasury_10y",
+    "treasury_2y",
+    "treasury_3m",
+    "spread_10y_2y",
+    "spread_10y_3m",
+    "high_yield_oas",
+    "invest_grade_oas",
+    "chicago_fed_nfci",
+    "nonfarm_payrolls",
+    "unemployment_rate",
+    "initial_claims",
+    "cpi",
+    "breakeven_5y",
+    "breakeven_10y",
+    "housing_starts",
+}
+
+ACTIVE_YAHOO_TICKER_KEYS = {
+    "sp500",
+    "vix",
+    "dxy",
+    "crude_oil",
+    "gold",
+    "copper",
+}
+
 MARKET_SENTIMENT_INDICATORS = {
     "cnn_fear_greed_index": {
         "name": "CNN Fear & Greed Index",

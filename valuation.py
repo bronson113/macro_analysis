@@ -5,13 +5,10 @@ Defiant Gatekeeper Valuation Framework.
 """
 
 import logging
-import yfinance as yf
 import pandas as pd
 from typing import Dict, List, Any, Optional
 from storage import MacroStorage
-from config import configure_yfinance_cache
-
-configure_yfinance_cache(yf)
+from stock_data import get_many_ticker_info
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
@@ -50,13 +47,18 @@ class SectorValuationEngine:
         Classifies valuation posture relative to historical norms.
         """
         sector_results = []
+        ticker_info = get_many_ticker_info([
+            ticker
+            for tickers in SECTOR_CONSTITUENTS.values()
+            for ticker in tickers
+        ])
 
         for sector, tickers in SECTOR_CONSTITUENTS.items():
             pes, fpes, eves = [], [], []
 
             for t in tickers:
                 try:
-                    info = yf.Ticker(t).info
+                    info = ticker_info.get(t, {})
                     pe = info.get("trailingPE")
                     fpe = info.get("forwardPE")
                     eve = info.get("enterpriseToEbitda")

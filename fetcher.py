@@ -6,6 +6,7 @@ Features exponential backoff retries and parallel execution for maximum resilien
 
 import io
 import json
+import os
 import time
 import logging
 import re
@@ -16,7 +17,16 @@ import yfinance as yf
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Dict, Any, Tuple, Optional
-from config import DASHBOARD_HISTORY_DAYS, FRED_SERIES, YAHOO_TICKERS, LOG_DIR, CACHE_DIR, configure_yfinance_cache
+from config import (
+    ACTIVE_FRED_SERIES_KEYS,
+    ACTIVE_YAHOO_TICKER_KEYS,
+    DASHBOARD_HISTORY_DAYS,
+    FRED_SERIES,
+    YAHOO_TICKERS,
+    LOG_DIR,
+    CACHE_DIR,
+    configure_yfinance_cache,
+)
 from storage import MacroStorage
 from news_analyzer import MacroNewsAnalyzer
 
@@ -77,6 +87,8 @@ class MacroFetcher:
         last_exception = None
         for attempt in range(1, max_retries + 1):
             try:
+                csv_bytes = b""
+
                 # Step 0: Try urllib urlopen first (allows unittest mocks to intercept)
                 try:
                     req = urllib.request.Request(url, headers={'User-Agent': self.user_agent})
@@ -266,12 +278,24 @@ class MacroFetcher:
         success_keys = []
         failed_keys = []
         errors = {}
+        fetch_all_series = os.getenv("MACRO_FETCH_ALL_SERIES") == "1"
+        fred_series = FRED_SERIES if fetch_all_series else {
+            key: info
+            for key, info in FRED_SERIES.items()
+            if key in ACTIVE_FRED_SERIES_KEYS
+        }
+        yahoo_tickers = YAHOO_TICKERS if fetch_all_series else {
+            key: ticker
+            for key, ticker in YAHOO_TICKERS.items()
+            if key in ACTIVE_YAHOO_TICKER_KEYS
+        }
 
         print("--> Fetching FRED Economic Series (Resilient Parallel Pipeline)...")
-        with ThreadPoolExecutor(max_workers=1) as executor:
+        fred_workers = min(len(fred_series), int(os.getenv("MACRO_FRED_WORKERS", "6")))
+        with ThreadPoolExecutor(max_workers=max(1, fred_workers)) as executor:
             future_to_key = {
                 executor.submit(self.fetch_fred_series, key, s_info): key
-                for key, s_info in FRED_SERIES.items()
+                for key, s_info in fred_series.items()
             }
             for future in as_completed(future_to_key):
                 key = future_to_key[future]
@@ -291,7 +315,7 @@ class MacroFetcher:
         with ThreadPoolExecutor(max_workers=5) as executor:
             future_to_key = {
                 executor.submit(self.fetch_yahoo_ticker, key, ticker): key
-                for key, ticker in YAHOO_TICKERS.items()
+                for key, ticker in yahoo_tickers.items()
             }
             for future in as_completed(future_to_key):
                 key = future_to_key[future]

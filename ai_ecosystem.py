@@ -12,12 +12,9 @@ Includes ZeroDivisionError guards and robust fallback logic.
 """
 
 import logging
-import yfinance as yf
 from typing import Dict, List, Any, Optional
 from storage import MacroStorage
-from config import configure_yfinance_cache
-
-configure_yfinance_cache(yf)
+from stock_data import get_many_ticker_info
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
@@ -74,6 +71,11 @@ class AIRoboticsEcosystemTracker:
     def analyze_ecosystem_valuations(self) -> List[Dict[str, Any]]:
         """Calculates group valuation averages with ZeroDivisionError guards."""
         results = []
+        ticker_info = get_many_ticker_info([
+            ticker
+            for group_info in AI_ECOSYSTEM_GROUPS
+            for ticker in group_info["tickers"]
+        ])
 
         for group_info in AI_ECOSYSTEM_GROUPS:
             grp_name = group_info["group"]
@@ -86,8 +88,7 @@ class AIRoboticsEcosystemTracker:
 
             for ticker in tickers:
                 try:
-                    t = yf.Ticker(ticker)
-                    info = t.info
+                    info = ticker_info.get(ticker, {})
                     
                     price = info.get("currentPrice") or info.get("regularMarketPrice")
                     fpe = info.get("forwardPE")

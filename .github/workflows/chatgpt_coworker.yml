@@ -1,19 +1,16 @@
-name: Daily Macro Analysis & Deploy
+name: ChatGPT Coworker Analysis Deploy
 
 on:
   push:
     branches:
       - master
-    paths-ignore:
+    paths:
       - 'web/public/llm_analysis.md'
       - 'docs/chatgpt_coworker_morning_prompt.md'
   workflow_dispatch:
-  schedule:
-    # Run once at a fixed UTC time. This is 2:30 AM PST / 3:30 AM PDT.
-    - cron: '30 10 * * 1-5'
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -22,7 +19,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  run-macro-analysis-and-deploy:
+  deploy-chatgpt-coworker-analysis:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -32,31 +29,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Install Python dependencies
-        run: pip install -r requirements.txt
-
-      - name: Pre-fetch FRED Data via Akamai Cookie Handshake
-        run: python prefetch_fred.py
-
-      - name: Run macro analysis pipeline
-        run: python main.py run
-
-      - name: Validate fresh macro gate data
-        run: python validate_fresh_macro_data.py
-
-      - name: Update Web Data
-        run: bash update_web_data.sh
 
       - name: Install Node dependencies
         working-directory: ./web
@@ -69,12 +45,6 @@ jobs:
       - name: Build static site
         working-directory: ./web
         run: npm run build
-
-      - name: Commit and push validated data state
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Automated daily macro data update"
-          file_pattern: "data/*.csv output/*.md output/*.json web/public/*"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

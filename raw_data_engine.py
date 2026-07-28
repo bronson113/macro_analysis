@@ -16,6 +16,7 @@ from typing import Dict, List, Any, Optional
 from storage import MacroStorage
 from config import OUTPUT_DIR, configure_yfinance_cache
 from stock_relative_valuation import relative_multiple_key, safe_ratio
+from stock_data import get_ticker_info
 
 configure_yfinance_cache(yf)
 
@@ -45,19 +46,66 @@ class RawDataEngine:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.verbose = verbose
 
+    def _download_30d_histories(self, tickers: List[str]) -> Dict[str, pd.DataFrame]:
+        unique_tickers = list(dict.fromkeys(tickers))
+        if not unique_tickers:
+            return {}
+
+        try:
+            data = yf.download(
+                unique_tickers,
+                period="1mo",
+                group_by="ticker",
+                progress=False,
+                threads=True,
+                auto_adjust=False,
+            )
+        except Exception as e:
+            logging.debug(f"Error fetching batched 30-day histories: {e}")
+            return {}
+
+        if data is None or data.empty:
+            return {}
+
+        if len(unique_tickers) == 1:
+            return {unique_tickers[0]: data.dropna(how="all")}
+
+        histories = {}
+        if isinstance(data.columns, pd.MultiIndex):
+            level_zero = set(data.columns.get_level_values(0))
+            level_one = set(data.columns.get_level_values(1))
+            for ticker in unique_tickers:
+                try:
+                    if ticker in level_zero:
+                        ticker_frame = data[ticker]
+                    elif ticker in level_one:
+                        ticker_frame = data.xs(ticker, axis=1, level=1)
+                    else:
+                        continue
+                    histories[ticker] = ticker_frame.dropna(how="all")
+                except Exception:
+                    continue
+
+        return histories
+
     def fetch_individual_stock_metrics(self) -> List[Dict[str, Any]]:
         """
         Fetches granular stock-level valuation and performance lag metrics for individual constituents.
         Allows Gemini to identify specific stocks lagging peers or trading at deep discounts.
         """
         stock_metrics = []
+        all_tickers = [
+            ticker
+            for tickers in CONSTITUENT_GROUPS.values()
+            for ticker in tickers
+        ]
+        histories_30d = self._download_30d_histories(all_tickers)
 
         for group_name, tickers in CONSTITUENT_GROUPS.items():
             group_stocks = []
             for t in tickers:
                 try:
-                    ticker_obj = yf.Ticker(t)
-                    info = ticker_obj.info
+                    info = get_ticker_info(t)
                     
                     price = info.get("currentPrice") or info.get("regularMarketPrice")
                     pe = info.get("trailingPE")
@@ -72,7 +120,7 @@ class RawDataEngine:
                         dist_52h = round(((price - high_52) / high_52) * 100.0, 2)
 
                     # Fetch 30-day performance
-                    hist_30d = ticker_obj.history(period="1mo")
+                    hist_30d = histories_30d.get(t, pd.DataFrame())
                     perf_30d = None
                     if not hist_30d.empty and len(hist_30d) >= 2:
                         p_start = hist_30d["Close"].iloc[0]
