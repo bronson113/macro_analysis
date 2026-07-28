@@ -9,7 +9,7 @@
   --cobalt: #2457e6;
   --forest: #2f6b4f;
   --brick: #aa3d32;
-  --ochre: #a46e18;
+  --ochre: #9d6815;
   --shadow: 0 10px 24px rgba(16, 24, 32, 0.08);
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -21,7 +21,7 @@
   --bg-surface-hover: #f0ede5;
   --text-primary: var(--ink);
   --text-secondary: var(--slate);
-  --text-muted: #73808a;
+  --text-muted: #68757f;
   --accent-primary: var(--cobalt);
   --accent-secondary: var(--cobalt);
   --status-positive: var(--forest);
