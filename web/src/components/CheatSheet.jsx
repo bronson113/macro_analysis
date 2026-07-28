@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useDialogFocus } from '../hooks/useDialogFocus';
 
 const CheatSheet = ({ isOpen, onClose }) => {
+  const dialogRef = useRef(null);
+  const closeButtonRef = useRef(null);
+
+  useDialogFocus({
+    isOpen,
+    onClose,
+    dialogRef,
+    initialFocusRef: closeButtonRef,
+  });
+
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content cheat-sheet-content" role="dialog" aria-modal="true" aria-labelledby="cheat-sheet-title" onClick={e => e.stopPropagation()}>
-        <button className="modal-close" type="button" aria-label="Close cheat sheet" onClick={onClose}>&#x2715;</button>
+      <div className="modal-content cheat-sheet-content" ref={dialogRef} tabIndex="-1" role="dialog" aria-modal="true" aria-labelledby="cheat-sheet-title" onClick={e => e.stopPropagation()}>
+        <button className="modal-close" ref={closeButtonRef} type="button" aria-label="Close cheat sheet" onClick={onClose}>&#x2715;</button>
         <h2 id="cheat-sheet-title" className="dialog-title">Defiant Gatekeeper Cheat Sheet</h2>
         
         <p className="text-secondary cheat-sheet-intro">

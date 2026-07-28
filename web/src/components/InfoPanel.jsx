@@ -1,8 +1,19 @@
-import React, { useId, useState } from 'react';
+import React, { useCallback, useId, useRef, useState } from 'react';
+import { useDialogFocus } from '../hooks/useDialogFocus';
 
 const InfoPanel = ({ title, description }) => {
   const [isOpen, setIsOpen] = useState(false);
   const titleId = useId();
+  const dialogRef = useRef(null);
+  const closeButtonRef = useRef(null);
+  const closePanel = useCallback(() => setIsOpen(false), []);
+
+  useDialogFocus({
+    isOpen,
+    onClose: closePanel,
+    dialogRef,
+    initialFocusRef: closeButtonRef,
+  });
 
   if (!description) return null;
 
@@ -18,9 +29,9 @@ const InfoPanel = ({ title, description }) => {
       </button>
 
       {isOpen && (
-        <div className="modal-overlay" onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}>
-          <div className="modal-content info-panel-content" role="dialog" aria-modal="true" aria-labelledby={titleId} onClick={e => e.stopPropagation()}>
-            <button className="modal-close" type="button" aria-label={`Close ${title} details`} onClick={() => setIsOpen(false)}>&#x2715;</button>
+        <div className="modal-overlay" onClick={closePanel}>
+          <div className="modal-content info-panel-content" ref={dialogRef} tabIndex="-1" role="dialog" aria-modal="true" aria-labelledby={titleId} onClick={e => e.stopPropagation()}>
+            <button className="modal-close" ref={closeButtonRef} type="button" aria-label={`Close ${title} details`} onClick={closePanel}>&#x2715;</button>
             <h3 id={titleId} className="dialog-title">{title}</h3>
             <p className="dialog-copy">
               {description}
