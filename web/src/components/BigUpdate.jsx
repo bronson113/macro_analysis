@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect, useId, useRef } from 'react';
 import { splitReportSections } from '../utils/dashboardPresentation';
 import { useDialogFocus } from '../hooks/useDialogFocus';
 import { getNextTabIndex } from '../utils/keyboardNavigation';
+import { buildMarkdownUrl } from '../utils/markdownSource';
 import MarkdownContent from './MarkdownComponents';
 
 const latestReport = { date: '', path: '/latest_report.md' };
@@ -33,7 +34,7 @@ const BigUpdate = ({ reports = [] }) => {
 
     const fetchReport = () => {
       setReportError('');
-      fetch(import.meta.env.BASE_URL + selectedReport.path + '?t=' + new Date().getTime())
+      fetch(buildMarkdownUrl(import.meta.env.BASE_URL, selectedReport.path, Date.now()))
         .then(res => {
           if (!res.ok) throw new Error('Failed to load the selected report.');
           return res.text();

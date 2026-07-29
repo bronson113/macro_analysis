@@ -1,3 +1,5 @@
 export function buildMarkdownUrl(basePath, filename, cacheBuster) {
-  return `${basePath}${filename}?t=${cacheBuster}`;
+  const normalizedBasePath = basePath.replace(/\/+$/, '');
+  const normalizedFilename = filename.replace(/^\/+/, '');
+  return `${normalizedBasePath}/${normalizedFilename}?t=${cacheBuster}`;
 }
