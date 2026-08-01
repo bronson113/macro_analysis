@@ -8,17 +8,25 @@ import threading
 import json
 import pandas as pd
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, List, Optional, Any
 from config import (
     FRED_SERIES, YAHOO_TICKERS, MARKET_SENTIMENT_INDICATORS,
-    INDICATORS_CSV, OBSERVATIONS_CSV, SNAPSHOTS_CSV, NEWS_CSV, RUN_LOGS_CSV
+    INDICATORS_CSV, OBSERVATIONS_CSV, SNAPSHOTS_CSV, NEWS_CSV, RUN_LOGS_CSV,
+    SIGNALS_CSV,
 )
+from outcome_evaluation import SignalRecord
 
 
 NEWS_COLUMNS = [
     'id', 'date', 'title', 'summary', 'source', 'link', 'category',
     'topic_tags', 'interpretation_status', 'published_at', 'retrieved_at',
     'impact_score', 'sentiment', 'created_at',
+]
+
+SIGNAL_COLUMNS = [
+    "signal_date", "sector_group", "instrument", "benchmark", "posture", "score",
+    "coverage_pct", "uncertainty_json", "factor_snapshot_json", "created_at",
 ]
 
 
@@ -29,7 +37,8 @@ class MacroStorage:
         observations_csv=OBSERVATIONS_CSV,
         snapshots_csv=SNAPSHOTS_CSV,
         news_csv=NEWS_CSV,
-        run_logs_csv=RUN_LOGS_CSV
+        run_logs_csv=RUN_LOGS_CSV,
+        signals_csv=None,
     ):
         self._lock = threading.Lock()
         self.indicators_csv = str(indicators_csv)
@@ -37,6 +46,11 @@ class MacroStorage:
         self.snapshots_csv = str(snapshots_csv)
         self.news_csv = str(news_csv)
         self.run_logs_csv = str(run_logs_csv)
+        self.signals_csv = str(
+            signals_csv
+            if signals_csv is not None
+            else Path(self.snapshots_csv).parent / Path(SIGNALS_CSV).name
+        )
         
         self._init_csvs()
 
@@ -75,6 +89,10 @@ class MacroStorage:
         # Run logs
         if not os.path.exists(self.run_logs_csv):
             pd.DataFrame(columns=['id', 'run_time', 'status', 'records_updated', 'message']).to_csv(self.run_logs_csv, index=False)
+
+        # Prospective evidence postures are a separate, point-in-time ledger.
+        if not os.path.exists(self.signals_csv):
+            pd.DataFrame(columns=SIGNAL_COLUMNS).to_csv(self.signals_csv, index=False)
 
         self._seed_indicator_metadata()
 
@@ -274,6 +292,111 @@ class MacroStorage:
         if df.empty:
             return df
         return df.sort_values(by='date', ascending=False).head(limit).reset_index(drop=True)
+
+    def save_signal_assessments(
+        self, assessments: List[Dict[str, Any]], signal_date: Optional[str] = None
+    ) -> int:
+        """Append current evidence assessments to the prospective signal ledger.
+
+        The first captured assessment for a sector/date is immutable; later same-day
+        reruns cannot replace the evidence available at that prospective signal time.
+        Factor and uncertainty payloads use stable JSON so CSV diffs remain auditable.
+        """
+        if not assessments:
+            return 0
+
+        rows = []
+        for assessment in assessments:
+            candidate = dict(assessment)
+            if signal_date is not None:
+                candidate["signal_date"] = signal_date
+            try:
+                record = SignalRecord.from_mapping(candidate)
+            except (TypeError, ValueError):
+                continue
+            values = record.to_mapping()
+            rows.append({
+                "signal_date": values["signal_date"],
+                "sector_group": values["sector_group"],
+                "instrument": values["instrument"],
+                "benchmark": values["benchmark"],
+                "posture": values["posture"],
+                "score": values["score"],
+                "coverage_pct": values["coverage_pct"],
+                "uncertainty_json": self._stable_json(values["score_range"]),
+                "factor_snapshot_json": self._stable_json(values["factor_snapshot"]),
+                "created_at": datetime.now().isoformat(),
+            })
+        if not rows:
+            return 0
+
+        ledger_key = ["signal_date", "sector_group", "instrument", "benchmark"]
+        with self._lock:
+            df_existing = self._read_signal_ledger().drop_duplicates(
+                subset=ledger_key, keep="first"
+            )
+            existing_keys = {
+                tuple(row[column] for column in ledger_key)
+                for row in df_existing.to_dict("records")
+            }
+            new_rows = []
+            for row in rows:
+                record_key = tuple(row[column] for column in ledger_key)
+                if record_key not in existing_keys:
+                    new_rows.append(row)
+                    existing_keys.add(record_key)
+            df_new = pd.DataFrame(new_rows, columns=SIGNAL_COLUMNS)
+            df_combined = self._safe_concat([df_existing, df_new])
+            df_combined.to_csv(self.signals_csv, index=False)
+        return len(new_rows)
+
+    def get_signal_assessments(self) -> List[Dict[str, Any]]:
+        """Load prospective records with JSON fields restored to their public shapes."""
+        with self._lock:
+            df = self._read_signal_ledger()
+        if df.empty:
+            return []
+        records = []
+        for row in df.sort_values(["signal_date", "sector_group", "instrument"]).to_dict("records"):
+            try:
+                record = SignalRecord.from_mapping({
+                    "signal_date": row.get("signal_date"),
+                    "sector_group": row.get("sector_group"),
+                    "instrument": row.get("instrument"),
+                    "benchmark": row.get("benchmark"),
+                    "posture": row.get("posture"),
+                    "score": row.get("score"),
+                    "coverage_pct": row.get("coverage_pct"),
+                    "uncertainty": self._load_json(row.get("uncertainty_json"), []),
+                    "factor_snapshot": self._load_json(row.get("factor_snapshot_json"), {}),
+                })
+            except (TypeError, ValueError):
+                continue
+            records.append(record.to_mapping())
+        return records
+
+    def _read_signal_ledger(self) -> pd.DataFrame:
+        try:
+            df = pd.read_csv(self.signals_csv)
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            return pd.DataFrame(columns=SIGNAL_COLUMNS)
+        for column in SIGNAL_COLUMNS:
+            if column not in df.columns:
+                df[column] = None
+        return df[SIGNAL_COLUMNS]
+
+    @staticmethod
+    def _stable_json(value: Any) -> str:
+        return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), default=str)
+
+    @staticmethod
+    def _load_json(value: Any, fallback: Any) -> Any:
+        if MacroStorage._is_missing(value):
+            return fallback
+        try:
+            return json.loads(value)
+        except (TypeError, json.JSONDecodeError):
+            return fallback
 
     def log_run(self, status: str, records_updated: int, message: str):
         df_existing = pd.read_csv(self.run_logs_csv)

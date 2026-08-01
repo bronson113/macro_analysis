@@ -465,6 +465,9 @@ class MacroAnalyzer:
             recent_news,
             macro_situation
         )
+        self.storage.save_signal_assessments(
+            evidence_assessments, signal_date=snapshot["date"]
+        )
 
         raw_payload = self.raw_engine.build_raw_payload(
             evidence_assessments=evidence_assessments
