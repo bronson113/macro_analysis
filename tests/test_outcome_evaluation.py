@@ -111,6 +111,54 @@ class TestOutcomeEvaluation(unittest.TestCase):
         self.assertEqual(row["outcome_date"], "2026-05-27")
         self.assertEqual(row["asset_return_pct"], 2.0)
 
+    def test_synthetic_basket_rebases_at_each_signal_entry_with_equal_weights(self):
+        prices = {
+            "AAA": [
+                ("2025-01-02", 100.0),
+                ("2025-01-03", 200.0),
+                ("2025-01-06", 200.0),
+                ("2025-01-07", 220.0),
+            ],
+            "BBB": [
+                ("2025-01-02", 100.0),
+                ("2025-01-03", 50.0),
+                ("2025-01-06", 50.0),
+                ("2025-01-07", 60.0),
+            ],
+            "SPY": [
+                ("2025-01-02", 100.0),
+                ("2025-01-03", 100.0),
+                ("2025-01-06", 100.0),
+                ("2025-01-07", 100.0),
+            ],
+        }
+        older = signal(
+            signal_date="2025-01-02",
+            sector_group="Older basket",
+            instrument="AAA/BBB",
+        )
+        later = signal(
+            signal_date="2025-01-06",
+            sector_group="Later basket",
+            instrument="AAA/BBB",
+        )
+
+        later_only = evaluate_signals([later], prices, horizons=(1,), transaction_cost_bps=0)
+        with_older_history = evaluate_signals(
+            [older, later], prices, horizons=(1,), transaction_cost_bps=0
+        )
+        later_only_row = later_only["outcomes"][0]
+        later_history_row = next(
+            row for row in with_older_history["outcomes"] if row["sector_group"] == "Later basket"
+        )
+
+        self.assertEqual(later_only_row["entry_date"], "2025-01-06")
+        self.assertEqual(later_only_row["asset_return_pct"], 15.0)
+        self.assertEqual(later_history_row["asset_return_pct"], 15.0)
+        self.assertEqual(
+            later_only_row["basket_entry_weights"], {"AAA": 0.5, "BBB": 0.5}
+        )
+
     def test_drawdown_score_band_and_posture_summary_use_the_matured_path(self):
         prices = {
             "XLK": [

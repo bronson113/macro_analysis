@@ -114,9 +114,13 @@ def evaluate_signals(
         except (TypeError, ValueError):
             continue
 
-        asset_prices = _instrument_prices(signal.instrument, normalized_prices)
         benchmark_prices = normalized_prices.get(signal.benchmark)
-        if not asset_prices or not benchmark_prices:
+        if not benchmark_prices:
+            continue
+        asset_prices, basket_entry_weights = _asset_prices_for_signal(
+            signal.instrument, normalized_prices, benchmark_prices, signal_date
+        )
+        if not asset_prices:
             continue
 
         entry = _shared_first_on_or_after(asset_prices, benchmark_prices, signal_date)
@@ -147,30 +151,31 @@ def evaluate_signals(
                 else None
             )
 
-            outcomes.append(
-                {
-                    "signal_date": signal.signal_date,
-                    "entry_date": entry_date.isoformat(),
-                    "outcome_date": outcome_date.isoformat(),
-                    "horizon_trading_days": horizon,
-                    "sector_group": signal.sector_group,
-                    "instrument": signal.instrument,
-                    "benchmark": signal.benchmark,
-                    "posture": posture,
-                    "score": _rounded(signal.score),
-                    "score_band": int(round(signal.score)),
-                    "asset_return_pct": _rounded(asset_return),
-                    "benchmark_return_pct": _rounded(benchmark_return),
-                    "gross_excess_return_pct": _rounded(gross_excess),
-                    "transaction_cost_bps": _rounded(float(transaction_cost_bps)),
-                    "transaction_cost_pct": _rounded(cost_pct),
-                    "net_excess_return_pct": _rounded(net_excess),
-                    "max_drawdown_pct": _rounded(
-                        _maximum_drawdown(asset_prices, entry_date, outcome_date)
-                    ),
-                    "hit": hit,
-                }
-            )
+            outcome = {
+                "signal_date": signal.signal_date,
+                "entry_date": entry_date.isoformat(),
+                "outcome_date": outcome_date.isoformat(),
+                "horizon_trading_days": horizon,
+                "sector_group": signal.sector_group,
+                "instrument": signal.instrument,
+                "benchmark": signal.benchmark,
+                "posture": posture,
+                "score": _rounded(signal.score),
+                "score_band": int(round(signal.score)),
+                "asset_return_pct": _rounded(asset_return),
+                "benchmark_return_pct": _rounded(benchmark_return),
+                "gross_excess_return_pct": _rounded(gross_excess),
+                "transaction_cost_bps": _rounded(float(transaction_cost_bps)),
+                "transaction_cost_pct": _rounded(cost_pct),
+                "net_excess_return_pct": _rounded(net_excess),
+                "max_drawdown_pct": _rounded(
+                    _maximum_drawdown(asset_prices, entry_date, outcome_date)
+                ),
+                "hit": hit,
+            }
+            if basket_entry_weights is not None:
+                outcome["basket_entry_weights"] = basket_entry_weights
+            outcomes.append(outcome)
 
     outcomes.sort(
         key=lambda row: (
@@ -319,33 +324,48 @@ def _normalize_price_history(values: Any) -> List[Tuple[date, float]]:
     return sorted(normalized.items())
 
 
-def _instrument_prices(
-    instrument: str, prices: Mapping[str, List[Tuple[date, float]]]
-) -> List[Tuple[date, float]]:
+def _asset_prices_for_signal(
+    instrument: str,
+    prices: Mapping[str, List[Tuple[date, float]]],
+    benchmark_prices: Sequence[Tuple[date, float]],
+    signal_date: date,
+) -> Tuple[List[Tuple[date, float]], Optional[Dict[str, float]]]:
+    """Resolve a direct instrument or rebase a slash-delimited basket per signal."""
     direct = prices.get(instrument)
     if direct:
-        return direct
+        return direct, None
 
     components = [part.strip() for part in instrument.split("/") if part.strip()]
     if len(components) < 2 or any(not prices.get(component) for component in components):
-        return []
+        return [], None
     component_maps = [dict(prices[component]) for component in components]
     common_dates = set(component_maps[0])
     for values in component_maps[1:]:
         common_dates.intersection_update(values)
-    if not common_dates:
-        return []
-    first_date = min(common_dates)
-    bases = [values[first_date] for values in component_maps]
-    return [
+    common_dates.intersection_update(
+        observed_at for observed_at, _ in benchmark_prices
+    )
+    eligible_dates = sorted(
+        observed_at for observed_at in common_dates if observed_at >= signal_date
+    )
+    if not eligible_dates:
+        return [], None
+
+    entry_date = eligible_dates[0]
+    bases = [values[entry_date] for values in component_maps]
+    equal_weight = 1.0 / len(component_maps)
+    basket_prices = [
         (
             current_date,
             100.0
-            * sum(values[current_date] / base for values, base in zip(component_maps, bases))
-            / len(component_maps),
+            * sum(
+                equal_weight * values[current_date] / base
+                for values, base in zip(component_maps, bases)
+            ),
         )
-        for current_date in sorted(common_dates)
+        for current_date in eligible_dates
     ]
+    return basket_prices, {component: equal_weight for component in components}
 
 
 def _shared_first_on_or_after(
