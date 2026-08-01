@@ -27,8 +27,10 @@ from analyzer import MacroAnalyzer
 from valuation import SectorValuationEngine
 from ai_ecosystem import AIRoboticsEcosystemTracker
 from macro_matrix import MacroMatrixEngine
-from llm_analyst import DynamicMacroAnalyst
+from mechanical_analyst import MechanicalMacroAnalyst
+from peer_cohorts import ticker_to_cohort
 from raw_data_engine import RawDataEngine
+from stock_relative_valuation import relative_multiple_key
 from reporter import MacroReporter
 
 
@@ -41,7 +43,7 @@ class TestMacroPipeline(unittest.TestCase):
         cls.storage = MacroStorage(indicators_csv=cls.tmp_path / "ind.csv", observations_csv=cls.tmp_path / "obs.csv", snapshots_csv=cls.tmp_path / "snap.csv", news_csv=cls.tmp_path / "news.csv", run_logs_csv=cls.tmp_path / "logs.csv")
         cls.analyzer = MacroAnalyzer(cls.storage)
         cls.matrix_engine = MacroMatrixEngine()
-        cls.llm_analyst = DynamicMacroAnalyst(cls.storage)
+        cls.mechanical_analyst = MechanicalMacroAnalyst(cls.storage)
         cls.raw_engine = RawDataEngine(cls.storage, output_dir=cls.tmp_path / "raw_output", verbose=False)
         cls.reporter = MacroReporter(cls.storage, cls.analyzer, output_dir=cls.tmp_path / "report_output", verbose=False)
 
@@ -291,8 +293,8 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_01g_raw_stock_metrics_uses_batched_history_download(self):
         """Raw stock metrics should compute 30-day returns from one batched download."""
-        old_groups = raw_data_engine.CONSTITUENT_GROUPS
-        raw_data_engine.CONSTITUENT_GROUPS = {"Fixture": ["AAA", "BBB"]}
+        old_cohorts = raw_data_engine.PEER_COHORTS
+        raw_data_engine.PEER_COHORTS = {"Fixture": ["AAA", "BBB"]}
 
         idx = pd.to_datetime(["2026-07-01", "2026-07-31"])
         hist = pd.DataFrame(
@@ -317,7 +319,7 @@ class TestMacroPipeline(unittest.TestCase):
                 storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
                 metrics = RawDataEngine(storage, output_dir=Path(tmp), verbose=False).fetch_individual_stock_metrics()
         finally:
-            raw_data_engine.CONSTITUENT_GROUPS = old_groups
+            raw_data_engine.PEER_COHORTS = old_cohorts
 
         returns = {m["ticker"]: m["return_30d_pct"] for m in metrics}
         self.assertEqual(returns, {"AAA": 50.0, "BBB": -10.0})
@@ -502,98 +504,145 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertGreater(len(payload["individual_stock_constituents"]), 10)
         self.assertTrue((self.tmp_path / "raw_output" / "latest_raw_payload.json").exists())
 
-    def test_04b_raw_payload_saves_current_stock_sector_relative_multiples(self):
-        """Raw stock collection should persist relative multiple observations for future history."""
+    def test_04b_raw_payload_saves_current_stock_cohort_relative_multiples(self):
+        """Raw stock collection should use cohort medians for future relative history."""
         with tempfile.TemporaryDirectory() as tmp:
             storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             raw_engine = RawDataEngine(storage, output_dir=self.tmp_path / "raw_relative_output", verbose=False)
             raw_engine.fetch_individual_stock_metrics = lambda: [
-                {"ticker": "NVDA", "name": "Nvidia", "group": "Tech", "price": 125.0, "forward_pe": 39.0, "ev_ebitda": 30.0},
-                {"ticker": "AMD", "name": "AMD", "group": "Tech", "price": 160.0, "forward_pe": 39.0, "ev_ebitda": 28.0},
-                {"ticker": "MU", "name": "Micron", "group": "Tech", "price": 95.0, "forward_pe": 12.0, "ev_ebitda": 10.0},
+                {"ticker": "AMD", "name": "AMD", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 125.0, "forward_pe": 30.0, "ev_ebitda": 20.0},
+                {"ticker": "AVGO", "name": "Broadcom", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 160.0, "forward_pe": 40.0, "ev_ebitda": 30.0},
+                {"ticker": "QCOM", "name": "Qualcomm", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 175.0, "forward_pe": 50.0, "ev_ebitda": 40.0},
+                {"ticker": "NVDA", "name": "Nvidia", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 95.0, "forward_pe": 12.0, "ev_ebitda": 10.0},
             ]
 
-            raw_engine.build_raw_payload()
-            latest_fpe = storage.get_latest_observation("stock_rel_fpe_tech_mu")
-            latest_eve = storage.get_latest_observation("stock_rel_eve_tech_mu")
+            payload = raw_engine.build_raw_payload()
+            latest_fpe = storage.get_latest_observation(relative_multiple_key("Fabless Accelerators", "NVDA", "fpe"))
+            latest_eve = storage.get_latest_observation(relative_multiple_key("Fabless Accelerators", "NVDA", "eve"))
 
+        self.assertEqual(payload["metadata"]["engine_version"], "3.0-EvidenceRawPayload")
         self.assertIsNotNone(latest_fpe)
-        self.assertAlmostEqual(latest_fpe["value"], 12.0 / 30.0)
+        self.assertAlmostEqual(latest_fpe["value"], 12.0 / 40.0)
         self.assertIsNotNone(latest_eve)
-        self.assertAlmostEqual(latest_eve["value"], 10.0 / (68.0 / 3.0))
+        self.assertAlmostEqual(latest_eve["value"], 10.0 / 30.0)
 
-    def test_05_single_stock_lagging_detection(self):
-        """Test single-stock peer lag detection in LLM analyst."""
+    def test_05_technology_business_models_are_not_one_peer_group(self):
+        """Comparable cohorts distinguish technology companies with different economics."""
+        mapping = ticker_to_cohort()
+
+        self.assertEqual(mapping["MU"], "Memory")
+        self.assertEqual(mapping["NVDA"], "Fabless Accelerators")
+        self.assertEqual(mapping["TSM"], "Foundries")
+        self.assertEqual(mapping["MSFT"], "Software & Cloud")
+        self.assertEqual(len({mapping[ticker] for ticker in ["MU", "NVDA", "TSM", "AAPL", "MSFT"]}), 5)
+
+    def test_05a_analyst_refuses_relative_call_with_fewer_than_three_valid_peers(self):
+        """A two-company cohort cannot support a comparable valuation call."""
         mock_payload = {
             "macro_quantitative": {"fed_total_assets": {"value": 7000000.0}},
             "recent_news_events": [],
             "individual_stock_constituents": [
-                {"ticker": "NVDA", "name": "Nvidia", "group": "Tech", "price": 125.0, "forward_pe": 35.0, "ev_ebitda": 30.0, "dist_from_52w_high_pct": -5.0},
-                {"ticker": "AMD", "name": "AMD", "group": "Tech", "price": 160.0, "forward_pe": 32.0, "ev_ebitda": 28.0, "dist_from_52w_high_pct": -8.0},
-                {"ticker": "MU", "name": "Micron", "group": "Tech", "price": 95.0, "forward_pe": 12.0, "ev_ebitda": 10.0, "dist_from_52w_high_pct": -25.0}
+                {"ticker": "MU", "name": "Micron", "group": "Memory", "peer_cohort": "Memory", "price": 95.0, "forward_pe": 12.0, "ev_ebitda": 10.0},
+                {"ticker": "WDC", "name": "Western Digital", "group": "Memory", "peer_cohort": "Memory", "price": 125.0, "forward_pe": 30.0, "ev_ebitda": 20.0},
             ]
         }
-        res = self.llm_analyst.analyze_raw_payload(mock_payload)
-        lags = res["single_stock_lagging_opportunities"]
-        self.assertGreaterEqual(len(lags), 1)
-        self.assertEqual(lags[0]["ticker"], "MU")
-        self.assertIn("Lagging Value", lags[0]["action"])
+        result = self.mechanical_analyst.analyze_raw_payload(mock_payload)
+        item = next(item for item in result["constituent_assessments"] if item["ticker"] == "MU")
 
-    def test_05a_peer_discount_must_be_cheap_vs_historical_relative_norm(self):
+        self.assertEqual(item["relative_valuation_status"], "Insufficient Comparable Peers")
+        self.assertEqual(item["posture"], "NEUTRAL")
+        self.assertTrue(any(
+            "Fewer than 3 valid comparable peers" in reason
+            for reason in item["missing_evidence"]
+        ))
+        self.assertNotIn("action", item)
+        self.assertNotIn("conviction", item)
+
+    def test_05b_peer_discount_must_be_cheap_vs_historical_relative_norm(self):
         """A structurally low-multiple stock should not be flagged just for trading below peers."""
         with tempfile.TemporaryDirectory() as tmp:
             storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
-            storage.save_observations("stock_rel_fpe_tech_mu", pd.DataFrame([
-                {"date": "2026-07-01", "value": 0.39},
-                {"date": "2026-07-08", "value": 0.40},
-                {"date": "2026-07-15", "value": 0.41},
+            dates = pd.date_range("2026-01-01", periods=60, freq="4D")
+            storage.save_observations(relative_multiple_key("Fabless Accelerators", "NVDA", "fpe"), pd.DataFrame([
+                {"date": date.strftime("%Y-%m-%d"), "value": 0.40}
+                for date in dates
             ]))
-            analyst = DynamicMacroAnalyst(storage)
+            analyst = MechanicalMacroAnalyst(storage)
             mock_payload = {
                 "macro_quantitative": {"fed_total_assets": {"value": 7000000.0}},
                 "recent_news_events": [],
                 "individual_stock_constituents": [
-                    {"ticker": "NVDA", "name": "Nvidia", "group": "Tech", "price": 125.0, "forward_pe": 39.0, "ev_ebitda": 30.0, "dist_from_52w_high_pct": -5.0},
-                    {"ticker": "AMD", "name": "AMD", "group": "Tech", "price": 160.0, "forward_pe": 39.0, "ev_ebitda": 28.0, "dist_from_52w_high_pct": -8.0},
-                    {"ticker": "MU", "name": "Micron", "group": "Tech", "price": 95.0, "forward_pe": 12.0, "ev_ebitda": 10.0, "dist_from_52w_high_pct": -25.0}
+                    {"ticker": "AMD", "name": "AMD", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 125.0, "forward_pe": 30.0},
+                    {"ticker": "AVGO", "name": "Broadcom", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 160.0, "forward_pe": 30.0},
+                    {"ticker": "QCOM", "name": "Qualcomm", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 175.0, "forward_pe": 30.0},
+                    {"ticker": "NVDA", "name": "Nvidia", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 95.0, "forward_pe": 12.0},
                 ]
             }
 
             res = analyst.analyze_raw_payload(mock_payload)
 
-        lags = res["single_stock_lagging_opportunities"]
-        self.assertEqual(lags, [])
-        mu_summary = next(s for s in res["sector_dispersion"] if s["group"] == "Tech")["constituent_relative_valuation"][0]
-        self.assertEqual(mu_summary["ticker"], "MU")
-        self.assertEqual(mu_summary["relative_valuation_status"], "Fair vs Historical Sector Relationship")
+        nvda_summary = next(item for item in res["constituent_assessments"] if item["ticker"] == "NVDA")
+        self.assertEqual(nvda_summary["relative_valuation_status"], "Fair vs Historical Cohort Relationship")
+        self.assertEqual(nvda_summary["posture"], "NEUTRAL")
+        self.assertTrue(any(
+            "does not meet 20.0%" in detail
+            for detail in nvda_summary["evidence"]
+        ))
 
-    def test_05a2_relative_discount_flags_when_current_ratio_is_below_history(self):
-        """A stock should be flagged when it is cheap versus its own normal sector relationship."""
+    def test_05c_relative_discount_watches_only_with_sufficient_cohort_history(self):
+        """A 20%+ relative discount needs 60 observations spanning 180 calendar days."""
         with tempfile.TemporaryDirectory() as tmp:
             storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
-            storage.save_observations("stock_rel_fpe_tech_mu", pd.DataFrame([
-                {"date": "2026-07-01", "value": 0.70},
-                {"date": "2026-07-08", "value": 0.72},
-                {"date": "2026-07-15", "value": 0.68},
+            dates = pd.date_range("2026-01-01", periods=60, freq="4D")
+            storage.save_observations(relative_multiple_key("Fabless Accelerators", "NVDA", "fpe"), pd.DataFrame([
+                {"date": date.strftime("%Y-%m-%d"), "value": 0.70}
+                for date in dates
             ]))
-            analyst = DynamicMacroAnalyst(storage)
+            analyst = MechanicalMacroAnalyst(storage)
             mock_payload = {
                 "macro_quantitative": {"fed_total_assets": {"value": 7000000.0}},
                 "recent_news_events": [],
                 "individual_stock_constituents": [
-                    {"ticker": "NVDA", "name": "Nvidia", "group": "Tech", "price": 125.0, "forward_pe": 39.0, "ev_ebitda": 30.0, "dist_from_52w_high_pct": -5.0},
-                    {"ticker": "AMD", "name": "AMD", "group": "Tech", "price": 160.0, "forward_pe": 39.0, "ev_ebitda": 28.0, "dist_from_52w_high_pct": -8.0},
-                    {"ticker": "MU", "name": "Micron", "group": "Tech", "price": 95.0, "forward_pe": 12.0, "ev_ebitda": 10.0, "dist_from_52w_high_pct": -25.0}
+                    {"ticker": "AMD", "name": "AMD", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 125.0, "forward_pe": 30.0},
+                    {"ticker": "AVGO", "name": "Broadcom", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 160.0, "forward_pe": 30.0},
+                    {"ticker": "QCOM", "name": "Qualcomm", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 175.0, "forward_pe": 30.0},
+                    {"ticker": "NVDA", "name": "Nvidia", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 95.0, "forward_pe": 12.0},
                 ]
             }
 
             res = analyst.analyze_raw_payload(mock_payload)
 
-        lags = res["single_stock_lagging_opportunities"]
-        self.assertEqual(len(lags), 1)
-        self.assertEqual(lags[0]["ticker"], "MU")
-        self.assertIn("historical sector-relative norm", lags[0]["rationale"])
-        self.assertGreater(lags[0]["relative_fpe_discount_pct"], 20.0)
+        nvda_summary = next(item for item in res["constituent_assessments"] if item["ticker"] == "NVDA")
+        self.assertEqual(nvda_summary["relative_valuation_status"], "Discounted vs Historical Cohort Relationship")
+        self.assertEqual(nvda_summary["posture"], "WATCH")
+        self.assertGreater(nvda_summary["relative_fpe_discount_pct"], 20.0)
+
+    def test_05d_relative_discount_requires_180_day_history_span(self):
+        """Dense recent observations cannot substitute for a long historical comparison."""
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
+            dates = pd.date_range("2026-06-01", periods=60, freq="D")
+            storage.save_observations(relative_multiple_key("Fabless Accelerators", "NVDA", "fpe"), pd.DataFrame([
+                {"date": date.strftime("%Y-%m-%d"), "value": 0.70}
+                for date in dates
+            ]))
+            payload = {
+                "individual_stock_constituents": [
+                    {"ticker": "AMD", "name": "AMD", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "forward_pe": 30.0},
+                    {"ticker": "AVGO", "name": "Broadcom", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "forward_pe": 30.0},
+                    {"ticker": "QCOM", "name": "Qualcomm", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "forward_pe": 30.0},
+                    {"ticker": "NVDA", "name": "Nvidia", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "forward_pe": 12.0},
+                ]
+            }
+            result = MechanicalMacroAnalyst(storage).analyze_raw_payload(payload)
+
+        item = next(item for item in result["constituent_assessments"] if item["ticker"] == "NVDA")
+        self.assertEqual(item["relative_valuation_status"], "Insufficient Relative History")
+        self.assertEqual(item["posture"], "NEUTRAL")
+        self.assertTrue(any(
+            "spans only 59 days" in reason
+            for reason in item["missing_evidence"]
+        ))
 
     def test_05b_financials_not_bought_when_credit_stress_is_elevated(self):
         """Financials need a credit-quality check even in a macro-favored quadrant."""
@@ -672,8 +721,8 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertNotIn("SELL", ai["action"])
         self.assertIn("headwind", ai["rationale"].lower())
 
-    def test_05e_caution_sector_is_not_upgraded_to_selective_buy(self):
-        """Lagging-stock watchlist should not override a sector-level caution signal."""
+    def test_05e_mechanical_assessments_do_not_change_sector_trade_directives(self):
+        """A cohort valuation assessment must not mutate a separate sector recommendation."""
         with tempfile.TemporaryDirectory() as tmp:
             storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             analyzer = MacroAnalyzer(storage)
@@ -712,9 +761,16 @@ class TestMacroPipeline(unittest.TestCase):
             analyzer.valuation_engine.save_valuations_to_storage = lambda vals: None
             analyzer.ai_tracker.analyze_ecosystem_valuations = lambda: []
             analyzer.raw_engine.build_raw_payload = lambda: {}
-            analyzer.llm_analyst.analyze_raw_payload = lambda payload: {
-                "single_stock_lagging_opportunities": [
-                    {"group": "Downstream Power & Grid", "ticker": "CEG", "action": "WATCHLIST / SELECTIVE REVIEW", "rationale": "Peer discount."}
+            analyzer.mechanical_analyst.analyze_raw_payload = lambda payload: {
+                "constituent_assessments": [
+                    {
+                        "group": "Downstream Power & Grid",
+                        "ticker": "CEG",
+                        "relative_valuation_status": "Discounted vs Historical Cohort Relationship",
+                        "posture": "WATCH",
+                        "evidence": ["Current Fwd P/E ratio is 30% below the cohort-history median."],
+                        "missing_evidence": [],
+                    }
                 ]
             }
             analyzer.rec_engine.generate_recommendations = lambda *args, **kwargs: [
@@ -734,6 +790,7 @@ class TestMacroPipeline(unittest.TestCase):
         rec = analysis["recommendations"][0]
         self.assertEqual(rec["action"], "HOLD / CAUTION")
         self.assertEqual(rec["selective_stock_pick"], "None")
+        self.assertNotIn("action", analysis["lagging_stock_opportunities"][0])
 
     def test_06_defensive_reporter_formatting(self):
         """Test reporter with empty/missing dict fields to guarantee no formatting crashes."""

@@ -1,13 +1,9 @@
-"""
-Raw Data Engine module for Macro & Sector Analysis System.
-Gathers comprehensive, un-hardcoded raw quantitative macroeconomic metrics,
-sector multiples, and granular individual stock-level valuation/lag metrics across 35+ sector constituents.
-Outputs structured JSON payload for Gemini LLM analysis.
-"""
+"""Build provider-neutral raw quantitative inputs for macro research."""
 
 import json
 import logging
 import math
+import statistics
 import pandas as pd
 import yfinance as yf
 from datetime import datetime
@@ -15,29 +11,13 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 from storage import MacroStorage
 from config import OUTPUT_DIR, configure_yfinance_cache
+from peer_cohorts import PEER_COHORTS
 from stock_relative_valuation import relative_multiple_key, safe_ratio
 from stock_data import get_ticker_info
 
 configure_yfinance_cache(yf)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-
-# Key Constituent Tickers by Sector / Supply Chain Group
-CONSTITUENT_GROUPS = {
-    "Technology & Semiconductors": ["MU", "NVDA", "AMD", "AVGO", "TSM", "AAPL", "MSFT", "ORCL", "QCOM"],
-    "Financials & Banking": ["JPM", "BAC", "WFC", "C", "GS", "MS", "BLK", "AXP", "SCHW"],
-    "Healthcare & Pharma": ["UNH", "JNJ", "LLY", "ABBV", "MRK", "TMO", "PFE", "ABT"],
-    "Energy & Oil/Gas": ["XOM", "CVX", "COP", "EOG", "SLB", "MPC", "PSX", "VLO"],
-    "Industrials & Machinery": ["GE", "CAT", "RTX", "HON", "UNP", "BA", "DE", "LMT"],
-    "Consumer Discretionary & Retail": ["AMZN", "TSLA", "HD", "MCD", "NKE", "LOW", "SBUX", "BKNG"],
-    "Consumer Staples": ["PG", "COST", "KO", "PEP", "WMT", "PM", "MDLZ", "CL"],
-    "Physical AI & Robotics": ["TSLA", "SYM", "TER", "ROK", "ISRG"],
-    "Downstream Power & Grid": ["CEG", "VST", "ETN", "GEV"],
-    "Datacenter Liquid Cooling": ["VRT", "MOD", "SMCI"],
-    "Semiconductor Equipment": ["ASML", "AMAT", "LRCX", "KLAC"],
-    "Critical Minerals & Magnets": ["FCX", "MP"]
-}
-
 
 class RawDataEngine:
     def __init__(self, storage: Optional[MacroStorage] = None, output_dir: Optional[Path] = None, verbose: bool = True):
@@ -89,19 +69,16 @@ class RawDataEngine:
         return histories
 
     def fetch_individual_stock_metrics(self) -> List[Dict[str, Any]]:
-        """
-        Fetches granular stock-level valuation and performance lag metrics for individual constituents.
-        Allows Gemini to identify specific stocks lagging peers or trading at deep discounts.
-        """
+        """Fetch constituent metrics with their business-model peer cohort."""
         stock_metrics = []
         all_tickers = [
             ticker
-            for tickers in CONSTITUENT_GROUPS.values()
+            for tickers in PEER_COHORTS.values()
             for ticker in tickers
         ]
         histories_30d = self._download_30d_histories(all_tickers)
 
-        for group_name, tickers in CONSTITUENT_GROUPS.items():
+        for cohort_name, tickers in PEER_COHORTS.items():
             group_stocks = []
             for t in tickers:
                 try:
@@ -130,7 +107,8 @@ class RawDataEngine:
                     group_stocks.append({
                         "ticker": t,
                         "name": info.get("shortName", t),
-                        "group": group_name,
+                        "group": cohort_name,
+                        "peer_cohort": cohort_name,
                         "price": round(price, 2) if price else None,
                         "trailing_pe": round(pe, 2) if pe else None,
                         "forward_pe": round(fpe, 2) if fpe else None,
@@ -147,39 +125,40 @@ class RawDataEngine:
         return stock_metrics
 
     def save_relative_multiple_observations(self, stock_metrics: List[Dict[str, Any]], today_str: str) -> int:
-        """Persist current stock multiples as ratios to their peer-group average."""
+        """Persist current stock multiples as ratios to their cohort median."""
         grouped = {}
         for stock in stock_metrics:
-            grouped.setdefault(stock.get("group", "Other"), []).append(stock)
+            grouped.setdefault(stock.get("peer_cohort") or stock.get("group", "Other"), []).append(stock)
 
         saved = 0
         for group_name, group_stocks in grouped.items():
-            valid_fpes = [
-                s.get("forward_pe")
-                for s in group_stocks
-                if s.get("forward_pe") and 0 < s.get("forward_pe", 0) < 150
-            ]
-            valid_eves = [
-                s.get("ev_ebitda")
-                for s in group_stocks
-                if s.get("ev_ebitda") and 0 < s.get("ev_ebitda", 0) < 150
-            ]
-            avg_fpe = sum(valid_fpes) / len(valid_fpes) if valid_fpes else None
-            avg_eve = sum(valid_eves) / len(valid_eves) if valid_eves else None
-
             for stock in group_stocks:
                 ticker = stock.get("ticker")
                 if not ticker:
                     continue
 
-                rel_fpe = safe_ratio(stock.get("forward_pe"), avg_fpe)
+                peers = [peer for peer in group_stocks if peer.get("ticker") != ticker]
+                valid_fpes = [
+                    peer.get("forward_pe")
+                    for peer in peers
+                    if peer.get("forward_pe") and 0 < peer.get("forward_pe", 0) < 150
+                ]
+                valid_eves = [
+                    peer.get("ev_ebitda")
+                    for peer in peers
+                    if peer.get("ev_ebitda") and 0 < peer.get("ev_ebitda", 0) < 150
+                ]
+                median_fpe = statistics.median(valid_fpes) if len(valid_fpes) >= 3 else None
+                median_eve = statistics.median(valid_eves) if len(valid_eves) >= 3 else None
+
+                rel_fpe = safe_ratio(stock.get("forward_pe"), median_fpe)
                 if rel_fpe is not None and 0 < rel_fpe < 5:
                     saved += self.storage.save_observations(
                         relative_multiple_key(group_name, ticker, "fpe"),
                         pd.DataFrame([{"date": today_str, "value": rel_fpe}]),
                     )
 
-                rel_eve = safe_ratio(stock.get("ev_ebitda"), avg_eve)
+                rel_eve = safe_ratio(stock.get("ev_ebitda"), median_eve)
                 if rel_eve is not None and 0 < rel_eve < 5:
                     saved += self.storage.save_observations(
                         relative_multiple_key(group_name, ticker, "eve"),
@@ -212,7 +191,7 @@ class RawDataEngine:
             "metadata": {
                 "generated_at": datetime.now().isoformat(),
                 "date": today_str,
-                "engine_version": "2.0-GeminiRawPayload"
+                "engine_version": "3.0-EvidenceRawPayload"
             },
             "macro_quantitative": indicators,
             "recent_news_events": news_events,
