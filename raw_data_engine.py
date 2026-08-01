@@ -167,10 +167,12 @@ class RawDataEngine:
 
         return saved
 
-    def build_raw_payload(self) -> Dict[str, Any]:
+    def build_raw_payload(
+        self, evidence_assessments: Optional[List[Dict[str, Any]]] = None
+    ) -> Dict[str, Any]:
         """
         Builds the complete raw data JSON payload containing quantitative macro series,
-        news events, sector valuations, and granular stock-level constituent lag metrics.
+        news events, sector evidence assessments, and granular stock-level constituents.
         """
         today_str = datetime.now().strftime("%Y-%m-%d")
 
@@ -195,6 +197,7 @@ class RawDataEngine:
             },
             "macro_quantitative": indicators,
             "recent_news_events": news_events,
+            "evidence_assessments": evidence_assessments or [],
             "individual_stock_constituents": stock_constituents
         }
 

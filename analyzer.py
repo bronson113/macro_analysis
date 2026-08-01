@@ -11,7 +11,7 @@ from ai_ecosystem import AIRoboticsEcosystemTracker
 from raw_data_engine import RawDataEngine
 from mechanical_analyst import MechanicalMacroAnalyst
 from macro_matrix import MacroMatrixEngine
-from recommendations import SectorRecommendationEngine
+from recommendations import SectorEvidenceEngine
 
 
 def _to_billions(value: Optional[float], unit_scale: str) -> Optional[float]:
@@ -96,7 +96,7 @@ class MacroAnalyzer:
         self.raw_engine = RawDataEngine(self.storage)
         self.mechanical_analyst = MechanicalMacroAnalyst(self.storage)
         self.matrix_engine = MacroMatrixEngine()
-        self.rec_engine = SectorRecommendationEngine(self.storage)
+        self.evidence_engine = SectorEvidenceEngine()
 
     def get_latest_value(self, key: str) -> Optional[float]:
         obs = self.storage.get_latest_observation(key)
@@ -405,12 +405,6 @@ class MacroAnalyzer:
 
         ai_ecosystem = self.ai_tracker.analyze_ecosystem_valuations()
 
-        # Build Un-Hardcoded Raw Data Payload
-        raw_payload = self.raw_engine.build_raw_payload()
-
-        # Deterministic comparable-cohort assessment of raw constituent evidence.
-        mechanical_analysis = self.mechanical_analyst.analyze_raw_payload(raw_payload)
-
         # 4-Quadrant Macro Situation Matrix Classification
         effr_trend = policy.get("policy_stance")
         macro_situation = self.matrix_engine.classify_situation(
@@ -463,7 +457,7 @@ class MacroAnalyzer:
 
         self.storage.save_daily_snapshot(snapshot)
 
-        tax_aware_recommendations = self.rec_engine.generate_recommendations(
+        evidence_assessments = self.evidence_engine.generate_assessments(
             snapshot,
             credit,
             sector_valuations,
@@ -471,11 +465,12 @@ class MacroAnalyzer:
             recent_news,
             macro_situation
         )
-        
+
+        raw_payload = self.raw_engine.build_raw_payload(
+            evidence_assessments=evidence_assessments
+        )
+        mechanical_analysis = self.mechanical_analyst.analyze_raw_payload(raw_payload)
         constituent_assessments = mechanical_analysis.get("constituent_assessments", [])
-        for rec in tax_aware_recommendations:
-            rec["sector_group"] = rec.pop("sector")
-            rec["selective_stock_pick"] = "None"
 
         return {
             "summary": snapshot,
@@ -489,7 +484,6 @@ class MacroAnalyzer:
             "sector_valuations": sector_valuations,
             "ai_ecosystem": ai_ecosystem,
             "macro_situation": macro_situation,
+            "evidence_assessments": evidence_assessments,
             "constituent_assessments": constituent_assessments,
-            "lagging_stock_opportunities": constituent_assessments,
-            "recommendations": tax_aware_recommendations
         }

@@ -6,6 +6,7 @@ single-stock dispersion detection, and report rendering safety.
 
 import os
 import json
+import re
 import unittest
 import tempfile
 import contextlib
@@ -32,7 +33,7 @@ from peer_cohorts import ticker_to_cohort
 from recommendations import SectorEvidenceEngine
 from raw_data_engine import RawDataEngine
 from stock_relative_valuation import relative_multiple_key
-from reporter import MacroReporter
+from reporter import MacroReporter, NotableItem, apply_notable_change_labels
 
 
 class TestMacroPipeline(unittest.TestCase):
@@ -546,9 +547,13 @@ class TestMacroPipeline(unittest.TestCase):
             {"ticker": f"T{i}", "name": f"Test {i}", "group": "Fixture", "price": 100.0, "forward_pe": 10.0 + i, "ev_ebitda": 8.0 + i}
             for i in range(11)
         ]
-        payload = self.raw_engine.build_raw_payload()
+        evidence_assessments = [{"sector_group": "Fixture", "posture": "NEUTRAL"}]
+        payload = self.raw_engine.build_raw_payload(
+            evidence_assessments=evidence_assessments
+        )
         self.assertIn("metadata", payload)
         self.assertIn("macro_quantitative", payload)
+        self.assertEqual(payload["evidence_assessments"], evidence_assessments)
         self.assertIn("individual_stock_constituents", payload)
         self.assertGreater(len(payload["individual_stock_constituents"]), 10)
         self.assertTrue((self.tmp_path / "raw_output" / "latest_raw_payload.json").exists())
@@ -634,7 +639,7 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertEqual(nvda_summary["relative_valuation_status"], "Fair vs Historical Cohort Relationship")
         self.assertEqual(nvda_summary["posture"], "NEUTRAL")
         self.assertTrue(any(
-            "does not meet 20.0%" in detail
+            "does not meet" in detail and "20.0% WATCH threshold" in detail
             for detail in nvda_summary["evidence"]
         ))
 
@@ -693,8 +698,8 @@ class TestMacroPipeline(unittest.TestCase):
             for reason in item["missing_evidence"]
         ))
 
-    def test_05b_financials_not_bought_when_credit_stress_is_elevated(self):
-        """Financials need a credit-quality check even in a macro-favored quadrant."""
+    def test_05b_credit_stress_is_visible_negative_evidence_for_financials(self):
+        """Credit stress must remain visible even when the macro quadrant favors financials."""
         macro_situation = self.matrix_engine.classify_situation("HOLDING_RESTRICTIVE", 40.0, 3.5, False, 0.30)
         summary = {
             "liquidity_regime": "Expanding (+30d)",
@@ -703,9 +708,9 @@ class TestMacroPipeline(unittest.TestCase):
             "dxy": 100.0,
         }
         credit = {"high_yield_oas": 6.0, "chicago_fed_nfci": 0.25}
-        valuations = [{"sector": "Financials (XLF)", "forward_pe": 11.0, "ev_ebitda": 8.0}]
+        valuations = [{"sector": "Financials (XLF)", "history": {"percentile": 50.0}}]
 
-        recs = self.analyzer.rec_engine.generate_recommendations(
+        assessments = SectorEvidenceEngine().generate_assessments(
             summary,
             credit,
             valuations,
@@ -714,12 +719,18 @@ class TestMacroPipeline(unittest.TestCase):
             macro_situation,
         )
 
-        financials = next(r for r in recs if r["sector"] == "Financials (XLF)")
-        self.assertNotIn("BUY", financials["action"])
-        self.assertIn("credit", financials["rationale"].lower())
+        financials = next(item for item in assessments if item["sector_group"] == "Financials (XLF)")
+        self.assertTrue(any(
+            factor["factor_id"] == "credit" and factor["contribution"] == -3
+            for factor in financials["negative_factors"]
+        ))
+        self.assertTrue(any(
+            factor["factor_id"] == "macro_quadrant" and factor["contribution"] == 2
+            for factor in financials["positive_factors"]
+        ))
 
-    def test_05c_restrictive_real_yields_downgrade_discounted_tech_without_forcing_sell(self):
-        """High real yields are a headwind, but discounted tech should become caution, not automatic sell."""
+    def test_05c_restrictive_real_yields_are_visible_negative_technology_evidence(self):
+        """Restrictive real yields are an explicit counterweight to discounted technology."""
         macro_situation = self.matrix_engine.classify_situation("HOLDING_RESTRICTIVE", 40.0, 3.5, False, 0.30)
         summary = {
             "liquidity_regime": "Expanding (+30d)",
@@ -729,9 +740,9 @@ class TestMacroPipeline(unittest.TestCase):
             "dxy": 100.0,
         }
         credit = {"high_yield_oas": 2.7, "chicago_fed_nfci": -0.5}
-        valuations = [{"sector": "Technology (XLK)", "forward_pe": 19.0, "ev_ebitda": 15.0}]
+        valuations = [{"sector": "Technology (XLK)", "history": {"percentile": 20.0}}]
 
-        recs = self.analyzer.rec_engine.generate_recommendations(
+        assessments = SectorEvidenceEngine().generate_assessments(
             summary,
             credit,
             valuations,
@@ -740,12 +751,18 @@ class TestMacroPipeline(unittest.TestCase):
             macro_situation,
         )
 
-        tech = next(r for r in recs if r["sector"] == "Technology (XLK)")
-        self.assertNotIn("SELL", tech["action"])
-        self.assertIn("CAUTION", tech["action"])
+        tech = next(item for item in assessments if item["sector_group"] == "Technology (XLK)")
+        self.assertTrue(any(
+            factor["factor_id"] == "real_yield" and factor["contribution"] == -1
+            for factor in tech["negative_factors"]
+        ))
+        self.assertTrue(any(
+            factor["factor_id"] == "valuation_percentile" and factor["contribution"] == 2
+            for factor in tech["positive_factors"]
+        ))
 
-    def test_05d_negative_erp_without_valuation_stretch_is_not_automatic_sell(self):
-        """Negative ERP should be a rate/valuation headwind, not a standalone sell rule."""
+    def test_05d_valuation_stretch_is_visible_negative_ai_evidence(self):
+        """A rich historical valuation must appear as evidence, not a trade command."""
         macro_situation = self.matrix_engine.classify_situation("HOLDING_RESTRICTIVE", 40.0, 3.5, False, 0.30)
         summary = {
             "liquidity_regime": "Expanding (+30d)",
@@ -755,9 +772,9 @@ class TestMacroPipeline(unittest.TestCase):
             "dxy": 100.0,
         }
         credit = {"high_yield_oas": 2.7, "chicago_fed_nfci": -0.5}
-        valuations = [{"sector": "AI Compute & Accelerators", "forward_pe": 24.0, "ev_ebitda": 18.0}]
+        valuations = [{"sector": "AI Compute & Accelerators", "history": {"percentile": 80.0}}]
 
-        recs = self.analyzer.rec_engine.generate_recommendations(
+        assessments = SectorEvidenceEngine().generate_assessments(
             summary,
             credit,
             valuations,
@@ -766,15 +783,20 @@ class TestMacroPipeline(unittest.TestCase):
             macro_situation,
         )
 
-        ai = next(r for r in recs if r["sector"] == "AI Compute & Accelerators")
-        self.assertNotIn("SELL", ai["action"])
-        self.assertIn("headwind", ai["rationale"].lower())
+        ai = next(item for item in assessments if item["sector_group"] == "AI Compute & Accelerators")
+        self.assertTrue(any(
+            factor["factor_id"] == "valuation_percentile" and factor["contribution"] == -2
+            for factor in ai["negative_factors"]
+        ))
+        self.assertNotIn("action", ai)
+        self.assertNotIn("conviction", ai)
 
-    def test_05e_mechanical_assessments_do_not_change_sector_trade_directives(self):
-        """A cohort valuation assessment must not mutate a separate sector recommendation."""
+    def test_snapshot_and_report_expose_evidence_without_trade_directives(self):
+        """The public snapshot and report expose research evidence, not trade directives."""
         with tempfile.TemporaryDirectory() as tmp:
             storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             analyzer = MacroAnalyzer(storage)
+            raw_payload_arguments = {}
             analyzer.calculate_net_liquidity = lambda: {
                 "net_liquidity": 100.0,
                 "fed_assets_billion": 200.0,
@@ -809,7 +831,11 @@ class TestMacroPipeline(unittest.TestCase):
             analyzer.valuation_engine.calculate_sector_valuations = lambda: []
             analyzer.valuation_engine.save_valuations_to_storage = lambda vals: None
             analyzer.ai_tracker.analyze_ecosystem_valuations = lambda: []
-            analyzer.raw_engine.build_raw_payload = lambda: {}
+            def build_raw_payload(**kwargs):
+                raw_payload_arguments.update(kwargs)
+                return {}
+
+            analyzer.raw_engine.build_raw_payload = build_raw_payload
             analyzer.mechanical_analyst.analyze_raw_payload = lambda payload: {
                 "constituent_assessments": [
                     {
@@ -822,24 +848,43 @@ class TestMacroPipeline(unittest.TestCase):
                     }
                 ]
             }
-            analyzer.rec_engine.generate_recommendations = lambda *args, **kwargs: [
-                {
-                    "sector": "Downstream Power & Grid",
-                    "action": "HOLD / CAUTION",
-                    "conviction": "MODERATE",
-                    "avg_forward_pe": 25.0,
-                    "ev_ebitda": None,
-                    "erp": None,
-                    "rationale": "Rate/valuation headwind.",
-                }
-            ]
 
             analysis = analyzer.generate_full_snapshot()
+            reporter = MacroReporter(storage, analyzer, output_dir=Path(tmp), verbose=False)
+            report_path = reporter.generate_markdown_report(analysis)
+            report = Path(report_path).read_text(encoding="utf-8")
 
-        rec = analysis["recommendations"][0]
-        self.assertEqual(rec["action"], "HOLD / CAUTION")
-        self.assertEqual(rec["selective_stock_pick"], "None")
-        self.assertNotIn("action", analysis["lagging_stock_opportunities"][0])
+        self.assertTrue(analysis["evidence_assessments"])
+        self.assertEqual(
+            raw_payload_arguments["evidence_assessments"],
+            analysis["evidence_assessments"],
+        )
+        self.assertIn("constituent_assessments", analysis)
+        self.assertNotIn("recommendations", analysis)
+        self.assertNotIn("lagging_stock_opportunities", analysis)
+        serialized = json.dumps(analysis["evidence_assessments"])
+        self.assertNotIn("conviction", serialized.lower())
+        self.assertIsNone(re.search(r"\b(BUY|SELL|ACCUMULATE|TRIM)\b", serialized))
+        self.assertIn("Evidence Posture", report)
+        self.assertIn("Uncertainty Range", report)
+        self.assertIn("Missing Evidence", report)
+
+    def test_shiller_numeric_drift_inside_same_rating_is_unchanged(self):
+        """Same-classification Shiller movement must keep the current body unchanged."""
+        previous = [{
+            "key": "valuation:shiller_pe",
+            "fingerprint": "valuation:shiller_pe|Very Expensive",
+            "body": "**Valuation:** Shiller PE Ratio is `39.93` (`Very Expensive`).",
+        }]
+        current = NotableItem(
+            key="valuation:shiller_pe",
+            fingerprint="valuation:shiller_pe|Very Expensive",
+            body="**Valuation:** Shiller PE Ratio is `40.62` (`Very Expensive`).",
+        )
+
+        self.assertEqual(apply_notable_change_labels([current], previous), [
+            "**Unchanged:** **Valuation:** Shiller PE Ratio is `40.62` (`Very Expensive`)."
+        ])
 
     def test_06_defensive_reporter_formatting(self):
         """Test reporter with empty/missing dict fields to guarantee no formatting crashes."""
@@ -860,8 +905,8 @@ class TestMacroPipeline(unittest.TestCase):
             "sector_valuations": [],
             "ai_ecosystem": [],
             "macro_situation": self.matrix_engine.classify_situation("CUTTING", 10.0, None, False, None),
-            "lagging_stock_opportunities": [],
-            "recommendations": []
+            "constituent_assessments": [],
+            "evidence_assessments": [],
         }
 
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -878,8 +923,8 @@ class TestMacroPipeline(unittest.TestCase):
             except Exception as e:
                 self.fail(f"Reporter raised unexpected exception on None inputs: {e}")
 
-    def test_06a_report_describes_lagging_stocks_as_historical_relative_discounts(self):
-        """Lagging-stock section should explain relative valuation versus the stock's own sector history."""
+    def test_06a_report_describes_constituent_evidence_and_missing_history(self):
+        """Constituent tables present relative evidence without trade directives."""
         analysis = {
             "summary": {
                 "date": "2026-07-22",
@@ -898,21 +943,17 @@ class TestMacroPipeline(unittest.TestCase):
             "sector_valuations": [],
             "ai_ecosystem": [],
             "macro_situation": {},
-            "lagging_stock_opportunities": [
+            "constituent_assessments": [
                 {
                     "ticker": "MU",
-                    "name": "Micron",
                     "group": "Tech",
-                    "forward_pe": 12.0,
-                    "peer_avg_fpe": 30.0,
-                    "current_relative_fpe": 0.4,
-                    "historical_relative_fpe": 0.7,
-                    "relative_fpe_discount_pct": 42.9,
-                    "action": "WATCHLIST / SELECTIVE REVIEW (Lagging Value)",
-                    "rationale": "Discounted versus historical sector-relative norm.",
+                    "relative_valuation_status": "Discounted vs Historical Cohort Relationship",
+                    "posture": "WATCH",
+                    "evidence": ["Current FPE cohort-relative ratio is below its historical median."],
+                    "missing_evidence": ["No valid current EVE multiple is available."],
                 }
             ],
-            "recommendations": [],
+            "evidence_assessments": [],
         }
 
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -920,10 +961,11 @@ class TestMacroPipeline(unittest.TestCase):
             report_path = reporter.generate_markdown_report(analysis)
             content = Path(report_path).read_text(encoding="utf-8")
 
-        self.assertIn("Historical Sector-Relative Valuation", content)
-        self.assertIn("Current Relative Fwd P/E", content)
-        self.assertIn("Historical Relative Norm", content)
-        self.assertIn("42.9%", content)
+        self.assertIn("Constituent Evidence Assessments", content)
+        self.assertIn("Relative Valuation Status", content)
+        self.assertIn("Research Posture", content)
+        self.assertIn("Current FPE cohort-relative ratio", content)
+        self.assertNotIn("Recommended Action", content)
 
     def test_06b_fetch_cnn_fear_greed_index_saves_daily_score(self):
         """CNN Fear & Greed should be fetched as a numeric market sentiment observation."""
@@ -1091,8 +1133,8 @@ class TestMacroPipeline(unittest.TestCase):
             "sector_valuations": [],
             "ai_ecosystem": [],
             "macro_situation": {},
-            "lagging_stock_opportunities": [],
-            "recommendations": [],
+            "constituent_assessments": [],
+            "evidence_assessments": [],
         }
 
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -1140,8 +1182,8 @@ class TestMacroPipeline(unittest.TestCase):
             "sector_valuations": [],
             "ai_ecosystem": [],
             "macro_situation": {},
-            "lagging_stock_opportunities": [],
-            "recommendations": [],
+            "constituent_assessments": [],
+            "evidence_assessments": [],
         }
 
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -1154,8 +1196,8 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertIn("Very Expensive", content)
         self.assertIn("secondary valuation overlay", content)
 
-    def test_07_markdown_report_starts_with_notable_summary_only(self):
-        """Daily report should open with a concise notable-events/news/decisions summary."""
+    def test_07_markdown_report_starts_with_semantic_notable_summary(self):
+        """Daily reports open with macro, news, and material evidence summaries."""
         analysis = {
             "summary": {
                 "date": "2026-07-22",
@@ -1185,10 +1227,18 @@ class TestMacroPipeline(unittest.TestCase):
                 "favored_company_types": [],
                 "disfavored_sectors": [],
             },
-            "lagging_stock_opportunities": [],
-            "recommendations": [
-                {"sector_group": "Semiconductors", "action": "HOLD SECTOR / SELECTIVE BUY [MU]", "conviction": "HIGH", "avg_forward_pe": 18.0, "selective_stock_pick": "MU", "rationale": "Deep peer discount."},
-                {"sector_group": "Utilities", "action": "HOLD", "conviction": "LOW", "avg_forward_pe": 16.0, "selective_stock_pick": "None", "rationale": "No material change."},
+            "constituent_assessments": [],
+            "evidence_assessments": [
+                {
+                    "sector_group": "Semiconductors",
+                    "posture": "WATCH",
+                    "score": 4.0,
+                    "score_range": [2.0, 6.0],
+                    "coverage_pct": 85.0,
+                    "positive_factors": [{"explanation": "Liquidity is expanding."}],
+                    "negative_factors": [],
+                    "missing_evidence": [],
+                },
             ],
         }
 
@@ -1200,23 +1250,35 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertIn("## Notable Summary", content)
         self.assertLess(content.index("## Notable Summary"), content.index("## 1. Active Macro Situation"))
         self.assertIn("Fed signals a major policy shift", content)
-        self.assertIn("HOLD SECTOR / SELECTIVE BUY [MU]", content)
+        self.assertIn("Semiconductors has `WATCH` research posture", content)
+        self.assertIn("Deterministic outputs are research heuristics", content)
         self.assertNotIn("Routine market color", content.split("## 1. Active Macro Situation")[0])
-        self.assertNotIn("Utilities", content.split("## 1. Active Macro Situation")[0])
+        self.assertNotIn("Recommended Action", content)
 
-    def test_07a_notable_summary_compares_against_previous_report(self):
-        """Daily report should flag changed, unchanged, new, and removed notable summary items."""
-        previous_report = """# Daily 4-Quadrant Macro & Dynamic Sector Strategy Report (2026-07-22)
----
-## Notable Summary
-
-- **Decision:** Active quadrant is `RESERVE LIQUIDITY EXPANSION` (Rates Cutting; Balance Sheet Expanding). Liquidity tailwind with easier policy.
-- **News:** Fed signals a major policy shift (Federal Reserve & Liquidity; impact 9; Positive).
-- **Decision:** Semiconductors: **HOLD SECTOR / SELECTIVE BUY [MU]** (HIGH; pick `MU`).
-- **Decision:** `AAPL`: **WATCHLIST**. Prior lagging-stock setup.
----
-## 1. Active Macro Situation (2x2 Matrix Analysis)
-"""
+    def test_07a_notable_summary_compares_structured_sidecars(self):
+        """Sidecars compare semantic fingerprints while retaining current rendered values."""
+        previous_state = [
+            {
+                "key": "macro:regime",
+                "fingerprint": "macro:regime|RESERVE LIQUIDITY EXPANSION|Rates Cutting|Balance Sheet Expanding|N/A",
+                "body": "**Macro:** Active quadrant is `RESERVE LIQUIDITY EXPANSION` (Rates Cutting; Balance Sheet Expanding). Liquidity tailwind with easier policy.",
+            },
+            {
+                "key": "news:fed-signals-a-major-policy-shift",
+                "fingerprint": "news:fed-signals-a-major-policy-shift|Federal Reserve & Liquidity|9|Positive",
+                "body": "**News:** Fed signals a major policy shift (Federal Reserve & Liquidity; impact 9; Positive).",
+            },
+            {
+                "key": "evidence:semiconductors",
+                "fingerprint": "evidence:semiconductors|WATCH|positive",
+                "body": "**Evidence:** Semiconductors has `WATCH` research posture (score `4.00`, range `2.00` to `6.00`, coverage `85.0%`).",
+            },
+            {
+                "key": "evidence:utilities",
+                "fingerprint": "evidence:utilities|WATCH|positive",
+                "body": "**Evidence:** Utilities has `WATCH` research posture (score `3.00`, range `2.00` to `4.00`, coverage `80.0%`).",
+            },
+        ]
         analysis = {
             "summary": {"date": "2026-07-23"},
             "liquidity_details": {},
@@ -1240,25 +1302,42 @@ class TestMacroPipeline(unittest.TestCase):
                 "favored_company_types": [],
                 "disfavored_sectors": [],
             },
-            "lagging_stock_opportunities": [],
-            "recommendations": [
-                {"sector_group": "Semiconductors", "action": "HOLD SECTOR / SELECTIVE BUY [MU]", "conviction": "HIGH", "avg_forward_pe": 18.0, "selective_stock_pick": "MU", "rationale": "Deep peer discount."},
+            "constituent_assessments": [],
+            "evidence_assessments": [
+                {
+                    "sector_group": "Semiconductors",
+                    "posture": "AVOID",
+                    "score": -3.0,
+                    "score_range": [-5.0, -2.0],
+                    "coverage_pct": 90.0,
+                    "positive_factors": [],
+                    "negative_factors": [{"explanation": "Credit evidence deteriorated."}],
+                    "missing_evidence": [],
+                },
             ],
         }
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)
-            (tmp_path / "macro_report_2026-07-22.md").write_text(previous_report, encoding="utf-8")
+            (tmp_path / "notable_state_2026-07-22.json").write_text(
+                json.dumps(previous_state), encoding="utf-8"
+            )
             reporter = MacroReporter(self.storage, self.analyzer, output_dir=tmp_path, verbose=False)
             report_path = reporter.generate_markdown_report(analysis)
             summary = Path(report_path).read_text(encoding="utf-8").split("## 1. Active Macro Situation")[0]
+            dated_state = json.loads((tmp_path / "notable_state_2026-07-23.json").read_text(encoding="utf-8"))
+            latest_state = json.loads((tmp_path / "latest_notable_state.json").read_text(encoding="utf-8"))
 
-        self.assertIn("**Changed:** **Decision:** Active quadrant", summary)
-        self.assertIn("Previously: **Decision:** Active quadrant", summary)
+        self.assertIn("**Unchanged:** **Macro:** Active quadrant", summary)
+        self.assertIn("Liquidity tailwind is fading.", summary)
+        self.assertNotIn("Previously: **Macro:", summary)
         self.assertIn("**Unchanged:** **News:** Fed signals a major policy shift", summary)
-        self.assertIn("**Unchanged:** **Decision:** Semiconductors", summary)
+        self.assertIn("**Changed:** **Evidence:** Semiconductors", summary)
+        self.assertIn("Previously: **Evidence:** Semiconductors has `WATCH`", summary)
         self.assertIn("**New:** **News:** Credit spreads widen abruptly", summary)
-        self.assertIn("**Removed:** **Decision:** `AAPL`: **WATCHLIST**", summary)
+        self.assertIn("**Removed:** **Evidence:** Utilities", summary)
+        self.assertEqual(dated_state, latest_state)
+        self.assertTrue(all(set(item) == {"key", "fingerprint", "body"} for item in dated_state))
 
 
 if __name__ == "__main__":
