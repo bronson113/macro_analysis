@@ -132,6 +132,38 @@ class TestEvidenceAggregation(unittest.TestCase):
                 self.assertEqual(degraded["score"], bound)
                 self.assertIn(bound, degraded["score_range"])
 
+    def test_weighted_declared_counterevidence_preserves_clipped_range_width(self):
+        for dominant, counter, bound in ((5, -0.1, 10), (-5, 0.1, -10)):
+            current = aggregate_evidence(
+                [
+                    factor("dominant", dominant, weight=2.1),
+                    factor("counter", counter, weight=1),
+                ],
+                expected_weight=7,
+            )
+            missing = aggregate_evidence(
+                [
+                    factor("dominant", dominant, weight=2.1),
+                    factor("counter", counter, quality="missing", weight=1),
+                ],
+                expected_weight=7,
+            )
+            stale = aggregate_evidence(
+                [
+                    factor("dominant", dominant, weight=2.1),
+                    factor("counter", counter, quality="stale", weight=1),
+                ],
+                expected_weight=7,
+            )
+
+            current_width = current["score_range"][1] - current["score_range"][0]
+            for degraded in (missing, stale):
+                self.assertEqual(degraded["score"], bound)
+                self.assertGreaterEqual(
+                    degraded["score_range"][1] - degraded["score_range"][0],
+                    current_width,
+                )
+
     def test_only_a_range_clear_of_neutral_threshold_gets_directional_posture(self):
         self.assertEqual(
             aggregate_evidence([factor("a", 4), factor("b", 4)], 2)["posture"],

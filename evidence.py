@@ -58,8 +58,12 @@ def aggregate_evidence(
         -10.0,
         min(10.0, sum(item.contribution * item.weight for item in usable)),
     )
-    positive_weight = sum(item.weight for item in usable if item.contribution > 0)
-    negative_weight = sum(item.weight for item in usable if item.contribution < 0)
+    positive_weight = sum(
+        item.weight for item in factors if item.direction == "positive"
+    )
+    negative_weight = sum(
+        item.weight for item in factors if item.direction == "negative"
+    )
     disagreement = min(positive_weight, negative_weight) / max(
         positive_weight, negative_weight, 1.0
     )
