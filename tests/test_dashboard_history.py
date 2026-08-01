@@ -12,6 +12,39 @@ import config
 
 
 class TestDashboardHistory(unittest.TestCase):
+    def test_export_dashboard_payload_merges_evidence_health_and_unmatured_outcomes(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            output_dir = root / "output"
+            data_dir = root / "data"
+            output_dir.mkdir()
+            data_dir.mkdir()
+            (output_dir / "latest_raw_payload.json").write_text(
+                json.dumps({"metadata": {"date": "2026-08-01"}, "evidence_assessments": [{"sector_group": "Technology"}]}),
+                encoding="utf-8",
+            )
+            (data_dir / "source_health.csv").write_text(
+                "source,fetch_key,observation_time,fetch_time,status,is_stale,record_count,error_category,message\n"
+                "FRED,treasury_10y,2026-08-01,2026-08-01T08:00:00,CURRENT,false,1,,Available\n",
+                encoding="utf-8",
+            )
+
+            old_output_dir = extract_dashboard_data.OUTPUT_DIR
+            old_source_health_csv = extract_dashboard_data.SOURCE_HEALTH_CSV
+            try:
+                extract_dashboard_data.OUTPUT_DIR = output_dir
+                extract_dashboard_data.SOURCE_HEALTH_CSV = data_dir / "source_health.csv"
+                payload = extract_dashboard_data.export_dashboard_payload()
+            finally:
+                extract_dashboard_data.OUTPUT_DIR = old_output_dir
+                extract_dashboard_data.SOURCE_HEALTH_CSV = old_source_health_csv
+
+            exported = json.loads((output_dir / "dashboard_data.json").read_text(encoding="utf-8"))
+            self.assertEqual(exported, payload)
+            self.assertEqual(exported["evidence_assessments"], [{"sector_group": "Technology"}])
+            self.assertEqual(exported["source_health"][0]["fetch_key"], "treasury_10y")
+            self.assertIsNone(exported["outcome_evaluation"])
+
     def test_extract_history_exports_ten_year_window(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp_path = Path(tmpdir)

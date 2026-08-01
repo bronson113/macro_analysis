@@ -167,6 +167,64 @@ class RawDataEngine:
 
         return saved
 
+    @staticmethod
+    def _clean_for_json(obj):
+        if isinstance(obj, float):
+            if math.isnan(obj) or math.isinf(obj):
+                return None
+            return obj
+        if isinstance(obj, dict):
+            return {key: RawDataEngine._clean_for_json(value) for key, value in obj.items()}
+        if isinstance(obj, list):
+            return [RawDataEngine._clean_for_json(value) for value in obj]
+        return obj
+
+    def _write_payload(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """Persist the current raw payload and its latest dashboard source."""
+        payload = self._clean_for_json(payload)
+        metadata = payload.get("metadata") if isinstance(payload, dict) else {}
+        today_str = metadata.get("date") if isinstance(metadata, dict) else None
+        today_str = today_str or datetime.now().strftime("%Y-%m-%d")
+        payload_path = self.output_dir / f"raw_macro_payload_{today_str}.json"
+        latest_path = self.output_dir / "latest_raw_payload.json"
+
+        with open(payload_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2)
+        with open(latest_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2)
+        return payload
+
+    def publish_constituent_assessments(
+        self, payload: Dict[str, Any], constituent_assessments: List[Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """Merge mechanical relative-value results into the stock rows consumed by the web app."""
+        assessments = [
+            dict(assessment)
+            for assessment in constituent_assessments
+            if isinstance(assessment, dict) and assessment.get("ticker")
+        ]
+        assessments_by_ticker = {
+            assessment["ticker"]: assessment for assessment in assessments
+        }
+        stocks = payload.get("individual_stock_constituents") or []
+        enriched_stocks = []
+        for stock in stocks:
+            if not isinstance(stock, dict):
+                enriched_stocks.append(stock)
+                continue
+            enriched = dict(stock)
+            assessment = assessments_by_ticker.get(enriched.get("ticker"))
+            if assessment:
+                enriched["relative_valuation_status"] = assessment.get(
+                    "relative_valuation_status", "Not yet assessed"
+                )
+                enriched["relative_posture"] = assessment.get("posture", "NEUTRAL")
+            enriched_stocks.append(enriched)
+
+        payload["individual_stock_constituents"] = enriched_stocks
+        payload["constituent_assessments"] = assessments
+        return self._write_payload(payload)
+
     def build_raw_payload(
         self, evidence_assessments: Optional[List[Dict[str, Any]]] = None
     ) -> Dict[str, Any]:
@@ -201,30 +259,10 @@ class RawDataEngine:
             "individual_stock_constituents": stock_constituents
         }
 
-        def _clean_for_json(obj):
-            if isinstance(obj, float):
-                if math.isnan(obj) or math.isinf(obj):
-                    return None
-                return obj
-            elif isinstance(obj, dict):
-                return {k: _clean_for_json(v) for k, v in obj.items()}
-            elif isinstance(obj, list):
-                return [_clean_for_json(v) for v in obj]
-            return obj
-
-        payload = _clean_for_json(payload)
-
-        # Save to output files
-        payload_path = self.output_dir / f"raw_macro_payload_{today_str}.json"
-        latest_path = self.output_dir / "latest_raw_payload.json"
-
-        with open(payload_path, "w", encoding="utf-8") as f:
-            json.dump(payload, f, indent=2)
-
-        with open(latest_path, "w", encoding="utf-8") as f:
-            json.dump(payload, f, indent=2)
+        payload = self._write_payload(payload)
 
         if self.verbose:
+            payload_path = self.output_dir / f"raw_macro_payload_{today_str}.json"
             logging.info(f"Raw data payload generated: {payload_path}")
             print(f"--> Raw Data Payload generated: {payload_path} ({len(stock_constituents)} stock constituents included)")
 

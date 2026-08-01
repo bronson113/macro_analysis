@@ -7,6 +7,7 @@ import BigUpdate from './components/BigUpdate';
 import LlmAnalysis from './components/LlmAnalysis';
 import TrendGraphs from './components/TrendGraphs';
 import CheatSheet from './components/CheatSheet';
+import EvidenceAssessment from './components/EvidenceAssessment';
 import { descriptions } from './utils/descriptions';
 import { buildFreshnessStatus } from './utils/dashboardPresentation';
 
@@ -75,7 +76,13 @@ function App() {
     );
   }
 
-  const { metadata, macro_quantitative: mq, recent_news_events, individual_stock_constituents } = data || {};
+  const {
+    metadata,
+    macro_quantitative: mq,
+    recent_news_events,
+    individual_stock_constituents,
+    evidence_assessments,
+  } = data || {};
   const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
 
   return (
@@ -92,9 +99,10 @@ function App() {
           <nav className="dashboard-toc" aria-label="Dashboard sections">
             <a href="#llm-analysis-heading"><span aria-hidden="true">01</span>Priority</a>
             <a href="#big-update-heading"><span aria-hidden="true">02</span>Daily Brief</a>
-            <a href="#trends-heading"><span aria-hidden="true">03</span>Trends</a>
-            <a href="#indicators-heading"><span aria-hidden="true">04</span>Indicators</a>
-            <a href="#deep-dive-heading"><span aria-hidden="true">05</span>Deep Dive</a>
+            <a href="#evidence-heading"><span aria-hidden="true">03</span>Evidence</a>
+            <a href="#trends-heading"><span aria-hidden="true">04</span>Trends</a>
+            <a href="#indicators-heading"><span aria-hidden="true">05</span>Indicators</a>
+            <a href="#deep-dive-heading"><span aria-hidden="true">06</span>Deep Dive</a>
           </nav>
 
           <section className="data-status" aria-label="Data status">
@@ -116,6 +124,7 @@ function App() {
           <LlmAnalysis />
 
           {/* Supporting automated data and report views */}
+          <EvidenceAssessment assessments={evidence_assessments} />
           <TrendGraphs />
           <BigUpdate reports={reports} />
 

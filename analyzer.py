@@ -474,6 +474,9 @@ class MacroAnalyzer:
         )
         mechanical_analysis = self.mechanical_analyst.analyze_raw_payload(raw_payload)
         constituent_assessments = mechanical_analysis.get("constituent_assessments", [])
+        self.raw_engine.publish_constituent_assessments(
+            raw_payload, constituent_assessments
+        )
 
         return {
             "summary": snapshot,

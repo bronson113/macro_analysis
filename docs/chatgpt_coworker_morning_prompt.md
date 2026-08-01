@@ -50,6 +50,7 @@ Morning checklist:
    - Single-Stock Watchlist: only include names where sector-level risk is acceptable and valuation/quality checks support review.
    - Invalidation Triggers: what data would change the call.
    - Repo Follow-Up, if needed: exact issue and proposed Codex task.
+   - Research Disclosure: `Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.`
 
 6. If the automated report already contains a recommendation that looks mechanically wrong, be explicit:
    - Quote or paraphrase the questionable recommendation.
@@ -67,6 +68,7 @@ Output style:
 - Be direct and decision-oriented.
 - Use dates and values whenever available.
 - Do not give personalized financial advice. Frame outputs as research posture and risk review.
+- Do not present WATCH, AVOID, or any outcome evaluation as a validated strategy or trade instruction.
 - Be candid about any failed or blocked commit, push, or deployment step.
 ```
 

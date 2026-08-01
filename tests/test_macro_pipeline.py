@@ -579,6 +579,36 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertGreater(len(payload["individual_stock_constituents"]), 10)
         self.assertTrue((self.tmp_path / "raw_output" / "latest_raw_payload.json").exists())
 
+    def test_04a_payload_enrichment_publishes_relative_status_to_stock_rows(self):
+        """Dashboard stock rows receive their matching mechanical research status."""
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(
+                indicators_csv=f"{tmp}/ind.csv",
+                observations_csv=f"{tmp}/obs.csv",
+                snapshots_csv=f"{tmp}/snap.csv",
+                news_csv=f"{tmp}/news.csv",
+                run_logs_csv=f"{tmp}/logs.csv",
+            )
+            raw_engine = RawDataEngine(storage, output_dir=Path(tmp) / "output", verbose=False)
+            raw_engine.fetch_individual_stock_metrics = lambda: [
+                {"ticker": "NVDA", "peer_cohort": "Fabless Accelerators", "price": 100.0},
+            ]
+            payload = raw_engine.build_raw_payload()
+            raw_engine.publish_constituent_assessments(payload, [{
+                "ticker": "NVDA",
+                "relative_valuation_status": "Fair vs Historical Cohort Relationship",
+                "posture": "NEUTRAL",
+            }])
+
+            exported = json.loads((Path(tmp) / "output" / "latest_raw_payload.json").read_text())
+
+        self.assertEqual(
+            exported["individual_stock_constituents"][0]["relative_valuation_status"],
+            "Fair vs Historical Cohort Relationship",
+        )
+        self.assertEqual(exported["individual_stock_constituents"][0]["relative_posture"], "NEUTRAL")
+        self.assertEqual(exported["constituent_assessments"][0]["ticker"], "NVDA")
+
     def test_04b_raw_payload_saves_current_stock_cohort_relative_multiples(self):
         """Raw stock collection should use cohort medians for future relative history."""
         with tempfile.TemporaryDirectory() as tmp:
@@ -857,6 +887,10 @@ class TestMacroPipeline(unittest.TestCase):
                 return {}
 
             analyzer.raw_engine.build_raw_payload = build_raw_payload
+            published_assessments = []
+            analyzer.raw_engine.publish_constituent_assessments = (
+                lambda payload, assessments: published_assessments.append((payload, assessments))
+            )
             analyzer.mechanical_analyst.analyze_raw_payload = lambda payload: {
                 "constituent_assessments": [
                     {
@@ -881,6 +915,7 @@ class TestMacroPipeline(unittest.TestCase):
             analysis["evidence_assessments"],
         )
         self.assertIn("constituent_assessments", analysis)
+        self.assertEqual(published_assessments[0][1], analysis["constituent_assessments"])
         self.assertNotIn("recommendations", analysis)
         self.assertNotIn("lagging_stock_opportunities", analysis)
         serialized = json.dumps(analysis["evidence_assessments"])
