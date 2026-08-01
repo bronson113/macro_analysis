@@ -9,7 +9,7 @@ import TrendGraphs from './components/TrendGraphs';
 import CheatSheet from './components/CheatSheet';
 import EvidenceAssessment from './components/EvidenceAssessment';
 import { descriptions } from './utils/descriptions';
-import { buildFreshnessStatus } from './utils/dashboardPresentation';
+import { buildFreshnessStatus, DASHBOARD_SECTIONS } from './utils/dashboardPresentation';
 import { buildSourceHealthView } from './utils/sourceHealthPresentation';
 
 function SourceHealthSection({ records = [] }) {
@@ -134,6 +134,37 @@ function App() {
     source_health: sourceHealth,
   } = data || {};
   const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
+  const sectionContent = {
+    editorial: <EditorialReview />,
+    dailyBrief: <BigUpdate reports={reports} />,
+    evidence: <EvidenceAssessment assessments={evidence_assessments} />,
+    trends: <TrendGraphs />,
+    indicators: mq ? (
+      <div className="section animate-fade-in stagger-4" id="indicators-heading">
+        <div className="section-header">
+          <h2>Current Indicators</h2>
+        </div>
+        <div className="grid grid-cols-4">
+          <StatCard title="Fed Total Assets" value={mq.fed_total_assets?.value} date={mq.fed_total_assets?.date} unit="M" format="currency" description={descriptions.fed_total_assets} />
+          <StatCard title="TGA Balance" value={mq.tga_balance?.value} date={mq.tga_balance?.date} unit="M" format="currency" description={descriptions.tga_balance} />
+          <StatCard title="10Y Treasury Yield" value={mq.treasury_10y?.value} date={mq.treasury_10y?.date} format="percent" description={descriptions.treasury_10y} />
+          <StatCard title="10Y-2Y Spread" value={mq.spread_10y_2y?.value} date={mq.spread_10y_2y?.date} format="percent" description={descriptions.spread_10y_2y} />
+        </div>
+      </div>
+    ) : null,
+    deepDive: (
+      <div className="section" id="deep-dive-heading">
+        <div className="section-header">
+          <h2>Deep Dive</h2>
+        </div>
+        <div className="grid grid-cols-2 deep-dive-grid">
+          <NewsFeed newsEvents={recent_news_events} />
+          <StockMatrix stocks={individual_stock_constituents} />
+        </div>
+      </div>
+    ),
+    sourceHealth: <SourceHealthSection records={sourceHealth || []} />,
+  };
 
   return (
     <div className="container">
@@ -147,13 +178,11 @@ function App() {
       <div className="dashboard-shell">
         <aside className="section-rail">
           <nav className="dashboard-toc" aria-label="Dashboard sections">
-            <a href="#editorial-review-heading"><span aria-hidden="true">01</span>Editorial Review</a>
-            <a href="#big-update-heading"><span aria-hidden="true">02</span>Daily Brief</a>
-            <a href="#source-health-heading"><span aria-hidden="true">03</span>Source Health</a>
-            <a href="#evidence-heading"><span aria-hidden="true">04</span>Evidence</a>
-            <a href="#trends-heading"><span aria-hidden="true">05</span>Trends</a>
-            <a href="#indicators-heading"><span aria-hidden="true">06</span>Indicators</a>
-            <a href="#deep-dive-heading"><span aria-hidden="true">07</span>Deep Dive</a>
+            {DASHBOARD_SECTIONS.map(({ key, headingId, navLabel }, index) => (
+              <a href={`#${headingId}`} key={key}>
+                <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{navLabel}
+              </a>
+            ))}
           </nav>
 
           <section className="data-status" aria-label="Data status">
@@ -172,38 +201,9 @@ function App() {
         </aside>
 
         <main className="dashboard-content">
-          <EditorialReview />
-          {/* Supporting automated data and report views */}
-          <SourceHealthSection records={sourceHealth || []} />
-          <EvidenceAssessment assessments={evidence_assessments} />
-          <TrendGraphs />
-          <BigUpdate reports={reports} />
-
-          {/* Secondary Focus: Quantitative Indicators */}
-          {mq && (
-            <div className="section animate-fade-in stagger-4" id="indicators-heading">
-              <div className="section-header">
-                <h2>Current Indicators</h2>
-              </div>
-              <div className="grid grid-cols-4">
-                <StatCard title="Fed Total Assets" value={mq.fed_total_assets?.value} date={mq.fed_total_assets?.date} unit="M" format="currency" description={descriptions.fed_total_assets} />
-                <StatCard title="TGA Balance" value={mq.tga_balance?.value} date={mq.tga_balance?.date} unit="M" format="currency" description={descriptions.tga_balance} />
-                <StatCard title="10Y Treasury Yield" value={mq.treasury_10y?.value} date={mq.treasury_10y?.date} format="percent" description={descriptions.treasury_10y} />
-                <StatCard title="10Y-2Y Spread" value={mq.spread_10y_2y?.value} date={mq.spread_10y_2y?.date} format="percent" description={descriptions.spread_10y_2y} />
-              </div>
-            </div>
-          )}
-
-          {/* Deep Dive Data */}
-          <div className="section" id="deep-dive-heading">
-            <div className="section-header">
-              <h2>Deep Dive</h2>
-            </div>
-            <div className="grid grid-cols-2 deep-dive-grid">
-              <NewsFeed newsEvents={recent_news_events} />
-              <StockMatrix stocks={individual_stock_constituents} />
-            </div>
-          </div>
+          {DASHBOARD_SECTIONS.map(({ key }) => (
+            <React.Fragment key={key}>{sectionContent[key]}</React.Fragment>
+          ))}
         </main>
       </div>
 
