@@ -164,6 +164,37 @@ class TestEvidenceAggregation(unittest.TestCase):
                     current_width,
                 )
 
+    def test_fractional_weights_round_uncertainty_endpoints_outward(self):
+        current = aggregate_evidence(
+            [
+                factor("dominant", 0.28, weight=0.01),
+                factor("counter", -0.25, weight=0.01),
+            ],
+            expected_weight=17.03,
+        )
+        missing = aggregate_evidence(
+            [
+                factor("dominant", 0.28, weight=0.01),
+                factor("counter", -0.25, quality="missing", weight=0.01),
+            ],
+            expected_weight=17.03,
+        )
+        stale = aggregate_evidence(
+            [
+                factor("dominant", 0.28, weight=0.01),
+                factor("counter", -0.25, quality="stale", weight=0.01),
+            ],
+            expected_weight=17.03,
+        )
+
+        current_width = current["score_range"][1] - current["score_range"][0]
+        self.assertGreaterEqual(
+            missing["score_range"][1] - missing["score_range"][0], current_width
+        )
+        self.assertGreaterEqual(
+            stale["score_range"][1] - stale["score_range"][0], current_width
+        )
+
     def test_only_a_range_clear_of_neutral_threshold_gets_directional_posture(self):
         self.assertEqual(
             aggregate_evidence([factor("a", 4), factor("b", 4)], 2)["posture"],

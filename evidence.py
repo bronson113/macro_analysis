@@ -1,6 +1,7 @@
 """Immutable evidence records and deterministic research-posture aggregation."""
 
 from dataclasses import asdict, dataclass
+from math import ceil, floor
 from typing import Any, Iterable, Optional
 
 
@@ -81,6 +82,8 @@ def aggregate_evidence(
     elif high > 10.0:
         low = max(-10.0, low - (high - 10.0))
         high = 10.0
+    low = max(-10.0, floor(low * 100.0) / 100.0)
+    high = min(10.0, ceil(high * 100.0) / 100.0)
     posture = "WATCH" if low >= 2.0 else "AVOID" if high <= -2.0 else "NEUTRAL"
 
     return {
