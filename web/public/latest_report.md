@@ -187,7 +187,7 @@ Tracking valuation multiples and downstream physical dependencies across compute
 | **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.18x` | `45.51x` | `28.0x` | `Undervalued / Discounted Super-Cycle` |
 | **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `17.21x` | `30.38x` | `16.0x` | `Fairly Valued` |
 | **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `58.69x` | `51.88x` | `30.0x` | `Rich Multiple / Growth Premium` |
-| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `25.02x` | `29.48x` | `22.0x` | `Fairly Valued` |
+| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `25.00x` | `29.48x` | `22.0x` | `Fairly Valued` |
 | **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `17.71x` | `25.21x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
 | **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `27.74x` | `41.73x` | `26.0x` | `Fairly Valued` |
 | **7. Critical Materials & Magnets** | `FCX`, `MP` | `29.42x` | `11.10x` | `18.0x` | `Rich Multiple / Growth Premium` |
