@@ -1,7 +1,7 @@
 """
 News Analyzer module for Macro Economic Analysis System.
-Fetches, categorizes, and evaluates sentiment/impact for major macroeconomic news,
-and performs Sector Bellwether Contagion Analysis (e.g., Micron, Nvidia, JPMorgan news impacting entire sectors).
+Fetches and categorizes major macroeconomic news as provenance-rich,
+uninterpreted context for research review.
 """
 
 import re
@@ -42,11 +42,11 @@ SECTOR_BELLWETHERS = {
     "UNH": {"name": "UnitedHealth Group", "sector": "Healthcare / Managed Care", "etf": "XLV"}
 }
 
-# Keyword rules for impact scoring & sentiment classification
+# Keyword rules for non-directional topic context.
 HAWKISH_KEYWORDS = ["rate hike", "hikes", "tightening", "hotter", "higher inflation", "hawkish", "sticky inflation", "surge"]
 DOVISH_KEYWORDS = ["rate cut", "cuts", "easing", "cooling", "lower inflation", "dovish", "slowdown", "softening"]
 STRESS_KEYWORDS = ["default", "crisis", "panic", "stress", "turmoil", "sell-off", "collapse", "downgrade", "liquidity squeeze"]
-CONTAGION_KEYWORDS = ["capex cut", "guidance cut", "demand slump", "warning", "inventory glut", "margin squeeze", "revenue miss", "layoffs"]
+CORPORATE_FUNDAMENTALS_KEYWORDS = ["capex cut", "guidance cut", "demand slump", "warning", "inventory glut", "margin squeeze", "revenue miss", "layoffs"]
 
 
 class MacroNewsAnalyzer:
@@ -54,32 +54,33 @@ class MacroNewsAnalyzer:
         self.storage = storage or MacroStorage()
         self.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) MacroNewsFetcher/1.0"
 
-    def _classify_sentiment_and_impact(self, title: str, summary: str) -> Dict[str, Any]:
-        text = (title + " " + summary).lower()
+    def _tag_topics(self, title: str, summary: str) -> List[str]:
+        """Return non-directional topic tags found in a news item's text."""
+        text = f"{title or ''} {summary or ''}".lower()
+        tags = set()
 
-        score = 0.0
-        sentiment = "Neutral / Mixed"
+        if any(keyword in text for keyword in HAWKISH_KEYWORDS + DOVISH_KEYWORDS):
+            tags.add("monetary_policy")
+        if any(keyword in text for keyword in STRESS_KEYWORDS):
+            tags.add("stress")
+        if any(keyword in text for keyword in CORPORATE_FUNDAMENTALS_KEYWORDS):
+            tags.add("corporate_fundamentals")
 
-        hawkish_matches = sum(1 for k in HAWKISH_KEYWORDS if k in text)
-        dovish_matches = sum(1 for k in DOVISH_KEYWORDS if k in text)
-        stress_matches = sum(1 for k in STRESS_KEYWORDS if k in text)
-        contagion_matches = sum(1 for k in CONTAGION_KEYWORDS if k in text)
+        return sorted(tags)
 
-        if contagion_matches > 0 or stress_matches > 0:
-            sentiment = "Sector Contagion / Stress Warning"
-            score = -0.8
-        elif hawkish_matches > dovish_matches:
-            sentiment = "Hawkish / Tightening Bias"
-            score = -0.4
-        elif dovish_matches > hawkish_matches:
-            sentiment = "Dovish / Easing Bias"
-            score = 0.5
-
-        return {"impact_score": score, "sentiment": sentiment}
+    def _build_context(self, title: str, summary: str) -> Dict[str, Any]:
+        """Build topic context without assigning a market direction or impact score."""
+        return {
+            "topic_tags": self._tag_topics(title, summary),
+            "interpretation_status": "uninterpreted",
+            "impact_score": None,
+            "sentiment": None,
+        }
 
     def fetch_google_news(self) -> List[Dict[str, Any]]:
         all_news = []
-        today_str = datetime.now().strftime("%Y-%m-%d")
+        retrieved_at = datetime.now().isoformat()
+        today_str = retrieved_at[:10]
 
         for category, url in NEWS_RSS_QUERIES:
             req = urllib.request.Request(url, headers={"User-Agent": self.user_agent})
@@ -93,9 +94,10 @@ class MacroNewsAnalyzer:
                         link = item.find("link").text if item.find("link") is not None else ""
                         source = item.find("source").text if item.find("source") is not None else "Google News"
                         description = item.find("description").text if item.find("description") is not None else ""
+                        published_at = item.find("pubDate").text if item.find("pubDate") is not None else None
 
                         clean_summary = re.sub(r"<[^>]+>", "", description) if description else ""
-                        analysis = self._classify_sentiment_and_impact(title, clean_summary)
+                        context = self._build_context(title, clean_summary)
 
                         all_news.append({
                             "date": today_str,
@@ -104,8 +106,9 @@ class MacroNewsAnalyzer:
                             "source": source,
                             "link": link,
                             "category": category,
-                            "impact_score": analysis["impact_score"],
-                            "sentiment": analysis["sentiment"]
+                            "published_at": published_at,
+                            "retrieved_at": retrieved_at,
+                            **context,
                         })
             except Exception as e:
                 logging.error(f"Error fetching news for category {category}: {e}")
@@ -115,9 +118,10 @@ class MacroNewsAnalyzer:
     def fetch_bellwether_sector_news(self) -> List[Dict[str, Any]]:
         """
         Fetch news for sector bellwether companies (Micron, Nvidia, JPMorgan, Tesla, Exxon)
-        and assess potential sector-wide contagion risk.
+        as uninterpreted company context.
         """
-        today_str = datetime.now().strftime("%Y-%m-%d")
+        retrieved_at = datetime.now().isoformat()
+        today_str = retrieved_at[:10]
         bellwether_news = []
 
         for ticker, meta in SECTOR_BELLWETHERS.items():
@@ -129,15 +133,17 @@ class MacroNewsAnalyzer:
                     title = content.get("title") or item.get("title") or ""
                     summary = content.get("summary") or item.get("summary") or ""
                     link = content.get("canonicalUrl", {}).get("url") or item.get("link") or ""
+                    published_at = (
+                        content.get("pubDate")
+                        or content.get("published_at")
+                        or content.get("displayTime")
+                        or item.get("pubDate")
+                        or item.get("published_at")
+                    )
 
                     if title:
-                        analysis = self._classify_sentiment_and_impact(title, summary)
+                        context = self._build_context(title, summary)
                         category_str = f"Sector Bellwether: {ticker} ({meta['sector']})"
-
-                        # Elevate contagion classification if bellwether shows stress
-                        contagion_flag = "Low Risk"
-                        if "Contagion" in analysis["sentiment"] or analysis["impact_score"] < -0.5:
-                            contagion_flag = f"HIGH SECTOR RISK ({meta['etf']})"
 
                         bellwether_news.append({
                             "date": today_str,
@@ -146,8 +152,9 @@ class MacroNewsAnalyzer:
                             "source": f"Yahoo Finance ({ticker})",
                             "link": link,
                             "category": category_str,
-                            "impact_score": analysis["impact_score"],
-                            "sentiment": f"{analysis['sentiment']} | {contagion_flag}"
+                            "published_at": published_at,
+                            "retrieved_at": retrieved_at,
+                            **context,
                         })
             except Exception as e:
                 logging.error(f"Error fetching bellwether news for {ticker}: {e}")

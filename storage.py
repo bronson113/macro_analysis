@@ -5,6 +5,7 @@ Manages data insertion, time series queries, daily snapshots, and news events us
 
 import os
 import threading
+import json
 import pandas as pd
 from datetime import datetime
 from typing import Dict, List, Optional, Any
@@ -12,6 +13,13 @@ from config import (
     FRED_SERIES, YAHOO_TICKERS, MARKET_SENTIMENT_INDICATORS,
     INDICATORS_CSV, OBSERVATIONS_CSV, SNAPSHOTS_CSV, NEWS_CSV, RUN_LOGS_CSV
 )
+
+
+NEWS_COLUMNS = [
+    'id', 'date', 'title', 'summary', 'source', 'link', 'category',
+    'topic_tags', 'interpretation_status', 'published_at', 'retrieved_at',
+    'impact_score', 'sentiment', 'created_at',
+]
 
 
 class MacroStorage:
@@ -62,7 +70,7 @@ class MacroStorage:
             
         # News
         if not os.path.exists(self.news_csv):
-            pd.DataFrame(columns=['id', 'date', 'title', 'summary', 'source', 'link', 'category', 'impact_score', 'sentiment', 'created_at']).to_csv(self.news_csv, index=False)
+            pd.DataFrame(columns=NEWS_COLUMNS).to_csv(self.news_csv, index=False)
             
         # Run logs
         if not os.path.exists(self.run_logs_csv):
@@ -161,8 +169,12 @@ class MacroStorage:
                 'source': item.get("source", "News"),
                 'link': item.get("link", ""),
                 'category': item.get("category", "General Macro"),
-                'impact_score': item.get("impact_score", 0.0),
-                'sentiment': item.get("sentiment", "Neutral"),
+                'topic_tags': self._serialize_topic_tags(item.get("topic_tags", [])),
+                'interpretation_status': item.get("interpretation_status", "uninterpreted"),
+                'published_at': item.get("published_at"),
+                'retrieved_at': item.get("retrieved_at"),
+                'impact_score': item.get("impact_score"),
+                'sentiment': item.get("sentiment"),
                 'created_at': datetime.now().isoformat()
             })
             
@@ -183,8 +195,50 @@ class MacroStorage:
         df = pd.read_csv(self.news_csv)
         if df.empty:
             return []
+        for column in ('topic_tags', 'interpretation_status', 'published_at', 'retrieved_at'):
+            if column not in df.columns:
+                df[column] = None
         df = df.sort_values(by=['date', 'id'], ascending=[False, False]).head(limit)
-        return df.to_dict('records')
+        records = df.to_dict('records')
+        for record in records:
+            record['topic_tags'] = self._deserialize_topic_tags(record.get('topic_tags'))
+            if self._is_missing(record.get('interpretation_status')):
+                record['interpretation_status'] = 'legacy_uninterpreted'
+            for field in ('impact_score', 'sentiment', 'published_at', 'retrieved_at'):
+                if self._is_missing(record.get(field)):
+                    record[field] = None
+        return records
+
+    @staticmethod
+    def _serialize_topic_tags(tags: Any) -> str:
+        """Store tags as deterministic JSON instead of a Python representation."""
+        if isinstance(tags, str):
+            try:
+                tags = json.loads(tags)
+            except json.JSONDecodeError:
+                tags = []
+        if not isinstance(tags, (list, tuple, set)):
+            tags = []
+        normalized = sorted({str(tag) for tag in tags if tag is not None and str(tag)})
+        return json.dumps(normalized, ensure_ascii=False, separators=(',', ':'))
+
+    @staticmethod
+    def _deserialize_topic_tags(value: Any) -> List[str]:
+        if isinstance(value, (list, tuple, set)):
+            return sorted({str(tag) for tag in value if tag is not None and str(tag)})
+        if MacroStorage._is_missing(value):
+            return []
+        try:
+            parsed = json.loads(value)
+        except (TypeError, json.JSONDecodeError):
+            return []
+        if not isinstance(parsed, list):
+            return []
+        return sorted({str(tag) for tag in parsed if tag is not None and str(tag)})
+
+    @staticmethod
+    def _is_missing(value: Any) -> bool:
+        return value is None or (not isinstance(value, (list, tuple, set, dict)) and pd.isna(value))
 
     def get_latest_observation(self, indicator_key: str) -> Optional[Dict[str, Any]]:
         with self._lock:

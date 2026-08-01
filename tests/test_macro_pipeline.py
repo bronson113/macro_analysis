@@ -29,6 +29,7 @@ from ai_ecosystem import AIRoboticsEcosystemTracker
 from macro_matrix import MacroMatrixEngine
 from mechanical_analyst import MechanicalMacroAnalyst
 from peer_cohorts import ticker_to_cohort
+from recommendations import SectorEvidenceEngine
 from raw_data_engine import RawDataEngine
 from stock_relative_valuation import relative_multiple_key
 from reporter import MacroReporter
@@ -63,6 +64,54 @@ class TestMacroPipeline(unittest.TestCase):
         latest = self.storage.get_latest_observation("test_metric")
         self.assertIsNotNone(latest)
         self.assertEqual(latest["value"], 101.2)
+
+    def test_01a_uninterpreted_news_cannot_change_sector_evidence_score(self):
+        """A future keyword-scoring rule must not affect a sector evidence assessment."""
+        inputs = {
+            "summary": {
+                "date": "2026-08-01",
+                "liquidity_regime": "Expanding (+30d)",
+                "treasury_10y": 4.6,
+                "breakeven_10y": 2.1,
+                "housing_yoy": -12.0,
+            },
+            "credit": {"high_yield_oas": 5.2},
+            "valuations": [
+                {"sector": "Technology (XLK)", "history": {"percentile": 20.0}}
+            ],
+            "ai_ecosystem": [],
+            "macro_situation": {
+                "quality": "OK",
+                "name": "Fixture regime",
+                "favored_sectors": ["Technology (XLK)"],
+                "disfavored_sectors": [],
+            },
+        }
+
+        without_news = SectorEvidenceEngine().generate_assessments(
+            **inputs, news_events=[]
+        )
+        with_news = SectorEvidenceEngine().generate_assessments(
+            **inputs,
+            news_events=[
+                {
+                    "title": "crisis rate hike layoffs",
+                    "topic_tags": ["stress"],
+                    "interpretation_status": "uninterpreted",
+                }
+            ],
+        )
+
+        without_news_technology = next(
+            item for item in without_news if item["sector_group"] == "Technology (XLK)"
+        )
+        with_news_technology = next(
+            item for item in with_news if item["sector_group"] == "Technology (XLK)"
+        )
+        self.assertEqual(with_news_technology["score"], without_news_technology["score"])
+        self.assertEqual(
+            with_news_technology["posture"], without_news_technology["posture"]
+        )
 
     def test_01b_fred_fetch_keeps_ten_year_history_window(self):
         """FRED backfill should retain observations inside the dashboard's 10-year window."""
