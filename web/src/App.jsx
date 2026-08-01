@@ -4,6 +4,7 @@ import StatCard from './components/StatCard';
 import NewsFeed from './components/NewsFeed';
 import StockMatrix from './components/StockMatrix';
 import BigUpdate from './components/BigUpdate';
+import EditorialReview from './components/EditorialReview';
 import TrendGraphs from './components/TrendGraphs';
 import CheatSheet from './components/CheatSheet';
 import EvidenceAssessment from './components/EvidenceAssessment';
@@ -146,12 +147,13 @@ function App() {
       <div className="dashboard-shell">
         <aside className="section-rail">
           <nav className="dashboard-toc" aria-label="Dashboard sections">
-            <a href="#big-update-heading"><span aria-hidden="true">01</span>Daily Brief</a>
-            <a href="#source-health-heading"><span aria-hidden="true">02</span>Source Health</a>
-            <a href="#evidence-heading"><span aria-hidden="true">03</span>Evidence</a>
-            <a href="#trends-heading"><span aria-hidden="true">04</span>Trends</a>
-            <a href="#indicators-heading"><span aria-hidden="true">05</span>Indicators</a>
-            <a href="#deep-dive-heading"><span aria-hidden="true">06</span>Deep Dive</a>
+            <a href="#editorial-review-heading"><span aria-hidden="true">01</span>Editorial Review</a>
+            <a href="#big-update-heading"><span aria-hidden="true">02</span>Daily Brief</a>
+            <a href="#source-health-heading"><span aria-hidden="true">03</span>Source Health</a>
+            <a href="#evidence-heading"><span aria-hidden="true">04</span>Evidence</a>
+            <a href="#trends-heading"><span aria-hidden="true">05</span>Trends</a>
+            <a href="#indicators-heading"><span aria-hidden="true">06</span>Indicators</a>
+            <a href="#deep-dive-heading"><span aria-hidden="true">07</span>Deep Dive</a>
           </nav>
 
           <section className="data-status" aria-label="Data status">
@@ -170,6 +172,7 @@ function App() {
         </aside>
 
         <main className="dashboard-content">
+          <EditorialReview />
           {/* Supporting automated data and report views */}
           <SourceHealthSection records={sourceHealth || []} />
           <EvidenceAssessment assessments={evidence_assessments} />
