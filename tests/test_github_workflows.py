@@ -4,10 +4,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKFLOW_PATHS = (
-    ROOT / ".github/workflows/daily_macro.yml",
-    ROOT / ".github/workflows/chatgpt_coworker.yml",
-)
+WORKFLOW_PATHS = (ROOT / ".github/workflows/daily_macro.yml",)
 
 
 class TestGitHubWorkflows(unittest.TestCase):
@@ -18,11 +15,14 @@ class TestGitHubWorkflows(unittest.TestCase):
             self.assertTrue(uses)
             self.assertTrue(all(re.search(r"@[0-9a-f]{40}$", item) for item in uses))
 
-    def test_data_workflow_ignores_chatgpt_coworker_artifact(self):
+    def test_legacy_llm_trade_directive_delivery_is_retired(self):
         workflow = (ROOT / ".github/workflows/daily_macro.yml").read_text()
+        dashboard = (ROOT / "web/src/App.jsx").read_text()
 
-        self.assertIn("paths-ignore:", workflow)
-        self.assertIn("web/public/llm_analysis.md", workflow)
+        self.assertNotIn("llm_analysis.md", workflow)
+        self.assertNotIn("LlmAnalysis", dashboard)
+        self.assertFalse((ROOT / "web/public/llm_analysis.md").exists())
+        self.assertFalse((ROOT / ".github/workflows/chatgpt_coworker.yml").exists())
 
     def test_docker_dashboard_serves_unified_payload(self):
         compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")
@@ -32,16 +32,6 @@ class TestGitHubWorkflows(unittest.TestCase):
             compose,
         )
         self.assertNotIn("./output/latest_raw_payload.json", compose)
-
-    def test_chatgpt_coworker_workflow_deploys_without_data_fetch(self):
-        workflow = (ROOT / ".github/workflows/chatgpt_coworker.yml").read_text()
-
-        self.assertIn("paths:", workflow)
-        self.assertIn("web/public/llm_analysis.md", workflow)
-        self.assertNotIn("python prefetch_fred.py", workflow)
-        self.assertNotIn("python main.py run", workflow)
-        self.assertNotIn("validate_fresh_macro_data.py", workflow)
-
 
 if __name__ == "__main__":
     unittest.main()

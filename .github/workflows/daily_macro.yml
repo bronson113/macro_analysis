@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - 'web/public/llm_analysis.md'
-      - 'docs/chatgpt_coworker_morning_prompt.md'
   workflow_dispatch:
   schedule:
     # Run once at a fixed UTC time. This is 2:30 AM PST / 3:30 AM PDT.
