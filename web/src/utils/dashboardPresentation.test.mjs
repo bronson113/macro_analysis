@@ -3,8 +3,24 @@ import assert from 'node:assert/strict';
 
 import {
   buildFreshnessStatus,
+  DASHBOARD_SECTIONS,
   splitReportSections,
 } from './dashboardPresentation.js';
+
+test('dashboard sections follow decision relevance with source health last', () => {
+  assert.deepEqual(
+    DASHBOARD_SECTIONS.map(({ key, navLabel }) => [key, navLabel]),
+    [
+      ['editorial', 'Editorial Review'],
+      ['dailyBrief', 'Daily Brief'],
+      ['evidence', 'Evidence'],
+      ['trends', 'Trends'],
+      ['indicators', 'Indicators'],
+      ['deepDive', 'Deep Dive'],
+      ['sourceHealth', 'Source Health'],
+    ],
+  );
+});
 
 test('splitReportSections extracts summary, active situation, risks, and full report tabs', () => {
   const markdown = [
