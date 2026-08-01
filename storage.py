@@ -407,7 +407,15 @@ class MacroStorage:
             record["topic_tags"] = self._deserialize_topic_tags(record.get("topic_tags"))
             if self._is_missing(record.get("interpretation_status")):
                 record["interpretation_status"] = "legacy_uninterpreted"
-            for field in ("impact_score", "sentiment", "published_at", "retrieved_at"):
+            for field in ("impact_score", "sentiment"):
+                if self._is_missing(record.get(field)):
+                    record[field] = None
+            if record["interpretation_status"] == "legacy_uninterpreted":
+                # Retired directional values remain in historical CSVs for auditability,
+                # but legacy context must never republish them.
+                record["impact_score"] = None
+                record["sentiment"] = None
+            for field in ("published_at", "retrieved_at"):
                 if self._is_missing(record.get(field)):
                     record[field] = None
         return records

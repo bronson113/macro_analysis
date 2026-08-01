@@ -114,6 +114,8 @@ class TestNewsContext(unittest.TestCase):
         self.assertIsNone(current["sentiment"])
         self.assertEqual(legacy["topic_tags"], [])
         self.assertEqual(legacy["interpretation_status"], "legacy_uninterpreted")
+        self.assertIsNone(legacy["impact_score"])
+        self.assertIsNone(legacy["sentiment"])
 
 
 if __name__ == "__main__":

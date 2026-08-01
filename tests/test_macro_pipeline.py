@@ -1261,7 +1261,7 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertIn("secondary valuation overlay", content)
 
     def test_07_markdown_report_starts_with_semantic_notable_summary(self):
-        """Daily reports open with macro, news, and material evidence summaries."""
+        """Daily reports summarize macro and evidence, not legacy news sentiment."""
         analysis = {
             "summary": {
                 "date": "2026-07-22",
@@ -1323,12 +1323,13 @@ class TestMacroPipeline(unittest.TestCase):
 
         self.assertIn("## Notable Summary", content)
         self.assertLess(content.index("## Notable Summary"), content.index("## 1. Active Macro Situation"))
-        self.assertIn("Fed signals a major policy shift", content)
         self.assertIn("Semiconductors has `WATCH` research posture", content)
         self.assertIn("Semiconductors", content)
         self.assertIn("Utilities", content)
         self.assertIn("Deterministic outputs are research heuristics", content)
-        self.assertNotIn("Routine market color", content.split("## 1. Active Macro Situation")[0])
+        notable_summary = content.split("## 1. Active Macro Situation")[0]
+        self.assertNotIn("Fed signals a major policy shift", notable_summary)
+        self.assertNotIn("Routine market color", notable_summary)
         self.assertNotIn("Recommended Action", content)
 
     def test_07a_notable_summary_compares_structured_sidecars(self):
@@ -1407,10 +1408,10 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertIn("**Unchanged:** **Macro:** Active quadrant", summary)
         self.assertIn("Liquidity tailwind is fading.", summary)
         self.assertNotIn("Previously: **Macro:", summary)
-        self.assertIn("**Unchanged:** **News:** Fed signals a major policy shift", summary)
+        self.assertNotIn("Fed signals a major policy shift", summary)
         self.assertIn("**Changed:** **Evidence:** Semiconductors", summary)
         self.assertIn("Previously: **Evidence:** Semiconductors has `WATCH`", summary)
-        self.assertIn("**New:** **News:** Credit spreads widen abruptly", summary)
+        self.assertNotIn("Credit spreads widen abruptly", summary)
         self.assertIn("**Removed:** **Evidence:** Utilities", summary)
         self.assertEqual(dated_state, latest_state)
         self.assertTrue(all(set(item) == {"key", "fingerprint", "body"} for item in dated_state))

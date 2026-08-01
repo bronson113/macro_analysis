@@ -148,7 +148,13 @@ class MacroReporter:
             return []
         if not isinstance(loaded, list):
             return []
-        return [item for value in loaded if (item := _as_notable_item(value))]
+        # Pre-evidence reports may have directional news notables.  Do not repeat
+        # those retired fields as a "Removed" item in new report output.
+        return [
+            item
+            for value in loaded
+            if (item := _as_notable_item(value)) and not item.key.startswith("news:")
+        ]
 
     def _write_notable_state(self, today_str: str, items: Iterable[NotableItem]) -> None:
         content = json.dumps([item.to_dict() for item in items], indent=2) + "\n"
@@ -158,7 +164,6 @@ class MacroReporter:
     def _build_notable_items(self, analysis: Dict[str, Any]) -> List[NotableItem]:
         """Build rendered notables from stable structured fields, not prior prose."""
         macro_sit = analysis.get("macro_situation", {})
-        news_events = analysis.get("news_events", [])
         assessments = analysis.get("evidence_assessments", [])
         market_details = analysis.get("market_details", {})
         items = []
@@ -173,22 +178,6 @@ class MacroReporter:
                 key="macro:regime",
                 fingerprint=f"macro:regime|{name}|{rates}|{liquidity}|{quality}",
                 body=f"**Macro:** Active quadrant is `{name}` ({rates}; {liquidity}). {description}".strip(),
-            ))
-
-        for event in sorted(
-            [item for item in news_events if (item.get("impact_score") or 0) >= 7],
-            key=lambda item: item.get("impact_score") or 0,
-            reverse=True,
-        )[:3]:
-            title = md_cell(event.get("title", "Untitled event"))
-            category = md_cell(event.get("category", "News"))
-            impact = event.get("impact_score", "N/A")
-            sentiment = md_cell(event.get("sentiment", "N/A"))
-            key = f"news:{re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')}"
-            items.append(NotableItem(
-                key=key,
-                fingerprint=f"{key}|{category}|{impact}|{sentiment}",
-                body=f"**News:** {title} ({category}; impact {impact}; {sentiment}).",
             ))
 
         material_assessments = [
