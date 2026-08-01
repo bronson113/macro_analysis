@@ -48,10 +48,8 @@ def aggregate_evidence(
     factors = list(factors)
     serialized = [item.to_dict() for item in factors]
     usable = [item for item in factors if item.quality == "current"]
-    stale = [item for item in factors if item.quality == "stale"]
 
     available_weight = sum(item.weight for item in usable)
-    stale_weight = sum(item.weight for item in stale)
     denominator = max(float(expected_weight), 1.0)
     coverage = min(1.0, available_weight / denominator)
 
@@ -59,31 +57,32 @@ def aggregate_evidence(
         -10.0,
         min(10.0, sum(item.contribution * item.weight for item in usable)),
     )
-    positive_weight = sum(
-        item.weight for item in factors if item.direction == "positive"
-    )
-    negative_weight = sum(
-        item.weight for item in factors if item.direction == "negative"
-    )
-    disagreement = min(positive_weight, negative_weight) / max(
-        positive_weight, negative_weight, 1.0
-    )
-    half_width = min(
-        5.0,
-        (1.0 - coverage) * 4.0
-        + disagreement * 2.0
-        + stale_weight / denominator * 2.0,
-    )
-    low = score - half_width
-    high = score + half_width
-    if low < -10.0:
-        high = min(10.0, high + (-10.0 - low))
-        low = -10.0
-    elif high > 10.0:
-        low = max(-10.0, low - (high - 10.0))
-        high = 10.0
-    low = max(-10.0, floor(low * 100.0) / 100.0)
-    high = min(10.0, ceil(high * 100.0) / 100.0)
+    if any(item.quality != "current" for item in factors):
+        low, high = -10.0, 10.0
+    else:
+        positive_weight = sum(
+            item.weight for item in factors if item.direction == "positive"
+        )
+        negative_weight = sum(
+            item.weight for item in factors if item.direction == "negative"
+        )
+        disagreement = min(positive_weight, negative_weight) / max(
+            positive_weight, negative_weight, 1.0
+        )
+        half_width = min(
+            5.0,
+            (1.0 - coverage) * 4.0 + disagreement * 2.0,
+        )
+        low = score - half_width
+        high = score + half_width
+        if low < -10.0:
+            high = min(10.0, high + (-10.0 - low))
+            low = -10.0
+        elif high > 10.0:
+            low = max(-10.0, low - (high - 10.0))
+            high = 10.0
+        low = max(-10.0, floor(low * 100.0) / 100.0)
+        high = min(10.0, ceil(high * 100.0) / 100.0)
     posture = "WATCH" if low >= 2.0 else "AVOID" if high <= -2.0 else "NEUTRAL"
 
     return {

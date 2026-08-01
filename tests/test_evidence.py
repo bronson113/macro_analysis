@@ -195,6 +195,34 @@ class TestEvidenceAggregation(unittest.TestCase):
             stale["score_range"][1] - stale["score_range"][0], current_width
         )
 
+    def test_fractional_counterevidence_at_both_caps_never_narrows_displayed_range(
+        self,
+    ):
+        for dominant, counter in ((5, -5), (-5, 5)):
+            current = aggregate_evidence(
+                [
+                    factor("dominant", dominant, weight=2),
+                    factor("counter", counter, weight=0.002),
+                ],
+                expected_weight=2,
+            )
+            current_width = current["score_range"][1] - current["score_range"][0]
+
+            for quality in ("missing", "stale"):
+                degraded = aggregate_evidence(
+                    [
+                        factor("dominant", dominant, weight=2),
+                        factor("counter", counter, quality=quality, weight=0.002),
+                    ],
+                    expected_weight=2,
+                )
+
+                self.assertEqual(degraded["score_range"], [-10.0, 10.0])
+                self.assertGreaterEqual(
+                    degraded["score_range"][1] - degraded["score_range"][0],
+                    current_width,
+                )
+
     def test_only_a_range_clear_of_neutral_threshold_gets_directional_posture(self):
         self.assertEqual(
             aggregate_evidence([factor("a", 4), factor("b", 4)], 2)["posture"],
