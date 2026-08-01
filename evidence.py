@@ -69,8 +69,14 @@ def aggregate_evidence(
         + disagreement * 2.0
         + stale_weight / denominator * 2.0,
     )
-    low = max(-10.0, score - half_width)
-    high = min(10.0, score + half_width)
+    low = score - half_width
+    high = score + half_width
+    if low < -10.0:
+        high = min(10.0, high + (-10.0 - low))
+        low = -10.0
+    elif high > 10.0:
+        low = max(-10.0, low - (high - 10.0))
+        high = 10.0
     posture = "WATCH" if low >= 2.0 else "AVOID" if high <= -2.0 else "NEUTRAL"
 
     return {

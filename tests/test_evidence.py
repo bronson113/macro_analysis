@@ -95,6 +95,43 @@ class TestEvidenceAggregation(unittest.TestCase):
             {"valuation", "credit"},
         )
 
+    def test_missing_or_stale_counterevidence_widens_clipped_ranges(self):
+        for dominant, counter, bound in ((5, -1, 10), (-5, 1, -10)):
+            current = aggregate_evidence(
+                [
+                    factor("first", dominant),
+                    factor("second", dominant),
+                    factor("counter", counter),
+                ],
+                expected_weight=3,
+            )
+            missing = aggregate_evidence(
+                [
+                    factor("first", dominant),
+                    factor("second", dominant),
+                    factor("counter", 0, quality="missing"),
+                ],
+                expected_weight=3,
+            )
+            stale = aggregate_evidence(
+                [
+                    factor("first", dominant),
+                    factor("second", dominant),
+                    factor("counter", counter, quality="stale"),
+                ],
+                expected_weight=3,
+            )
+
+            current_width = current["score_range"][1] - current["score_range"][0]
+            for degraded in (missing, stale):
+                self.assertLess(degraded["coverage_pct"], current["coverage_pct"])
+                self.assertGreater(
+                    degraded["score_range"][1] - degraded["score_range"][0],
+                    current_width,
+                )
+                self.assertEqual(degraded["score"], bound)
+                self.assertIn(bound, degraded["score_range"])
+
     def test_only_a_range_clear_of_neutral_threshold_gets_directional_posture(self):
         self.assertEqual(
             aggregate_evidence([factor("a", 4), factor("b", 4)], 2)["posture"],
