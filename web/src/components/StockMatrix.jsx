@@ -16,7 +16,8 @@ const StockMatrix = ({ stocks = [] }) => {
             <tr>
               <th scope="col">Ticker</th>
               <th scope="col">Name</th>
-              <th scope="col">Group</th>
+              <th scope="col">Peer cohort</th>
+              <th scope="col">Relative status</th>
               <th scope="col">Price</th>
               <th scope="col">Fwd P/E</th>
               <th scope="col">EV/EBITDA</th>
@@ -41,7 +42,8 @@ const StockMatrix = ({ stocks = [] }) => {
                     </a>
                   </th>
                   <td>{s.name}</td>
-                  <td><span className="text-muted">{s.group}</span></td>
+                  <td><span className="text-muted">{s.peer_cohort || s.group || 'Unspecified'}</span></td>
+                  <td><span className="relative-status">{s.relative_valuation_status || 'Not yet assessed'}</span></td>
                   <td>${Number(s.price).toFixed(2)}</td>
                   <td>{s.forward_pe ? Number(s.forward_pe).toFixed(1) : '-'}</td>
                   <td>{s.ev_ebitda ? Number(s.ev_ebitda).toFixed(1) : '-'}</td>

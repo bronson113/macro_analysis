@@ -22,6 +22,9 @@ OBSERVATIONS_CSV = DATA_DIR / "macro_observations.csv"
 SNAPSHOTS_CSV = DATA_DIR / "daily_snapshots.csv"
 NEWS_CSV = DATA_DIR / "macro_news.csv"
 RUN_LOGS_CSV = DATA_DIR / "run_logs.csv"
+SIGNALS_CSV = DATA_DIR / "signal_assessments.csv"
+SOURCE_HEALTH_CSV = DATA_DIR / "source_health.csv"
+OUTCOMES_JSON = OUTPUT_DIR / "outcome_evaluation.json"
 
 DASHBOARD_HISTORY_DAYS = 365 * 10
 

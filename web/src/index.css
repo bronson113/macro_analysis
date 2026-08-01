@@ -241,6 +241,41 @@ h3 { font-size: 1.2rem; margin: 0; }
 .section-header { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 14px; }
 .section-kicker { color: var(--cobalt); }
 
+.source-health-intro { max-width: 70ch; margin: -4px 0 18px; color: var(--slate); }
+.source-health-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; }
+.source-health-card { display: grid; gap: 13px; padding: 16px; box-shadow: none; }
+.source-health-card h3 { font-family: 'IBM Plex Sans', -apple-system, sans-serif; font-size: 0.92rem; font-weight: 700; }
+.source-health-card dl { display: grid; gap: 10px; margin: 0; }
+.source-health-card dl > div { display: grid; gap: 2px; }
+.source-health-card dt { color: var(--slate); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+.source-health-card dd { margin: 0; color: var(--ink); font-size: 0.8rem; overflow-wrap: anywhere; }
+.source-health-status { font-weight: 700; }
+.source-health-status.positive { color: var(--forest); }
+.source-health-status.negative { color: var(--brick); }
+.source-health-status.neutral { color: var(--cobalt); }
+.source-health-empty { color: var(--slate); box-shadow: none; }
+
+.evidence-intro { max-width: 70ch; margin: -4px 0 18px; color: var(--slate); }
+.evidence-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.evidence-card { display: flex; flex-direction: column; gap: 16px; padding: 18px; box-shadow: none; }
+.evidence-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.evidence-card-label { margin: 0 0 4px; color: var(--slate); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.evidence-card h3 { font-size: 1.2rem; }
+.evidence-posture { flex: 0 0 auto; padding: 4px 7px; border: 1px solid currentColor; border-radius: var(--radius-sm); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; }
+.evidence-posture.positive { color: var(--forest); }
+.evidence-posture.negative { color: var(--brick); }
+.evidence-posture.neutral { color: var(--cobalt); }
+.evidence-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.evidence-metrics div { min-width: 0; }
+.evidence-metrics dt { color: var(--slate); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
+.evidence-metrics dd { margin: 3px 0 0; font-size: 0.86rem; font-variant-numeric: tabular-nums; }
+.evidence-coverage-meter { width: 100%; height: 10px; accent-color: var(--cobalt); }
+.evidence-lists { display: grid; gap: 14px; }
+.evidence-list h4 { margin: 0 0 5px; font-family: 'IBM Plex Sans', -apple-system, sans-serif; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.04em; }
+.evidence-list ul { margin: 0; padding-left: 18px; color: var(--slate); font-size: 0.83rem; }
+.evidence-list li + li { margin-top: 4px; }
+.research-disclosure { margin: 0; padding-top: 12px; border-top: 1px solid var(--stone); color: var(--slate); font-size: 0.74rem; line-height: 1.45; }
+
 .grid { display: grid; gap: 20px; }
 .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -340,6 +375,10 @@ h3 { font-size: 1.2rem; margin: 0; }
 .news-source { color: var(--cobalt); font-weight: 600; }
 .news-item-title { font-family: 'IBM Plex Sans', -apple-system, sans-serif; font-size: 0.95rem; font-weight: 700; }
 .news-item-body { color: var(--slate); font-size: 0.88rem; }
+.news-context { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.news-context-label,
+.news-topic-tag { padding: 3px 6px; border: 1px solid var(--stone); border-radius: var(--radius-sm); color: var(--slate); font-size: 0.68rem; font-weight: 600; }
+.news-context-label { border-color: #99a5ad; color: var(--ink); }
 .news-item-link { align-self: flex-start; color: var(--cobalt); font-size: 0.8rem; font-weight: 700; text-decoration: none; }
 .news-item-link:hover { text-decoration: underline; }
 
@@ -354,6 +393,7 @@ h3 { font-size: 1.2rem; margin: 0; }
 .ticker-cell { padding: 11px 14px; border-bottom: 1px solid var(--stone); text-align: left; font-weight: 600; }
 .ticker-link { color: var(--cobalt); font-weight: 600; text-decoration: none; }
 .ticker-link:hover { text-decoration: underline; }
+.relative-status { color: var(--slate); font-size: 0.78rem; }
 
 .markdown-body { color: var(--ink); font-size: 0.95rem; line-height: 1.65; }
 .markdown-body > :first-child { margin-top: 0; }

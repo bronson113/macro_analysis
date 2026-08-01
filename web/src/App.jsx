@@ -4,11 +4,60 @@ import StatCard from './components/StatCard';
 import NewsFeed from './components/NewsFeed';
 import StockMatrix from './components/StockMatrix';
 import BigUpdate from './components/BigUpdate';
-import LlmAnalysis from './components/LlmAnalysis';
 import TrendGraphs from './components/TrendGraphs';
 import CheatSheet from './components/CheatSheet';
+import EvidenceAssessment from './components/EvidenceAssessment';
 import { descriptions } from './utils/descriptions';
 import { buildFreshnessStatus } from './utils/dashboardPresentation';
+import { buildSourceHealthView } from './utils/sourceHealthPresentation';
+
+function SourceHealthSection({ records = [] }) {
+  return (
+    <section className="section source-health-section animate-fade-in" id="source-health-heading" aria-labelledby="source-health-heading-title">
+      <div className="section-header">
+        <div>
+          <p className="section-kicker">Data provenance</p>
+          <h2 id="source-health-heading-title">Source Health</h2>
+        </div>
+      </div>
+      <p className="source-health-intro">Latest fetch outcomes are shown as provenance signals. A stale or failed source is not treated as current evidence.</p>
+      {records.length ? (
+        <div className="source-health-grid">
+          {records.map((record, index) => {
+            const view = buildSourceHealthView(record);
+            return (
+              <article className="source-health-card paper-panel" key={`${record.source || 'source'}-${record.fetch_key || index}`}>
+                <h3>{view.sourceLabel}</h3>
+                <dl>
+                  <div>
+                    <dt>Status</dt>
+                    <dd className={`source-health-status ${view.statusTone}`}>
+                      {view.statusLabel} · {view.freshnessLabel}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Error category</dt>
+                    <dd>{view.errorLabel}</dd>
+                  </div>
+                  <div>
+                    <dt>Message</dt>
+                    <dd>{view.message}</dd>
+                  </div>
+                  <div>
+                    <dt>Fetched</dt>
+                    <dd>{view.fetchTimeLabel}</dd>
+                  </div>
+                </dl>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="source-health-empty paper-panel">No source-health results are available for this payload.</div>
+      )}
+    </section>
+  );
+}
 
 function App() {
   const [data, setData] = useState(null);
@@ -75,7 +124,14 @@ function App() {
     );
   }
 
-  const { metadata, macro_quantitative: mq, recent_news_events, individual_stock_constituents } = data || {};
+  const {
+    metadata,
+    macro_quantitative: mq,
+    recent_news_events,
+    individual_stock_constituents,
+    evidence_assessments,
+    source_health: sourceHealth,
+  } = data || {};
   const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
 
   return (
@@ -90,11 +146,12 @@ function App() {
       <div className="dashboard-shell">
         <aside className="section-rail">
           <nav className="dashboard-toc" aria-label="Dashboard sections">
-            <a href="#llm-analysis-heading"><span aria-hidden="true">01</span>Priority</a>
-            <a href="#big-update-heading"><span aria-hidden="true">02</span>Daily Brief</a>
-            <a href="#trends-heading"><span aria-hidden="true">03</span>Trends</a>
-            <a href="#indicators-heading"><span aria-hidden="true">04</span>Indicators</a>
-            <a href="#deep-dive-heading"><span aria-hidden="true">05</span>Deep Dive</a>
+            <a href="#big-update-heading"><span aria-hidden="true">01</span>Daily Brief</a>
+            <a href="#source-health-heading"><span aria-hidden="true">02</span>Source Health</a>
+            <a href="#evidence-heading"><span aria-hidden="true">03</span>Evidence</a>
+            <a href="#trends-heading"><span aria-hidden="true">04</span>Trends</a>
+            <a href="#indicators-heading"><span aria-hidden="true">05</span>Indicators</a>
+            <a href="#deep-dive-heading"><span aria-hidden="true">06</span>Deep Dive</a>
           </nav>
 
           <section className="data-status" aria-label="Data status">
@@ -113,9 +170,9 @@ function App() {
         </aside>
 
         <main className="dashboard-content">
-          <LlmAnalysis />
-
           {/* Supporting automated data and report views */}
+          <SourceHealthSection records={sourceHealth || []} />
+          <EvidenceAssessment assessments={evidence_assessments} />
           <TrendGraphs />
           <BigUpdate reports={reports} />
 

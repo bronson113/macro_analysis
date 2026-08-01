@@ -3,7 +3,7 @@ import logging
 import math
 import pandas as pd
 import os
-from config import DASHBOARD_HISTORY_DAYS, SNAPSHOTS_CSV, OUTPUT_DIR
+from config import DASHBOARD_HISTORY_DAYS, SNAPSHOTS_CSV, SOURCE_HEALTH_CSV, OUTPUT_DIR
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
@@ -11,6 +11,59 @@ def _sanitize(val):
     if isinstance(val, float) and (math.isnan(val) or math.isinf(val)):
         return None
     return val
+
+
+def _read_json(path, default):
+    if not os.path.exists(path):
+        return default
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, json.JSONDecodeError) as error:
+        logging.warning("Could not read %s: %s", path, error)
+        return default
+
+
+def _latest_source_health():
+    """Return the newest machine-readable health result for each fetch key."""
+    if not os.path.exists(SOURCE_HEALTH_CSV):
+        return []
+
+    try:
+        frame = pd.read_csv(SOURCE_HEALTH_CSV)
+    except (OSError, pd.errors.EmptyDataError) as error:
+        logging.warning("Could not read source-health data: %s", error)
+        return []
+
+    if frame.empty:
+        return []
+    if "fetch_time" in frame.columns:
+        frame = frame.sort_values("fetch_time", kind="stable")
+    if "fetch_key" in frame.columns:
+        frame = frame.drop_duplicates(subset=["fetch_key"], keep="last")
+
+    records = []
+    for record in frame.to_dict("records"):
+        records.append({
+            key: None if pd.isna(value) else value
+            for key, value in record.items()
+        })
+    return records
+
+
+def export_dashboard_payload():
+    """Publish a null-safe web payload with evidence, source health, and outcomes."""
+    raw_payload = _read_json(OUTPUT_DIR / "latest_raw_payload.json", {})
+    payload = dict(raw_payload) if isinstance(raw_payload, dict) else {}
+    payload["evidence_assessments"] = payload.get("evidence_assessments") or []
+    payload["source_health"] = _latest_source_health()
+    payload["outcome_evaluation"] = _read_json(OUTPUT_DIR / "outcome_evaluation.json", None)
+
+    destination = OUTPUT_DIR / "dashboard_data.json"
+    with open(destination, "w", encoding="utf-8") as f:
+        json.dump(payload, f, indent=2, allow_nan=False)
+    logging.info("Successfully exported unified dashboard payload to %s", destination)
+    return payload
 
 def extract_history():
     """Extract historical daily snapshots for dashboard timeline charts."""
@@ -52,3 +105,4 @@ def extract_history():
 
 if __name__ == "__main__":
     extract_history()
+    export_dashboard_payload()

@@ -1,0 +1,21 @@
+{
+  "methodology": {
+    "cost_treatment": "One-way cost subtracted from asset-minus-benchmark excess return.",
+    "minimum_elapsed_days": 365,
+    "minimum_sample_size": 30,
+    "research_disclosure": "Point-in-time research evaluation only; insufficient samples are not strategy validation.",
+    "transaction_cost_bps": 10.0
+  },
+  "outcomes": [],
+  "summary": {
+    "by_horizon": {},
+    "directed_sample_size": 0,
+    "elapsed_days": 0,
+    "hit_rate_pct": null,
+    "max_drawdown_pct": null,
+    "mean_net_excess_return_pct": null,
+    "median_net_excess_return_pct": null,
+    "sample_size": 0,
+    "status": "INSUFFICIENT_SAMPLE"
+  }
+}

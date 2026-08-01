@@ -47,6 +47,7 @@ def run_daily_job():
         return {
             "status": "SUCCESS",
             "fetch_results": fetch_results,
+            "source_status_counts": fetch_results.get("source_status_counts", {}),
             "report_path": report_path
         }
 

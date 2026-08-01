@@ -29,6 +29,7 @@ from config import (
 )
 from storage import MacroStorage
 from news_analyzer import MacroNewsAnalyzer
+from source_health import SourceHealth, classify_source_error
 
 configure_yfinance_cache(yf)
 
@@ -270,6 +271,25 @@ class MacroFetcher:
             logging.error(err_msg)
             return 0, err_msg
 
+    def _save_fetch_health(self, source: str, fetch_key: str, count: int, error: Optional[str]):
+        """Persist one normalized outcome after a logical provider fetch completes."""
+        latest_observation = self.storage.get_latest_observation(fetch_key)
+        message = error or ""
+        health = SourceHealth(
+            source=source,
+            fetch_key=fetch_key,
+            observation_time=(
+                str(latest_observation.get("date")) if latest_observation is not None else None
+            ),
+            fetch_time=datetime.now().isoformat(),
+            status="CURRENT" if error is None else "ERROR",
+            is_stale=error is not None and latest_observation is not None,
+            record_count=count,
+            error_category="" if error is None else classify_source_error(message),
+            message=message,
+        )
+        return self.storage.save_source_health(health)
+
     def fetch_all(self) -> Dict[str, Any]:
         """
         Executes parallel resilient data fetching across all FRED series, Yahoo market prices, and news feeds.
@@ -278,6 +298,26 @@ class MacroFetcher:
         success_keys = []
         failed_keys = []
         errors = {}
+        source_status_counts = {}
+
+        def record_result(
+            source: str,
+            key: str,
+            count: int,
+            error: Optional[str],
+            require_records: bool = False,
+        ):
+            if error is None and require_records and count <= 0:
+                error = "Empty usable observation set returned by source"
+            health = self._save_fetch_health(source, key, count, error)
+            status_counts = source_status_counts.setdefault(source, {})
+            status_counts[health["status"]] = status_counts.get(health["status"], 0) + 1
+            if error is None:
+                success_keys.append(key)
+                return count
+            failed_keys.append(key)
+            errors[key] = error
+            return 0
         fetch_all_series = os.getenv("MACRO_FETCH_ALL_SERIES") == "1"
         fred_series = FRED_SERIES if fetch_all_series else {
             key: info
@@ -301,15 +341,9 @@ class MacroFetcher:
                 key = future_to_key[future]
                 try:
                     count, err = future.result()
-                    if err is None:
-                        success_keys.append(key)
-                        total_records += count
-                    else:
-                        failed_keys.append(key)
-                        errors[key] = err
                 except Exception as e:
-                    failed_keys.append(key)
-                    errors[key] = str(e)
+                    count, err = 0, str(e)
+                total_records += record_result("FRED", key, count, err, require_records=True)
 
         print("--> Fetching Yahoo Finance Market Prices...")
         with ThreadPoolExecutor(max_workers=5) as executor:
@@ -321,36 +355,37 @@ class MacroFetcher:
                 key = future_to_key[future]
                 try:
                     count, err = future.result()
-                    if err is None:
-                        success_keys.append(key)
-                        total_records += count
-                    else:
-                        failed_keys.append(key)
-                        errors[key] = err
                 except Exception as e:
-                    failed_keys.append(key)
-                    errors[key] = str(e)
+                    count, err = 0, str(e)
+                total_records += record_result("YAHOO", key, count, err, require_records=True)
 
         print("--> Fetching CNN Fear & Greed Index...")
-        count, err = self.fetch_cnn_fear_greed_index()
-        if err is None:
-            success_keys.append("cnn_fear_greed_index")
-            total_records += count
-        else:
-            failed_keys.append("cnn_fear_greed_index")
-            errors["cnn_fear_greed_index"] = err
+        try:
+            count, err = self.fetch_cnn_fear_greed_index()
+        except Exception as e:
+            count, err = 0, str(e)
+        total_records += record_result("CNN", "cnn_fear_greed_index", count, err, require_records=True)
 
         print("--> Fetching Shiller PE Ratio...")
-        count, err = self.fetch_shiller_pe_ratio()
-        if err is None:
-            success_keys.append("shiller_pe")
-            total_records += count
-        else:
-            failed_keys.append("shiller_pe")
-            errors["shiller_pe"] = err
+        try:
+            count, err = self.fetch_shiller_pe_ratio()
+        except Exception as e:
+            count, err = 0, str(e)
+        total_records += record_result("Multpl", "shiller_pe", count, err, require_records=True)
 
         print("--> Fetching Major Macro News & Event Feeds...")
-        news_count = self.news_analyzer.fetch_and_store_news()
+        try:
+            news_count = self.news_analyzer.fetch_and_store_news()
+            for outcome in getattr(self.news_analyzer, "last_fetch_outcomes", []):
+                record_result(
+                    outcome["source"],
+                    outcome["fetch_key"],
+                    int(outcome.get("record_count", 0)),
+                    outcome.get("message") or None,
+                )
+        except Exception as e:
+            news_count = 0
+            record_result("Macro News", "macro_news", 0, str(e))
         print(f"--> Macro News Fetch Complete: {news_count} news events updated.")
 
         status = "SUCCESS" if len(failed_keys) == 0 else ("PARTIAL" if len(success_keys) > 0 else "FAILED")
@@ -363,5 +398,6 @@ class MacroFetcher:
             "success_keys": success_keys,
             "failed_keys": failed_keys,
             "errors": errors,
+            "source_status_counts": source_status_counts,
             "timestamp": datetime.now().isoformat()
         }
