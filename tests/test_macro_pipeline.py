@@ -24,6 +24,7 @@ import reporter
 import prefetch_fred
 import config
 import valuation
+import scheduler
 from storage import MacroStorage
 from fetcher import MacroFetcher
 from analyzer import MacroAnalyzer
@@ -240,6 +241,24 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertEqual(set(fetched_yahoo), config.ACTIVE_YAHOO_TICKER_KEYS)
         self.assertNotIn("core_pce", fetched_fred)
         self.assertNotIn("nasdaq", fetched_yahoo)
+
+    def test_01d2a_scheduler_returns_machine_readable_source_status_counts(self):
+        """Daily-job callers need source health totals without parsing fetcher output."""
+        health_counts = {"FRED": {"CURRENT": 20, "ERROR": 1}, "YAHOO": {"CURRENT": 6}}
+        with patch("scheduler.MacroFetcher") as fetcher_class, \
+             patch("scheduler.MacroAnalyzer"), \
+             patch("scheduler.MacroReporter") as reporter_class:
+            fetcher = fetcher_class.return_value
+            fetcher.fetch_all.return_value = {
+                "status": "PARTIAL",
+                "total_records": 10,
+                "source_status_counts": health_counts,
+            }
+            reporter_class.return_value.generate_markdown_report.return_value = "/tmp/report.md"
+
+            result = scheduler.run_daily_job()
+
+        self.assertEqual(result["source_status_counts"], health_counts)
 
     def test_01d3_prefetch_fred_runs_active_series_concurrently(self):
         """GitHub Actions FRED prefetch should overlap active series downloads."""

@@ -53,6 +53,14 @@ class MacroNewsAnalyzer:
     def __init__(self, storage: Optional[MacroStorage] = None):
         self.storage = storage or MacroStorage()
         self.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) MacroNewsFetcher/1.0"
+        self.last_fetch_outcomes: List[Dict[str, Any]] = []
+        self._google_news_outcomes: List[Dict[str, Any]] = []
+        self._bellwether_news_outcomes: List[Dict[str, Any]] = []
+
+    @staticmethod
+    def _source_fetch_key(prefix: str, label: str) -> str:
+        normalized = re.sub(r"[^a-z0-9]+", "_", label.lower()).strip("_")
+        return f"{prefix}:{normalized}"
 
     def _tag_topics(self, title: str, summary: str) -> List[str]:
         """Return non-directional topic tags found in a news item's text."""
@@ -79,12 +87,14 @@ class MacroNewsAnalyzer:
 
     def fetch_google_news(self) -> List[Dict[str, Any]]:
         all_news = []
+        self._google_news_outcomes = []
         retrieved_at = datetime.now().isoformat()
         today_str = retrieved_at[:10]
 
         for category, url in NEWS_RSS_QUERIES:
             req = urllib.request.Request(url, headers={"User-Agent": self.user_agent})
             try:
+                start_count = len(all_news)
                 with urllib.request.urlopen(req, timeout=10) as resp:
                     xml_data = resp.read()
                     root = ET.fromstring(xml_data)
@@ -110,8 +120,20 @@ class MacroNewsAnalyzer:
                             "retrieved_at": retrieved_at,
                             **context,
                         })
+                self._google_news_outcomes.append({
+                    "source": "Google News",
+                    "fetch_key": self._source_fetch_key("google_news", category),
+                    "record_count": len(all_news) - start_count,
+                    "message": "",
+                })
             except Exception as e:
                 logging.error(f"Error fetching news for category {category}: {e}")
+                self._google_news_outcomes.append({
+                    "source": "Google News",
+                    "fetch_key": self._source_fetch_key("google_news", category),
+                    "record_count": 0,
+                    "message": str(e),
+                })
 
         return all_news
 
@@ -123,9 +145,11 @@ class MacroNewsAnalyzer:
         retrieved_at = datetime.now().isoformat()
         today_str = retrieved_at[:10]
         bellwether_news = []
+        self._bellwether_news_outcomes = []
 
         for ticker, meta in SECTOR_BELLWETHERS.items():
             try:
+                start_count = len(bellwether_news)
                 t = yf.Ticker(ticker)
                 raw_news = t.news
                 for item in raw_news[:3]:
@@ -156,14 +180,29 @@ class MacroNewsAnalyzer:
                             "retrieved_at": retrieved_at,
                             **context,
                         })
+                self._bellwether_news_outcomes.append({
+                    "source": "Yahoo Finance",
+                    "fetch_key": self._source_fetch_key("bellwether", ticker),
+                    "record_count": len(bellwether_news) - start_count,
+                    "message": "",
+                })
             except Exception as e:
                 logging.error(f"Error fetching bellwether news for {ticker}: {e}")
+                self._bellwether_news_outcomes.append({
+                    "source": "Yahoo Finance",
+                    "fetch_key": self._source_fetch_key("bellwether", ticker),
+                    "record_count": 0,
+                    "message": str(e),
+                })
 
         return bellwether_news
 
     def fetch_and_store_news(self) -> int:
         google_news = self.fetch_google_news()
         bellwether_news = self.fetch_bellwether_sector_news()
+        self.last_fetch_outcomes = (
+            list(self._google_news_outcomes) + list(self._bellwether_news_outcomes)
+        )
 
         combined = google_news + bellwether_news
         count = self.storage.save_news_events(combined)
