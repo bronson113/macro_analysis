@@ -1249,6 +1249,16 @@ class TestMacroPipeline(unittest.TestCase):
                     "negative_factors": [],
                     "missing_evidence": [],
                 },
+                {
+                    "sector_group": "Utilities",
+                    "posture": "NEUTRAL",
+                    "score": 0.0,
+                    "score_range": [-2.0, 2.0],
+                    "coverage_pct": 70.0,
+                    "positive_factors": [],
+                    "negative_factors": [],
+                    "missing_evidence": [{"missing_reason": "Housing evidence is unavailable."}],
+                },
             ],
         }
 
@@ -1261,6 +1271,8 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertLess(content.index("## Notable Summary"), content.index("## 1. Active Macro Situation"))
         self.assertIn("Fed signals a major policy shift", content)
         self.assertIn("Semiconductors has `WATCH` research posture", content)
+        self.assertIn("Semiconductors", content)
+        self.assertIn("Utilities", content)
         self.assertIn("Deterministic outputs are research heuristics", content)
         self.assertNotIn("Routine market color", content.split("## 1. Active Macro Situation")[0])
         self.assertNotIn("Recommended Action", content)

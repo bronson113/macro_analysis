@@ -446,7 +446,7 @@ class MacroReporter:
                 score_range = assessment.get("score_range") or [None, None]
                 low = fmt_num(score_range[0] if len(score_range) > 0 else None, ":.2f")
                 high = fmt_num(score_range[1] if len(score_range) > 1 else None, ":.2f")
-            evidence_rows.append(
+                evidence_rows.append(
                     f"| **{md_cell(assessment.get('sector_group', ''))}** | "
                     f"`{md_cell(assessment.get('posture', ''))}` | "
                     f"`{fmt_num(assessment.get('score'), ':.2f')}` | "
