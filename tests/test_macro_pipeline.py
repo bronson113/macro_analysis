@@ -5,6 +5,7 @@ single-stock dispersion detection, and report rendering safety.
 """
 
 import os
+import ast
 import json
 import re
 import unittest
@@ -19,6 +20,7 @@ from pathlib import Path
 from unittest.mock import patch
 import stock_data
 import raw_data_engine
+import reporter
 import prefetch_fred
 import config
 import valuation
@@ -868,6 +870,14 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertIn("Evidence Posture", report)
         self.assertIn("Uncertainty Range", report)
         self.assertIn("Missing Evidence", report)
+
+    def test_reporter_parses_with_python_310_grammar(self):
+        """Reporter templates must remain importable by the project's Python 3.10 runtime."""
+        source = Path(reporter.__file__).read_text(encoding="utf-8")
+        try:
+            ast.parse(source, feature_version=(3, 10))
+        except TypeError:
+            ast.parse(source, feature_version=10)
 
     def test_shiller_numeric_drift_inside_same_rating_is_unchanged(self):
         """Same-classification Shiller movement must keep the current body unchanged."""

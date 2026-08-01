@@ -446,7 +446,7 @@ class MacroReporter:
                 score_range = assessment.get("score_range") or [None, None]
                 low = fmt_num(score_range[0] if len(score_range) > 0 else None, ":.2f")
                 high = fmt_num(score_range[1] if len(score_range) > 1 else None, ":.2f")
-                evidence_rows.append(
+            evidence_rows.append(
                     f"| **{md_cell(assessment.get('sector_group', ''))}** | "
                     f"`{md_cell(assessment.get('posture', ''))}` | "
                     f"`{fmt_num(assessment.get('score'), ':.2f')}` | "
@@ -456,6 +456,7 @@ class MacroReporter:
                     f"{self._factor_descriptions(assessment.get('negative_factors'))} | "
                     f"{self._factor_descriptions(assessment.get('missing_evidence'))} |"
                 )
+            evidence_table_md = "\n".join(evidence_rows)
             evidence_section_md = f"""
 ## 5. Sector Evidence Assessments
 
@@ -463,7 +464,7 @@ Each assessment makes its deterministic evidence, uncertainty, and missing input
 
 | Sector / Supply Chain Group | Evidence Posture | Score | Uncertainty Range | Coverage | Positive Factors | Negative Factors | Missing Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-{"\n".join(evidence_rows)}
+{evidence_table_md}
 """
 
         # Build constituent evidence markdown section.
@@ -479,6 +480,7 @@ Each assessment makes its deterministic evidence, uncertainty, and missing input
                     f"{self._factor_descriptions(assessment.get('evidence'))} | "
                     f"{self._factor_descriptions(assessment.get('missing_evidence'))} |"
                 )
+            constituent_table_md = "\n".join(constituent_rows)
             constituent_section_md = f"""
 ## 6. Constituent Evidence Assessments
 
@@ -486,7 +488,7 @@ Constituent review compares each company with its focused peer cohort and requir
 
 | Ticker | Peer Cohort | Relative Valuation Status | Research Posture | Evidence | Missing Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-{"\n".join(constituent_rows)}
+{constituent_table_md}
 """
 
         # Build AI & Physical AI Ecosystem Markdown section
