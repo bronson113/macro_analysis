@@ -1,194 +1,385 @@
-"""
-Recommendations module for Macro & Sector Analysis Engine.
-Generates Tax-Aware, Mid-Term (3-Month to 1-Year Horizon) Sector Buy/Sell/Hold Recommendations
-based on Net Liquidity, Sector EV/EBITDA & P/E Multiples, Credit Spreads, and News Catalysts.
-"""
+"""Sector evidence construction for research-review assessments."""
 
-import logging
-from typing import Dict, List, Any, Optional
-from storage import MacroStorage
+from math import isfinite
+from typing import Any, Dict, List, Optional
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+from evidence import EvidenceFactor, aggregate_evidence
 
-# Target Sectors & Supply Chain Baskets
+
 SECTOR_LIST = [
-    {"name": "Technology (XLK)", "etf": "XLK", "norm_pe": 24.0},
-    {"name": "Financials (XLF)", "etf": "XLF", "norm_pe": 13.0},
-    {"name": "Healthcare (XLV)", "etf": "XLV", "norm_pe": 18.0},
-    {"name": "Energy (XLE)", "etf": "XLE", "norm_pe": 12.0},
-    {"name": "Industrials (XLI)", "etf": "XLI", "norm_pe": 19.0},
-    {"name": "Consumer Discretionary (XLY)", "etf": "XLY", "norm_pe": 22.0},
-    {"name": "Consumer Staples (XLP)", "etf": "XLP", "norm_pe": 20.0},
-    {"name": "AI Compute & Accelerators", "etf": "NVDA/AMD/TSM", "norm_pe": 28.0},
-    {"name": "High-Bandwidth Memory (HBM)", "etf": "MU/WDC", "norm_pe": 16.0},
-    {"name": "Physical AI & Robotics", "etf": "TSLA/TER/SYM", "norm_pe": 30.0},
-    {"name": "Downstream Power & Grid", "etf": "CEG/VST/ETN", "norm_pe": 22.0}
+    {"name": "Technology (XLK)", "etf": "XLK"},
+    {"name": "Financials (XLF)", "etf": "XLF"},
+    {"name": "Healthcare (XLV)", "etf": "XLV"},
+    {"name": "Energy (XLE)", "etf": "XLE"},
+    {"name": "Industrials (XLI)", "etf": "XLI"},
+    {"name": "Consumer Discretionary (XLY)", "etf": "XLY"},
+    {"name": "Consumer Staples (XLP)", "etf": "XLP"},
+    {"name": "AI Compute & Accelerators", "etf": "NVDA/AMD/TSM"},
+    {"name": "High-Bandwidth Memory (HBM)", "etf": "MU/WDC"},
+    {"name": "Physical AI & Robotics", "etf": "TSLA/TER/SYM"},
+    {"name": "Downstream Power & Grid", "etf": "CEG/VST/ETN"},
 ]
 
 
-class SectorRecommendationEngine:
-    def __init__(self, storage: Optional[MacroStorage] = None):
-        self.storage = storage or MacroStorage()
+METHODOLOGY = (
+    "Research-only sector evidence aggregation. Independent macro, liquidity, credit, "
+    "valuation, real-yield, housing, and data-quality factors determine a review posture; "
+    "missing or stale evidence widens uncertainty."
+)
 
-    def generate_recommendations(
+
+class SectorEvidenceEngine:
+    """Build independent, visible evidence factors for each tracked sector group."""
+
+    def generate_assessments(
         self,
         summary: Dict[str, Any],
         credit: Dict[str, Any],
         valuations: List[Dict[str, Any]],
         ai_ecosystem: List[Dict[str, Any]],
         news_events: List[Dict[str, Any]],
-        macro_situation: Dict[str, Any]
+        macro_situation: Dict[str, Any],
     ) -> List[Dict[str, Any]]:
-        recommendations = []
-        hy_oas = credit.get("high_yield_oas")
-        liq_regime = summary.get("liquidity_regime", "Neutral")
-        overall_regime = summary.get("overall_regime", "Neutral")
-        treasury_10y = summary.get("treasury_10y")
-        breakeven_10y = summary.get("breakeven_10y")
-        housing_yoy = summary.get("housing_yoy")
-        dxy = summary.get("dxy")
-        favored_sectors = macro_situation.get("favored_sectors", [])
-        disfavored_sectors = macro_situation.get("disfavored_sectors", [])
-        macro_quality = macro_situation.get("quality", "OK")
+        """Return deterministic sector assessments from the supplied evidence inputs."""
 
-        val_map = {v["sector"]: v for v in valuations}
-        ai_map = {g["group"]: g for g in ai_ecosystem}
-        contagion_news = [n for n in news_events if "contagion" in n.get("sentiment", "").lower() or "stress" in n.get("sentiment", "").lower()]
+        summary = summary or {}
+        credit = credit or {}
+        valuations = valuations or []
+        ai_ecosystem = ai_ecosystem or []
+        macro_situation = macro_situation or {}
+        _ = news_events  # News remains uninterpreted context, not directional evidence.
 
+        valuations_by_sector = {
+            item["sector"]: item for item in valuations if item.get("sector")
+        }
+        ai_by_group = {item["group"]: item for item in ai_ecosystem if item.get("group")}
+        as_of_date = summary.get("date") or macro_situation.get("as_of_date")
+
+        assessments = []
         for sector in SECTOR_LIST:
-            sec_name = sector["name"]
-            norm_pe = sector["norm_pe"]
-            
-            val_data = val_map.get(sec_name)
-            if not val_data:
-                for g_name, g_data in ai_map.items():
-                    if sec_name.split()[0].lower() in g_name.lower():
-                        val_data = {
-                            "forward_pe": g_data["avg_forward_pe"],
-                            "ev_ebitda": g_data["avg_ev_ebitda"],
-                            "valuation_status": g_data["valuation_status"]
-                        }
-                        break
+            sector_group = sector["name"]
+            valuation = valuations_by_sector.get(sector_group) or self._matching_ai_valuation(
+                sector_group, ai_by_group
+            )
+            factors = self._build_factors(
+                sector_group=sector_group,
+                summary=summary,
+                credit=credit,
+                valuation=valuation,
+                macro_situation=macro_situation,
+                as_of_date=as_of_date,
+            )
+            assessment = aggregate_evidence(factors, expected_weight=7)
+            assessment.update(
+                {
+                    "sector_group": sector_group,
+                    "instrument": sector["etf"],
+                    "benchmark": "SPY",
+                    "methodology": METHODOLOGY,
+                    "as_of_date": as_of_date,
+                }
+            )
+            assessments.append(assessment)
 
-            fwd_pe = val_data.get("forward_pe") if val_data else None
-            ev_ebitda = val_data.get("ev_ebitda") if val_data else None
-            valuation_stretched = fwd_pe is not None and fwd_pe > norm_pe * 1.15
-            valuation_severely_stretched = fwd_pe is not None and fwd_pe > norm_pe * 1.35
+        return assessments
 
-            erp = None
-            if fwd_pe and treasury_10y:
-                earnings_yield = (1.0 / fwd_pe) * 100.0
-                erp = earnings_yield - treasury_10y
+    def _build_factors(
+        self,
+        sector_group: str,
+        summary: Dict[str, Any],
+        credit: Dict[str, Any],
+        valuation: Optional[Dict[str, Any]],
+        macro_situation: Dict[str, Any],
+        as_of_date: Optional[str],
+    ) -> List[EvidenceFactor]:
+        return [
+            self._macro_quadrant_factor(sector_group, macro_situation, as_of_date),
+            self._liquidity_factor(summary, as_of_date),
+            self._credit_factor(sector_group, credit, as_of_date),
+            self._valuation_factor(valuation, as_of_date),
+            self._real_yield_factor(sector_group, summary, as_of_date),
+            self._housing_factor(sector_group, summary, as_of_date),
+            self._data_quality_factor(macro_situation, as_of_date),
+        ]
 
-            action = "HOLD"
-            conviction = "HIGH (Tax-Aware Default)"
-            rationale = "Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag."
-            if macro_quality == "INSUFFICIENT_DATA":
-                conviction = "LOW (Macro Data Incomplete)"
-                rationale = "Macro quadrant is withheld because policy-rate or liquidity data is incomplete. Defaulting to HOLD unless non-macro risk controls provide a stronger signal."
+    @staticmethod
+    def _factor(
+        factor_id: str,
+        category: str,
+        contribution: float,
+        observed_value: Any,
+        unit: str,
+        observed_at: Optional[str],
+        source: str,
+        explanation: str,
+        quality: str = "current",
+        missing_reason: Optional[str] = None,
+    ) -> EvidenceFactor:
+        direction = (
+            "positive"
+            if contribution > 0
+            else "negative"
+            if contribution < 0
+            else "neutral"
+        )
+        return EvidenceFactor(
+            factor_id=factor_id,
+            category=category,
+            direction=direction,
+            contribution=contribution,
+            weight=1.0,
+            observed_value=observed_value,
+            unit=unit,
+            observed_at=observed_at,
+            source=source,
+            quality=quality,
+            explanation=explanation,
+            missing_reason=missing_reason,
+        )
 
-            if macro_quality != "INSUFFICIENT_DATA" and sec_name in favored_sectors:
-                action = "BUY / ACCUMULATE"
-                conviction = "HIGH (Macro Quadrant Tailwinds)"
-                rationale = f"Sector is highly favored in the current {macro_situation.get('name')} regime."
-                if fwd_pe and fwd_pe < norm_pe:
-                    rationale += f" Trading at a discount ({fwd_pe:.1f}x vs {norm_pe:.1f}x norm)."
-            elif macro_quality != "INSUFFICIENT_DATA" and sec_name in disfavored_sectors:
-                action = "SELL / TRIM"
-                conviction = "HIGH (Macro Risk Avoidance)"
-                rationale = f"Sector faces severe headwinds in the current {macro_situation.get('name')} regime."
-            
-            if fwd_pe and fwd_pe < norm_pe * 0.85 and "Expanding" in liq_regime and (hy_oas is not None and hy_oas < 4.5):
-                if action == "HOLD":
-                    action = "BUY / ACCUMULATE"
-                    conviction = "MODERATE TO HIGH"
-                    rationale = f"Sector is trading at a discount ({fwd_pe:.1f}x Fwd P/E vs {norm_pe:.1f}x norm) alongside expanding liquidity."
+    def _macro_quadrant_factor(
+        self,
+        sector_group: str,
+        macro_situation: Dict[str, Any],
+        as_of_date: Optional[str],
+    ) -> EvidenceFactor:
+        quality = macro_situation.get("quality")
+        if quality != "OK":
+            return self._factor(
+                "macro_quadrant",
+                "macro",
+                0,
+                quality,
+                "quality",
+                as_of_date,
+                "macro_matrix",
+                "Macro quadrant is unavailable.",
+                quality="missing",
+                missing_reason="Macro quadrant is unavailable.",
+            )
 
-            if hy_oas is not None and hy_oas > 5.0:
-                if sec_name in ["Healthcare (XLV)", "Consumer Staples (XLP)", "Gold"]:
-                    action = "BUY / ACCUMULATE"
-                    conviction = "HIGH (Flight to Safety)"
-                    rationale = f"Elevated credit stress (HY OAS {hy_oas:.2f}%). Defensive sector provides capital protection."
-                else:
-                    action = "SELL / TRIM"
-                    conviction = "HIGH (Risk Mitigation)"
-                    rationale = f"Elevated credit stress (HY OAS {hy_oas:.2f}%). Protect capital as financial conditions tighten."
+        favored = set(macro_situation.get("favored_sectors", []))
+        disfavored = set(macro_situation.get("disfavored_sectors", []))
+        contribution = 2 if sector_group in favored else -2 if sector_group in disfavored else 0
+        return self._factor(
+            "macro_quadrant",
+            "macro",
+            contribution,
+            macro_situation.get("name"),
+            "regime",
+            as_of_date,
+            "macro_matrix",
+            "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+        )
 
-            elif (macro_quality != "INSUFFICIENT_DATA" and valuation_severely_stretched and ("Contracting" in liq_regime or "LIQUIDITY DRAIN" in overall_regime)):
-                action = "SELL / TRIM"
-                conviction = "HIGH (Risk Mitigation)"
-                rationale = f"Elevated valuation stretch ({fwd_pe:.1f}x Fwd P/E vs {norm_pe:.1f}x norm) combined with liquidity tightening."
-            
-            if "Energy" in sec_name and ev_ebitda and ev_ebitda < 7.5:
-                if "SELL" not in action:
-                    action = "BUY / ACCUMULATE"
-                    conviction = "MODERATE (High Free Cash Flow)"
-                    rationale = f"Energy EV/EBITDA ({ev_ebitda:.1f}x) is deeply discounted. Strategic mid-term inflation hedge."
-            
-            if "Memory" in sec_name and contagion_news:
-                action = "HOLD / CAUTION"
-                conviction = "MODERATE"
-                rationale = "Memory supply chain headline volatility present. Maintain position for mid-term HBM structural cycle; avoid panic selling."
+    def _liquidity_factor(
+        self, summary: Dict[str, Any], as_of_date: Optional[str]
+    ) -> EvidenceFactor:
+        regime = summary.get("liquidity_regime")
+        if not regime:
+            return self._missing_factor(
+                "liquidity",
+                "liquidity",
+                "Liquidity regime is unavailable.",
+                as_of_date,
+                "summary",
+            )
+        normalized = str(regime).lower()
+        contribution = 1 if "expanding" in normalized else -1 if "contracting" in normalized else 0
+        return self._factor(
+            "liquidity",
+            "liquidity",
+            contribution,
+            regime,
+            "regime",
+            as_of_date,
+            "summary",
+            "Reserve-liquidity direction is expanding, contracting, or neutral.",
+        )
 
-            # Housing Overrides
-            if housing_yoy is not None and housing_yoy < -10.0:
-                if "Consumer Discretionary" in sec_name or "Industrials" in sec_name:
-                    action = "SELL / TRIM"
-                    conviction = "HIGH (Housing Contraction)"
-                    rationale = f"Housing Starts contracting violently ({housing_yoy:.1f}% YoY). Severe cyclical and consumer spending headwind."
+    def _credit_factor(
+        self, sector_group: str, credit: Dict[str, Any], as_of_date: Optional[str]
+    ) -> EvidenceFactor:
+        high_yield_oas = self._finite_number(credit.get("high_yield_oas"))
+        if high_yield_oas is None:
+            return self._missing_factor(
+                "credit",
+                "credit",
+                "High-yield OAS is unavailable.",
+                as_of_date,
+                "credit",
+            )
+        defensive_sectors = {"Healthcare (XLV)", "Consumer Staples (XLP)"}
+        contribution = 0
+        if high_yield_oas > 5:
+            contribution = 1 if sector_group in defensive_sectors else -3
+        return self._factor(
+            "credit",
+            "credit",
+            contribution,
+            high_yield_oas,
+            "percent",
+            as_of_date,
+            "credit",
+            "High-yield option-adjusted spread is assessed for credit stress.",
+        )
 
-            # FX Overrides
-            if dxy is not None and dxy > 105.0:
-                if "Technology" in sec_name or "Energy" in sec_name or "Industrials" in sec_name:
-                    if "SELL" not in action:
-                        action = "SELL / TRIM"
-                        conviction = "MODERATE TO HIGH (FX Headwinds)"
-                        rationale = f"Strong US Dollar (DXY > 105) creates severe FX translation headwinds for global exporters."
-                elif "Financials" in sec_name or "Utilities" in sec_name:
-                    if action == "HOLD":
-                        action = "BUY / ACCUMULATE"
-                        conviction = "MODERATE (Domestic Safe Haven)"
-                        rationale = "Domestic revenue base provides safety during global Dollar wrecking-ball periods."
+    def _valuation_factor(
+        self, valuation: Optional[Dict[str, Any]], as_of_date: Optional[str]
+    ) -> EvidenceFactor:
+        percentile = self._valuation_percentile(valuation)
+        if percentile is None:
+            return self._missing_factor(
+                "valuation_percentile",
+                "valuation",
+                "Valuation percentile is unavailable.",
+                as_of_date,
+                "sector_valuations",
+            )
+        contribution = 2 if percentile <= 25 else -2 if percentile >= 75 else 0
+        return self._factor(
+            "valuation_percentile",
+            "valuation",
+            contribution,
+            percentile,
+            "percentile",
+            as_of_date,
+            "sector_valuations",
+            "Historical valuation percentile is discount, rich, or typical.",
+        )
 
-            # Real Yield Overrides
-            if treasury_10y is not None and breakeven_10y is not None:
-                real_yield = treasury_10y - breakeven_10y
-                if real_yield > 2.0 and ("Technology" in sec_name or "AI" in sec_name or "Robotics" in sec_name):
-                    if valuation_stretched:
-                        action = "SELL / TRIM"
-                        conviction = "HIGH (Restrictive Real Yields + Valuation Stretch)"
-                        rationale = f"Real yields ({real_yield:.2f}%) are restrictive and valuation is stretched ({fwd_pe:.1f}x vs {norm_pe:.1f}x norm), creating multiple-compression risk."
-                    elif "SELL" not in action:
-                        action = "HOLD / CAUTION"
-                        conviction = "MODERATE (Restrictive Real Yield Headwind)"
-                        rationale = f"Real yields ({real_yield:.2f}%) are a headwind for long-duration growth, but valuation is not stretched versus norm. Hold existing exposure and require earnings confirmation before adding."
+    def _real_yield_factor(
+        self, sector_group: str, summary: Dict[str, Any], as_of_date: Optional[str]
+    ) -> EvidenceFactor:
+        real_yield = self._real_yield(summary)
+        if real_yield is None:
+            return self._missing_factor(
+                "real_yield",
+                "rates",
+                "Real yield is unavailable.",
+                as_of_date,
+                "summary",
+            )
+        long_duration = any(
+            label in sector_group for label in ("Technology", "AI", "Robotics")
+        )
+        contribution = -1 if long_duration and real_yield > 2 else 0
+        return self._factor(
+            "real_yield",
+            "rates",
+            contribution,
+            real_yield,
+            "percent",
+            as_of_date,
+            "summary",
+            "Restrictive real yields are a headwind for long-duration sector groups.",
+        )
 
-            # ERP Overrides
-            if erp is not None:
-                if erp < -1.0 and valuation_stretched:
-                    action = "SELL / TRIM"
-                    conviction = "HIGH (Negative ERP + Valuation Stretch)"
-                    rationale = f"Negative ERP ({erp:.2f}%) combined with valuation stretch ({fwd_pe:.1f}x vs {norm_pe:.1f}x norm). Risk-free yield competes strongly with sector earnings yield."
-                elif erp < 0.0 and "SELL" not in action:
-                    if "BUY" in action:
-                        action = "HOLD / SELECTIVE"
-                    else:
-                        action = "HOLD / CAUTION"
-                    conviction = "MODERATE (Rate/Valuation Headwind)"
-                    rationale = f"Negative ERP ({erp:.2f}%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell."
-                elif erp > 4.0 and "SELL" not in action:
-                    action = "BUY / ACCUMULATE"
-                    conviction = "HIGH (Deep Value Risk Premium)"
-                    rationale = f"Extremely attractive ERP ({erp:.2f}%). Equities offer significant yield over risk-free bonds."
+    def _housing_factor(
+        self, sector_group: str, summary: Dict[str, Any], as_of_date: Optional[str]
+    ) -> EvidenceFactor:
+        housing_yoy = self._finite_number(summary.get("housing_yoy"))
+        if housing_yoy is None:
+            return self._missing_factor(
+                "housing",
+                "macro",
+                "Housing YoY is unavailable.",
+                as_of_date,
+                "summary",
+            )
+        cyclical = sector_group in {"Consumer Discretionary (XLY)", "Industrials (XLI)"}
+        contribution = -2 if cyclical and housing_yoy < -10 else 0
+        return self._factor(
+            "housing",
+            "macro",
+            contribution,
+            housing_yoy,
+            "percent_yoy",
+            as_of_date,
+            "summary",
+            "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+        )
 
-            recommendations.append({
-                "sector": sec_name,
-                "action": action,
-                "conviction": conviction,
-                "avg_forward_pe": fwd_pe,
-                "ev_ebitda": ev_ebitda,
-                "erp": erp,
-                "rationale": rationale
-            })
+    def _data_quality_factor(
+        self, macro_situation: Dict[str, Any], as_of_date: Optional[str]
+    ) -> EvidenceFactor:
+        quality = macro_situation.get("quality")
+        if quality != "OK":
+            reason = (
+                "Macro input quality is unavailable."
+                if quality is None
+                else "Macro input quality is insufficient."
+            )
+            return self._missing_factor(
+                "data_quality", "data_quality", reason, as_of_date, "macro_matrix"
+            )
+        return self._factor(
+            "data_quality",
+            "data_quality",
+            0,
+            quality,
+            "quality",
+            as_of_date,
+            "macro_matrix",
+            "Macro input quality is sufficient for the available evidence.",
+        )
 
-        return recommendations
+    def _missing_factor(
+        self,
+        factor_id: str,
+        category: str,
+        reason: str,
+        as_of_date: Optional[str],
+        source: str,
+    ) -> EvidenceFactor:
+        return self._factor(
+            factor_id,
+            category,
+            0,
+            None,
+            "unknown",
+            as_of_date,
+            source,
+            reason,
+            quality="missing",
+            missing_reason=reason,
+        )
+
+    @staticmethod
+    def _matching_ai_valuation(
+        sector_group: str, ai_by_group: Dict[str, Dict[str, Any]]
+    ) -> Optional[Dict[str, Any]]:
+        for group, valuation in ai_by_group.items():
+            if sector_group.lower() in group.lower():
+                return valuation
+        return None
+
+    @staticmethod
+    def _valuation_percentile(valuation: Optional[Dict[str, Any]]) -> Optional[float]:
+        if not valuation:
+            return None
+        history = valuation.get("history") or {}
+        return SectorEvidenceEngine._finite_number(
+            valuation.get("percentile", history.get("percentile"))
+        )
+
+    @staticmethod
+    def _real_yield(summary: Dict[str, Any]) -> Optional[float]:
+        explicit = SectorEvidenceEngine._finite_number(summary.get("real_yield_10y"))
+        if explicit is not None:
+            return explicit
+        treasury_10y = SectorEvidenceEngine._finite_number(summary.get("treasury_10y"))
+        breakeven_10y = SectorEvidenceEngine._finite_number(summary.get("breakeven_10y"))
+        if treasury_10y is None or breakeven_10y is None:
+            return None
+        return treasury_10y - breakeven_10y
+
+    @staticmethod
+    def _finite_number(value: Any) -> Optional[float]:
+        if isinstance(value, bool):
+            return None
+        try:
+            number = float(value)
+        except (TypeError, ValueError):
+            return None
+        return number if isfinite(number) else None
