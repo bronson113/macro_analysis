@@ -20,6 +20,7 @@ import stock_data
 import raw_data_engine
 import prefetch_fred
 import config
+import valuation
 from storage import MacroStorage
 from fetcher import MacroFetcher
 from analyzer import MacroAnalyzer
@@ -321,6 +322,50 @@ class TestMacroPipeline(unittest.TestCase):
         returns = {m["ticker"]: m["return_30d_pct"] for m in metrics}
         self.assertEqual(returns, {"AAA": 50.0, "BBB": -10.0})
         download.assert_called_once()
+
+    def test_01h_sector_valuations_use_aggregate_fundamentals_and_historical_status(self):
+        """Sector output must expose weighted fundamentals, coverage, and available history."""
+        ticker_info = {
+            "A": {
+                "marketCap": 900.0,
+                "enterpriseValue": 1000.0,
+                "trailingPE": 30.0,
+                "forwardPE": 18.0,
+                "enterpriseToEbitda": 10.0,
+            },
+            "B": {
+                "marketCap": 100.0,
+                "enterpriseValue": 120.0,
+                "trailingPE": 10.0,
+                "forwardPE": 10.0,
+                "enterpriseToEbitda": 6.0,
+            },
+        }
+
+        with tempfile.TemporaryDirectory() as tmp, \
+             patch.object(valuation, "SECTOR_CONSTITUENTS", {"Fixture": ["A", "B"]}), \
+             patch("valuation.get_many_ticker_info", return_value=ticker_info):
+            storage = MacroStorage(
+                indicators_csv=f"{tmp}/ind.csv",
+                observations_csv=f"{tmp}/obs.csv",
+                snapshots_csv=f"{tmp}/snap.csv",
+                news_csv=f"{tmp}/news.csv",
+                run_logs_csv=f"{tmp}/logs.csv",
+            )
+            result = SectorValuationEngine(storage).calculate_sector_valuations()[0]
+
+        self.assertEqual(result["trailing_pe"], 25.0)
+        self.assertEqual(result["forward_pe"], 16.67)
+        self.assertEqual(result["ev_ebitda"], 9.33)
+        self.assertEqual(result["coverage"]["forward_pe_pct"], 100.0)
+        self.assertEqual(result["history"], {
+            "status": "Insufficient History",
+            "percentile": None,
+            "sample_size": 0,
+            "span_days": 0,
+        })
+        self.assertEqual(result["valuation_status"], "Insufficient History")
+        self.assertNotIn("fair_pe_norm", result)
 
     def test_02_macro_matrix_classification(self):
         """Test all 4 quadrants of the Defiant Gatekeeper Macro Matrix."""
