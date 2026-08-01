@@ -4,7 +4,10 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKFLOW_PATHS = (ROOT / ".github/workflows/daily_macro.yml",)
+DAILY_WORKFLOW = ROOT / ".github/workflows/daily_macro.yml"
+COWORK_WORKFLOW = ROOT / ".github/workflows/chatgpt_coworker.yml"
+COWORK_PROMPT = ROOT / "docs/chatgpt_coworker_morning_prompt.md"
+WORKFLOW_PATHS = (DAILY_WORKFLOW, COWORK_WORKFLOW)
 
 
 class TestGitHubWorkflows(unittest.TestCase):
@@ -15,14 +18,37 @@ class TestGitHubWorkflows(unittest.TestCase):
             self.assertTrue(uses)
             self.assertTrue(all(re.search(r"@[0-9a-f]{40}$", item) for item in uses))
 
-    def test_legacy_llm_trade_directive_delivery_is_retired(self):
-        workflow = (ROOT / ".github/workflows/daily_macro.yml").read_text()
+    def test_cowork_handoff_is_isolated_from_the_daily_data_workflow(self):
+        workflow = DAILY_WORKFLOW.read_text(encoding="utf-8")
         dashboard = (ROOT / "web/src/App.jsx").read_text()
 
-        self.assertNotIn("llm_analysis.md", workflow)
-        self.assertNotIn("LlmAnalysis", dashboard)
-        self.assertFalse((ROOT / "web/public/llm_analysis.md").exists())
-        self.assertFalse((ROOT / ".github/workflows/chatgpt_coworker.yml").exists())
+        self.assertIn("paths-ignore:", workflow)
+        self.assertIn("web/public/llm_analysis.md", workflow)
+        self.assertIn("docs/chatgpt_coworker_morning_prompt.md", workflow)
+        self.assertIn("EditorialReview", dashboard)
+
+    def test_cowork_workflow_publishes_only_the_editorial_handoff(self):
+        workflow = COWORK_WORKFLOW.read_text(encoding="utf-8")
+
+        self.assertIn("paths:", workflow)
+        self.assertIn("web/public/llm_analysis.md", workflow)
+        self.assertIn("docs/chatgpt_coworker_morning_prompt.md", workflow)
+        self.assertNotIn("python prefetch_fred.py", workflow)
+        self.assertNotIn("python main.py run", workflow)
+        self.assertNotIn("validate_fresh_macro_data.py", workflow)
+        self.assertNotIn("git-auto-commit-action", workflow)
+        self.assertIn("contents: read", workflow)
+        self.assertIn("path: './web/dist'", workflow)
+
+    def test_cowork_prompt_allows_editorial_interpretation_without_action_labels(self):
+        prompt = COWORK_PROMPT.read_text(encoding="utf-8")
+
+        self.assertIn("editorial interpretation", prompt)
+        self.assertIn("evidence assessments", prompt)
+        self.assertNotRegex(
+            prompt,
+            r"(?i)\b(BUY|SELL|ACCUMULATE|TRIM|CONVICTION|CONFIDENCE)\b",
+        )
 
     def test_docker_dashboard_serves_unified_payload(self):
         compose = (ROOT / "docker-compose.yml").read_text(encoding="utf-8")

@@ -339,22 +339,22 @@ h3 { font-size: 1.2rem; margin: 0; }
   text-transform: uppercase;
 }
 
-.llm-analysis-panel { padding: clamp(24px, 4vw, 48px); box-shadow: 0 18px 34px rgba(16, 24, 32, 0.16); }
-.llm-analysis-panel h2 { max-width: 18ch; margin: 0; color: var(--paper); font-size: clamp(2.1rem, 4vw, 3.5rem); }
+.editorial-review-panel { padding: clamp(24px, 4vw, 48px); box-shadow: 0 18px 34px rgba(16, 24, 32, 0.16); }
+.editorial-review-panel h2 { max-width: 18ch; margin: 0; color: var(--paper); font-size: clamp(2.1rem, 4vw, 3.5rem); }
 .feature-deck { max-width: 62ch; margin: 14px 0 30px; color: #c8d0d4; font-size: 1.02rem; }
-.llm-analysis-panel .text-secondary { color: #c8d0d4; }
-.llm-analysis-panel .markdown-body { max-width: 72ch; color: #edf0eb; }
-.llm-analysis-panel .markdown-body h1,
-.llm-analysis-panel .markdown-body h2,
-.llm-analysis-panel .markdown-body h3,
-.llm-analysis-panel .markdown-body h4,
-.llm-analysis-panel .markdown-body h5,
-.llm-analysis-panel .markdown-body h6 { color: var(--paper); }
-.llm-analysis-panel .markdown-body blockquote { border-color: #9ab9ff; background: #1d2a35; color: #dce2e2; }
-.llm-analysis-panel .markdown-body code { background: #26333d; }
-.llm-analysis-panel .markdown-body th { background: #26333d; }
-.llm-analysis-panel .markdown-body th,
-.llm-analysis-panel .markdown-body td { border-color: #43505a; }
+.editorial-review-panel .text-secondary { color: #c8d0d4; }
+.editorial-review-panel .markdown-body { max-width: 72ch; color: #edf0eb; }
+.editorial-review-panel .markdown-body h1,
+.editorial-review-panel .markdown-body h2,
+.editorial-review-panel .markdown-body h3,
+.editorial-review-panel .markdown-body h4,
+.editorial-review-panel .markdown-body h5,
+.editorial-review-panel .markdown-body h6 { color: var(--paper); }
+.editorial-review-panel .markdown-body blockquote { border-color: #9ab9ff; background: #1d2a35; color: #dce2e2; }
+.editorial-review-panel .markdown-body code { background: #26333d; }
+.editorial-review-panel .markdown-body th { background: #26333d; }
+.editorial-review-panel .markdown-body th,
+.editorial-review-panel .markdown-body td { border-color: #43505a; }
 
 .trend-section-header { justify-content: space-between; align-items: center; flex-wrap: wrap; }
 .historical-chart-grid { gap: 24px; }
