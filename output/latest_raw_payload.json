@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-01T15:14:56.326175",
+    "generated_at": "2026-08-01T15:39:34.038689",
     "date": "2026-08-01",
     "engine_version": "3.0-EvidenceRawPayload"
   },
@@ -9,124 +9,286 @@
       "indicator_key": "fed_total_assets",
       "date": "2026-07-29",
       "value": 6738190.0,
-      "updated_at": "2026-08-01T15:12:23.792469"
+      "updated_at": "2026-08-01T15:36:54.489304"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
       "date": "2026-07-29",
       "value": 970442.0,
-      "updated_at": "2026-08-01T15:12:23.784231"
+      "updated_at": "2026-08-01T15:36:54.480176"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
       "date": "2026-07-31",
       "value": 2.151,
-      "updated_at": "2026-08-01T15:12:23.800427"
+      "updated_at": "2026-08-01T15:36:54.495325"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
       "date": "2026-07-30",
       "value": 4.68,
-      "updated_at": "2026-08-01T15:12:54.801987"
+      "updated_at": "2026-08-01T15:37:26.964449"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
       "date": "2026-07-30",
       "value": 4.23,
-      "updated_at": "2026-08-01T15:12:54.803812"
+      "updated_at": "2026-08-01T15:37:26.977930"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
       "date": "2026-07-31",
       "value": 0.47,
-      "updated_at": "2026-08-01T15:12:54.838942"
+      "updated_at": "2026-08-01T15:37:27.021169"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
       "date": "2026-07-30",
       "value": 2.84,
-      "updated_at": "2026-08-01T15:12:54.861170"
+      "updated_at": "2026-08-01T15:37:27.048155"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
       "date": "2026-07-30",
       "value": 0.43,
-      "updated_at": "2026-08-01T15:13:49.674695"
+      "updated_at": "2026-08-01T15:38:24.505258"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
       "date": "2026-07-24",
       "value": -0.56,
-      "updated_at": "2026-08-01T15:13:49.688967"
+      "updated_at": "2026-08-01T15:38:24.517307"
     },
     "vix": {
       "indicator_key": "vix",
       "date": "2026-07-31",
       "value": 15.989999771118164,
-      "updated_at": "2026-08-01T15:14:21.560009"
+      "updated_at": "2026-08-01T15:38:57.704432"
     },
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-07-31",
       "value": 99.8000030517578,
-      "updated_at": "2026-08-01T15:14:21.544295"
+      "updated_at": "2026-08-01T15:38:57.702971"
     },
     "sp500": {
       "indicator_key": "sp500",
       "date": "2026-07-31",
       "value": 7489.72021484375,
-      "updated_at": "2026-08-01T15:14:22.845017"
+      "updated_at": "2026-08-01T15:38:57.670089"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-07-31",
       "value": 84.66999816894531,
-      "updated_at": "2026-08-01T15:14:21.542067"
+      "updated_at": "2026-08-01T15:38:57.652133"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-07-31",
       "value": 4049.10009765625,
-      "updated_at": "2026-08-01T15:14:21.577101"
+      "updated_at": "2026-08-01T15:38:57.646583"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-07-31",
       "value": 6.435999870300293,
-      "updated_at": "2026-08-01T15:14:26.345683"
+      "updated_at": "2026-08-01T15:39:03.745192"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
       "date": "2026-06-01",
       "value": 4.2,
-      "updated_at": "2026-08-01T15:13:49.704996"
+      "updated_at": "2026-08-01T15:38:24.537071"
     },
     "cpi": {
       "indicator_key": "cpi",
       "date": "2026-06-01",
       "value": 332.568,
-      "updated_at": "2026-08-01T15:13:49.726660"
+      "updated_at": "2026-08-01T15:38:24.558550"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
       "date": "2026-07-31",
       "value": 2.26,
-      "updated_at": "2026-08-01T15:13:59.360049"
+      "updated_at": "2026-08-01T15:38:34.646469"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
       "date": "2026-07-31",
       "value": 42.4571428571429,
-      "updated_at": "2026-08-01T15:14:28.781973"
+      "updated_at": "2026-08-01T15:39:05.130306"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
       "date": "2026-08-01",
       "value": 40.91,
-      "updated_at": "2026-08-01T15:14:29.025812"
+      "updated_at": "2026-08-01T15:39:05.389896"
     }
   },
   "recent_news_events": [
+    {
+      "id": 608.0,
+      "date": "2026-08-01",
+      "title": "[XOM - ExxonMobil] Stocks to Watch: Apple, Amazon, SK Hynix, Roblox",
+      "summary": "\u2197\ufe0f SK Hynix (KR:000660), Samsung (KR:005930): Shares of both chipmakers surged over 25% in Asian trading, staging a strong recovery after a turbulent week. \u2198\ufe0f Apple (AAPL): Shares fell 7.4% after the ",
+      "source": "Yahoo Finance (XOM)",
+      "link": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-07-31-2026/card/stocks-to-watch-apple-amazon-sk-hynix-samsung-roblox-UVBiwSE6WbBhfL3eozHj?siteid=yhoof2&yptr=yahoo",
+      "category": "Sector Bellwether: XOM (Energy / Oil & Gas)",
+      "topic_tags": [
+        "monetary_policy"
+      ],
+      "interpretation_status": "uninterpreted",
+      "published_at": "2026-07-31T21:58:44Z",
+      "retrieved_at": "2026-08-01T15:39:08.096687",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504403"
+    },
+    {
+      "id": 607.0,
+      "date": "2026-08-01",
+      "title": "[AAPL - Apple] Apple\u2019s Safe Haven Illusion Faces an Impending Hangover",
+      "summary": "Apple just posted a quarter that looked flawless until you find the hidden ingredient propping up its margins, and now the stock trades above what 47 analysts think it is worth.",
+      "source": "Yahoo Finance (AAPL)",
+      "link": "https://247wallst.com/investing/2026/08/01/apples-safe-haven-illusion-faces-an-impending-hangover/",
+      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "2026-08-01T12:50:55Z",
+      "retrieved_at": "2026-08-01T15:39:08.096687",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504335"
+    },
+    {
+      "id": 606.0,
+      "date": "2026-08-01",
+      "title": "[NVDA - NVIDIA] Think Running Out of Money Is Your Biggest Retirement Risk? The Opposite Could Happen.",
+      "summary": "In an attempt to preserve your savings, you might limit your options.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/retirement/2026/08/01/think-running-out-of-money-is-your-biggest-retirem/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "2026-08-01T15:19:00Z",
+      "retrieved_at": "2026-08-01T15:39:08.096687",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504298"
+    },
+    {
+      "id": 605.0,
+      "date": "2026-08-01",
+      "title": "[NVDA - NVIDIA] Prediction: Intel Posts a Profitable Year Before 2028. Here's How It Gets There.",
+      "summary": "The chipmaker lost $11 billion last quarter on paper. The math underneath points somewhere very different.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/08/01/prediction-intel-posts-a-profitable-year-before-20/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "2026-08-01T15:29:00Z",
+      "retrieved_at": "2026-08-01T15:39:08.096687",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504288"
+    },
+    {
+      "id": 604.0,
+      "date": "2026-08-01",
+      "title": "Iran-backed militant group's threat to Saudi energy hub could upend Trump's midterm message - Politico",
+      "summary": "Iran-backed militant group's threat to Saudi energy hub could upend Trump's midterm message&nbsp;&nbsp;Politico",
+      "source": "Politico",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPb3VQZFpreDI4VWN3d01lSkVveHcwc2lPM1BaNENEUWNUclpldlFpZk92VVQ2M0JkdFJaa0pvSnlDMGRxcmJtMlByaU56OUlUbHdhWUQ3bXB0Zmhka25FTlY1S1p1b0xKWmo3aTRJWmRZbURvLW5RMHZRdHNOeWFocTZzbUZ3eXJQN2hWNXhrZENLeFlVU2tKeWRLcXNvVThMc2NRS0pXWS00ZmFHX2xNVkxEbjZQVnJKemc?oc=5",
+      "category": "Geopolitics & Oil",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Fri, 31 Jul 2026 20:25:00 GMT",
+      "retrieved_at": "2026-08-01T15:39:05.560937",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504220"
+    },
+    {
+      "id": 603.0,
+      "date": "2026-08-01",
+      "title": "A Credibility Gap at the Fed: Why Bond Yields Are Surging - Barron's",
+      "summary": "A Credibility Gap at the Fed: Why Bond Yields Are Surging&nbsp;&nbsp;Barron's",
+      "source": "Barron's",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5veU1tYmtqWnlTU2xtS0lwRFN3MDVMNjFTRHVUSHdTYzlBLTVJUGdnWmN3enpUX25KbHVNU1dXXzBweW9aZ1ZLTEpaYjltdTJiQ3U3SnFTUy15RmFrc0xvRnlUNnRMTzhOU1MzM1FRUU42dnhvQVVr?oc=5",
+      "category": "Credit & Rates",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Fri, 31 Jul 2026 22:20:00 GMT",
+      "retrieved_at": "2026-08-01T15:39:05.560937",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504175"
+    },
+    {
+      "id": 602.0,
+      "date": "2026-08-01",
+      "title": "U.S. Treasury Yields Soar as Market Struggles to Interpret Fed - WSJ",
+      "summary": "U.S. Treasury Yields Soar as Market Struggles to Interpret Fed&nbsp;&nbsp;WSJ",
+      "source": "WSJ",
+      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQcFNlWTYtaGVZZ0xPcnRHU29aSGlVYW1GY1lfa0dXcE81bFVzZkI0N3pZTHJZU2pSTE5Zb3RsbkVSd2tOTWJOYkdOd19pLUVhZy1vZkVjVWViRmdKdmozeVdiNTFCZ3ctMUFwSDllRlhGLUI4a1h2VHpFMHBSRlpYVjRMbmhwZ2tvdWNLMmdhYl9rSC1UM2lJaUF0TmZsTGZndEZSZHJsYUQ3TFlXbk9UaHk4aFM?oc=5",
+      "category": "Credit & Rates",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Thu, 30 Jul 2026 09:44:00 GMT",
+      "retrieved_at": "2026-08-01T15:39:05.560937",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504164"
+    },
+    {
+      "id": 601.0,
+      "date": "2026-08-01",
+      "title": "U.S. Jobless Claims Rebound After Streak of Declines - WSJ",
+      "summary": "U.S. Jobless Claims Rebound After Streak of Declines&nbsp;&nbsp;WSJ",
+      "source": "WSJ",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPc05FUzNQajVjV1h6b1FXLXdJZEdUNXVDNlRDMW56c1pmSXF3c1JnOUJzcWlQUDlGLWFNYWpTLXo4R1JVS1A3SWVLQVFpSmUxSnNaNkU0OEtFckpIeFNkSUVGU3c5bC1vdkx2R1Y5cUktNzF4SVFnMDFqS3RIUjRweXNmd08xV3lYQkN6ZzNQVnRWQXZ4RXRkWA?oc=5",
+      "category": "Labor & Employment",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Thu, 30 Jul 2026 12:49:00 GMT",
+      "retrieved_at": "2026-08-01T15:39:05.560937",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504118"
+    },
+    {
+      "id": 600.0,
+      "date": "2026-08-01",
+      "title": "Consumer prices rose 3.5% annually in June, less than expected as energy prices eased - CNBC",
+      "summary": "Consumer prices rose 3.5% annually in June, less than expected as energy prices eased&nbsp;&nbsp;CNBC",
+      "source": "CNBC",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNVUlRVno2bmpjLWRiYnV1M2VxVDZPTGVWa0I4Wk9tY0JHajgxaWcyeUpDbDI5THZKQVBhcEx6WFo1RmszaEh0R19zNU85cXFmOVlxNjB5QWRvNTJncnFZUndDUTVXWXg1Rk5DQTRPREF4OV9DQjRsMVYxV3QxOTY3cnBpWXhFM2lLSVFMMNIBkgFBVV95cUxOVmZJaUpQd0wwYXJrSmp0eVlGbjV6eWhkNGxtZEd1aTlWb2x1cjNNa09ZSnFyMzlpUzRuMV95VW9oQjBXVUlranJLelhyYmVPLTB4UTBqbDZTQ2YtREtSMnVCV1hRbWE3cFJOLU53UkJYeG9OX09PQzU1MDlRaUxnNmZnS3o4dWxyeVdweEVROVIwUQ?oc=5",
+      "category": "Inflation & Prices",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Tue, 14 Jul 2026 07:00:00 GMT",
+      "retrieved_at": "2026-08-01T15:39:05.560937",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504073"
+    },
+    {
+      "id": 599.0,
+      "date": "2026-08-01",
+      "title": "Fed leaves interest rate unchanged but with 3 dissents as Warsh praises \u2018good family fight\u2019 - AP News",
+      "summary": "Fed leaves interest rate unchanged but with 3 dissents as Warsh praises \u2018good family fight\u2019&nbsp;&nbsp;AP News",
+      "source": "AP News",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQN0dYeFppekRSNVVZZFhyUjJpLXd4aWlvMWpiZDc5M3lVcXZFWW9WbjVLSzl3MEZDcHhBMkdjZkpWTjRoY2ZRVThJeHN1emVWVzZXRmlOTFEwM0ZiR1d6NWV4b2dqdno0d0F2cU55emE2RjBjNmJtLUIwMzhfcFNlMUdEY0FJNnNTT2N4Sm55RDBJblExX2dYbmJCMWU1ZnNzVE5jbTdLQVZ6VF94OFE?oc=5",
+      "category": "Federal Reserve & Liquidity",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Wed, 29 Jul 2026 21:18:00 GMT",
+      "retrieved_at": "2026-08-01T15:39:05.560937",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-01T15:39:09.504037"
+    },
     {
       "id": 598.0,
       "date": "2026-08-01",
@@ -368,168 +530,6 @@
       "impact_score": null,
       "sentiment": null,
       "created_at": "2026-08-01T15:14:32.888540"
-    },
-    {
-      "id": 583.0,
-      "date": "2026-08-01",
-      "title": "[AAPL - Apple] Apple Just Did Something It Hasn't Done in Over a Year, and the Stock Can Keep Climbing Higher From Here",
-      "summary": "Should you buy Apple at a near-$5 trillion valuation?",
-      "source": "Yahoo Finance (AAPL)",
-      "link": "https://www.fool.com/investing/2026/08/01/apple-did-something-stock-climb-higher/",
-      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-08-01T14:05:00Z",
-      "retrieved_at": "2026-08-01T15:14:31.720739",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888531"
-    },
-    {
-      "id": 582.0,
-      "date": "2026-08-01",
-      "title": "[AAPL - Apple] Listen to Tim Cook's first and last earnings calls as Apple CEO",
-      "summary": "Tim Cook has left a lasting legacy at Apple (AAPL), from his first earnings call as CEO in 2011 to his last one in 2026. Cook will step down as CEO on September 1, 2026 passing the baton to John Ternu",
-      "source": "Yahoo Finance (AAPL)",
-      "link": "https://finance.yahoo.com/video/listen-tim-cooks-first-last-153002417.html",
-      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-07-31T15:30:02Z",
-      "retrieved_at": "2026-08-01T15:14:31.720739",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888522"
-    },
-    {
-      "id": 581.0,
-      "date": "2026-08-01",
-      "title": "[AAPL - Apple] Apple stock falls on weak revenue forecast as CEO Tim Cook flags 'increasing impact' from memory shortage",
-      "summary": "The iPhone maker reported its third quarter earnings on Thursday, beating analysts' expectations on the top and bottom lines on strong iPhone sales, but shares fell after Services and Greater China sa",
-      "source": "Yahoo Finance (AAPL)",
-      "link": "https://finance.yahoo.com/technology/article/apple-stock-falls-on-weak-revenue-forecast-as-ceo-tim-cook-flags-increasing-impact-from-memory-shortage-130428410.html",
-      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
-      "topic_tags": [
-        "monetary_policy"
-      ],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-07-31T13:04:28Z",
-      "retrieved_at": "2026-08-01T15:14:31.720739",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888513"
-    },
-    {
-      "id": 580.0,
-      "date": "2026-08-01",
-      "title": "[NVDA - NVIDIA] If You Invest $1,000 in the Vanguard High Dividend Yield ETF Right Now and Never Add Another Dollar, Here's What History Says It Could Deliver in 20 Years",
-      "summary": "This ETF's focus on dividend stocks has paid off for investors over the years.",
-      "source": "Yahoo Finance (NVDA)",
-      "link": "https://www.fool.com/investing/2026/08/01/if-you-invest-1000-in-vanguard-high-dividend-yield/",
-      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-08-01T14:50:00Z",
-      "retrieved_at": "2026-08-01T15:14:31.720739",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888501"
-    },
-    {
-      "id": 579.0,
-      "date": "2026-08-01",
-      "title": "[NVDA - NVIDIA] Why the Best May Be Yet to Come for NVIDIA, Micron, and SanDisk",
-      "summary": "NVIDIA, Micron, and SanDisk have already delivered jaw-dropping returns in 2026, but a surprising set of catalysts suggests the biggest gains for all three stocks may still be sitting on the table.",
-      "source": "Yahoo Finance (NVDA)",
-      "link": "https://247wallst.com/investing/2026/08/01/why-the-best-may-be-yet-to-come-for-nvidia-micron-and-sandisk/",
-      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-08-01T15:00:13Z",
-      "retrieved_at": "2026-08-01T15:14:31.720739",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888492"
-    },
-    {
-      "id": 578.0,
-      "date": "2026-08-01",
-      "title": "[NVDA - NVIDIA] AI trade is a combination of 'perception and reality': Bradley Tusk",
-      "summary": "Tusk Ventures founder and CEO Bradley Tusk dives into the \"perception vs. reality\" aspects of the broad AI trade and commenting on where these speculation trades may be manifesting behind SpaceX (SPCX",
-      "source": "Yahoo Finance (NVDA)",
-      "link": "https://finance.yahoo.com/video/ai-trade-combination-perception-reality-212136645.html",
-      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-07-31T21:21:36Z",
-      "retrieved_at": "2026-08-01T15:14:31.720739",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888483"
-    },
-    {
-      "id": 577.0,
-      "date": "2026-08-01",
-      "title": "[MU - Micron Technology] Prediction: This Is Where Micron Stock Will Be at the End of 2026",
-      "summary": "The prevailing market dynamics serve as a strong tailwind for this tech stock.",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://www.fool.com/investing/2026/08/01/prediction-this-is-where-micron-stock-will-be-at-t/",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-08-01T09:02:00Z",
-      "retrieved_at": "2026-08-01T15:14:31.720739",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888474"
-    },
-    {
-      "id": 576.0,
-      "date": "2026-08-01",
-      "title": "[MU - Micron Technology] Both Berkshire Hathaway and Micron Stocks Look Cheap on the Surface. But I Like 1 Better Than the Other.",
-      "summary": "A conglomerate and a memory maker look similarly priced. But the earnings streams behind those two multiples could hardly be more different.",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://www.fool.com/investing/2026/08/01/both-berkshire-hathaway-and-micron-stocks-look-che/",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-08-01T12:43:00Z",
-      "retrieved_at": "2026-08-01T15:14:31.720739",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888465"
-    },
-    {
-      "id": 575.0,
-      "date": "2026-08-01",
-      "title": "[MU - Micron Technology] Why the Best May Be Yet to Come for NVIDIA, Micron, and SanDisk",
-      "summary": "NVIDIA, Micron, and SanDisk have already delivered jaw-dropping returns in 2026, but a surprising set of catalysts suggests the biggest gains for all three stocks may still be sitting on the table.",
-      "source": "Yahoo Finance (MU)",
-      "link": "https://247wallst.com/investing/2026/08/01/why-the-best-may-be-yet-to-come-for-nvidia-micron-and-sandisk/",
-      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-08-01T15:00:13Z",
-      "retrieved_at": "2026-08-01T15:14:31.720739",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888455"
-    },
-    {
-      "id": 574.0,
-      "date": "2026-08-01",
-      "title": "Is Middle East Supply Risk And Low U.S. Inventories Altering The Investment Case For APA (APA)? - simplywall.st",
-      "summary": "Is Middle East Supply Risk And Low U.S. Inventories Altering The Investment Case For APA (APA)?&nbsp;&nbsp;simplywall.st",
-      "source": "simplywall.st",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNVnZBbGRONmJHR0xSNEdFeG5rQ1JJcm5Jb09Tclp0empENzk1VkpicWlTaDhBMlVrTkxXb2ZwdGFHZ1lsR3VQcjJWeDRWZGI4T2Fza1pVVjZqX0EyREJtaHFzU2tfMFlGTW5GV196XzVLYWJtNVJjUF9iczNWT0tRb2lqTDE0NnplM3BVbno2U0p0ZURhczVaYThPWXotbGM5c2NGXy1kNnVUQ05mcE5NLXpHUjJneV8yZ1Q40gHAAUFVX3lxTE5FZ3ZYRkJ1aHhNUV9ITFBYZW9mVXZKUm10SEpSN2w3Z21QZWV6Zm9mdWRQSjV1Z01jLUhoUUdVMmZzdFF5TmV1VWlPS1ZvOEdWTTYyM3c2TDIybnlYNkgzY1lwdUl2MGd2ODVLcmRKT0NZMi1yVzFjRjdJaWpXUnF5MkkzaW1YMkZwWU1ra2IzV20xajBmLUdpVFVpdVZrd2NqVDR6MDlLYWZKLXZoM1RzNlpFbnh0ZzFsMDgtb1c1Mg?oc=5",
-      "category": "Geopolitics & Oil",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "Sat, 01 Aug 2026 09:33:49 GMT",
-      "retrieved_at": "2026-08-01T15:14:29.185699",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-01T15:14:32.888445"
     }
   ],
   "evidence_assessments": [
@@ -3176,7 +3176,7 @@
       "group": "Software & Cloud",
       "peer_cohort": "Software & Cloud",
       "price": 464.72,
-      "trailing_pe": 25.12,
+      "trailing_pe": 25.9,
       "forward_pe": 19.96,
       "ev_ebitda": 18.03,
       "price_to_book": 7.8,
@@ -3551,7 +3551,7 @@
       "group": "Pharmaceuticals",
       "peer_cohort": "Pharmaceuticals",
       "price": 25.01,
-      "trailing_pe": 18.95,
+      "trailing_pe": 19.09,
       "forward_pe": 8.85,
       "ev_ebitda": 7.64,
       "price_to_book": 1.58,
@@ -3566,7 +3566,7 @@
       "group": "Energy Producers",
       "peer_cohort": "Energy Producers",
       "price": 155.44,
-      "trailing_pe": 26.44,
+      "trailing_pe": 26.17,
       "forward_pe": 14.69,
       "ev_ebitda": 12.44,
       "price_to_book": 2.53,
@@ -3837,7 +3837,7 @@
       "peer_cohort": "Retail & Consumer",
       "price": 192.9,
       "trailing_pe": 25.45,
-      "forward_pe": 15.69,
+      "forward_pe": 15.7,
       "ev_ebitda": 14.71,
       "price_to_book": -17.25,
       "dist_from_52w_high_pct": -16.78,
@@ -4981,7 +4981,7 @@
       "missing_evidence": [
         "Only 1 valid historical relative observations are available; 60 are required."
       ],
-      "forward_pe_relative": 0.788,
+      "forward_pe_relative": 0.789,
       "historical_forward_pe_relative": null,
       "relative_fpe_discount_pct": null,
       "ev_ebitda_relative": 0.911,
