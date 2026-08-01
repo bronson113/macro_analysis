@@ -2,37 +2,36 @@
 *Automated Capture Engine & Institutional Research Framework (Defiant Gatekeeper)*
 > Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.
 
-> [!WARNING]
-> **DATA STALENESS DETECTED**: The underlying macro data hasn't been updated in over 48 hours. Run the fetch job to ensure accuracy.
-
 ---
 ## Notable Summary
 
-- **Macro:** Active quadrant is `SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Expanding (+30d)). Policy/liquidity conflict: reserve liquidity is expanding while policy remains restrictive. Identify whether the liquidity source is Fed assets, TGA, RRP, or emergency facilities before drawing conclusions. Sticky inflation confirmed (3.7% CPI).
-- **Valuation:** Shiller PE Ratio is `40.57` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
+- **Macro:** Active quadrant is `SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Contracting (-30d)). Restrictive setup: policy-rate pressure and reserve-liquidity drainage raise valuation multiple-compression risk.
+- **Valuation:** Shiller PE Ratio is `40.91` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
 
 ---
 
 ## 1. Active Macro Situation (2x2 Matrix Analysis)
 
 > [!IMPORTANT]
-> **Active Quadrant**: `SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION`
+> **Active Quadrant**: `SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION`
 > - **Rates Stance**: `Interest Rates: Raising / Holding Restrictive`
-> - **Net Liquidity Direction**: `Reserve Liquidity: Expanding (+30d)`
-> - **Macro Environment**: Policy/liquidity conflict: reserve liquidity is expanding while policy remains restrictive. Identify whether the liquidity source is Fed assets, TGA, RRP, or emergency facilities before drawing conclusions. Sticky inflation confirmed (3.7% CPI).
+> - **Net Liquidity Direction**: `Reserve Liquidity: Contracting (-30d)`
+> - **Macro Environment**: Restrictive setup: policy-rate pressure and reserve-liquidity drainage raise valuation multiple-compression risk.
 
 ### Sector & Company Type Alignment for Current Situation
 
 #### Favored Sectors
-- Energy (XLE)
 - Financials (XLF)
-- Industrials (XLI)
+- Cash
 
 #### Preferred Company Characteristics
-- Real asset owners
-- Inflation-indexed revenues
+- Net-Interest-Margin beneficiaries
+- Zero debt
 
 #### Disfavored / High Risk Sectors
+- Technology (XLK)
+- AI Compute & Accelerators
+- Physical AI & Robotics
 - Consumer Discretionary (XLY)
 
 ---
@@ -43,10 +42,10 @@ Reserve liquidity proxy is calculated as `Fed Total Assets - TGA Balance - Rever
 
 | Component | Value (Billions USD) | Notes / Description |
 | :--- | :--- | :--- |
-| **Reserve Liquidity Proxy** | **$5,910.83 B** | **30-Day Change: +134.84 B** |
-| Fed Total Assets | $6,747.38 B | Total Balance Sheet Size |
-| Treasury General Account (TGA) | $835.42 B | Treasury Cash Buffer at Fed |
-| Reverse Repo Facility (RRP) | $1.13 B | Overnight Liquidity Drain |
+| **Reserve Liquidity Proxy** | **$5,765.60 B** | **30-Day Change: -64.66 B** |
+| Fed Total Assets | $6,738.19 B | Total Balance Sheet Size |
+| Treasury General Account (TGA) | $970.44 B | Treasury Cash Buffer at Fed |
+| Reverse Repo Facility (RRP) | $2.15 B | Overnight Liquidity Drain |
 
 ---
 
@@ -58,11 +57,11 @@ The yield curve slope is a key indicator of economic cycle transitions and reces
 | :--- | :--- | :--- |
 | **Policy Rate** | `3.63%` | Source: `dff` / Stance: `HOLDING_RESTRICTIVE` |
 | **Policy Rate 30d Change** | `+0.00%` | Used for Rates Stance in Matrix |
-| **10Y Real Yield Proxy** | `+2.45%` | 10Y Treasury minus 10Y breakeven |
-| **10-Year Treasury Yield** | `4.65%` | Benchmark Long Rate |
-| **2-Year Treasury Yield** | `4.31%` | Short Rate / Fed Expectations |
-| **10Y - 2Y Spread** | `+0.35%` | **Regime: Normal (Steep)** |
-| **10Y - 3M Spread** | `+0.71%` | Classic Recession Gauge |
+| **10Y Real Yield Proxy** | `+2.40%` | 10Y Treasury minus 10Y breakeven |
+| **10-Year Treasury Yield** | `4.68%` | Benchmark Long Rate |
+| **2-Year Treasury Yield** | `4.23%` | Short Rate / Fed Expectations |
+| **10Y - 2Y Spread** | `+0.47%` | **Regime: Normal (Steep)** |
+| **10Y - 3M Spread** | `+0.92%` | Classic Recession Gauge |
 
 ---
 
@@ -73,7 +72,7 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 | Metric | Current Value | Threshold Benchmark |
 | :--- | :--- | :--- |
 | **ICE BofA High Yield OAS** | `2.84%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
-| **Investment Grade OAS** | `0.46%` | High Quality Corporate Premium |
+| **Investment Grade OAS** | `0.43%` | High Quality Corporate Premium |
 | **Chicago Fed Financial Conditions** | `-0.56` | Negative = Loose, Positive = Tight |
 
 ---
@@ -84,17 +83,17 @@ Each assessment makes its deterministic evidence, uncertainty, and missing input
 
 | Sector / Supply Chain Group | Evidence Posture | Score | Uncertainty Range | Coverage | Positive Factors | Negative Factors | Missing Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Technology (XLK)** | `NEUTRAL` | `0.00` | `-10.00` to `10.00` | `85.7%` | Reserve-liquidity direction is expanding, contracting, or neutral. | Restrictive real yields are a headwind for long-duration sector groups. | Valuation percentile is unavailable. |
-| **Financials (XLF)** | `NEUTRAL` | `3.00` | `-10.00` to `10.00` | `85.7%` | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral. | — | Valuation percentile is unavailable. |
-| **Healthcare (XLV)** | `NEUTRAL` | `1.00` | `-10.00` to `10.00` | `85.7%` | Reserve-liquidity direction is expanding, contracting, or neutral. | — | Valuation percentile is unavailable. |
-| **Energy (XLE)** | `NEUTRAL` | `3.00` | `-10.00` to `10.00` | `85.7%` | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral. | — | Valuation percentile is unavailable. |
-| **Industrials (XLI)** | `NEUTRAL` | `3.00` | `-10.00` to `10.00` | `85.7%` | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral. | — | Valuation percentile is unavailable. |
-| **Consumer Discretionary (XLY)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | Reserve-liquidity direction is expanding, contracting, or neutral. | Macro quadrant is favorable, unfavorable, or neutral for this sector group. | Valuation percentile is unavailable. |
-| **Consumer Staples (XLP)** | `NEUTRAL` | `1.00` | `-10.00` to `10.00` | `85.7%` | Reserve-liquidity direction is expanding, contracting, or neutral. | — | Valuation percentile is unavailable. |
-| **AI Compute & Accelerators** | `NEUTRAL` | `0.00` | `-10.00` to `10.00` | `85.7%` | Reserve-liquidity direction is expanding, contracting, or neutral. | Restrictive real yields are a headwind for long-duration sector groups. | Valuation percentile is unavailable. |
-| **High-Bandwidth Memory (HBM)** | `NEUTRAL` | `1.00` | `-10.00` to `10.00` | `85.7%` | Reserve-liquidity direction is expanding, contracting, or neutral. | — | Valuation percentile is unavailable. |
-| **Physical AI & Robotics** | `NEUTRAL` | `0.00` | `-10.00` to `10.00` | `85.7%` | Reserve-liquidity direction is expanding, contracting, or neutral. | Restrictive real yields are a headwind for long-duration sector groups. | Valuation percentile is unavailable. |
-| **Downstream Power & Grid** | `NEUTRAL` | `1.00` | `-10.00` to `10.00` | `85.7%` | Reserve-liquidity direction is expanding, contracting, or neutral. | — | Valuation percentile is unavailable. |
+| **Technology (XLK)** | `NEUTRAL` | `-4.00` | `-10.00` to `10.00` | `85.7%` | — | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral.<br>Restrictive real yields are a headwind for long-duration sector groups. | Valuation percentile is unavailable. |
+| **Financials (XLF)** | `NEUTRAL` | `1.00` | `-10.00` to `10.00` | `85.7%` | Macro quadrant is favorable, unfavorable, or neutral for this sector group. | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Healthcare (XLV)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Energy (XLE)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Industrials (XLI)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Consumer Discretionary (XLY)** | `NEUTRAL` | `-3.00` | `-10.00` to `10.00` | `85.7%` | — | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Consumer Staples (XLP)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **AI Compute & Accelerators** | `NEUTRAL` | `-4.00` | `-10.00` to `10.00` | `85.7%` | — | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral.<br>Restrictive real yields are a headwind for long-duration sector groups. | Valuation percentile is unavailable. |
+| **High-Bandwidth Memory (HBM)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Physical AI & Robotics** | `NEUTRAL` | `-4.00` | `-10.00` to `10.00` | `85.7%` | — | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral.<br>Restrictive real yields are a headwind for long-duration sector groups. | Valuation percentile is unavailable. |
+| **Downstream Power & Grid** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
 
 ---
 
@@ -188,7 +187,7 @@ Tracking valuation multiples and downstream physical dependencies across compute
 | **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.18x` | `45.51x` | `28.0x` | `Undervalued / Discounted Super-Cycle` |
 | **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `17.21x` | `30.38x` | `16.0x` | `Fairly Valued` |
 | **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `58.69x` | `51.88x` | `30.0x` | `Rich Multiple / Growth Premium` |
-| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `25.02x` | `29.38x` | `22.0x` | `Fairly Valued` |
+| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `25.02x` | `29.48x` | `22.0x` | `Fairly Valued` |
 | **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `17.71x` | `25.21x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
 | **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `27.74x` | `41.73x` | `26.0x` | `Fairly Valued` |
 | **7. Critical Materials & Magnets** | `FCX`, `MP` | `29.42x` | `11.10x` | `18.0x` | `Rich Multiple / Growth Premium` |
@@ -199,14 +198,14 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
-| **CBOE Volatility (VIX)** | `20.04` | `Elevated Volatility (20-30)` |
-| **US Dollar Index (DXY)** | `101.48` | Global Currency Tightness |
-| **S&P 500 Index** | `7,343.95` | US Equity Benchmark |
-| **CNN Fear & Greed Index** | `33.66` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
-| **Shiller PE Ratio** | `40.57` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$84.95` | Energy Cost Drivers |
-| **Gold** | `$4,070.00` | Monetary Protection / Safe Haven |
-| **Copper** | `$6.29` | Industrial Demand Indicator |
+| **CBOE Volatility (VIX)** | `15.99` | `Low Volatility (Complacency)` |
+| **US Dollar Index (DXY)** | `99.80` | Global Currency Tightness |
+| **S&P 500 Index** | `7,489.72` | US Equity Benchmark |
+| **CNN Fear & Greed Index** | `42.46` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
+| **Shiller PE Ratio** | `40.91` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
+| **WTI Crude Oil** | `$84.67` | Energy Cost Drivers |
+| **Gold** | `$4,049.10` | Monetary Protection / Safe Haven |
+| **Copper** | `$6.44` | Industrial Demand Indicator |
 
 ---
 *Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.*
