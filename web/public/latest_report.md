@@ -1,4 +1,4 @@
-# Daily Macro Evidence Report (2026-08-05)
+# Daily Macro Evidence Report (2026-08-06)
 *Automated Capture Engine & Institutional Research Framework (Defiant Gatekeeper)*
 > Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.
 
@@ -6,7 +6,7 @@
 ## Notable Summary
 
 - **Unchanged:** **Macro:** Active quadrant is `SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Contracting (-30d)). Restrictive setup: policy-rate pressure and reserve-liquidity drainage raise valuation multiple-compression risk.
-- **Unchanged:** **Valuation:** Shiller PE Ratio is `42.28` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
+- **Unchanged:** **Valuation:** Shiller PE Ratio is `42.19` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
 
 ---
 
@@ -42,10 +42,10 @@ Reserve liquidity proxy is calculated as `Fed Total Assets - TGA Balance - Rever
 
 | Component | Value (Billions USD) | Notes / Description |
 | :--- | :--- | :--- |
-| **Reserve Liquidity Proxy** | **$5,765.50 B** | **30-Day Change: -64.76 B** |
+| **Reserve Liquidity Proxy** | **$5,766.10 B** | **30-Day Change: -64.16 B** |
 | Fed Total Assets | $6,738.19 B | Total Balance Sheet Size |
 | Treasury General Account (TGA) | $970.44 B | Treasury Cash Buffer at Fed |
-| Reverse Repo Facility (RRP) | $2.25 B | Overnight Liquidity Drain |
+| Reverse Repo Facility (RRP) | $1.65 B | Overnight Liquidity Drain |
 
 ---
 
@@ -57,10 +57,10 @@ The yield curve slope is a key indicator of economic cycle transitions and reces
 | :--- | :--- | :--- |
 | **Policy Rate** | `3.63%` | Source: `dff` / Stance: `HOLDING_RESTRICTIVE` |
 | **Policy Rate 30d Change** | `+0.00%` | Used for Rates Stance in Matrix |
-| **10Y Real Yield Proxy** | `+2.47%` | 10Y Treasury minus 10Y breakeven |
-| **10-Year Treasury Yield** | `4.70%` | Benchmark Long Rate |
-| **2-Year Treasury Yield** | `4.25%` | Short Rate / Fed Expectations |
-| **10Y - 2Y Spread** | `+0.43%` | **Regime: Normal (Steep)** |
+| **10Y Real Yield Proxy** | `+2.41%` | 10Y Treasury minus 10Y breakeven |
+| **10-Year Treasury Yield** | `4.63%` | Benchmark Long Rate |
+| **2-Year Treasury Yield** | `4.20%` | Short Rate / Fed Expectations |
+| **10Y - 2Y Spread** | `+0.45%` | **Regime: Normal (Steep)** |
 | **10Y - 3M Spread** | `+0.74%` | Classic Recession Gauge |
 
 ---
@@ -71,9 +71,9 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 
 | Metric | Current Value | Threshold Benchmark |
 | :--- | :--- | :--- |
-| **ICE BofA High Yield OAS** | `2.78%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
+| **ICE BofA High Yield OAS** | `2.73%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
 | **Investment Grade OAS** | `0.39%` | High Quality Corporate Premium |
-| **Chicago Fed Financial Conditions** | `-0.56` | Negative = Loose, Positive = Tight |
+| **Chicago Fed Financial Conditions** | `-0.54` | Negative = Loose, Positive = Tight |
 
 ---
 
@@ -103,15 +103,15 @@ Constituent review compares each company with its focused peer cohort and requir
 
 | Ticker | Peer Cohort | Relative Valuation Status | Research Posture | Evidence | Missing Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `BAC` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
-| `C` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
-| `JPM` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
-| `SCHW` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
-| `WFC` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
-| `AXP` | Capital Markets | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
-| `BLK` | Capital Markets | Insufficient Comparable Peers | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `GS` | Capital Markets | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
-| `MS` | Capital Markets | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `BAC` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `C` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `JPM` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `SCHW` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `WFC` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `AXP` | Capital Markets | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `BLK` | Capital Markets | Insufficient Comparable Peers | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `GS` | Capital Markets | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `MS` | Capital Markets | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
 | `AAPL` | Consumer Hardware & Platforms | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `GOOGL` | Consumer Hardware & Platforms | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `META` | Consumer Hardware & Platforms | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
@@ -120,61 +120,61 @@ Constituent review compares each company with its focused peer cohort and requir
 | `MOD` | Datacenter Cooling | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `SMCI` | Datacenter Cooling | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `VRT` | Datacenter Cooling | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `CEG` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `ETN` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `GEV` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `VST` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `COP` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>Only 3 valid historical relative observations are available; 60 are required. |
-| `CVX` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>Only 3 valid historical relative observations are available; 60 are required. |
-| `EOG` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>Only 3 valid historical relative observations are available; 60 are required. |
-| `XOM` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>Only 3 valid historical relative observations are available; 60 are required. |
-| `AMD` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `AVGO` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `NVDA` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `QCOM` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
+| `CEG` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `ETN` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `GEV` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `VST` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `COP` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>Only 4 valid historical relative observations are available; 60 are required. |
+| `CVX` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>Only 4 valid historical relative observations are available; 60 are required. |
+| `EOG` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>Only 4 valid historical relative observations are available; 60 are required. |
+| `XOM` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>Only 4 valid historical relative observations are available; 60 are required. |
+| `AMD` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `AVGO` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `NVDA` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `QCOM` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
 | `GFS` | Foundries | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `INTC` | Foundries | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `TSM` | Foundries | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `CAT` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `DE` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `GE` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `HON` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `ROK` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `CI` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `CVS` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `ELV` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `HUM` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `UNH` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
+| `CAT` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `DE` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `GE` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `HON` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `ROK` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `CI` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `CVS` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `ELV` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `HUM` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `UNH` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
 | `MU` | Memory | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `STX` | Memory | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `WDC` | Memory | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `ABBV` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `JNJ` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `LLY` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `MRK` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `PFE` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
+| `ABBV` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `JNJ` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `LLY` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `MRK` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `PFE` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
 | `ISRG` | Physical AI & Robotics | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `SYM` | Physical AI & Robotics | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>No valid current EVE multiple is available. |
 | `TSLA` | Physical AI & Robotics | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `MPC` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `PSX` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `PSX` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>No valid current EVE multiple is available. |
 | `VLO` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `AMZN` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `BKNG` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `HD` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `LOW` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `MCD` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `NKE` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `SBUX` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `AMAT` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `ASML` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
-| `KLAC` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `LRCX` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `TER` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `ADBE` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `CRM` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `MSFT` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
-| `ORCL` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 4 valid historical relative observations are available; 60 are required. |
+| `AMZN` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `BKNG` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `HD` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `LOW` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `MCD` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `NKE` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `SBUX` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `AMAT` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `ASML` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `KLAC` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `LRCX` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `TER` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `ADBE` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `CRM` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `MSFT` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
+| `ORCL` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 5 valid historical relative observations are available; 60 are required. |
 
 ---
 
@@ -184,13 +184,13 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Ecosystem Sub-Group | Key Tickers | Avg Forward P/E | Avg EV / EBITDA | Historical Norm (P/E) | Supply Chain & Valuation Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `23.62x` | `49.11x` | `28.0x` | `Fairly Valued` |
-| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `17.80x` | `31.12x` | `16.0x` | `Fairly Valued` |
-| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `61.82x` | `53.78x` | `30.0x` | `Rich Multiple / Growth Premium` |
-| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `25.66x` | `30.45x` | `22.0x` | `Fairly Valued` |
-| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `19.09x` | `26.69x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
-| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `29.65x` | `43.82x` | `26.0x` | `Fairly Valued` |
-| **7. Critical Materials & Magnets** | `FCX`, `MP` | `33.20x` | `11.79x` | `18.0x` | `Rich Multiple / Growth Premium` |
+| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `23.07x` | `41.54x` | `28.0x` | `Fairly Valued` |
+| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `11.15x` | `29.84x` | `16.0x` | `Undervalued / Discounted Super-Cycle` |
+| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `60.99x` | `52.94x` | `30.0x` | `Rich Multiple / Growth Premium` |
+| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `25.60x` | `30.35x` | `22.0x` | `Fairly Valued` |
+| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `19.04x` | `26.94x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
+| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `28.98x` | `43.90x` | `26.0x` | `Fairly Valued` |
+| **7. Critical Materials & Magnets** | `FCX`, `MP` | `33.68x` | `12.09x` | `18.0x` | `Rich Multiple / Growth Premium` |
 
 ---
 
@@ -198,14 +198,14 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
-| **CBOE Volatility (VIX)** | `16.76` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `99.69` | Global Currency Tightness |
-| **S&P 500 Index** | `7,736.52` | US Equity Benchmark |
-| **CNN Fear & Greed Index** | `59.17` | `Greed risk-appetite overlay: risk appetite is firm, so avoid chasing weak valuation setups.` |
-| **Shiller PE Ratio** | `42.28` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$75.93` | Energy Cost Drivers |
-| **Gold** | `$4,260.80` | Monetary Protection / Safe Haven |
-| **Copper** | `$6.67` | Industrial Demand Indicator |
+| **CBOE Volatility (VIX)** | `16.01` | `Low Volatility (Complacency)` |
+| **US Dollar Index (DXY)** | `99.75` | Global Currency Tightness |
+| **S&P 500 Index** | `7,723.55` | US Equity Benchmark |
+| **CNN Fear & Greed Index** | `60.43` | `Greed risk-appetite overlay: risk appetite is firm, so avoid chasing weak valuation setups.` |
+| **Shiller PE Ratio** | `42.19` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
+| **WTI Crude Oil** | `$75.20` | Energy Cost Drivers |
+| **Gold** | `$4,313.50` | Monetary Protection / Safe Haven |
+| **Copper** | `$6.77` | Industrial Demand Indicator |
 
 ---
 *Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.*
