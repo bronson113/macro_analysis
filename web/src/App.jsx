@@ -7,7 +7,6 @@ import BigUpdate from './components/BigUpdate';
 import EditorialReview from './components/EditorialReview';
 import TrendGraphs from './components/TrendGraphs';
 import CheatSheet from './components/CheatSheet';
-import EvidenceAssessment from './components/EvidenceAssessment';
 import { descriptions } from './utils/descriptions';
 import { buildFreshnessStatus, DASHBOARD_SECTIONS } from './utils/dashboardPresentation';
 import { buildSourceHealthView } from './utils/sourceHealthPresentation';
@@ -130,14 +129,12 @@ function App() {
     macro_quantitative: mq,
     recent_news_events,
     individual_stock_constituents,
-    evidence_assessments,
     source_health: sourceHealth,
   } = data || {};
   const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
   const sectionContent = {
     editorial: <EditorialReview />,
     dailyBrief: <BigUpdate reports={reports} />,
-    evidence: <EvidenceAssessment assessments={evidence_assessments} />,
     trends: <TrendGraphs />,
     indicators: mq ? (
       <div className="section animate-fade-in stagger-4" id="indicators-heading">

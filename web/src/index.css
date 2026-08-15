@@ -255,25 +255,6 @@ h3 { font-size: 1.2rem; margin: 0; }
 .source-health-status.neutral { color: var(--cobalt); }
 .source-health-empty { color: var(--slate); box-shadow: none; }
 
-.evidence-intro { max-width: 70ch; margin: -4px 0 18px; color: var(--slate); }
-.evidence-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
-.evidence-card { display: flex; flex-direction: column; gap: 16px; padding: 18px; box-shadow: none; }
-.evidence-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-.evidence-card-label { margin: 0 0 4px; color: var(--slate); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-.evidence-card h3 { font-size: 1.2rem; }
-.evidence-posture { flex: 0 0 auto; padding: 4px 7px; border: 1px solid currentColor; border-radius: var(--radius-sm); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; }
-.evidence-posture.positive { color: var(--forest); }
-.evidence-posture.negative { color: var(--brick); }
-.evidence-posture.neutral { color: var(--cobalt); }
-.evidence-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }
-.evidence-metrics div { min-width: 0; }
-.evidence-metrics dt { color: var(--slate); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; }
-.evidence-metrics dd { margin: 3px 0 0; font-size: 0.86rem; font-variant-numeric: tabular-nums; }
-.evidence-coverage-meter { width: 100%; height: 10px; accent-color: var(--cobalt); }
-.evidence-lists { display: grid; gap: 14px; }
-.evidence-list h4 { margin: 0 0 5px; font-family: 'IBM Plex Sans', -apple-system, sans-serif; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.04em; }
-.evidence-list ul { margin: 0; padding-left: 18px; color: var(--slate); font-size: 0.83rem; }
-.evidence-list li + li { margin-top: 4px; }
 .research-disclosure { margin: 0; padding-top: 12px; border-top: 1px solid var(--stone); color: var(--slate); font-size: 0.74rem; line-height: 1.45; }
 
 .grid { display: grid; gap: 20px; }

@@ -13,7 +13,6 @@ test('dashboard sections follow decision relevance with source health last', () 
     [
       ['editorial', 'Editorial Review'],
       ['dailyBrief', 'Daily Brief'],
-      ['evidence', 'Evidence'],
       ['trends', 'Trends'],
       ['indicators', 'Indicators'],
       ['deepDive', 'Deep Dive'],

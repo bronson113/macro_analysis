@@ -3,7 +3,6 @@ const SECTION_PATTERN = /^##\s+\d+\.\s+/gm;
 export const DASHBOARD_SECTIONS = Object.freeze([
   { key: 'editorial', headingId: 'editorial-review-heading', navLabel: 'Editorial Review' },
   { key: 'dailyBrief', headingId: 'big-update-heading', navLabel: 'Daily Brief' },
-  { key: 'evidence', headingId: 'evidence-heading', navLabel: 'Evidence' },
   { key: 'trends', headingId: 'trends-heading', navLabel: 'Trends' },
   { key: 'indicators', headingId: 'indicators-heading', navLabel: 'Indicators' },
   { key: 'deepDive', headingId: 'deep-dive-heading', navLabel: 'Deep Dive' },
