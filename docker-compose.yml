@@ -8,8 +8,8 @@ services:
     ports:
       - "8080:80"
     volumes:
-      # Mount the latest generated payload directly into the Nginx static assets so it's always up to date
-      - ./output/latest_raw_payload.json:/usr/share/nginx/html/data.json:ro
+      # Mount the unified generated payload directly into the Nginx static assets.
+      - ./output/dashboard_data.json:/usr/share/nginx/html/data.json:ro
       - ./output/history.json:/usr/share/nginx/html/history.json:ro
       - ./output/latest_report.md:/usr/share/nginx/html/latest_report.md:ro
     restart: unless-stopped

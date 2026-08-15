@@ -1,10 +1,4 @@
-"""
-Analyzer module for Macro Economic Analysis & Data Capture System.
-Implements Defiant Gatekeeper institutional macro framework:
-Liquidity, Yield Curve, Credit Spreads, Sector Valuations, 4 Macro Situations (2x2 Matrix),
-AI/Memory/Physical AI Ecosystem, Single-Stock Lagging Opportunities (Micron, Western Digital, Citi, etc.),
-Dynamic Raw Data JSON Payload Export, Tax-Aware Mid-Term Recommendations, and Major News Events.
-"""
+"""Macro analysis and provider-neutral research-payload orchestration."""
 
 import pandas as pd
 from datetime import datetime
@@ -15,9 +9,9 @@ from news_analyzer import MacroNewsAnalyzer
 from valuation import SectorValuationEngine
 from ai_ecosystem import AIRoboticsEcosystemTracker
 from raw_data_engine import RawDataEngine
-from llm_analyst import DynamicMacroAnalyst
+from mechanical_analyst import MechanicalMacroAnalyst
 from macro_matrix import MacroMatrixEngine
-from recommendations import SectorRecommendationEngine
+from recommendations import SectorEvidenceEngine
 
 
 def _to_billions(value: Optional[float], unit_scale: str) -> Optional[float]:
@@ -100,9 +94,9 @@ class MacroAnalyzer:
         self.valuation_engine = SectorValuationEngine(self.storage)
         self.ai_tracker = AIRoboticsEcosystemTracker(self.storage)
         self.raw_engine = RawDataEngine(self.storage)
-        self.llm_analyst = DynamicMacroAnalyst(self.storage)
+        self.mechanical_analyst = MechanicalMacroAnalyst(self.storage)
         self.matrix_engine = MacroMatrixEngine()
-        self.rec_engine = SectorRecommendationEngine(self.storage)
+        self.evidence_engine = SectorEvidenceEngine()
 
     def get_latest_value(self, key: str) -> Optional[float]:
         obs = self.storage.get_latest_observation(key)
@@ -411,12 +405,6 @@ class MacroAnalyzer:
 
         ai_ecosystem = self.ai_tracker.analyze_ecosystem_valuations()
 
-        # Build Un-Hardcoded Raw Data Payload
-        raw_payload = self.raw_engine.build_raw_payload()
-
-        # Dynamic LLM Analysis & Single-Stock Lagging Opportunity Detection
-        dynamic_analysis = self.llm_analyst.analyze_raw_payload(raw_payload)
-
         # 4-Quadrant Macro Situation Matrix Classification
         effr_trend = policy.get("policy_stance")
         macro_situation = self.matrix_engine.classify_situation(
@@ -469,7 +457,7 @@ class MacroAnalyzer:
 
         self.storage.save_daily_snapshot(snapshot)
 
-        tax_aware_recommendations = self.rec_engine.generate_recommendations(
+        evidence_assessments = self.evidence_engine.generate_assessments(
             snapshot,
             credit,
             sector_valuations,
@@ -477,27 +465,18 @@ class MacroAnalyzer:
             recent_news,
             macro_situation
         )
-        
-        lagging_opportunities = dynamic_analysis.get("single_stock_lagging_opportunities", [])
-        if macro_situation.get("quality") == "INSUFFICIENT_DATA":
-            for lag in lagging_opportunities:
-                lag["action"] = "WATCHLIST / WAIT FOR MACRO DATA"
-                lag["rationale"] = (
-                    "Peer-relative discount detected, but macro quadrant data is incomplete. "
-                    "Keep on watchlist and require fresh policy/liquidity confirmation before adding risk. "
-                    + lag.get("rationale", "")
-                )
-        for rec in tax_aware_recommendations:
-            grp = rec["sector"]
-            rec["sector_group"] = rec.pop("sector")
-            rec["selective_stock_pick"] = "None"
-            for lag in lagging_opportunities:
-                if lag["group"] == grp:
-                    if macro_situation.get("quality") != "INSUFFICIENT_DATA" and rec["action"] == "HOLD":
-                        rec["action"] = f"HOLD SECTOR / SELECTIVE BUY [{lag['ticker']}]"
-                        rec["selective_stock_pick"] = lag["ticker"]
-                        rec["rationale"] += f" Selective buying of lagging constituent {lag['ticker']} justified due to deep peer discount."
-                    break
+        self.storage.save_signal_assessments(
+            evidence_assessments, signal_date=snapshot["date"]
+        )
+
+        raw_payload = self.raw_engine.build_raw_payload(
+            evidence_assessments=evidence_assessments
+        )
+        mechanical_analysis = self.mechanical_analyst.analyze_raw_payload(raw_payload)
+        constituent_assessments = mechanical_analysis.get("constituent_assessments", [])
+        self.raw_engine.publish_constituent_assessments(
+            raw_payload, constituent_assessments
+        )
 
         return {
             "summary": snapshot,
@@ -511,6 +490,6 @@ class MacroAnalyzer:
             "sector_valuations": sector_valuations,
             "ai_ecosystem": ai_ecosystem,
             "macro_situation": macro_situation,
-            "lagging_stock_opportunities": lagging_opportunities,
-            "recommendations": tax_aware_recommendations
+            "evidence_assessments": evidence_assessments,
+            "constituent_assessments": constituent_assessments,
         }

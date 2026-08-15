@@ -6,7 +6,14 @@ import sys
 import argparse
 import pandas as pd
 import os
-from config import DATA_DIR, INDICATORS_CSV, OBSERVATIONS_CSV, SNAPSHOTS_CSV, RUN_LOGS_CSV
+import json
+import tempfile
+from pathlib import Path
+from config import (
+    DATA_DIR, INDICATORS_CSV, OBSERVATIONS_CSV, SNAPSHOTS_CSV, RUN_LOGS_CSV,
+    OUTCOMES_JSON,
+)
+from outcome_evaluation import evaluate_signals
 from storage import MacroStorage
 from analyzer import MacroAnalyzer
 from reporter import MacroReporter
@@ -39,6 +46,72 @@ def print_status():
     print("=" * 60 + "\n")
 
 
+def _required_price_tickers(signals):
+    tickers = set()
+    for signal in signals:
+        instrument = str(signal.get("instrument") or "")
+        tickers.update(part.strip() for part in instrument.split("/") if part.strip())
+        benchmark = str(signal.get("benchmark") or "")
+        if benchmark:
+            tickers.add(benchmark)
+    return sorted(tickers)
+
+
+def download_signal_prices(signals):
+    """Download only the ledger's required assets from its first signal date onward."""
+    signal_dates = [str(signal.get("signal_date")) for signal in signals if signal.get("signal_date")]
+    if not signal_dates:
+        return {}
+    try:
+        import yfinance as yf
+    except ImportError as error:
+        raise RuntimeError("yfinance is required to evaluate recorded signals") from error
+
+    start_date = min(signal_dates)
+    histories = {}
+    for ticker in _required_price_tickers(signals):
+        history = yf.download(ticker, start=start_date, auto_adjust=True, progress=False)
+        if history is None or history.empty or "Close" not in history.columns:
+            continue
+        closes = history["Close"]
+        if hasattr(closes, "columns"):
+            closes = closes.iloc[:, 0]
+        histories[ticker] = [
+            (str(observed_at)[:10], float(price))
+            for observed_at, price in closes.dropna().items()
+        ]
+    return histories
+
+
+def _write_json_atomically(path, payload):
+    destination = Path(path)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            "w", encoding="utf-8", dir=destination.parent, delete=False
+        ) as handle:
+            temp_path = Path(handle.name)
+            json.dump(payload, handle, ensure_ascii=False, indent=2, sort_keys=True)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temp_path, destination)
+    finally:
+        if temp_path is not None and temp_path.exists():
+            temp_path.unlink()
+
+
+def run_evaluation(storage=None, output_path=OUTCOMES_JSON, price_loader=download_signal_prices):
+    """Evaluate the prospective ledger and atomically publish a JSON sidecar."""
+    storage = storage or MacroStorage()
+    signals = storage.get_signal_assessments()
+    prices = price_loader(signals) if signals else {}
+    result = evaluate_signals(signals, prices)
+    _write_json_atomically(output_path, result)
+    return result
+
+
 def main():
     parser = argparse.ArgumentParser(description="Defiant Gatekeeper Macro Analysis Data Engine")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
@@ -61,6 +134,11 @@ def main():
 
     # status command
     status_parser = subparsers.add_parser("status", help="Show system status and audit logs")
+
+    # evaluate command
+    evaluate_parser = subparsers.add_parser(
+        "evaluate", help="Evaluate matured outcomes from prospective sector assessments"
+    )
 
     args = parser.parse_args()
 
@@ -86,6 +164,13 @@ def main():
                 print("Please specify --cron or --daemon. Example: python main.py schedule --cron")
         elif args.command == "status":
             print_status()
+        elif args.command == "evaluate":
+            result = run_evaluation()
+            summary = result["summary"]
+            print(
+                "Outcome evaluation: "
+                f"{summary['sample_size']} matured observations; {summary['status']}"
+            )
         else:
             # Default action: print status & dashboard
             print_status()

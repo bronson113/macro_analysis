@@ -428,6 +428,2421 @@
       "created_at": "2026-07-31T12:28:25.905246"
     }
   ],
+  "evidence_assessments": [
+    {
+      "score": 0.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "negative",
+          "contribution": -1,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        }
+      ],
+      "neutral_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "negative",
+          "contribution": -1,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "Technology (XLK)",
+      "instrument": "XLK",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": 3.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "positive",
+          "contribution": 2,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [],
+      "neutral_factors": [
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "positive",
+          "contribution": 2,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "Financials (XLF)",
+      "instrument": "XLF",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": 1.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [],
+      "neutral_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "Healthcare (XLV)",
+      "instrument": "XLV",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": 3.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "positive",
+          "contribution": 2,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [],
+      "neutral_factors": [
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "positive",
+          "contribution": 2,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "Energy (XLE)",
+      "instrument": "XLE",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": 3.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "positive",
+          "contribution": 2,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [],
+      "neutral_factors": [
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "positive",
+          "contribution": 2,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "Industrials (XLI)",
+      "instrument": "XLI",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": -1.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "negative",
+          "contribution": -2,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        }
+      ],
+      "neutral_factors": [
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "negative",
+          "contribution": -2,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "Consumer Discretionary (XLY)",
+      "instrument": "XLY",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": 1.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [],
+      "neutral_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "Consumer Staples (XLP)",
+      "instrument": "XLP",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": 0.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "negative",
+          "contribution": -1,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        }
+      ],
+      "neutral_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "negative",
+          "contribution": -1,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "AI Compute & Accelerators",
+      "instrument": "NVDA/AMD/TSM",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": 1.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [],
+      "neutral_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "High-Bandwidth Memory (HBM)",
+      "instrument": "MU/WDC",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": 0.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "negative",
+          "contribution": -1,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        }
+      ],
+      "neutral_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "negative",
+          "contribution": -1,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "Physical AI & Robotics",
+      "instrument": "TSLA/TER/SYM",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    },
+    {
+      "score": 1.0,
+      "score_range": [
+        -10.0,
+        10.0
+      ],
+      "coverage_pct": 85.7,
+      "posture": "NEUTRAL",
+      "positive_factors": [
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        }
+      ],
+      "negative_factors": [],
+      "neutral_factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "missing_evidence": [
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        }
+      ],
+      "factors": [
+        {
+          "factor_id": "macro_quadrant",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "liquidity",
+          "category": "liquidity",
+          "direction": "positive",
+          "contribution": 1,
+          "weight": 1.0,
+          "observed_value": "Expanding (+30d)",
+          "unit": "regime",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Reserve-liquidity direction is expanding, contracting, or neutral.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "credit",
+          "category": "credit",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.84,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "credit",
+          "quality": "current",
+          "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": null,
+          "unit": "unknown",
+          "observed_at": "2026-08-01",
+          "source": "sector_valuations",
+          "quality": "missing",
+          "explanation": "Valuation percentile is unavailable.",
+          "missing_reason": "Valuation percentile is unavailable."
+        },
+        {
+          "factor_id": "real_yield",
+          "category": "rates",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 2.45,
+          "unit": "percent",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "housing",
+          "category": "macro",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 3.48,
+          "unit": "percent_yoy",
+          "observed_at": "2026-08-01",
+          "source": "summary",
+          "quality": "current",
+          "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "data_quality",
+          "category": "data_quality",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": "OK",
+          "unit": "quality",
+          "observed_at": "2026-08-01",
+          "source": "macro_matrix",
+          "quality": "current",
+          "explanation": "Macro input quality is sufficient for the available evidence.",
+          "missing_reason": null
+        }
+      ],
+      "sector_group": "Downstream Power & Grid",
+      "instrument": "CEG/VST/ETN",
+      "benchmark": "SPY",
+      "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
+      "as_of_date": "2026-08-01"
+    }
+  ],
   "individual_stock_constituents": [
     {
       "ticker": "MU",
@@ -1341,5 +3756,1215 @@
       "dist_from_52w_high_pct": -58.44,
       "return_30d_pct": -25.62
     }
-  ]
+  ],
+  "constituent_assessments": [
+    {
+      "group": "Banks",
+      "ticker": "BAC",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 0.962,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Banks",
+      "ticker": "C",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 0.82,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Banks",
+      "ticker": "JPM",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 1.25,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Banks",
+      "ticker": "SCHW",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 1.184,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Banks",
+      "ticker": "WFC",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 0.871,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Capital Markets",
+      "ticker": "AXP",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 1.082,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Capital Markets",
+      "ticker": "BLK",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": 1.096,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Capital Markets",
+      "ticker": "GS",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 0.826,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Capital Markets",
+      "ticker": "MS",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 0.924,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Consumer Hardware & Platforms",
+      "ticker": "AAPL",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Consumer Hardware & Platforms",
+      "ticker": "GOOGL",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Consumer Hardware & Platforms",
+      "ticker": "META",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Critical Minerals",
+      "ticker": "FCX",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Critical Minerals",
+      "ticker": "MP",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Datacenter Cooling",
+      "ticker": "MOD",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Datacenter Cooling",
+      "ticker": "SMCI",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Datacenter Cooling",
+      "ticker": "VRT",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Downstream Power & Grid",
+      "ticker": "CEG",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.746,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.543,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Downstream Power & Grid",
+      "ticker": "ETN",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.34,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.841,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Downstream Power & Grid",
+      "ticker": "GEV",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 2.025,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 4.439,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Downstream Power & Grid",
+      "ticker": "VST",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.545,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.395,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Energy Producers",
+      "ticker": "COP",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": 0.911,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Energy Producers",
+      "ticker": "CVX",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 1.155,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Energy Producers",
+      "ticker": "EOG",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": 0.689,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Energy Producers",
+      "ticker": "XOM",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": 1.098,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Fabless Accelerators",
+      "ticker": "AMD",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 2.208,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 3.551,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Fabless Accelerators",
+      "ticker": "AVGO",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.28,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.549,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Fabless Accelerators",
+      "ticker": "NVDA",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.781,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.646,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Fabless Accelerators",
+      "ticker": "QCOM",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.718,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.299,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Foundries",
+      "ticker": "GFS",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Foundries",
+      "ticker": "INTC",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Foundries",
+      "ticker": "TSM",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Industrial Machinery",
+      "ticker": "CAT",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.909,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.093,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Industrial Machinery",
+      "ticker": "DE",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.875,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.806,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Industrial Machinery",
+      "ticker": "GE",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.502,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.294,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Industrial Machinery",
+      "ticker": "HON",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.815,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.421,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Industrial Machinery",
+      "ticker": "ROK",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.242,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.122,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Managed Care",
+      "ticker": "CI",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.535,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.684,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Managed Care",
+      "ticker": "CVS",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.796,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.39,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Managed Care",
+      "ticker": "ELV",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.822,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.799,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Managed Care",
+      "ticker": "HUM",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.761,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.875,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Managed Care",
+      "ticker": "UNH",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.473,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.85,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Memory",
+      "ticker": "MU",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Memory",
+      "ticker": "STX",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Memory",
+      "ticker": "WDC",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Pharmaceuticals",
+      "ticker": "ABBV",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.923,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.065,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Pharmaceuticals",
+      "ticker": "JNJ",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.384,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.285,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Pharmaceuticals",
+      "ticker": "LLY",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.767,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 2.035,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Pharmaceuticals",
+      "ticker": "MRK",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.76,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.707,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Pharmaceuticals",
+      "ticker": "PFE",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.499,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.437,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Physical AI & Robotics",
+      "ticker": "ISRG",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Physical AI & Robotics",
+      "ticker": "SYM",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Physical AI & Robotics",
+      "ticker": "TSLA",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Refiners",
+      "ticker": "MPC",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Refiners",
+      "ticker": "PSX",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Refiners",
+      "ticker": "VLO",
+      "relative_valuation_status": "Insufficient Comparable Peers",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Fewer than 3 valid comparable peers are available for FPE.",
+        "Fewer than 3 valid comparable peers are available for EVE."
+      ],
+      "forward_pe_relative": null,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Retail & Consumer",
+      "ticker": "AMZN",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.432,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.177,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Retail & Consumer",
+      "ticker": "BKNG",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.789,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.911,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Retail & Consumer",
+      "ticker": "HD",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.105,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.008,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Retail & Consumer",
+      "ticker": "LOW",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.776,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.778,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Retail & Consumer",
+      "ticker": "MCD",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.988,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.086,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Retail & Consumer",
+      "ticker": "NKE",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.913,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.802,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Retail & Consumer",
+      "ticker": "SBUX",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.82,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.615,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Semiconductor Equipment",
+      "ticker": "AMAT",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.08,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.094,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Semiconductor Equipment",
+      "ticker": "ASML",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required.",
+        "No valid current EVE multiple is available."
+      ],
+      "forward_pe_relative": 0.954,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": null,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Semiconductor Equipment",
+      "ticker": "KLAC",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.969,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.938,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Semiconductor Equipment",
+      "ticker": "LRCX",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.873,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.066,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Semiconductor Equipment",
+      "ticker": "TER",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.144,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.902,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Software & Cloud",
+      "ticker": "ADBE",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.764,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.615,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Software & Cloud",
+      "ticker": "CRM",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 0.994,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 0.833,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Software & Cloud",
+      "ticker": "MSFT",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.683,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.281,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    },
+    {
+      "group": "Software & Cloud",
+      "ticker": "ORCL",
+      "relative_valuation_status": "Insufficient Relative History",
+      "posture": "NEUTRAL",
+      "evidence": [],
+      "missing_evidence": [
+        "Only 1 valid historical relative observations are available; 60 are required."
+      ],
+      "forward_pe_relative": 1.006,
+      "historical_forward_pe_relative": null,
+      "relative_fpe_discount_pct": null,
+      "ev_ebitda_relative": 1.2,
+      "historical_ev_ebitda_relative": null,
+      "relative_ev_ebitda_discount_pct": null
+    }
+  ],
+  "source_health": [],
+  "outcome_evaluation": {
+    "methodology": {
+      "cost_treatment": "One-way cost subtracted from asset-minus-benchmark excess return.",
+      "minimum_elapsed_days": 365,
+      "minimum_sample_size": 30,
+      "research_disclosure": "Point-in-time research evaluation only; insufficient samples are not strategy validation.",
+      "transaction_cost_bps": 10.0
+    },
+    "outcomes": [],
+    "summary": {
+      "by_horizon": {},
+      "directed_sample_size": 0,
+      "elapsed_days": 0,
+      "hit_rate_pct": null,
+      "max_drawdown_pct": null,
+      "mean_net_excess_return_pct": null,
+      "median_net_excess_return_pct": null,
+      "sample_size": 0,
+      "status": "INSUFFICIENT_SAMPLE"
+    }
+  }
 }

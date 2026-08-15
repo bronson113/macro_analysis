@@ -1,17 +1,14 @@
-"""
-Reporter module for Macro Economic Analysis & Data Capture System.
-Generates terminal dashboards, daily Markdown reports with 4 Macro Situations (2x2 Matrix),
-Macro & Sector Valuation (P/E & EV/EBITDA), Single-Stock Lagging Value Opportunities,
-AI / Memory / Physical AI Downstream Supply Chain, Tax-Aware Mid-Term Sector Strategy,
-Sector Bellwether Contagion, and News Event analysis.
-Guarantees 100% defensive type safety against missing or None metrics.
-"""
+"""Render research-oriented macro reports and semantic notable-item state."""
 
+import json
+import os
 import re
+import tempfile
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
 from tabulate import tabulate
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Dict, Any, Iterable, Optional, List
 from config import OUTPUT_DIR
 from storage import MacroStorage
 from analyzer import MacroAnalyzer
@@ -35,6 +32,82 @@ def md_cell(value: Any) -> str:
     return str(value).replace("|", "\\|").replace("\n", " ")
 
 
+RESEARCH_DISCLOSURE = (
+    "Deterministic outputs are research heuristics, not trade instructions or a "
+    "validated strategy. WATCH and AVOID indicate research priority only."
+)
+
+
+@dataclass(frozen=True)
+class NotableItem:
+    """A rendered notable item with semantic state used for comparison."""
+
+    key: str
+    fingerprint: str
+    body: str
+
+    def to_dict(self) -> Dict[str, str]:
+        return asdict(self)
+
+
+def _as_notable_item(value: Any) -> Optional[NotableItem]:
+    if isinstance(value, NotableItem):
+        return value
+    if not isinstance(value, dict):
+        return None
+    key = value.get("key")
+    fingerprint = value.get("fingerprint")
+    body = value.get("body")
+    if not all(isinstance(item, str) for item in (key, fingerprint, body)):
+        return None
+    return NotableItem(key=key, fingerprint=fingerprint, body=body)
+
+
+def apply_notable_change_labels(
+    current_items: Iterable[NotableItem], previous_items: Iterable[Any]
+) -> List[str]:
+    """Label semantic notable-item changes while always rendering current bodies."""
+    current_items = list(current_items)
+    previous_by_key = {}
+    previous_order = []
+    for value in previous_items:
+        item = _as_notable_item(value)
+        if item is None or item.key in previous_by_key:
+            continue
+        previous_by_key[item.key] = item
+        previous_order.append(item)
+
+    if not previous_by_key:
+        return [item.body for item in current_items]
+
+    labeled = []
+    current_keys = set()
+    for item in current_items:
+        current_keys.add(item.key)
+        previous = previous_by_key.get(item.key)
+        if previous is None:
+            labeled.append(f"**New:** {item.body}")
+        elif previous.fingerprint == item.fingerprint:
+            labeled.append(f"**Unchanged:** {item.body}")
+        else:
+            labeled.append(f"**Changed:** {item.body} Previously: {previous.body}")
+
+    for item in previous_order:
+        if item.key not in current_keys:
+            labeled.append(f"**Removed:** {item.body}")
+    return labeled
+
+
+def _atomic_write_text(path: Path, content: str) -> None:
+    """Replace a report artifact without exposing a partially-written file."""
+    with tempfile.NamedTemporaryFile(
+        mode="w", encoding="utf-8", dir=path.parent, delete=False
+    ) as temp_file:
+        temp_file.write(content)
+        temp_name = temp_file.name
+    os.replace(temp_name, path)
+
+
 class MacroReporter:
     def __init__(self, storage: Optional[MacroStorage] = None, analyzer: Optional[MacroAnalyzer] = None, output_dir: Optional[Path] = None, verbose: bool = True):
         self.storage = storage or MacroStorage()
@@ -43,184 +116,137 @@ class MacroReporter:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.verbose = verbose
 
-    def _notable_item_key(self, body: str) -> str:
-        """Build a stable comparison key for a notable-summary bullet."""
-        stock_match = re.match(r"\*\*Decision:\*\* `([^`]+)`:", body)
-        if stock_match:
-            return f"stock:{stock_match.group(1).lower()}"
-
-        sector_match = re.match(r"\*\*Decision:\*\* ([^:]+):", body)
-        if sector_match:
-            return f"recommendation:{sector_match.group(1).strip().lower()}"
-
-        news_match = re.match(r"\*\*News:\*\* (.+?) \(", body)
-        if news_match:
-            normalized_title = re.sub(r"\s+", " ", news_match.group(1).strip().lower())
-            return f"news:{normalized_title}"
-
-        if body.startswith("**Decision:** Active quadrant"):
-            return "macro_situation"
-
-        if body.startswith("**Sentiment:** CNN Fear & Greed Index"):
-            return "sentiment:cnn_fear_greed"
-
-        if body.startswith("**Valuation:** Shiller PE Ratio"):
-            return "valuation:shiller_pe"
-
-        normalized_body = re.sub(r"\s+", " ", body.strip().lower())
-        return f"other:{normalized_body}"
-
-    def _strip_change_label(self, bullet_body: str) -> str:
-        """Return the original notable body from a possibly comparison-labeled bullet."""
-        for label in ("**New:** ", "**Changed:** ", "**Unchanged:** ", "**Removed:** "):
-            if bullet_body.startswith(label):
-                bullet_body = bullet_body[len(label):]
-                break
-        return bullet_body.split(" Previously: ", 1)[0].strip()
-
-    def _extract_notable_items_from_report(self, report_content: str) -> List[Tuple[str, str]]:
-        """Extract notable-summary bullet keys and bodies from an existing markdown report."""
-        start_marker = "## Notable Summary"
-        start_idx = report_content.find(start_marker)
-        if start_idx == -1:
-            return []
-
-        remainder = report_content[start_idx + len(start_marker):]
-        end_candidates = [idx for idx in (remainder.find("\n---"), remainder.find("\n## ")) if idx != -1]
-        section = remainder[:min(end_candidates)] if end_candidates else remainder
-
-        items = []
-        for line in section.splitlines():
-            if not line.startswith("- "):
-                continue
-            body = self._strip_change_label(line[2:].strip())
-            if body:
-                items.append((self._notable_item_key(body), body))
-        return items
-
-    def _find_previous_report_path(self, today_str: str) -> Optional[Path]:
-        """Find the newest dated report before today's report in the output directory."""
-        report_paths = []
-        for path in self.output_dir.glob("macro_report_*.md"):
-            match = re.match(r"macro_report_(\d{4}-\d{2}-\d{2})\.md$", path.name)
-            if match and match.group(1) < today_str:
-                report_paths.append((match.group(1), path))
-        if not report_paths:
-            return None
-        return sorted(report_paths, reverse=True)[0][1]
-
-    def _load_previous_notable_items(self, today_str: str) -> List[Tuple[str, str]]:
-        """Load comparable notable-summary items from the prior dated report, if available."""
-        previous_path = self._find_previous_report_path(today_str)
-        if previous_path is None:
-            return []
+    @staticmethod
+    def _score_bucket(score: Any) -> str:
         try:
-            return self._extract_notable_items_from_report(previous_path.read_text(encoding="utf-8"))
-        except OSError:
+            score = float(score)
+        except (TypeError, ValueError):
+            return "unknown"
+        if score <= -6:
+            return "strongly_negative"
+        if score <= -2:
+            return "negative"
+        if score < 2:
+            return "mixed"
+        if score < 6:
+            return "positive"
+        return "strongly_positive"
+
+    def _load_previous_notable_items(self, today_str: str) -> List[NotableItem]:
+        """Load the newest dated semantic notable-state sidecar before today."""
+        candidates = []
+        for path in self.output_dir.glob("notable_state_*.json"):
+            match = re.fullmatch(r"notable_state_(\d{4}-\d{2}-\d{2})\.json", path.name)
+            if match and match.group(1) < today_str:
+                candidates.append((match.group(1), path))
+        if not candidates:
             return []
+        _, path = max(candidates)
+        try:
+            loaded = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return []
+        if not isinstance(loaded, list):
+            return []
+        # Pre-evidence reports may have directional news notables.  Do not repeat
+        # those retired fields as a "Removed" item in new report output.
+        return [
+            item
+            for value in loaded
+            if (item := _as_notable_item(value)) and not item.key.startswith("news:")
+        ]
 
-    def _apply_notable_change_labels(self, lines: List[str], previous_items: List[Tuple[str, str]]) -> List[str]:
-        """Annotate notable bullets with new/changed/unchanged/removed status."""
-        if not previous_items:
-            return lines
+    def _write_notable_state(self, today_str: str, items: Iterable[NotableItem]) -> None:
+        content = json.dumps([item.to_dict() for item in items], indent=2) + "\n"
+        _atomic_write_text(self.output_dir / f"notable_state_{today_str}.json", content)
+        _atomic_write_text(self.output_dir / "latest_notable_state.json", content)
 
-        previous_by_key = dict(previous_items)
-        current_keys = []
-        labeled_lines = []
-
-        for body in lines:
-            key = self._notable_item_key(body)
-            current_keys.append(key)
-            previous_body = previous_by_key.get(key)
-            if previous_body is None:
-                labeled_lines.append(f"**New:** {body}")
-            elif previous_body == body:
-                labeled_lines.append(f"**Unchanged:** {body}")
-            else:
-                labeled_lines.append(f"**Changed:** {body} Previously: {previous_body}")
-
-        for previous_key, previous_body in previous_items:
-            if previous_key not in current_keys:
-                labeled_lines.append(f"**Removed:** {previous_body}")
-
-        return labeled_lines
-
-    def _build_notable_summary_md(self, analysis: Dict[str, Any], previous_items: Optional[List[Tuple[str, str]]] = None) -> str:
-        """Build a concise top-of-report summary limited to notable items."""
+    def _build_notable_items(self, analysis: Dict[str, Any]) -> List[NotableItem]:
+        """Build rendered notables from stable structured fields, not prior prose."""
         macro_sit = analysis.get("macro_situation", {})
-        news_events = analysis.get("news_events", [])
-        recommendations = analysis.get("recommendations", [])
-        lagging_stocks = analysis.get("lagging_stock_opportunities", [])
+        assessments = analysis.get("evidence_assessments", [])
         market_details = analysis.get("market_details", {})
-
-        lines = []
+        items = []
 
         if macro_sit:
             name = md_cell(macro_sit.get("name", "N/A"))
             rates = md_cell(macro_sit.get("rates_label", "N/A"))
             liquidity = md_cell(macro_sit.get("bs_label", "N/A"))
+            quality = md_cell(macro_sit.get("quality", "N/A"))
             description = md_cell(macro_sit.get("description", ""))
-            lines.append(f"- **Decision:** Active quadrant is `{name}` ({rates}; {liquidity}). {description}".strip())
+            items.append(NotableItem(
+                key="macro:regime",
+                fingerprint=f"macro:regime|{name}|{rates}|{liquidity}|{quality}",
+                body=f"**Macro:** Active quadrant is `{name}` ({rates}; {liquidity}). {description}".strip(),
+            ))
 
-        notable_news = sorted(
-            [n for n in news_events if (n.get("impact_score") or 0) >= 7],
-            key=lambda n: n.get("impact_score") or 0,
-            reverse=True,
-        )
-        for event in notable_news[:3]:
-            title = md_cell(event.get("title", "Untitled event"))
-            category = md_cell(event.get("category", "News"))
-            impact = event.get("impact_score", "N/A")
-            sentiment = md_cell(event.get("sentiment", "N/A"))
-            lines.append(f"- **News:** {title} ({category}; impact {impact}; {sentiment}).")
-
-        decision_keywords = ("BUY", "SELL", "CAUTION", "WAIT", "WATCHLIST", "REDUCE", "ADD")
-        notable_recommendations = []
-        for rec in recommendations:
-            action = str(rec.get("action", "")).upper()
-            if action != "HOLD" and any(keyword in action for keyword in decision_keywords):
-                notable_recommendations.append(rec)
-
-        for rec in notable_recommendations[:3]:
-            sector = md_cell(rec.get("sector_group", "Unknown sector"))
-            action = md_cell(rec.get("action", "N/A"))
-            conviction = md_cell(rec.get("conviction", "N/A"))
-            pick = rec.get("selective_stock_pick")
-            pick_text = f"; pick `{md_cell(pick)}`" if pick and pick != "None" else ""
-            lines.append(f"- **Decision:** {sector}: **{action}** ({conviction}{pick_text}).")
-
-        notable_lagging = []
-        for stock in lagging_stocks:
-            action = str(stock.get("action", "")).upper()
-            if any(keyword in action for keyword in decision_keywords):
-                notable_lagging.append(stock)
-
-        for stock in notable_lagging[:2]:
-            ticker = md_cell(stock.get("ticker", "N/A"))
-            action = md_cell(stock.get("action", "N/A"))
-            rationale = md_cell(stock.get("rationale", ""))
-            lines.append(f"- **Decision:** `{ticker}`: **{action}**. {rationale}".strip())
+        material_assessments = [
+            item for item in assessments if item.get("posture") in {"WATCH", "AVOID"}
+        ]
+        for assessment in material_assessments[:3]:
+            sector = md_cell(assessment.get("sector_group", "Unknown sector"))
+            posture = md_cell(assessment.get("posture", "NEUTRAL"))
+            score = fmt_num(assessment.get("score"), ":.2f")
+            score_range = assessment.get("score_range") or [None, None]
+            low = fmt_num(score_range[0] if len(score_range) > 0 else None, ":.2f")
+            high = fmt_num(score_range[1] if len(score_range) > 1 else None, ":.2f")
+            coverage = fmt_num(assessment.get("coverage_pct"), ":.1f", "%")
+            key = f"evidence:{sector.lower()}"
+            items.append(NotableItem(
+                key=key,
+                fingerprint=f"{key}|{posture}|{self._score_bucket(assessment.get('score'))}",
+                body=(f"**Evidence:** {sector} has `{posture}` research posture "
+                      f"(score `{score}`, range `{low}` to `{high}`, coverage `{coverage}`)."),
+            ))
 
         fg_value = market_details.get("cnn_fear_greed_index")
         fg_rating = market_details.get("cnn_fear_greed_rating")
         if fg_value is not None and fg_rating in {"Extreme Fear", "Extreme Greed"}:
             fg_display = fmt_num(fg_value, ":.2f")
             signal = md_cell(market_details.get("cnn_fear_greed_signal", ""))
-            lines.append(f"- **Sentiment:** CNN Fear & Greed Index is `{fg_display}` (`{md_cell(fg_rating)}`). {signal}".strip())
+            items.append(NotableItem(
+                key="sentiment:cnn_fear_greed",
+                fingerprint=f"sentiment:cnn_fear_greed|{fg_rating}",
+                body=f"**Sentiment:** CNN Fear & Greed Index is `{fg_display}` (`{md_cell(fg_rating)}`). {signal}".strip(),
+            ))
 
         shiller_pe = market_details.get("shiller_pe")
         shiller_rating = market_details.get("shiller_pe_rating")
         if shiller_pe is not None and shiller_rating in {"Expensive", "Very Expensive"}:
             shiller_display = fmt_num(shiller_pe, ":.2f")
             signal = md_cell(market_details.get("shiller_pe_signal", ""))
-            lines.append(f"- **Valuation:** Shiller PE Ratio is `{shiller_display}` (`{md_cell(shiller_rating)}`). {signal}".strip())
+            items.append(NotableItem(
+                key="valuation:shiller_pe",
+                fingerprint=f"valuation:shiller_pe|{shiller_rating}",
+                body=f"**Valuation:** Shiller PE Ratio is `{shiller_display}` (`{md_cell(shiller_rating)}`). {signal}".strip(),
+            ))
 
-        if not lines:
-            lines.append("- No notable events, news, or decisions met the reporting threshold.")
+        if not items:
+            items.append(NotableItem(
+                key="summary:none",
+                fingerprint="summary:none",
+                body="No notable macro, evidence, or context changes met the reporting threshold.",
+            ))
+        return items
 
-        comparable_lines = [line[2:] if line.startswith("- ") else line for line in lines]
-        labeled_lines = self._apply_notable_change_labels(comparable_lines, previous_items or [])
-        return "## Notable Summary\n\n" + "\n".join([f"- {line}" for line in labeled_lines]) + "\n"
+    def _build_notable_summary_md(
+        self, current_items: Iterable[NotableItem], previous_items: Iterable[NotableItem]
+    ) -> str:
+        labeled = apply_notable_change_labels(current_items, previous_items)
+        return "## Notable Summary\n\n" + "\n".join(f"- {item}" for item in labeled) + "\n"
+
+    @staticmethod
+    def _factor_descriptions(items: Iterable[Any]) -> str:
+        """Format factor explanations defensively for compact Markdown table cells."""
+        descriptions = []
+        for item in items or []:
+            if isinstance(item, dict):
+                description = item.get("missing_reason") or item.get("explanation")
+            else:
+                description = item
+            if description:
+                descriptions.append(md_cell(description))
+        return "<br>".join(descriptions) or "—"
 
     def print_terminal_dashboard(self, analysis: Dict[str, Any]):
         """Prints a clean, institutional-grade ASCII dashboard to terminal."""
@@ -234,8 +260,8 @@ class MacroReporter:
         news_events = analysis.get("news_events", [])
         valuations = analysis.get("sector_valuations", [])
         ai_ecosystem = analysis.get("ai_ecosystem", [])
-        recommendations = analysis.get("recommendations", [])
-        lagging_stocks = analysis.get("lagging_stock_opportunities", [])
+        evidence_assessments = analysis.get("evidence_assessments", [])
+        constituent_assessments = analysis.get("constituent_assessments", [])
         macro_sit = analysis.get("macro_situation", {})
 
         print("\n" + "=" * 100)
@@ -302,26 +328,35 @@ class MacroReporter:
         print("\n--- 2. RATES & YIELD CURVE SLOPE ---")
         print(tabulate(yc_table, headers=["Indicator", "Value"], tablefmt="grid"))
 
-        # 3. Single-Stock Lagging Value Opportunities
-        if lagging_stocks:
-            lag_table = []
-            for s in lagging_stocks[:6]:
-                fwd_pe = fmt_num(s.get('forward_pe'), ":.1f", "x")
-                rel_fpe = fmt_num(s.get('current_relative_fpe'), ":.2f", "x")
-                hist_rel = fmt_num(s.get('historical_relative_fpe'), ":.2f", "x")
-                discount = fmt_num(s.get('relative_fpe_discount_pct'), ":.1f", "%")
-                lag_table.append([s.get('ticker', ''), s.get('name', ''), s.get('group', ''), fwd_pe, rel_fpe, hist_rel, discount, s.get('action', '')])
-            print("\n--- 3. SINGLE-STOCK HISTORICAL SECTOR-RELATIVE VALUATION ---")
-            print(tabulate(lag_table, headers=["Ticker", "Company Name", "Sector Group", "Fwd P/E", "Current Rel", "Hist Rel Norm", "Discount", "Recommended Action"], tablefmt="grid"))
+        # 3. Sector Evidence Assessments
+        if evidence_assessments:
+            evidence_table = []
+            for assessment in evidence_assessments:
+                score_range = assessment.get("score_range") or [None, None]
+                evidence_table.append([
+                    assessment.get("sector_group", ""),
+                    assessment.get("posture", ""),
+                    fmt_num(assessment.get("score"), ":.2f"),
+                    f"{fmt_num(score_range[0] if len(score_range) > 0 else None, ':.2f')} to {fmt_num(score_range[1] if len(score_range) > 1 else None, ':.2f')}",
+                    fmt_num(assessment.get("coverage_pct"), ":.1f", "%"),
+                    len(assessment.get("missing_evidence") or []),
+                ])
+            print("\n--- 3. SECTOR EVIDENCE ASSESSMENTS ---")
+            print(tabulate(evidence_table, headers=["Sector Group", "Evidence Posture", "Score", "Uncertainty Range", "Coverage", "Missing Evidence"], tablefmt="grid"))
 
-        # 4. Tax-Aware Mid-Term Sector Recommendations (3M - 1Y Horizon)
-        if recommendations:
-            rec_table = []
-            for r in recommendations:
-                fwd_pe = fmt_num(r.get('avg_forward_pe'), ":.1f", "x")
-                rec_table.append([r.get('sector_group', ''), r.get('action', ''), r.get('conviction', ''), fwd_pe, r.get('selective_stock_pick', '')])
-            print("\n--- 4. DYNAMIC TAX-AWARE SECTOR RECOMMENDATIONS (3M - 1Y HORIZON) ---")
-            print(tabulate(rec_table, headers=["Sector Group", "Action Posture", "Conviction", "Avg Fwd P/E", "Selective Stock Pick"], tablefmt="grid"))
+        # 4. Constituent Evidence Assessments
+        if constituent_assessments:
+            constituent_table = []
+            for assessment in constituent_assessments[:6]:
+                constituent_table.append([
+                    assessment.get("ticker", ""),
+                    assessment.get("group", ""),
+                    assessment.get("relative_valuation_status", ""),
+                    assessment.get("posture", ""),
+                    len(assessment.get("missing_evidence") or []),
+                ])
+            print("\n--- 4. CONSTITUENT EVIDENCE ASSESSMENTS ---")
+            print(tabulate(constituent_table, headers=["Ticker", "Peer Cohort", "Relative Valuation Status", "Research Posture", "Missing Evidence"], tablefmt="grid"))
 
         # 5. AI, Memory, Physical AI & Downstream Power/Cooling Ecosystem
         if ai_ecosystem:
@@ -349,8 +384,8 @@ class MacroReporter:
         news_events = analysis.get("news_events", [])
         valuations = analysis.get("sector_valuations", [])
         ai_ecosystem = analysis.get("ai_ecosystem", [])
-        recommendations = analysis.get("recommendations", [])
-        lagging_stocks = analysis.get("lagging_stock_opportunities", [])
+        evidence_assessments = analysis.get("evidence_assessments", [])
+        constituent_assessments = analysis.get("constituent_assessments", [])
         macro_sit = analysis.get("macro_situation", {})
 
         stale_warning_md = ""
@@ -392,44 +427,57 @@ class MacroReporter:
 {dis_sec_list}
 """
 
-        # Build Lagging Stock Opportunities markdown section
-        lag_section_md = ""
-        if lagging_stocks:
-            lag_rows = []
-            for s in lagging_stocks:
-                fwd_pe = fmt_num(s.get('forward_pe'), ":.1f", "x")
-                rel_fpe = fmt_num(s.get('current_relative_fpe'), ":.2f", "x")
-                hist_rel = fmt_num(s.get('historical_relative_fpe'), ":.2f", "x")
-                discount = fmt_num(s.get('relative_fpe_discount_pct'), ":.1f", "%")
-                lag_rows.append(f"| `{md_cell(s.get('ticker',''))}` | **{md_cell(s.get('name',''))}** | {md_cell(s.get('group',''))} | `{fwd_pe}` | `{rel_fpe}` | `{hist_rel}` | `{discount}` | **{md_cell(s.get('action',''))}** | {md_cell(s.get('rationale',''))} |")
-            lag_table_md = "\n".join(lag_rows)
-            lag_section_md = f"""
-## 5. Single-Stock Historical Sector-Relative Valuation
+        # Build sector evidence markdown section.
+        evidence_section_md = ""
+        if evidence_assessments:
+            evidence_rows = []
+            for assessment in evidence_assessments:
+                score_range = assessment.get("score_range") or [None, None]
+                low = fmt_num(score_range[0] if len(score_range) > 0 else None, ":.2f")
+                high = fmt_num(score_range[1] if len(score_range) > 1 else None, ":.2f")
+                evidence_rows.append(
+                    f"| **{md_cell(assessment.get('sector_group', ''))}** | "
+                    f"`{md_cell(assessment.get('posture', ''))}` | "
+                    f"`{fmt_num(assessment.get('score'), ':.2f')}` | "
+                    f"`{low}` to `{high}` | "
+                    f"`{fmt_num(assessment.get('coverage_pct'), ':.1f', '%')}` | "
+                    f"{self._factor_descriptions(assessment.get('positive_factors'))} | "
+                    f"{self._factor_descriptions(assessment.get('negative_factors'))} | "
+                    f"{self._factor_descriptions(assessment.get('missing_evidence'))} |"
+                )
+            evidence_table_md = "\n".join(evidence_rows)
+            evidence_section_md = f"""
+## 5. Sector Evidence Assessments
 
-The following individual constituent stocks were identified as trading below their own historical relationship to the sector. This is a valuation screen, not a standalone buy signal; earnings quality, balance sheet, macro regime, and catalysts still need confirmation.
+Each assessment makes its deterministic evidence, uncertainty, and missing inputs visible for research review.
 
-| Ticker | Company Name | Sector Group | Forward P/E | Current Relative Fwd P/E | Historical Relative Norm | Relative Discount | Action Posture | Strategic Rationale |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-{lag_table_md}
+| Sector / Supply Chain Group | Evidence Posture | Score | Uncertainty Range | Coverage | Positive Factors | Negative Factors | Missing Evidence |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+{evidence_table_md}
 """
 
-        # Build Recommendations markdown section
-        rec_section_md = ""
-        if recommendations:
-            rec_rows = []
-            for r in recommendations:
-                fwd_pe = fmt_num(r.get('avg_forward_pe'), ":.1f", "x")
-                rec_rows.append(f"| **{md_cell(r.get('sector_group',''))}** | **{md_cell(r.get('action',''))}** | `{md_cell(r.get('conviction',''))}` | `{fwd_pe}` | `{md_cell(r.get('selective_stock_pick',''))}` | {md_cell(r.get('rationale',''))} |")
-            rec_table_md = "\n".join(rec_rows)
-            rec_section_md = f"""
-## 6. Tax-Aware Mid-Term Sector Recommendations (3-Month to 1-Year Horizon)
+        # Build constituent evidence markdown section.
+        constituent_section_md = ""
+        if constituent_assessments:
+            constituent_rows = []
+            for assessment in constituent_assessments:
+                constituent_rows.append(
+                    f"| `{md_cell(assessment.get('ticker', ''))}` | "
+                    f"{md_cell(assessment.get('group', ''))} | "
+                    f"{md_cell(assessment.get('relative_valuation_status', ''))} | "
+                    f"`{md_cell(assessment.get('posture', ''))}` | "
+                    f"{self._factor_descriptions(assessment.get('evidence'))} | "
+                    f"{self._factor_descriptions(assessment.get('missing_evidence'))} |"
+                )
+            constituent_table_md = "\n".join(constituent_rows)
+            constituent_section_md = f"""
+## 6. Constituent Evidence Assessments
 
-> [!NOTE]
-> **Tax-Aware Investment Framework**: Default posture leans strongly toward **HOLDing** assets to minimize capital gains tax friction. **BUY** and **SELL** actions are reserved for high-conviction valuation dislocations or macro regime shifts.
+Constituent review compares each company with its focused peer cohort and requires sufficient historical relative evidence.
 
-| Sector / Supply Chain Group | Action Posture | Conviction | Avg Fwd P/E | Selective Stock Pick | Strategic Mid-Term Rationale |
+| Ticker | Peer Cohort | Relative Valuation Status | Research Posture | Evidence | Missing Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-{rec_table_md}
+{constituent_table_md}
 """
 
         # Build AI & Physical AI Ecosystem Markdown section
@@ -480,11 +528,15 @@ Tracking valuation multiples and downstream physical dependencies across compute
         fear_greed_signal = md_cell(mkt.get('cnn_fear_greed_signal', 'N/A'))
         shiller_pe_val = fmt_num(mkt.get('shiller_pe'), ":.2f")
         shiller_pe_signal = md_cell(mkt.get('shiller_pe_signal', 'N/A'))
+        current_notable_items = self._build_notable_items(analysis)
         previous_notable_items = self._load_previous_notable_items(today_str)
-        notable_summary_md = self._build_notable_summary_md(analysis, previous_notable_items)
+        notable_summary_md = self._build_notable_summary_md(
+            current_notable_items, previous_notable_items
+        )
 
-        report_content = f"""# Daily 4-Quadrant Macro & Dynamic Sector Strategy Report ({today_str})
-*Automated Capture Engine & Institutional Framework (Defiant Gatekeeper)*
+        report_content = f"""# Daily Macro Evidence Report ({today_str})
+*Automated Capture Engine & Institutional Research Framework (Defiant Gatekeeper)*
+> {RESEARCH_DISCLOSURE}
 {stale_warning_md}
 ---
 {notable_summary_md}
@@ -532,9 +584,9 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 | **Chicago Fed Financial Conditions** | `{nfci_val}` | Negative = Loose, Positive = Tight |
 
 ---
-{lag_section_md}
+{evidence_section_md}
 ---
-{rec_section_md}
+{constituent_section_md}
 ---
 {ai_section_md}
 ---
@@ -553,18 +605,16 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 | **Copper** | `{copper_val}` | Industrial Demand Indicator |
 
 ---
-*Report auto-generated by 4-Quadrant Macro & Dynamic Sector Strategy Engine.*
+*{RESEARCH_DISCLOSURE}*
 """
 
         report_filename = self.output_dir / f"macro_report_{today_str}.md"
         latest_filename = self.output_dir / "latest_report.md"
 
-        with open(report_filename, "w", encoding="utf-8") as f:
-            f.write(report_content)
-            
-        with open(latest_filename, "w", encoding="utf-8") as f:
-            f.write(report_content)
+        _atomic_write_text(report_filename, report_content)
+        _atomic_write_text(latest_filename, report_content)
+        self._write_notable_state(today_str, current_notable_items)
 
         if self.verbose:
-            print(f"--> Daily Markdown Report with 4 Macro Situations generated: {report_filename}")
+            print(f"--> Daily Macro Evidence Report generated: {report_filename}")
         return str(report_filename)
