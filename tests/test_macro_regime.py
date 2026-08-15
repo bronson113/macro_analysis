@@ -1,12 +1,119 @@
 import pandas as pd
 
-from macro_regime import classify_delta, classify_policy_gap, classify_policy_level
+from macro_regime import (
+    classify_delta,
+    classify_liquidity_level,
+    classify_policy_gap,
+    classify_policy_level,
+)
 
 
 def series(*pairs):
     return pd.DataFrame(pairs, columns=["date", "value"]).assign(
         date=lambda frame: pd.to_datetime(frame.date)
     )
+
+
+def dated(values, end, freq):
+    dates = pd.date_range(end=pd.Timestamp(end), periods=len(values), freq=freq)
+    return pd.DataFrame({"date": dates, "value": values})
+
+
+def liquidity_fixture(effr=4.33, iorb=4.40, sofr=4.36):
+    normalized_history = [10.0 + index * (10.0 / 268.0) for index in range(269)]
+    normalized_values = normalized_history + [19.5]
+    gdp = 30_000.0
+    reserve_values = [value * gdp / 100.0 for value in normalized_values]
+    return {
+        "fed_assets": dated(
+            [(value + 1_000.0) * 1_000.0 for value in reserve_values],
+            "2026-08-14",
+            "7D",
+        ),
+        "tga": dated([800_000.0] * 270, "2026-08-14", "7D"),
+        "rrp": dated([200.0] * 270, "2026-08-14", "7D"),
+        "nominal_gdp": dated([gdp] * 25, "2026-08-01", "QS"),
+        "effr": dated([effr] * 5, "2026-08-14", "D"),
+        "iorb": dated([iorb] * 5, "2026-08-14", "D"),
+        "sofr": dated([sofr] * 5, "2026-08-14", "D"),
+        "as_of": pd.Timestamp("2026-08-15"),
+    }
+
+
+def test_high_but_falling_liquidity_remains_abundant():
+    out = classify_liquidity_level(**liquidity_fixture())
+
+    assert out["state"] == "ABUNDANT"
+    assert out["momentum_30d"] == "DETERIORATING"
+    assert out["quality"] == "OK"
+
+
+def test_two_money_market_pressure_flags_withhold_liquidity_state():
+    out = classify_liquidity_level(
+        **liquidity_fixture(effr=4.39, iorb=4.40, sofr=4.51)
+    )
+
+    assert out["core_state"] in {"ABUNDANT", "SCARCE"}
+    assert out["state"] is None
+    assert out["quality"] == "INDETERMINATE_CONFLICT"
+
+
+def test_liquidity_level_normalizes_reserves_by_nominal_gdp():
+    out = classify_liquidity_level(**liquidity_fixture())
+
+    assert out["reserve_liquidity_billions"] == 5_850.0
+    assert out["normalized_liquidity_pct_gdp"] == 19.5
+    assert out["current_percentile"] > 90.0
+    assert out["historical_p40"] == 14.0
+    assert out["historical_p60"] == 16.0
+
+
+def test_liquidity_percentile_boundaries_are_inclusive():
+    from macro_regime import classify_liquidity_percentile
+
+    assert classify_liquidity_percentile(40.0) == "SCARCE"
+    assert classify_liquidity_percentile(60.0) == "ABUNDANT"
+    assert classify_liquidity_percentile(50.0) == "NEUTRAL"
+
+
+def test_stale_liquidity_component_withholds_core_state():
+    fixture = liquidity_fixture()
+    fixture["fed_assets"] = dated(
+        [1_000_000.0] * 270,
+        "2026-07-01",
+        "7D",
+    )
+
+    out = classify_liquidity_level(**fixture)
+
+    assert out["state"] is None
+    assert out["core_state"] is None
+    assert out["quality"] == "INSUFFICIENT_DATA"
+    assert any("fed assets" in reason.lower() and "stale" in reason.lower() for reason in out["reasons"])
+
+
+def test_missing_money_market_corroboration_keeps_core_state_but_is_partial():
+    fixture = liquidity_fixture()
+    fixture["sofr"] = pd.DataFrame(columns=["date", "value"])
+
+    out = classify_liquidity_level(**fixture)
+
+    assert out["state"] == "ABUNDANT"
+    assert out["core_state"] == "ABUNDANT"
+    assert out["quality"] == "PARTIAL"
+    assert any("sofr" in reason.lower() for reason in out["reasons"])
+
+
+def test_one_money_market_pressure_flag_is_partial_without_changing_state():
+    out = classify_liquidity_level(
+        **liquidity_fixture(effr=4.39, iorb=4.40, sofr=4.36)
+    )
+
+    assert out["core_state"] == "ABUNDANT"
+    assert out["state"] == "ABUNDANT"
+    assert out["quality"] == "PARTIAL"
+    assert out["effr_iorb_pressure"] is True
+    assert out["sofr_iorb_pressure"] is False
 
 
 def test_policy_uses_real_rate_gap_not_recent_direction():

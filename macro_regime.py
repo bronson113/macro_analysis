@@ -21,6 +21,16 @@ DFF_MAX_AGE_DAYS = 7
 CORE_PCE_MAX_AGE_DAYS = 75
 RSTAR_MAX_AGE_DAYS = 180
 
+FED_ASSETS_MAX_AGE_DAYS = 14
+TGA_MAX_AGE_DAYS = 14
+RRP_MAX_AGE_DAYS = 7
+NOMINAL_GDP_MAX_AGE_DAYS = 120
+EFFR_MAX_AGE_DAYS = 7
+IORB_MAX_AGE_DAYS = 7
+SOFR_MAX_AGE_DAYS = 7
+LIQUIDITY_MOMENTUM_THRESHOLD_PCT_GDP = 0.05
+LIQUIDITY_MIN_HISTORY_WEEKS = 200
+
 HISTORICAL_WINDOW_YEARS = 10
 MIN_HISTORICAL_YEARS = 5
 
@@ -542,15 +552,511 @@ def classify_policy_level(
     return result
 
 
+def reserve_liquidity_billions(
+    fed_assets_millions: float,
+    tga_millions: float,
+    rrp_billions: float,
+) -> float:
+    """Return the reserve-liquidity proxy in billions of dollars.
+
+    Fed total assets and the Treasury General Account are supplied in
+    millions, while ON RRP is supplied in billions.  Keeping that unit
+    conversion at this small pure boundary makes the source units explicit
+    and prevents a raw-dollar series from being used accidentally.
+    """
+
+    return float(fed_assets_millions) / 1000.0 - float(tga_millions) / 1000.0 - float(rrp_billions)
+
+
+def classify_liquidity_percentile(rank: float) -> str:
+    """Classify a liquidity percentile using inclusive level boundaries."""
+
+    try:
+        numeric_rank = float(rank)
+    except (TypeError, ValueError):
+        return "INSUFFICIENT_DATA"
+    if not math.isfinite(numeric_rank):
+        return "INSUFFICIENT_DATA"
+    if numeric_rank >= 60.0:
+        return "ABUNDANT"
+    if numeric_rank <= 40.0:
+        return "SCARCE"
+    return "NEUTRAL"
+
+
+def _liquidity_weekly_dates(
+    fed_assets: pd.DataFrame,
+    as_of: pd.Timestamp,
+) -> list[pd.Timestamp]:
+    """Select one backward-looking Fed-assets observation per seven-day bin."""
+
+    eligible = fed_assets.loc[fed_assets["date"] <= as_of].copy()
+    if eligible.empty:
+        return []
+
+    current_date = pd.Timestamp(eligible.iloc[-1]["date"])
+    elapsed_days = (current_date.normalize() - eligible["date"].dt.normalize()).dt.days
+    eligible["week_bin"] = elapsed_days // 7
+    selected = (
+        eligible.sort_values("date")
+        .groupby("week_bin", sort=True, as_index=False)
+        .tail(1)
+        .sort_values("date")
+    )
+    return [pd.Timestamp(date) for date in selected["date"].tolist()]
+
+
+def _aligned_liquidity_rows(
+    fed_assets: pd.DataFrame,
+    tga: pd.DataFrame,
+    rrp: pd.DataFrame,
+    nominal_gdp: pd.DataFrame,
+    as_of: pd.Timestamp,
+) -> list[Dict[str, Any]]:
+    """Join liquidity inputs at weekly Fed-assets dates without look-ahead."""
+
+    source_specs = (
+        ("fed_assets", fed_assets, FED_ASSETS_MAX_AGE_DAYS),
+        ("tga", tga, TGA_MAX_AGE_DAYS),
+        ("rrp", rrp, RRP_MAX_AGE_DAYS),
+        ("nominal_gdp", nominal_gdp, NOMINAL_GDP_MAX_AGE_DAYS),
+    )
+    aligned: list[Dict[str, Any]] = []
+    for weekly_date in _liquidity_weekly_dates(fed_assets, as_of):
+        rows: Dict[str, pd.Series] = {}
+        valid = True
+        for name, frame, max_age in source_specs:
+            row = _latest_on_or_before(frame, weekly_date)
+            if row is None or _age_days(pd.Timestamp(row["date"]), weekly_date) > max_age:
+                valid = False
+                break
+            rows[name] = row
+        if not valid:
+            continue
+
+        fed_assets_millions = float(rows["fed_assets"]["value"])
+        tga_millions = float(rows["tga"]["value"])
+        rrp_billions = float(rows["rrp"]["value"])
+        nominal_gdp_billions = float(rows["nominal_gdp"]["value"])
+        if nominal_gdp_billions == 0.0:
+            continue
+        reserve_billions = reserve_liquidity_billions(
+            fed_assets_millions,
+            tga_millions,
+            rrp_billions,
+        )
+        normalized_pct_gdp = 100.0 * reserve_billions / nominal_gdp_billions
+        aligned.append(
+            {
+                "date": pd.Timestamp(weekly_date),
+                "fed_assets_millions": fed_assets_millions,
+                "fed_assets_date": pd.Timestamp(rows["fed_assets"]["date"]),
+                "tga_millions": tga_millions,
+                "tga_date": pd.Timestamp(rows["tga"]["date"]),
+                "rrp_billions": rrp_billions,
+                "rrp_date": pd.Timestamp(rows["rrp"]["date"]),
+                "nominal_gdp_billions": nominal_gdp_billions,
+                "nominal_gdp_date": pd.Timestamp(rows["nominal_gdp"]["date"]),
+                "reserve_liquidity_billions": reserve_billions,
+                "normalized_liquidity_pct_gdp": normalized_pct_gdp,
+            }
+        )
+    return aligned
+
+
+def _liquidity_money_market_means(
+    effr: pd.DataFrame,
+    iorb: pd.DataFrame,
+    sofr: pd.DataFrame,
+    as_of: pd.Timestamp,
+) -> tuple[Optional[float], Optional[float], list[pd.Timestamp]]:
+    """Return five-business-day mean EFFR/IORB and SOFR/IORB spreads."""
+
+    lookups = []
+    for frame in (effr, iorb, sofr):
+        eligible = frame.loc[frame["date"] <= as_of]
+        lookups.append({pd.Timestamp(row["date"]): float(row["value"]) for _, row in eligible.iterrows()})
+    common_dates = set(lookups[0]).intersection(lookups[1], lookups[2])
+    common_dates = sorted(date for date in common_dates if pd.Timestamp(date).weekday() < 5)
+    selected_dates = common_dates[-5:]
+    if len(selected_dates) < 5:
+        return None, None, selected_dates
+
+    effr_iorb = [100.0 * (lookups[0][date] - lookups[1][date]) for date in selected_dates]
+    sofr_iorb = [100.0 * (lookups[2][date] - lookups[1][date]) for date in selected_dates]
+    return float(sum(effr_iorb) / len(effr_iorb)), float(sum(sofr_iorb) / len(sofr_iorb)), selected_dates
+
+
+def _empty_liquidity_result(as_of: pd.Timestamp) -> Dict[str, Any]:
+    return {
+        "as_of": as_of,
+        "state": None,
+        "core_state": None,
+        "quality": "INSUFFICIENT_DATA",
+        "reasons": [],
+        "reserve_liquidity_billions": None,
+        "normalized_liquidity_pct_gdp": None,
+        "normalized_liquidity": None,
+        "current_percentile": None,
+        "liquidity_percentile": None,
+        "historical_percentile": None,
+        "historical_median": None,
+        "historical_p40": None,
+        "historical_p60": None,
+        "historical_40th_percentile": None,
+        "historical_60th_percentile": None,
+        "threshold_40": None,
+        "threshold_60": None,
+        "history_start": None,
+        "history_end": None,
+        "history_sample_start": None,
+        "history_sample_end": None,
+        "history_count": 0,
+        "momentum_30d": None,
+        "momentum_30d_value": None,
+        "momentum_30d_date": None,
+        "momentum_90d": None,
+        "momentum_90d_value": None,
+        "momentum_90d_date": None,
+        "effr_iorb_spread_bp": None,
+        "sofr_iorb_spread_bp": None,
+        "effr_iorb_pressure": None,
+        "sofr_iorb_pressure": None,
+        "pressure_flags": [],
+        "corroboration_dates": [],
+        "fed_assets": None,
+        "fed_assets_observation": None,
+        "fed_assets_date": None,
+        "fed_assets_age_days": None,
+        "fed_assets_value": None,
+        "fed_assets_millions": None,
+        "tga": None,
+        "tga_observation": None,
+        "tga_date": None,
+        "tga_age_days": None,
+        "tga_value": None,
+        "tga_millions": None,
+        "rrp": None,
+        "rrp_observation": None,
+        "rrp_date": None,
+        "rrp_age_days": None,
+        "rrp_value": None,
+        "rrp_billions": None,
+        "nominal_gdp": None,
+        "nominal_gdp_observation": None,
+        "nominal_gdp_date": None,
+        "nominal_gdp_age_days": None,
+        "nominal_gdp_value": None,
+        "nominal_gdp_billions": None,
+        "effr": None,
+        "effr_observation": None,
+        "effr_date": None,
+        "effr_age_days": None,
+        "effr_value": None,
+        "iorb": None,
+        "iorb_observation": None,
+        "iorb_date": None,
+        "iorb_age_days": None,
+        "iorb_value": None,
+        "sofr": None,
+        "sofr_observation": None,
+        "sofr_date": None,
+        "sofr_age_days": None,
+        "sofr_value": None,
+        "dates": {},
+        "ages": {},
+        "values": {},
+    }
+
+
+def classify_liquidity_level(
+    fed_assets: pd.DataFrame,
+    tga: pd.DataFrame,
+    rrp: pd.DataFrame,
+    nominal_gdp: pd.DataFrame,
+    effr: pd.DataFrame,
+    iorb: pd.DataFrame,
+    sofr: pd.DataFrame,
+    as_of: pd.Timestamp,
+) -> Dict[str, Any]:
+    """Classify reserve liquidity by its historical GDP-normalized level.
+
+    Fed total assets and TGA are expected in millions, ON RRP and nominal GDP
+    in billions, and money-market rates in percentage points.  All joins are
+    backward-looking from weekly Fed-assets observations; current level
+    classification excludes that current observation from its percentile
+    sample.
+    """
+
+    as_of = _timestamp(as_of)
+    frames = {
+        "fed_assets": _prepare_series(fed_assets),
+        "tga": _prepare_series(tga),
+        "rrp": _prepare_series(rrp),
+        "nominal_gdp": _prepare_series(nominal_gdp),
+        "effr": _prepare_series(effr),
+        "iorb": _prepare_series(iorb),
+        "sofr": _prepare_series(sofr),
+    }
+    result = _empty_liquidity_result(as_of)
+    reasons: list[str] = []
+
+    source_specs = (
+        ("fed_assets", FED_ASSETS_MAX_AGE_DAYS, "Fed assets"),
+        ("tga", TGA_MAX_AGE_DAYS, "TGA"),
+        ("rrp", RRP_MAX_AGE_DAYS, "RRP"),
+        ("nominal_gdp", NOMINAL_GDP_MAX_AGE_DAYS, "Nominal GDP"),
+    )
+    required_ok = True
+    current_rows: Dict[str, Optional[pd.Series]] = {}
+    for key, max_age, label in source_specs:
+        frame = frames[key]
+        row = _latest_on_or_before(frame, as_of)
+        current_rows[key] = row
+        if _has_nonfinite_on_or_before(frame, as_of):
+            required_ok = False
+            reasons.append(f"{label} contains a non-finite input value")
+        elif row is None:
+            required_ok = False
+            reasons.append(f"Missing {key.replace('_', ' ')} observation on or before as_of")
+        else:
+            age = _age_days(pd.Timestamp(row["date"]), as_of)
+            if age is not None and age > max_age:
+                required_ok = False
+                reasons.append(
+                    f"{label} observation is stale ({age} days old; maximum {max_age})"
+                )
+
+    aligned = _aligned_liquidity_rows(
+        frames["fed_assets"],
+        frames["tga"],
+        frames["rrp"],
+        frames["nominal_gdp"],
+        as_of,
+    )
+    current_anchor = (
+        pd.Timestamp(current_rows["fed_assets"]["date"])
+        if current_rows["fed_assets"] is not None
+        else None
+    )
+    current_record = next(
+        (row for row in aligned if current_anchor is not None and row["date"] == current_anchor),
+        None,
+    )
+    if current_record is None:
+        required_ok = False
+        reasons.append("Missing complete weekly liquidity observation on or before as_of")
+    else:
+        result["reserve_liquidity_billions"] = _round(current_record["reserve_liquidity_billions"])
+        result["normalized_liquidity_pct_gdp"] = _round(
+            current_record["normalized_liquidity_pct_gdp"]
+        )
+        result["normalized_liquidity"] = result["normalized_liquidity_pct_gdp"]
+
+        source_record_specs = (
+            ("fed_assets", "fed_assets_millions"),
+            ("tga", "tga_millions"),
+            ("rrp", "rrp_billions"),
+            ("nominal_gdp", "nominal_gdp_billions"),
+        )
+        for key, value_key in source_record_specs:
+            value = _round(current_record[value_key])
+            date = current_record[f"{key}_date"]
+            age = _age_days(date, as_of)
+            observation = {"date": date, "age_days": age, "value": value}
+            result[key] = value
+            result[f"{key}_observation"] = observation
+            result[f"{key}_date"] = date
+            result[f"{key}_age_days"] = age
+            result[f"{key}_value"] = value
+            if key == "fed_assets":
+                result["fed_assets_millions"] = value
+            elif key == "tga":
+                result["tga_millions"] = value
+            elif key == "rrp":
+                result["rrp_billions"] = value
+            elif key == "nominal_gdp":
+                result["nominal_gdp_billions"] = value
+            result["dates"][key] = date
+            result["ages"][key] = age
+            result["values"][key] = value
+
+    # Historical level sample: use the trailing ten calendar years and never
+    # include the current weekly observation in its own percentile.
+    window_start = (as_of - pd.DateOffset(years=HISTORICAL_WINDOW_YEARS)).normalize()
+    current_date = current_record["date"].normalize() if current_record is not None else None
+    history = [
+        row
+        for row in aligned
+        if row["date"].normalize() >= window_start
+        and (current_date is None or row["date"].normalize() < current_date)
+    ]
+    history_values = pd.Series(
+        [row["normalized_liquidity_pct_gdp"] for row in history],
+        dtype="float64",
+    )
+    result["history_count"] = int(len(history))
+    if history:
+        result["history_start"] = history[0]["date"]
+        result["history_end"] = history[-1]["date"]
+        result["history_sample_start"] = result["history_start"]
+        result["history_sample_end"] = result["history_end"]
+
+    history_valid = True
+    if len(history) < LIQUIDITY_MIN_HISTORY_WEEKS:
+        history_valid = False
+        reasons.append(
+            "Liquidity history unavailable: "
+            f"{len(history)} aligned weekly observations (minimum {LIQUIDITY_MIN_HISTORY_WEEKS})"
+        )
+    if history and result["history_end"] < result["history_start"] + pd.DateOffset(years=MIN_HISTORICAL_YEARS):
+        history_valid = False
+        reasons.append("Liquidity history unavailable: fewer than five years of observations")
+    elif not history:
+        history_valid = False
+        reasons.append("Liquidity history unavailable: fewer than five years of observations")
+
+    if current_record is not None and history:
+        current_value = float(current_record["normalized_liquidity_pct_gdp"])
+        result["current_percentile"] = _round(float((history_values <= current_value).mean() * 100.0), 1)
+        result["liquidity_percentile"] = result["current_percentile"]
+        result["historical_percentile"] = result["current_percentile"]
+        result["historical_median"] = _round(float(history_values.median()))
+        result["historical_p40"] = _round(float(history_values.quantile(0.40)))
+        result["historical_p60"] = _round(float(history_values.quantile(0.60)))
+        result["historical_40th_percentile"] = result["historical_p40"]
+        result["historical_60th_percentile"] = result["historical_p60"]
+        result["threshold_40"] = result["historical_p40"]
+        result["threshold_60"] = result["historical_p60"]
+        if history_valid:
+            result["core_state"] = classify_liquidity_percentile(result["current_percentile"])
+
+    # Independent momentum overlays use the nearest aligned observation on or
+    # before each target date.
+    if current_record is not None:
+        for horizon_days, label in ((30, "30d"), (90, "90d")):
+            target = as_of - pd.Timedelta(days=horizon_days)
+            prior = next(
+                (
+                    row
+                    for row in reversed(aligned)
+                    if row["date"] <= target
+                ),
+                None,
+            )
+            if prior is None:
+                reasons.append(
+                    f"Liquidity {horizon_days}-day momentum unavailable: no complete historical measurement"
+                )
+                continue
+            delta = float(current_record["normalized_liquidity_pct_gdp"]) - float(
+                prior["normalized_liquidity_pct_gdp"]
+            )
+            result[f"momentum_{label}"] = classify_delta(
+                delta,
+                positive_label="IMPROVING",
+                negative_label="DETERIORATING",
+                stable_label="STABLE",
+                threshold=LIQUIDITY_MOMENTUM_THRESHOLD_PCT_GDP,
+            )
+            result[f"momentum_{label}_value"] = _round(delta)
+            result[f"momentum_{label}_date"] = prior["date"]
+
+    # Current money-market observations are corroborating inputs.  They can
+    # lower confidence or withhold the state, but never rewrite the history-
+    # based core classification.
+    corroboration_specs = (
+        ("effr", EFFR_MAX_AGE_DAYS, "EFFR"),
+        ("iorb", IORB_MAX_AGE_DAYS, "IORB"),
+        ("sofr", SOFR_MAX_AGE_DAYS, "SOFR"),
+    )
+    corroboration_ok = True
+    for key, max_age, label in corroboration_specs:
+        frame = frames[key]
+        row = _latest_on_or_before(frame, as_of)
+        if row is not None:
+            detail = _row_details(row, as_of)
+            result[key] = detail["value"]
+            result[f"{key}_observation"] = detail
+            result[f"{key}_date"] = detail["date"]
+            result[f"{key}_age_days"] = detail["age_days"]
+            result[f"{key}_value"] = detail["value"]
+            result["dates"][key] = detail["date"]
+            result["ages"][key] = detail["age_days"]
+            result["values"][key] = detail["value"]
+        if _has_nonfinite_on_or_before(frame, as_of):
+            corroboration_ok = False
+            reasons.append(f"{label} contains a non-finite input value")
+        elif row is None:
+            corroboration_ok = False
+            reasons.append(f"Missing {label} corroboration on or before as_of")
+        elif _age_days(pd.Timestamp(row["date"]), as_of) > max_age:
+            corroboration_ok = False
+            reasons.append(
+                f"{label} corroboration is stale ("
+                f"{_age_days(pd.Timestamp(row['date']), as_of)} days old; maximum {max_age})"
+            )
+
+    effr_iorb_bp, sofr_iorb_bp, corroboration_dates = _liquidity_money_market_means(
+        frames["effr"], frames["iorb"], frames["sofr"], as_of
+    )
+    result["effr_iorb_spread_bp"] = _round(effr_iorb_bp)
+    result["sofr_iorb_spread_bp"] = _round(sofr_iorb_bp)
+    result["corroboration_dates"] = corroboration_dates
+    if effr_iorb_bp is None or sofr_iorb_bp is None:
+        corroboration_ok = False
+        reasons.append("Five-business-day money-market corroboration is unavailable")
+    elif corroboration_ok:
+        result["effr_iorb_pressure"] = bool(effr_iorb_bp >= -2.0)
+        result["sofr_iorb_pressure"] = bool(sofr_iorb_bp >= 10.0)
+    pressure_flags = []
+    if result["effr_iorb_pressure"]:
+        pressure_flags.append("EFFR_IORB")
+        reasons.append("EFFR-IORB spread flags reserve pressure")
+    if result["sofr_iorb_pressure"]:
+        pressure_flags.append("SOFR_IORB")
+        reasons.append("SOFR-IORB spread flags funding pressure")
+    result["pressure_flags"] = pressure_flags
+
+    if not required_ok or not history_valid:
+        result["state"] = None
+        result["core_state"] = None
+        result["quality"] = "INSUFFICIENT_DATA"
+    else:
+        result["state"] = result["core_state"]
+        if len(pressure_flags) >= 2:
+            result["state"] = None
+            result["quality"] = "INDETERMINATE_CONFLICT"
+        else:
+            result["quality"] = "PARTIAL" if reasons or not corroboration_ok or pressure_flags else "OK"
+    if len(pressure_flags) >= 2:
+        result["quality"] = "INDETERMINATE_CONFLICT"
+        result["state"] = None
+    result["reasons"] = reasons
+    return result
+
+
 __all__ = [
     "CORE_PCE_MAX_AGE_DAYS",
     "DFF_MAX_AGE_DAYS",
+    "EFFR_MAX_AGE_DAYS",
+    "FED_ASSETS_MAX_AGE_DAYS",
     "HISTORICAL_WINDOW_YEARS",
+    "IORB_MAX_AGE_DAYS",
+    "LIQUIDITY_MIN_HISTORY_WEEKS",
+    "LIQUIDITY_MOMENTUM_THRESHOLD_PCT_GDP",
     "MIN_HISTORICAL_YEARS",
+    "NOMINAL_GDP_MAX_AGE_DAYS",
     "POLICY_GAP_THRESHOLD_PP",
     "POLICY_MOMENTUM_THRESHOLD_PP",
+    "RRP_MAX_AGE_DAYS",
     "RSTAR_MAX_AGE_DAYS",
+    "SOFR_MAX_AGE_DAYS",
+    "TGA_MAX_AGE_DAYS",
     "classify_delta",
+    "classify_liquidity_level",
+    "classify_liquidity_percentile",
     "classify_policy_gap",
     "classify_policy_level",
+    "reserve_liquidity_billions",
 ]
