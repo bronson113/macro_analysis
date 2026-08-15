@@ -1,72 +1,69 @@
-# 2026-08-14 — FRESH
+# 2026-08-14 — FRESH (weekend carry-forward reviewed 2026-08-15)
 
 *LLM macro risk review for a tax-aware 3-month to 1-year horizon. Research posture only; not personalized financial advice.*
 
 ## Macro Read
 
-### Evidence
+- **Active quadrant: Situation 3 — restrictive policy + reserve-liquidity contraction.** Policy rate is `3.63%`, with a `+1 bp` 30-day change and a `HOLDING_RESTRICTIVE` classification because the 10Y real-yield proxy is `2.44%`. The policy call comes from policy-rate evidence, not the yield curve.
+- **Reserve liquidity:** `$5,800.10B`, down `$185.47B` over 30 days. Components are Fed assets `$6,759.95B` minus TGA `$959.40B` minus RRP `$0.45B`, all normalized to billions. This is reserve-liquidity contraction, not QE.
+- **Yield curve:** 10Y–2Y is `+48 bps`; 10Y–3M is `+76 bps`. The curve is positively sloped, but that removes an inversion signal rather than proving monetary easing.
+- **Credit / volatility:** HY OAS `2.71%`, IG OAS `0.40%`, NFCI `-0.58`, VIX `14.50`. Stress remains contained, so the liquidity warning is a valuation/risk-budget constraint rather than an immediate systemic-risk call.
+- **Valuation / context:** Shiller P/E is `42.65` and Fear & Greed `66.74`. Broad valuation is stretched and risk appetite is firm. With restrictive real yields and contracting reserve liquidity, adding broad long-duration beta requires unusually strong earnings and valuation support.
 
-- **Active quadrant: Situation 3 — restrictive policy + reserve-liquidity contraction.** DFF is `3.63%`, up `1 bp` over 30 days and classified `HOLDING_RESTRICTIVE`; the real-yield proxy is `2.44%`. Policy stance comes from policy-rate evidence, not the yield curve.
-- **Reserve liquidity:** `$5,800.10B`, down `$185.47B` over 30 days: Fed assets `$6,759.95B` minus TGA `$959.40B` minus RRP `$0.45B`, normalized to billions. The weekly Fed-asset increase was more than offset by the TGA build. This is reserve-liquidity contraction, not QE.
-- **Yield curve:** 10Y–2Y is `+48 bps`; 10Y–3M is `+76 bps`. Positive slopes remove the inversion signal but do not override restrictive policy or the negative 30-day liquidity direction.
-- **Credit/volatility:** HY OAS is `2.71%`, IG OAS `0.40%`, NFCI `-0.58`, and VIX `14.50`. Credit and volatility remain benign; systemic stress does not confirm the liquidity warning.
-- **Labor/inflation/valuation:** unemployment is `4.1%`, the 5-year breakeven is `2.21%`, Shiller P/E is `42.65`, and Fear & Greed is `66.74`. Labor is stable and inflation expectations are contained, but broad valuation and risk appetite leave little margin for error.
-
-### Inference
-
-Situation 3 favors liquidity, high free cash flow, low leverage, and valuation discipline. The sharp deterioration in the 30-day reserve-liquidity signal raises the multiple-compression risk even though tight credit spreads and low VIX argue against an immediate systemic-stress call. The actionable posture remains selective holding rather than adding broad index beta or expensive long-duration exposure.
+**Research posture:** preserve optionality, emphasize high free cash flow and low leverage, and avoid chasing expensive duration. The 3M–1Y bias is selective HOLD / CAUTION rather than broad accumulation.
 
 ## What Changed
 
-- Versus August 13, reserve liquidity fell `$18.42B`: Fed assets rose about `$11.39B`, TGA increased about `$30.08B`, and RRP fell about `$0.27B`. The TGA build dominated. The 30-day contraction deepened from `$95.97B` to `$185.47B` as both the current level and rolling comparison changed.
-- The 10Y and 2Y yields each fell `2 bps`, to `4.68%` and `4.20%`; the real-yield proxy stayed `2.44%`. The 10Y–3M spread narrowed `5 bps` to `+76 bps`.
-- HY OAS tightened `1 bp`, IG OAS tightened `1 bp`, NFCI held near `-0.58`, and VIX edged down to `14.50`. Financial stress remains unconfirmed.
-- Fear & Greed rose from `62` to `66.74` and Shiller P/E increased from `42.34` to `42.65`, strengthening the anti-chasing valuation warning.
-- WTI recovered `$0.39` to `$81.81`; copper was essentially flat near `$6.58`. Energy retains limited trend support, but not enough for a broad-sector buy.
-- HBM multiples rose to `10.75x` forward P/E and `24.81x` EV/EBITDA. Physical AI remains expensive at `38.19x` and `59.17x`; AI compute is `22.49x` and `41.85x`. Constituent history improved to 11 observations versus the required 60.
+- Versus the August 13 report, reserve liquidity fell about `$18.42B`; the TGA build more than offset the Fed-asset increase and small RRP decline. The 30-day contraction deepened from roughly `$95.97B` to `$185.47B`.
+- 10Y and 2Y yields each eased about `2 bps` to `4.68%` and `4.20%`; the real-yield proxy remained `2.44%`. The 10Y–3M spread narrowed about `5 bps` to `+76 bps`.
+- HY and IG spreads tightened about `1 bp` each; NFCI remained loose and VIX edged down. Credit still does not confirm a macro-stress break.
+- Shiller P/E rose from about `42.34` to `42.65`, while Fear & Greed increased from `62` to `66.74`, strengthening the anti-chasing overlay.
+- Sector valuation evidence remains internally mixed: HBM forward P/E is `10.75x` versus a `16.0x` historical norm, but EV/EBITDA is `24.81x`; Physical AI is rich at `38.19x` forward P/E and `59.17x` EV/EBITDA.
 
 ## Sector Actions
 
-| Sector / theme | Action | Confidence | Evidence, risk, and actionable conclusion |
+| Sector / theme | Action | Confidence | Judgment |
 |---|---|---:|---|
-| Technology (XLK) | **HOLD / CAUTION** | High | Score `-4`; contracting liquidity, a `2.44%` real yield, extreme broad valuation, and missing valuation percentile argue against adding. |
-| Financials (XLF) | **HOLD / CAUTION** | Moderate-Low | Score `+1` and benign broad credit help, but bank funding, deposits, capital, charge-offs, loan quality, and CCC evidence remain absent. |
-| Healthcare (XLV) | **HOLD** | Moderate | Defensive demand and stable labor support holding; valuation and company-quality gates remain incomplete. |
-| Energy (XLE) | **HOLD / SELECTIVE BUY** | Moderate-Low | WTI is above `$80`, but contracting liquidity and incomplete demand, valuation, and producer cash-flow evidence block a broad buy. Review only low-leverage, high-free-cash-flow producers. |
-| Industrials (XLI) | **HOLD / CAUTION** | Moderate | Liquidity contraction and flat copper outweigh structural themes until valuation and earnings revisions confirm. |
-| Consumer discretionary (XLY) | **HOLD / CAUTION** | Moderate-High | Score `-3`; restrictive liquidity, greed sentiment, and broad valuation argue against adding. |
-| Consumer staples (XLP) | **HOLD** | Moderate | Defensive demand supports holding; missing valuation evidence blocks accumulation. |
-| AI compute | **HOLD / CAUTION** | High | Score `-4`; below-norm forward P/E is offset by `41.85x` EV/EBITDA, restrictive real yields, and incomplete histories. |
-| HBM / memory | **HOLD / CAUTION** | Moderate | Forward P/E is about 33% below the `16.0x` norm, but `24.81x` EV/EBITDA and failed peer, history, balance-sheet, and earnings-quality gates prevent promotion. |
-| Physical AI / robotics | **SELL / TRIM** | High | Score `-4`, restrictive liquidity, `38.19x` forward P/E, and `59.17x` EV/EBITDA support trimming. |
-| Power / grid / cooling | **HOLD / CAUTION** | Moderate | Structural demand is offset by restrictive conditions and mixed multiples; constituent peer/history evidence is insufficient. |
+| Technology (XLK) | **HOLD / CAUTION** | High | Contracting liquidity, `2.44%` real yield, stretched broad valuation, and incomplete sector valuation percentiles argue against adding. |
+| Financials (XLF) | **HOLD / CAUTION** | Moderate-Low | Benign broad spreads help, but the framework requires bank-specific funding, deposit, capital, charge-off, and credit-quality confirmation before calling Financials favored. |
+| Healthcare (XLV) | **HOLD** | Moderate | Defensive demand fits the restrictive backdrop, but valuation and constituent-quality gates remain incomplete. |
+| Energy (XLE) | **HOLD / SELECTIVE BUY** | Moderate-Low | WTI near `$81.81` provides support, but liquidity contraction and incomplete demand/producer-quality evidence block a broad BUY. |
+| Industrials (XLI) | **HOLD / CAUTION** | Moderate | Structural capex themes are not enough to override restrictive liquidity without valuation and earnings-revision confirmation. |
+| Consumer Discretionary (XLY) | **HOLD / CAUTION** | Moderate-High | Restrictive liquidity, elevated broad valuation, and greed sentiment make incremental risk unattractive. |
+| Consumer Staples (XLP) | **HOLD** | Moderate | Defensive characteristics support holding; missing valuation evidence prevents accumulation. |
+| AI Compute / Accelerators | **HOLD / CAUTION** | High | Forward P/E is not obviously stretched, but EV/EBITDA is elevated and restrictive real yields remain a duration headwind. |
+| HBM / Memory | **HOLD / CAUTION** | Moderate | Headline P/E discount is interesting, but peer/history and balance-sheet/earnings-quality gates are insufficient for BUY / ACCUMULATE. |
+| Physical AI / Robotics | **SELL / TRIM** | High | Restrictive liquidity plus `38.19x` forward P/E and `59.17x` EV/EBITDA create an unfavorable 3M–1Y risk/reward. |
+| Power / Grid / Cooling | **HOLD / CAUTION** | Moderate | Structural demand remains attractive, but mixed multiples and insufficient constituent history prevent promotion. |
 
 ### Mechanical Recommendation Overrides
 
-1. The automated quadrant table calls Financials “favored,” but the sector evidence is `NEUTRAL`. Broad spreads cannot replace bank-specific funding and credit-quality evidence. Corrected view: **HOLD / CAUTION — Moderate-Low**.
-2. Physical AI / Robotics remains mechanically `NEUTRAL` despite score `-4`, restrictive real yields, and `59.17x` EV/EBITDA. Corrected view: **SELL / TRIM — High**.
-3. HBM and Datacenter Cooling are labeled “Undervalued / Discounted Super-Cycle,” but headline P/E discounts conflict with elevated EV/EBITDA and insufficient peer/history evidence. Corrected view: **HOLD / CAUTION — Moderate** for both.
+1. **Financials:** the automated report lists Financials as a favored Situation-3 sector. That is mechanically too strong under the skill rule that Financials require credit-quality and funding confirmation; high rates alone are insufficient. **Corrected view: HOLD / CAUTION, Moderate-Low confidence.**
+2. **Physical AI / Robotics:** the automated sector evidence remains mechanically `NEUTRAL` despite a `-4` score, restrictive real yields, and `59.17x` EV/EBITDA. **Corrected view: SELL / TRIM, High confidence.**
+3. **HBM and Datacenter Cooling:** the automated wording `Undervalued / Discounted Super-Cycle` is stronger than the evidence supports because headline P/E discounts coexist with high EV/EBITDA and failed peer/history gates. **Corrected view: HOLD / CAUTION pending quality confirmation.**
 
 ## Single-Stock Watchlist
 
-**No names are promoted.** `MU`, `WDC`, and `EOG` remain research priorities only. The engine has 11 historical relative observations versus the required 60, and peer, balance-sheet, earnings-quality, and catalyst checks remain incomplete.
+**No names are promoted to an actionable watchlist.** `MU`, `WDC`, and `EOG` remain research candidates only. The current constituent engine has only 11 valid historical relative observations in many cohorts versus the required 60, with peer comparability, balance-sheet, earnings-quality, and catalyst checks still incomplete.
 
 ## Invalidation Triggers
 
-- **Further downgrade:** reserve contraction persists or deepens; HY OAS exceeds `4.5%` or widens rapidly; CCC or bank stress broadens; NFCI turns positive; VIX sustains above `25`; labor weakens; or earnings revisions deteriorate while real yields stay restrictive.
-- **Upgrade:** the 30-day liquidity change turns positive; DFF falls at least `10 bps`; labor remains stable; CCC and bank-credit evidence stays benign; and current valuation/earnings data support risk taking.
-- **Energy upgrade:** WTI holds above `$80` with demand and producer free-cash-flow confirmation. Revert to plain **HOLD / CAUTION** if oil loses that level without supportive demand evidence.
-- **HBM upgrade:** constituent evidence confirms the discount with acceptable balance sheets, earnings revisions, catalysts, comparable peers, and sufficient history.
+- **Downgrade risk further** if reserve-liquidity contraction persists or deepens, HY OAS rises above `4.5%` or widens rapidly, NFCI turns positive, VIX sustains above `25`, labor weakens materially, or earnings revisions deteriorate while real yields remain restrictive.
+- **Upgrade risk posture** if the 30-day reserve-liquidity change turns positive, the policy rate falls by at least `10 bps` or explicit FOMC easing is confirmed, labor remains stable, credit stays benign, and valuation/earnings evidence improves.
+- **Energy upgrade** requires oil strength to persist with demand and producer free-cash-flow confirmation; loss of the `$80` area without supportive demand evidence removes the selective-buy bias.
+- **HBM upgrade** requires sufficient relative-history depth, acceptable balance sheets, improving earnings revisions, catalysts, and peer-consistent valuation evidence.
 
 ## Freshness Check
 
-- **GitHub Action:** [Daily Macro Analysis & Deploy](https://github.com/bronson113/macro_analysis/actions/runs/31795798888) completed successfully on `2026-08-14`; collection, freshness validation, web tests, production build, data commit, and Pages deployment passed.
-- **Automated state:** report date `2026-08-14`; raw payload date `2026-08-14`, generated `2026-08-14 11:23:28 UTC`; automated parent commit [`afb1539`](https://github.com/bronson113/macro_analysis/commit/afb1539b404ad084a67fd238dd66fae92a175321).
-- **Core gate:** PASS. All source-health records are `CURRENT` and non-stale. Fed assets and TGA are dated `2026-08-12`; DFF, Treasury yields, and credit spreads `2026-08-11` to `2026-08-12`; RRP and curve spreads `2026-08-13`; NFCI `2026-08-07`; market overlays `2026-08-13` to `2026-08-14`. These lags match source frequencies.
-- **Missing/limited inputs:** the public raw JSON omits DFF, 10Y–3M, 10Y breakeven, CCC OAS, Sahm Rule, and the 30-day liquidity decomposition. Sector valuation percentiles and bank-specific credit/funding evidence remain unavailable; constituent histories do not meet the 60-observation requirement.
+- **GitHub Action:** `Daily Macro Analysis & Deploy` run `31795798888` completed successfully for the August 14 scheduled market-day publication.
+- **Report date:** `2026-08-14`.
+- **Raw payload:** date `2026-08-14`, generated `2026-08-14 11:23:28 UTC`.
+- **Automated data commit:** `afb1539b404ad084a67fd238dd66fae92a175321`.
+- **Weekend status:** reviewed Saturday `2026-08-15`; August 14 is the expected latest market-day state, so this is treated as a fresh weekend carry-forward rather than stale data.
+- **Known evidence gaps:** public raw JSON does not expose every decision field used by the rendered report; sector valuation percentiles, CCC/bank-specific credit evidence, and sufficient constituent relative-history depth remain incomplete. These gaps cap conviction and prevent broad BUY calls.
 
 ## Repo Follow-Up
 
-**Issue:** ecosystem labels can outrun multiple-consistency, history, and quality gates; Financials can appear “favored” without bank evidence; and several decision fields are absent from the public raw JSON.
+**Issue:** deterministic wording can outrun the framework’s evidence gates: Financials can appear “favored” without bank-specific confirmation, and ecosystem labels can say “Discounted Super-Cycle” despite multiple inconsistency and insufficient peer/history evidence.
 
-**Proposed Codex task:** require stable constituent coverage plus multiple-consistency, minimum-history, and quality gates before “Discounted Super-Cycle”; gate Financials wording on bank-specific evidence; and export the omitted policy-rate, curve, credit, and liquidity-decomposition fields.
+**Proposed Codex task:** gate Financials-favored wording on bank-specific funding/credit evidence; require multiple-consistency, minimum-history, balance-sheet/earnings-quality, and peer-coverage gates before “Discounted Super-Cycle”; and expose all policy-rate, curve, credit, and reserve-liquidity decomposition fields used by the report in the public raw payload.
