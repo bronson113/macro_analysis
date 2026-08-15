@@ -2,7 +2,7 @@
 
 import pandas as pd
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Mapping, Iterable
 from config import REGIME_THRESHOLDS
 from storage import MacroStorage
 from news_analyzer import MacroNewsAnalyzer
@@ -12,6 +12,8 @@ from raw_data_engine import RawDataEngine
 from mechanical_analyst import MechanicalMacroAnalyst
 from macro_matrix import MacroMatrixEngine
 from recommendations import SectorEvidenceEngine
+from consensus import interpret_consensus
+from macro_regime import classify_liquidity_level, classify_policy_level
 
 
 def _to_billions(value: Optional[float], unit_scale: str) -> Optional[float]:
@@ -88,8 +90,13 @@ def _shiller_pe_signal(rating: Optional[str]) -> Optional[str]:
 
 
 class MacroAnalyzer:
-    def __init__(self, storage: Optional[MacroStorage] = None):
+    def __init__(
+        self,
+        storage: Optional[MacroStorage] = None,
+        consensus_provider: Optional[Any] = None,
+    ):
         self.storage = storage or MacroStorage()
+        self.consensus_provider = consensus_provider
         self.news_analyzer = MacroNewsAnalyzer(self.storage)
         self.valuation_engine = SectorValuationEngine(self.storage)
         self.ai_tracker = AIRoboticsEcosystemTracker(self.storage)
@@ -97,6 +104,218 @@ class MacroAnalyzer:
         self.mechanical_analyst = MechanicalMacroAnalyst(self.storage)
         self.matrix_engine = MacroMatrixEngine()
         self.evidence_engine = SectorEvidenceEngine()
+
+    def _load_regime_series(self) -> Dict[str, pd.DataFrame]:
+        """Load the point-in-time inputs consumed by the pure regime module."""
+
+        def series(*keys: str, limit: int = 2500) -> pd.DataFrame:
+            for key in keys:
+                frame = self.storage.get_indicator_series(key, limit=limit)
+                if not frame.empty:
+                    return frame
+            return pd.DataFrame(columns=["date", "value"])
+
+        return {
+            "dff": series("dff"),
+            "core_pce": series("core_pce"),
+            "rstar": series("rstar", "neutral_real_rate", "hlw_rstar"),
+            "fed_assets": series("fed_total_assets"),
+            "tga": series("tga_balance"),
+            "rrp": series("reverse_repo"),
+            "nominal_gdp": series("nominal_gdp"),
+            # DFF is the policy input; EFFR is a separate corroboration
+            # series and must remain missing when no EFFR record exists.
+            "effr": series("effr"),
+            "iorb": series("iorb"),
+            "sofr": series("sofr"),
+        }
+
+    def _load_consensus_records(self, as_of: pd.Timestamp) -> Iterable[Mapping[str, Any]]:
+        """Load optional consensus records through a non-blocking provider boundary."""
+
+        provider = self.consensus_provider
+        if provider is None:
+            provider = getattr(self.storage, "get_consensus_records", None)
+        if provider is None:
+            return []
+        try:
+            if hasattr(provider, "get_records"):
+                provider = provider.get_records
+            if not callable(provider):
+                return provider
+            try:
+                records = provider(as_of=as_of)
+            except TypeError:
+                records = provider()
+            return [] if records is None else records
+        except Exception:
+            # Survey retrieval is an optional overlay and must never prevent a
+            # current level analysis from being produced.
+            return []
+
+    @staticmethod
+    def _combined_regime_quality(policy: Dict[str, Any], liquidity: Dict[str, Any]) -> str:
+        qualities = {policy.get("quality"), liquidity.get("quality")}
+        if "INDETERMINATE_CONFLICT" in qualities:
+            return "INDETERMINATE_CONFLICT"
+        if "INSUFFICIENT_DATA" in qualities:
+            return "INSUFFICIENT_DATA"
+        if "PARTIAL" in qualities:
+            return "PARTIAL"
+        return "OK"
+
+    def analyze_macro_regime(
+        self,
+        as_of: Optional[pd.Timestamp] = None,
+        consensus_records: Optional[Iterable[Mapping[str, Any]]] = None,
+    ) -> Dict[str, Any]:
+        """Assemble current level states, overlays, and a pure matrix result."""
+
+        analysis_date = pd.Timestamp(as_of if as_of is not None else datetime.now().date()).normalize()
+        series = self._load_regime_series()
+        policy = classify_policy_level(
+            series["dff"], series["core_pce"], series["rstar"], analysis_date
+        )
+        liquidity = classify_liquidity_level(
+            series["fed_assets"],
+            series["tga"],
+            series["rrp"],
+            series["nominal_gdp"],
+            series["effr"],
+            series["iorb"],
+            series["sofr"],
+            analysis_date,
+        )
+
+        if consensus_records is None:
+            consensus_records = self._load_consensus_records(analysis_date)
+        current_assets = liquidity.get("fed_assets_billions")
+        if current_assets is None:
+            current_assets = liquidity.get("fed_assets_billion")
+        if current_assets is None and liquidity.get("fed_assets_millions") is not None:
+            current_assets = float(liquidity["fed_assets_millions"]) / 1000.0
+        consensus = dict(interpret_consensus(
+            consensus_records,
+            policy.get("dff_value"),
+            current_assets,
+            analysis_date,
+        ))
+        consensus.setdefault("policy", consensus.get("policy_direction"))
+        consensus.setdefault("balance_sheet", consensus.get("balance_sheet_direction"))
+        consensus.setdefault("date", consensus.get("selected_survey_date"))
+        consensus.setdefault("target", consensus.get("selected_target_date"))
+
+        # These diagnostics remain interpretation context. They are never used
+        # to infer either matrix axis.
+        try:
+            macro_context = self.analyze_labor_and_inflation()
+        except Exception:
+            macro_context = {}
+        try:
+            yield_context = self.analyze_yield_curve()
+        except Exception:
+            yield_context = {}
+        try:
+            net_liquidity_context = self.calculate_net_liquidity()
+        except Exception:
+            net_liquidity_context = {}
+        momentum = {
+            "policy_30d": policy.get("momentum_30d"),
+            "policy_30d_value": policy.get("momentum_30d_value"),
+            "policy_90d": policy.get("momentum_90d"),
+            "policy_90d_value": policy.get("momentum_90d_value"),
+            "liquidity_30d": liquidity.get("momentum_30d"),
+            "liquidity_30d_value": liquidity.get("momentum_30d_value"),
+            "liquidity_90d": liquidity.get("momentum_90d"),
+            "liquidity_90d_value": liquidity.get("momentum_90d_value"),
+            "policy": {
+                "30d": policy.get("momentum_30d"),
+                "30d_value": policy.get("momentum_30d_value"),
+                "90d": policy.get("momentum_90d"),
+                "90d_value": policy.get("momentum_90d_value"),
+            },
+            "liquidity": {
+                "30d": liquidity.get("momentum_30d"),
+                "30d_value": liquidity.get("momentum_30d_value"),
+                "90d": liquidity.get("momentum_90d"),
+                "90d_value": liquidity.get("momentum_90d_value"),
+            },
+        }
+        quality = self._combined_regime_quality(policy, liquidity)
+        data_quality = {
+            "quality": quality,
+            "overall": quality,
+            "policy_quality": policy.get("quality"),
+            "liquidity_quality": liquidity.get("quality"),
+            "policy_reasons": list(policy.get("reasons") or []),
+            "liquidity_reasons": list(liquidity.get("reasons") or []),
+            "input_ages": {
+                "dff": policy.get("dff_age_days"),
+                "core_pce": policy.get("core_pce_age_days"),
+                "rstar": policy.get("rstar_age_days"),
+                "fed_assets": liquidity.get("fed_assets_age_days"),
+                "tga": liquidity.get("tga_age_days"),
+                "rrp": liquidity.get("rrp_age_days"),
+                "nominal_gdp": liquidity.get("nominal_gdp_age_days"),
+                "effr": liquidity.get("effr_age_days"),
+                "iorb": liquidity.get("iorb_age_days"),
+                "sofr": liquidity.get("sofr_age_days"),
+            },
+        }
+        data_quality["ages"] = data_quality["input_ages"]
+        context = {
+            "policy": policy,
+            "liquidity": liquidity,
+            "momentum": momentum,
+            "consensus": consensus,
+            "data_quality": data_quality,
+            "cpi_yoy": macro_context.get("cpi_yoy"),
+            "sahm_rule_triggered": macro_context.get("sahm_rule_triggered", False),
+            "spread_10y_2y": yield_context.get("spread_10y_2y"),
+            "m2_yoy": net_liquidity_context.get("m2_yoy"),
+            "missing_inputs": policy.get("reasons", []) + liquidity.get("reasons", []),
+            "conflicts": liquidity.get("pressure_flags", []),
+        }
+        try:
+            quadrant = self.matrix_engine.classify_situation(
+                policy.get("state"),
+                liquidity.get("state"),
+                quality=quality,
+                context=context,
+            )
+        except TypeError as error:
+            # Keep older injected test doubles/callers usable during the
+            # schema migration; the production matrix always receives the
+            # explicit level-state boundary above.
+            if "unexpected keyword argument" not in str(error):
+                raise
+            quadrant = self.matrix_engine.classify_situation(
+                policy.get("state"), liquidity.get("state")
+            )
+        current_state = {
+            "policy": policy.get("state"),
+            "liquidity": liquidity.get("state"),
+            "policy_state": policy.get("state"),
+            "liquidity_state": liquidity.get("state"),
+            "situation_id": quadrant.get("situation_id", 0),
+            "policy_measurement": policy,
+            "liquidity_measurement": liquidity,
+            "quadrant": quadrant,
+        }
+        return {
+            "as_of": analysis_date,
+            "current_state": current_state,
+            "momentum": momentum,
+            "consensus": consensus,
+            "data_quality": data_quality,
+            "policy": policy,
+            "liquidity": liquidity,
+            "policy_details": policy,
+            "liquidity_details": liquidity,
+            "quadrant": quadrant,
+            "macro_situation": quadrant,
+            "quality": quality,
+        }
 
     def get_latest_value(self, key: str) -> Optional[float]:
         obs = self.storage.get_latest_observation(key)
@@ -391,7 +610,7 @@ class MacroAnalyzer:
 
     def generate_full_snapshot(self) -> Dict[str, Any]:
         today_str = datetime.now().strftime("%Y-%m-%d")
-        
+
         liq = self.calculate_net_liquidity()
         yc = self.analyze_yield_curve()
         policy = self.analyze_policy_stance()
@@ -405,39 +624,41 @@ class MacroAnalyzer:
 
         ai_ecosystem = self.ai_tracker.analyze_ecosystem_valuations()
 
-        # 4-Quadrant Macro Situation Matrix Classification
-        effr_trend = policy.get("policy_stance")
-        macro_situation = self.matrix_engine.classify_situation(
-            effr_trend, 
-            liq.get("change_30d_billion"), 
-            macro.get("cpi_yoy"), 
-            macro.get("sahm_rule_triggered", False), 
-            yc.get("spread_10y_2y"),
-            liq.get("m2_yoy")
-        )
+        # Current levels, momentum, consensus, and data quality are assembled
+        # by the pure regime boundary.  The legacy analyses above remain in
+        # the report as interpretation context and diagnostics.
+        macro_regime = self.analyze_macro_regime(as_of=pd.Timestamp(today_str))
+        regime_liq = macro_regime.get("liquidity", {})
+        regime_policy = macro_regime.get("policy", {})
+        consensus = macro_regime.get("consensus", {})
+        macro_situation = macro_regime.get("quadrant", {})
 
         overall_regime = f"{macro_situation['name']} ({macro_situation['rates_label']} | {macro_situation['bs_label']})"
 
-        if liq.get("quality") == "INSUFFICIENT_DATA":
+        if regime_liq.get("state"):
+            liquidity_regime = regime_liq["state"]
+        elif liq.get("quality") == "INSUFFICIENT_DATA":
             liquidity_regime = "Insufficient Data"
         elif liq.get("change_30d_billion") and liq["change_30d_billion"] > 0:
             liquidity_regime = "Expanding (+30d)"
         else:
             liquidity_regime = "Contracting / Neutral"
 
+        input_ages = macro_regime.get("data_quality", {}).get("input_ages", {})
+
         snapshot = {
             "date": today_str,
-            "net_liquidity": liq["net_liquidity"],
-            "fed_assets": liq["fed_assets_billion"],
-            "tga": liq["tga_billion"],
-            "rrp": liq["rrp_billion"],
-            "treasury_10y": yc["treasury_10y"],
-            "treasury_2y": yc["treasury_2y"],
-            "spread_10y_2y": yc["spread_10y_2y"],
-            "high_yield_oas": credit["high_yield_oas"],
-            "vix": market["vix"],
-            "dxy": market["dxy"],
-            "sp500": market["sp500"],
+            "net_liquidity": liq.get("net_liquidity"),
+            "fed_assets": liq.get("fed_assets_billion"),
+            "tga": liq.get("tga_billion"),
+            "rrp": liq.get("rrp_billion"),
+            "treasury_10y": yc.get("treasury_10y"),
+            "treasury_2y": yc.get("treasury_2y"),
+            "spread_10y_2y": yc.get("spread_10y_2y"),
+            "high_yield_oas": credit.get("high_yield_oas"),
+            "vix": market.get("vix"),
+            "dxy": market.get("dxy"),
+            "sp500": market.get("sp500"),
             "unemployment_rate": macro.get("unemployment_rate"),
             "cpi_yoy": macro.get("cpi_yoy"),
             "housing_yoy": macro.get("housing_yoy"),
@@ -449,9 +670,72 @@ class MacroAnalyzer:
             "cnn_fear_greed_index": market.get("cnn_fear_greed_index"),
             "shiller_pe": market.get("shiller_pe"),
             "liquidity_regime": liquidity_regime,
-            "yield_curve_regime": yc["regime"],
-            "credit_regime": credit["regime"],
+            "yield_curve_regime": yc.get("regime"),
+            "credit_regime": credit.get("regime"),
             "overall_regime": overall_regime,
+            # Level-based regime fields.
+            "policy_state": regime_policy.get("state"),
+            "real_policy_rate": regime_policy.get("real_policy_rate"),
+            "rstar": regime_policy.get("rstar_value"),
+            "neutral_real_rate": regime_policy.get("neutral_real_rate"),
+            "policy_gap": regime_policy.get("policy_gap"),
+            "policy_rstar": regime_policy.get("rstar_value"),
+            "r_star": regime_policy.get("rstar_value"),
+            "policy_real_rate": regime_policy.get("real_policy_rate"),
+            "policy_percentile": regime_policy.get("historical_percentile"),
+            "policy_historical_percentile": regime_policy.get("historical_percentile"),
+            "liquidity_state": regime_liq.get("state"),
+            "normalized_liquidity_pct_gdp": regime_liq.get("normalized_liquidity_pct_gdp"),
+            "liquidity_normalized_value": regime_liq.get("normalized_liquidity_pct_gdp"),
+            "liquidity_normalized": regime_liq.get("normalized_liquidity_pct_gdp"),
+            "liquidity_percentile": regime_liq.get("current_percentile"),
+            "liquidity_current_percentile": regime_liq.get("current_percentile"),
+            "liquidity_historical_median": regime_liq.get("historical_median"),
+            "liquidity_historical_p40": regime_liq.get("historical_p40"),
+            "liquidity_historical_p60": regime_liq.get("historical_p60"),
+            "liquidity_threshold_40": regime_liq.get("historical_p40"),
+            "liquidity_threshold_60": regime_liq.get("historical_p60"),
+            "liquidity_p40": regime_liq.get("historical_p40"),
+            "liquidity_p60": regime_liq.get("historical_p60"),
+            "policy_momentum_30d": regime_policy.get("momentum_30d"),
+            "policy_momentum_30d_value": regime_policy.get("momentum_30d_value"),
+            "policy_momentum_90d": regime_policy.get("momentum_90d"),
+            "policy_momentum_90d_value": regime_policy.get("momentum_90d_value"),
+            "liquidity_momentum_30d": regime_liq.get("momentum_30d"),
+            "liquidity_momentum_30d_value": regime_liq.get("momentum_30d_value"),
+            "liquidity_momentum_90d": regime_liq.get("momentum_90d"),
+            "liquidity_momentum_90d_value": regime_liq.get("momentum_90d_value"),
+            "consensus_policy_direction": consensus.get("policy_direction"),
+            "consensus_balance_sheet_direction": consensus.get("balance_sheet_direction"),
+            "consensus_expected_dff": consensus.get("expected_dff"),
+            "consensus_expected_fed_assets": consensus.get("expected_fed_assets"),
+            "consensus_survey_date": consensus.get("selected_survey_date"),
+            "consensus_target_date": consensus.get("selected_target_date"),
+            "consensus_policy_date": consensus.get("selected_survey_date"),
+            "consensus_balance_sheet_date": consensus.get("selected_survey_date"),
+            "consensus_quality": consensus.get("quality"),
+            "quadrant_quality": macro_situation.get("quality"),
+            "situation_id": macro_situation.get("situation_id"),
+            "input_age_dff": input_ages.get("dff"),
+            "input_age_core_pce": input_ages.get("core_pce"),
+            "input_age_rstar": input_ages.get("rstar"),
+            "input_age_fed_assets": input_ages.get("fed_assets"),
+            "input_age_tga": input_ages.get("tga"),
+            "input_age_rrp": input_ages.get("rrp"),
+            "input_age_nominal_gdp": input_ages.get("nominal_gdp"),
+            "input_age_effr": input_ages.get("effr"),
+            "input_age_iorb": input_ages.get("iorb"),
+            "input_age_sofr": input_ages.get("sofr"),
+            "dff_age_days": input_ages.get("dff"),
+            "core_pce_age_days": input_ages.get("core_pce"),
+            "rstar_age_days": input_ages.get("rstar"),
+            "fed_assets_age_days": input_ages.get("fed_assets"),
+            "tga_age_days": input_ages.get("tga"),
+            "rrp_age_days": input_ages.get("rrp"),
+            "nominal_gdp_age_days": input_ages.get("nominal_gdp"),
+            "effr_age_days": input_ages.get("effr"),
+            "iorb_age_days": input_ages.get("iorb"),
+            "sofr_age_days": input_ages.get("sofr"),
             "created_at": datetime.now().isoformat()
         }
 
@@ -470,7 +754,8 @@ class MacroAnalyzer:
         )
 
         raw_payload = self.raw_engine.build_raw_payload(
-            evidence_assessments=evidence_assessments
+            evidence_assessments=evidence_assessments,
+            macro_regime=macro_regime,
         )
         mechanical_analysis = self.mechanical_analyst.analyze_raw_payload(raw_payload)
         constituent_assessments = mechanical_analysis.get("constituent_assessments", [])
@@ -490,6 +775,11 @@ class MacroAnalyzer:
             "sector_valuations": sector_valuations,
             "ai_ecosystem": ai_ecosystem,
             "macro_situation": macro_situation,
+            "macro_regime": macro_regime,
+            "current_state": macro_regime.get("current_state", {}),
+            "momentum": macro_regime.get("momentum", {}),
+            "consensus": macro_regime.get("consensus", {}),
+            "data_quality": macro_regime.get("data_quality", {}),
             "evidence_assessments": evidence_assessments,
             "constituent_assessments": constituent_assessments,
         }

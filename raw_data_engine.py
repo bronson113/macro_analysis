@@ -169,14 +169,25 @@ class RawDataEngine:
 
     @staticmethod
     def _clean_for_json(obj):
+        if isinstance(obj, (pd.Timestamp, datetime)):
+            return obj.isoformat()
+        if obj is pd.NaT or obj is pd.NA:
+            return None
         if isinstance(obj, float):
             if math.isnan(obj) or math.isinf(obj):
                 return None
+            return obj
+        if isinstance(obj, (int, str, bool)) or obj is None:
             return obj
         if isinstance(obj, dict):
             return {key: RawDataEngine._clean_for_json(value) for key, value in obj.items()}
         if isinstance(obj, list):
             return [RawDataEngine._clean_for_json(value) for value in obj]
+        try:
+            if pd.isna(obj):
+                return None
+        except (TypeError, ValueError):
+            pass
         return obj
 
     def _write_payload(self, payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -226,7 +237,9 @@ class RawDataEngine:
         return self._write_payload(payload)
 
     def build_raw_payload(
-        self, evidence_assessments: Optional[List[Dict[str, Any]]] = None
+        self,
+        evidence_assessments: Optional[List[Dict[str, Any]]] = None,
+        macro_regime: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
         Builds the complete raw data JSON payload containing quantitative macro series,
@@ -254,6 +267,7 @@ class RawDataEngine:
                 "engine_version": "3.0-EvidenceRawPayload"
             },
             "macro_quantitative": indicators,
+            "macro_regime": macro_regime or {},
             "recent_news_events": news_events,
             "evidence_assessments": evidence_assessments or [],
             "individual_stock_constituents": stock_constituents

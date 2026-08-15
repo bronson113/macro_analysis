@@ -1,121 +1,251 @@
-"""
-Macro Matrix Module for Macro Economic Analysis Engine.
-Implements Defiant Gatekeeper 4 Macro Situations (2x2 Matrix):
-Interest Rates (Cutting vs Raising) x Fed Balance Sheet (Expanding vs Contracting).
-Recommends specific sectors and company characteristics based on the active quadrant.
+"""Combine current policy and reserve-liquidity states into macro quadrants.
+
+The matrix is deliberately a small combination layer. Policy and liquidity
+levels are calculated by :mod:`macro_regime`; momentum, inflation, labor, and
+other diagnostics are interpretation context only and cannot select a
+quadrant.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict, Mapping, Optional
+
+
+POLICY_STATES = {"ACCOMMODATIVE", "RESTRICTIVE", "NEUTRAL"}
+LIQUIDITY_STATES = {"ABUNDANT", "SCARCE", "NEUTRAL"}
+WITHHOLDING_QUALITIES = {
+    "INSUFFICIENT_DATA",
+    "INDETERMINATE_CONFLICT",
+    "UNAVAILABLE",
+    "STALE",
+}
+
+
+def _state(value: Any, allowed: set[str]) -> Optional[str]:
+    """Return an accepted current-level state, or ``None`` for a legacy label."""
+
+    if not isinstance(value, str):
+        return None
+    candidate = value.strip().upper()
+    return candidate if candidate in allowed else None
+
+
+def _context_value(context: Mapping[str, Any], key: str, default: Any = None) -> Any:
+    value = context.get(key, default)
+    if value is not None:
+        return value
+    # Measurements may be passed directly by MacroAnalyzer. This is display
+    # context only; it is never used for axis selection.
+    for measurement_key in ("policy", "liquidity", "macro"):
+        measurement = context.get(measurement_key)
+        if isinstance(measurement, Mapping) and key in measurement:
+            return measurement[key]
+    return default
 
 
 class MacroMatrixEngine:
-    def classify_situation(self, effr_trend: str, liq_trend_30d: float, cpi_yoy: float, sahm_rule_triggered: bool, spread_10y_2y: float, m2_yoy: float = None) -> Dict[str, Any]:
-        if effr_trend is None or liq_trend_30d is None:
+    """Map current policy/liquidity levels to one of four research quadrants."""
+
+    def classify_situation(
+        self,
+        policy_state: Optional[str],
+        liquidity_state: Optional[str],
+        *,
+        quality: str = "OK",
+        context: Optional[Mapping[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        """Return a level-based quadrant and contextual interpretation.
+
+        Only the two explicit state arguments participate in the mapping. The
+        optional context can enrich descriptions and structured output, but
+        changing momentum, CPI, labor, or consensus cannot change the
+        ``situation_id``.
+        """
+
+        context = context if isinstance(context, Mapping) else {}
+        normalized_policy = _state(policy_state, POLICY_STATES)
+        normalized_liquidity = _state(liquidity_state, LIQUIDITY_STATES)
+        normalized_quality = str(quality or "OK").upper()
+        reasons = []
+        conflicts = []
+
+        if normalized_policy is None:
+            reasons.append("Current policy state is unavailable or unsupported")
+        elif normalized_policy == "NEUTRAL":
+            reasons.append("Policy is neutral inside the neutral band")
+
+        if normalized_liquidity is None:
+            reasons.append("Current liquidity state is unavailable or unsupported")
+        elif normalized_liquidity == "NEUTRAL":
+            reasons.append("Liquidity is neutral between historical thresholds")
+
+        if normalized_quality == "INDETERMINATE_CONFLICT":
+            conflicts.append("Core regime inputs are materially contradictory")
+        if normalized_quality in WITHHOLDING_QUALITIES:
+            reasons.append(
+                f"Regime quality {normalized_quality} does not support an actionable quadrant"
+            )
+
+        situation_id = 0
+        if (
+            normalized_quality not in WITHHOLDING_QUALITIES
+            and normalized_policy in {"ACCOMMODATIVE", "RESTRICTIVE"}
+            and normalized_liquidity in {"ABUNDANT", "SCARCE"}
+        ):
+            situation_id = {
+                ("ACCOMMODATIVE", "ABUNDANT"): 1,
+                ("ACCOMMODATIVE", "SCARCE"): 2,
+                ("RESTRICTIVE", "SCARCE"): 3,
+                ("RESTRICTIVE", "ABUNDANT"): 4,
+            }[(normalized_policy, normalized_liquidity)]
+
+        effective_quality = normalized_quality
+        if situation_id == 0 and normalized_quality == "OK":
+            effective_quality = "INSUFFICIENT_DATA"
+
+        common = {
+            "policy_state": normalized_policy,
+            "liquidity_state": normalized_liquidity,
+            "policy_measurement": context.get("policy") or {},
+            "liquidity_measurement": context.get("liquidity") or {},
+            "current_state": {
+                "policy": normalized_policy,
+                "liquidity": normalized_liquidity,
+                "policy_level": normalized_policy,
+                "liquidity_level": normalized_liquidity,
+                "policy_state": normalized_policy,
+                "liquidity_state": normalized_liquidity,
+                "situation_id": situation_id,
+            },
+            "momentum": context.get("momentum") or {
+                "policy_30d": _context_value(context, "momentum_30d"),
+                "policy_90d": _context_value(context, "momentum_90d"),
+            },
+            "consensus": context.get("consensus") or {},
+            "data_quality": context.get("data_quality") or {"quality": effective_quality},
+            "momentum_30d": (context.get("momentum") or {}).get("liquidity_30d"),
+            "momentum_90d": (context.get("momentum") or {}).get("liquidity_90d"),
+            "missing_inputs": list(context.get("missing_inputs") or reasons),
+            "conflicts": list(context.get("conflicts") or conflicts),
+            "quality": effective_quality,
+        }
+
+        if situation_id == 0:
             return {
+                **common,
                 "situation_id": 0,
-                "name": "INSUFFICIENT DATA: NO ACTIONABLE MACRO QUADRANT",
-                "rates_label": "Interest Rates: insufficient policy-rate trend data",
-                "bs_label": "Reserve Liquidity: insufficient 30-day liquidity data",
-                "description": "The macro framework is withheld because rate stance or net liquidity direction is missing. Default to sector-level HOLD unless valuation or risk controls override.",
+                "name": "NO ACTIONABLE MACRO QUADRANT",
+                "rates_label": (
+                    "Interest Rates: Neutral / unavailable"
+                    if normalized_policy in {None, "NEUTRAL"}
+                    else f"Interest Rates: {normalized_policy.title()}"
+                ),
+                "bs_label": (
+                    "Reserve Liquidity: Neutral / unavailable"
+                    if normalized_liquidity in {None, "NEUTRAL"}
+                    else f"Reserve Liquidity: {normalized_liquidity.title()}"
+                ),
+                "description": (
+                    "The macro framework is withheld because at least one current "
+                    "policy or reserve-liquidity level is neutral, missing, stale, "
+                    "or materially conflicted."
+                ),
                 "favored_sectors": [],
                 "favored_company_types": [],
                 "disfavored_sectors": [],
-                "quality": "INSUFFICIENT_DATA"
             }
 
-        rates_easing = effr_trend in ["CUTTING", "EASING", "DOVISH"]
-        policy_restrictive = effr_trend in ["RAISING", "HAWKISH", "HOLDING_RESTRICTIVE", "RESTRICTIVE"]
-        if not rates_easing and not policy_restrictive:
-            return {
-                "situation_id": 0,
-                "name": "NO ACTIONABLE MACRO QUADRANT: POLICY HOLDING / NEUTRAL",
-                "rates_label": "Interest Rates: Holding / Neutral",
-                "bs_label": "Reserve Liquidity: direction observed but policy stance is not restrictive or easing",
-                "description": "Policy-rate trend is flat without enough restrictive-rate evidence. Treat the matrix as neutral and let valuation, credit, earnings, and tax constraints drive sector actions.",
-                "favored_sectors": [],
-                "favored_company_types": [],
-                "disfavored_sectors": [],
-                "quality": "INSUFFICIENT_DATA"
-            }
+        cpi_yoy = _context_value(context, "cpi_yoy")
+        sahm_rule_triggered = bool(_context_value(context, "sahm_rule_triggered", False))
+        spread_10y_2y = _context_value(context, "spread_10y_2y")
+        m2_yoy = _context_value(context, "m2_yoy")
 
-        balance_sheet_expanding = liq_trend_30d is not None and liq_trend_30d > 0
-        is_sticky_inflation = cpi_yoy is not None and cpi_yoy > 3.0
-
-        m2_warning = ""
-        if m2_yoy is not None and m2_yoy < 0:
-            m2_warning = f" M2 Money Supply is contracting ({m2_yoy:.1f}% YoY), signaling deep deflationary pressure on corporate earnings."
-
-
-        if rates_easing and balance_sheet_expanding:
-            situation_id = 1
-            name = "SITUATION 1: EASING + RESERVE LIQUIDITY EXPANSION"
-            rates_label = "Interest Rates: Cutting / Easing"
-            bs_label = "Reserve Liquidity: Expanding (+30d)"
-            description = "Risk-liquidity tailwind: lower policy-rate pressure and expanding reserve liquidity. Confirm valuation, credit, and labor data before adding risk."
+        if situation_id == 1:
+            name = "SITUATION 1: ACCOMMODATIVE POLICY + ABUNDANT RESERVE LIQUIDITY"
+            rates_label = "Interest Rates: Accommodative (current level)"
+            bs_label = "Reserve Liquidity: Abundant (current level)"
+            description = (
+                "Risk-liquidity tailwind: policy is accommodative and reserve "
+                "liquidity remains historically abundant."
+            )
             if sahm_rule_triggered:
-                description += " However, SAHM rule triggered - monitoring for severe labor deterioration."
-            description += m2_warning
+                description += " SAHM rule triggered; monitor labor deterioration."
             favored_sectors = [
                 "Technology (XLK)",
                 "AI Compute & Accelerators",
                 "High-Bandwidth Memory (HBM)",
                 "Physical AI & Robotics",
                 "Downstream Power & Grid",
-                "Consumer Discretionary (XLY)"
+                "Consumer Discretionary (XLY)",
             ]
             favored_company_types = ["High-growth tech", "Capex super-cycle (AI, Grid)"]
             disfavored_sectors = ["Cash", "Consumer Staples (XLP)"]
-
-        elif rates_easing and not balance_sheet_expanding:
-            situation_id = 2
-            name = "SITUATION 2: LATE CYCLE / RECESSION WARNING"
-            rates_label = "Interest Rates: Cutting / Easing"
-            bs_label = "Reserve Liquidity: Contracting (-30d)"
-            description = "Central bank cutting rates due to economic deceleration while net liquidity remains tight."
+        elif situation_id == 2:
+            name = "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY"
+            rates_label = "Interest Rates: Accommodative (current level)"
+            bs_label = "Reserve Liquidity: Scarce (current level)"
+            description = (
+                "Policy is accommodative while reserve liquidity remains scarce; "
+                "easing support is limited by the liquidity backdrop."
+            )
             if sahm_rule_triggered:
-                description += " SAHM rule triggered - High probability of recession."
-            if spread_10y_2y is not None and spread_10y_2y > 0:
-                description += " Yield Curve Un-inverting - historically bearish for risk assets."
-            description += m2_warning
-            favored_sectors = [
-                "Healthcare (XLV)",
-                "Consumer Staples (XLP)"
-            ]
+                description += " SAHM rule triggered; monitor for recession risk."
+            try:
+                if spread_10y_2y is not None and float(spread_10y_2y) > 0:
+                    description += " Yield curve un-inversion is a caution signal."
+            except (TypeError, ValueError):
+                pass
+            favored_sectors = ["Healthcare (XLV)", "Consumer Staples (XLP)"]
             favored_company_types = ["Defensive cash flow", "Low debt"]
-            disfavored_sectors = ["Technology (XLK)", "Consumer Discretionary (XLY)", "Industrials (XLI)", "AI Compute & Accelerators", "Physical AI & Robotics"]
-
-        elif policy_restrictive and not balance_sheet_expanding:
-            situation_id = 3
-            name = "SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION"
-            rates_label = "Interest Rates: Raising / Holding Restrictive"
-            bs_label = "Reserve Liquidity: Contracting (-30d)"
-            description = "Restrictive setup: policy-rate pressure and reserve-liquidity drainage raise valuation multiple-compression risk."
-            description += m2_warning
-            favored_sectors = [
-                "Financials (XLF)",
-                "Cash"
+            disfavored_sectors = [
+                "Technology (XLK)",
+                "Consumer Discretionary (XLY)",
+                "Industrials (XLI)",
+                "AI Compute & Accelerators",
+                "Physical AI & Robotics",
             ]
+        elif situation_id == 3:
+            name = "SITUATION 3: RESTRICTIVE POLICY + SCARCE RESERVE LIQUIDITY"
+            rates_label = "Interest Rates: Restrictive (current level)"
+            bs_label = "Reserve Liquidity: Scarce (current level)"
+            description = (
+                "Restrictive policy and scarce reserve liquidity create the "
+                "strongest liquidity and valuation headwind."
+            )
+            favored_sectors = ["Financials (XLF)", "Cash"]
             favored_company_types = ["Net-Interest-Margin beneficiaries", "Zero debt"]
-            disfavored_sectors = ["Technology (XLK)", "AI Compute & Accelerators", "Physical AI & Robotics", "Consumer Discretionary (XLY)"]
-
-        else:
-            situation_id = 4
-            name = "SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION"
-            rates_label = "Interest Rates: Raising / Holding Restrictive"
-            bs_label = "Reserve Liquidity: Expanding (+30d)"
-            description = "Policy/liquidity conflict: reserve liquidity is expanding while policy remains restrictive. Identify whether the liquidity source is Fed assets, TGA, RRP, or emergency facilities before drawing conclusions."
-            if is_sticky_inflation:
-                description += f" Sticky inflation confirmed ({cpi_yoy:.1f}% CPI)."
-            description += m2_warning
-            favored_sectors = [
-                "Energy (XLE)",
-                "Financials (XLF)",
-                "Industrials (XLI)"
+            disfavored_sectors = [
+                "Technology (XLK)",
+                "AI Compute & Accelerators",
+                "Physical AI & Robotics",
+                "Consumer Discretionary (XLY)",
             ]
+        else:
+            name = "SITUATION 4: RESTRICTIVE POLICY + ABUNDANT RESERVE LIQUIDITY"
+            rates_label = "Interest Rates: Restrictive (current level)"
+            bs_label = "Reserve Liquidity: Abundant (current level)"
+            description = (
+                "Policy remains restrictive while reserve liquidity is abundant; "
+                "the liquidity backdrop offsets some policy restraint."
+            )
+            try:
+                if cpi_yoy is not None and float(cpi_yoy) > 3.0:
+                    description += f" Sticky inflation remains visible ({float(cpi_yoy):.1f}% CPI)."
+            except (TypeError, ValueError):
+                pass
+            favored_sectors = ["Energy (XLE)", "Financials (XLF)", "Industrials (XLI)"]
             favored_company_types = ["Real asset owners", "Inflation-indexed revenues"]
             disfavored_sectors = ["Consumer Discretionary (XLY)"]
 
+        try:
+            if m2_yoy is not None and float(m2_yoy) < 0:
+                description += (
+                    f" M2 Money Supply is contracting ({float(m2_yoy):.1f}% YoY), "
+                    "signaling deflationary pressure on earnings."
+                )
+        except (TypeError, ValueError):
+            pass
+
         return {
+            **common,
             "situation_id": situation_id,
             "name": name,
             "rates_label": rates_label,
@@ -124,5 +254,4 @@ class MacroMatrixEngine:
             "favored_sectors": favored_sectors,
             "favored_company_types": favored_company_types,
             "disfavored_sectors": disfavored_sectors,
-            "quality": "OK"
         }

@@ -47,6 +47,27 @@ SNAPSHOT_COLUMNS = [
     "cpi_yoy", "housing_yoy", "breakeven_10y", "m2_yoy", "policy_rate",
     "policy_rate_change_30d", "real_yield_10y", "cnn_fear_greed_index", "shiller_pe",
     "liquidity_regime", "yield_curve_regime", "credit_regime", "overall_regime", "created_at",
+    # Level-based macro-regime fields.  Keep these scalar so CSV snapshots are
+    # easy to inspect while the full structured result remains in the payload.
+    "policy_state", "real_policy_rate", "rstar", "neutral_real_rate", "policy_gap",
+    "policy_rstar", "r_star", "policy_real_rate", "policy_percentile",
+    "policy_historical_percentile", "liquidity_state", "normalized_liquidity_pct_gdp",
+    "liquidity_normalized_value", "liquidity_percentile", "liquidity_historical_median",
+    "liquidity_normalized", "liquidity_current_percentile", "liquidity_historical_p40",
+    "liquidity_historical_p60", "liquidity_threshold_40", "liquidity_threshold_60",
+    "liquidity_p40", "liquidity_p60",
+    "policy_momentum_30d", "policy_momentum_30d_value", "policy_momentum_90d",
+    "policy_momentum_90d_value", "liquidity_momentum_30d", "liquidity_momentum_30d_value",
+    "liquidity_momentum_90d", "liquidity_momentum_90d_value", "consensus_policy_direction",
+    "consensus_balance_sheet_direction", "consensus_expected_dff",
+    "consensus_expected_fed_assets", "consensus_survey_date", "consensus_target_date",
+    "consensus_policy_date", "consensus_balance_sheet_date", "consensus_quality",
+    "quadrant_quality", "situation_id",
+    "input_age_dff", "input_age_core_pce", "input_age_rstar", "input_age_fed_assets",
+    "input_age_tga", "input_age_rrp", "input_age_nominal_gdp", "input_age_effr",
+    "input_age_iorb", "input_age_sofr", "dff_age_days", "core_pce_age_days",
+    "rstar_age_days", "fed_assets_age_days", "tga_age_days", "rrp_age_days",
+    "nominal_gdp_age_days", "effr_age_days", "iorb_age_days", "sofr_age_days",
 ]
 
 # Keep columns and versions in one place so new writers cannot silently drift apart.
@@ -472,6 +493,16 @@ class MacroStorage:
         filtered = filtered.sort_values(by="date", ascending=False).head(limit).copy()
         filtered["date"] = pd.to_datetime(filtered["date"])
         return filtered.sort_values("date").reset_index(drop=True)[["date", "value"]]
+
+    def get_consensus_records(self, **_kwargs) -> List[Dict[str, Any]]:
+        """Return optional market-consensus records when a provider is configured.
+
+        The base CSV store intentionally has no consensus feed or scraper.  A
+        caller can inject a provider into ``MacroAnalyzer``; returning an empty
+        list here keeps that optional overlay non-blocking for normal runs.
+        """
+
+        return []
 
     def save_daily_snapshot(self, snapshot_data: Dict[str, Any]) -> None:
         to_save = pd.DataFrame([snapshot_data])

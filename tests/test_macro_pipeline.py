@@ -450,26 +450,57 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertNotIn("fair_pe_norm", result)
 
     def test_02_macro_matrix_classification(self):
-        """Test all 4 quadrants of the Defiant Gatekeeper Macro Matrix."""
-        # Quadrant 1: Rates Cutting + Balance Sheet Expanding
-        q1 = self.matrix_engine.classify_situation("CUTTING", 50.0, 2.5, False, -0.50)
+        """Current policy/liquidity levels, not momentum, select the quadrant."""
+        q1 = self.matrix_engine.classify_situation(
+            "ACCOMMODATIVE", "ABUNDANT", quality="OK", context={}
+        )
         self.assertEqual(q1["situation_id"], 1)
-        self.assertIn("RESERVE LIQUIDITY EXPANSION", q1["name"])
+        self.assertEqual(q1["policy_state"], "ACCOMMODATIVE")
+        self.assertEqual(q1["liquidity_state"], "ABUNDANT")
 
-        # Quadrant 2: Rates Cutting + Balance Sheet Contracting
-        q2 = self.matrix_engine.classify_situation("CUTTING", -50.0, 2.5, True, 0.10)
+        q2 = self.matrix_engine.classify_situation(
+            "ACCOMMODATIVE", "SCARCE", quality="OK", context={}
+        )
         self.assertEqual(q2["situation_id"], 2)
-        self.assertIn("LATE CYCLE", q2["name"])
 
-        # Quadrant 3: Rates Raising + Balance Sheet Contracting
-        q3 = self.matrix_engine.classify_situation("HAWKISH", -50.0, 2.5, False, -0.50)
+        q3 = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "SCARCE", quality="OK", context={}
+        )
         self.assertEqual(q3["situation_id"], 3)
-        self.assertIn("RESTRICTIVE POLICY", q3["name"])
 
-        # Quadrant 4: Rates Raising + Balance Sheet Expanding
-        q4 = self.matrix_engine.classify_situation("HAWKISH", 50.0, 4.5, False, -0.50)
+        q4 = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "ABUNDANT", quality="OK", context={}
+        )
         self.assertEqual(q4["situation_id"], 4)
-        self.assertIn("RESERVE LIQUIDITY EXPANSION", q4["name"])
+
+    def test_02a_macro_matrix_withholds_neutral_or_conflicted_inputs(self):
+        neutral = self.matrix_engine.classify_situation(
+            "NEUTRAL", "ABUNDANT", quality="OK", context={}
+        )
+        conflicted = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", None, quality="INDETERMINATE_CONFLICT", context={}
+        )
+
+        self.assertEqual(neutral["situation_id"], 0)
+        self.assertEqual(conflicted["situation_id"], 0)
+
+    def test_02b_macro_matrix_ignores_momentum_and_interpretation_context(self):
+        baseline = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "ABUNDANT", quality="OK", context={}
+        )
+        changed_context = self.matrix_engine.classify_situation(
+            "RESTRICTIVE",
+            "ABUNDANT",
+            quality="OK",
+            context={
+                "momentum": {"liquidity_30d": "DETERIORATING"},
+                "cpi_yoy": 12.0,
+                "sahm_rule_triggered": True,
+                "spread_10y_2y": -2.0,
+            },
+        )
+
+        self.assertEqual(changed_context["situation_id"], baseline["situation_id"])
 
     def test_03_net_liquidity_calculation(self):
         """Test Fed Net Liquidity formula (Assets - TGA - RRP)."""
@@ -558,7 +589,9 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_03e_macro_matrix_returns_insufficient_data_regime(self):
         """The matrix should not force a quadrant when rate or liquidity trend is missing."""
-        res = self.matrix_engine.classify_situation(None, None, None, False, None)
+        res = self.matrix_engine.classify_situation(
+            None, None, quality="INSUFFICIENT_DATA", context={}
+        )
 
         self.assertEqual(res["situation_id"], 0)
         self.assertEqual(res["quality"], "INSUFFICIENT_DATA")
@@ -566,10 +599,120 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_03g_holding_neutral_with_expanding_liquidity_is_no_actionable_quadrant(self):
         """A non-restrictive policy hold should not be forced into the hawkish quadrants."""
-        res = self.matrix_engine.classify_situation("HOLDING", 25.0, 2.4, False, 0.25)
+        res = self.matrix_engine.classify_situation(
+            "NEUTRAL", "ABUNDANT", quality="OK", context={}
+        )
 
         self.assertEqual(res["situation_id"], 0)
         self.assertEqual(res["quality"], "INSUFFICIENT_DATA")
+
+    def test_03h_analyzer_keeps_high_falling_liquidity_in_situation_four(self):
+        """A falling 30-day overlay must not turn abundant liquidity into scarce."""
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(
+                indicators_csv=f"{tmp}/ind.csv",
+                observations_csv=f"{tmp}/obs.csv",
+                snapshots_csv=f"{tmp}/snap.csv",
+                news_csv=f"{tmp}/news.csv",
+                run_logs_csv=f"{tmp}/logs.csv",
+            )
+            as_of = pd.Timestamp("2026-08-15")
+            storage.save_observations(
+                "dff",
+                pd.DataFrame(
+                    [
+                        {"date": "2026-07-14", "value": 4.50},
+                        {"date": "2026-08-14", "value": 4.25},
+                    ]
+                ),
+            )
+            storage.save_observations(
+                "core_pce",
+                pd.DataFrame(
+                    [
+                        {"date": "2025-06-30", "value": 116.0},
+                        {"date": "2026-06-30", "value": 120.0},
+                    ]
+                ),
+            )
+            storage.save_observations(
+                "rstar", pd.DataFrame([{"date": "2026-06-30", "value": 0.10}])
+            )
+
+            values = [10.0 + index * (10.0 / 268.0) for index in range(269)] + [19.5]
+            dates = pd.date_range(end="2026-08-14", periods=270, freq="7D")
+            gdp = 30_000.0
+            reserves = [value * gdp / 100.0 for value in values]
+            storage.save_observations(
+                "fed_total_assets",
+                pd.DataFrame(
+                    {"date": dates, "value": [(value + 1_000.0) * 1_000.0 for value in reserves]}
+                ),
+            )
+            storage.save_observations(
+                "tga_balance", pd.DataFrame({"date": dates, "value": [800_000.0] * len(dates)})
+            )
+            storage.save_observations(
+                "reverse_repo", pd.DataFrame({"date": dates, "value": [200.0] * len(dates)})
+            )
+            storage.save_observations(
+                "nominal_gdp",
+                pd.DataFrame(
+                    {"date": pd.date_range(end="2026-08-01", periods=25, freq="QS"), "value": [gdp] * 25}
+                ),
+            )
+            daily_dates = pd.date_range(end="2026-08-14", periods=5, freq="D")
+            for key, value in (("effr", 4.33), ("iorb", 4.40), ("sofr", 4.36)):
+                storage.save_observations(
+                    key, pd.DataFrame({"date": daily_dates, "value": [value] * 5})
+                )
+
+            regime = MacroAnalyzer(storage).analyze_macro_regime(as_of=as_of)
+
+        self.assertEqual(regime["liquidity"]["state"], "ABUNDANT")
+        self.assertEqual(regime["liquidity"]["momentum_30d"], "DETERIORATING")
+        self.assertEqual(regime["quadrant"]["situation_id"], 4)
+
+    def test_03i_analyzer_consensus_is_optional_and_structured(self):
+        analyzer = MacroAnalyzer(self.storage, consensus_provider=lambda: [])
+        regime = analyzer.analyze_macro_regime(as_of=pd.Timestamp("2026-08-15"))
+
+        self.assertEqual(regime["consensus"]["quality"], "UNAVAILABLE")
+        self.assertIn("current_state", regime)
+        self.assertIn("momentum", regime)
+        self.assertIn("data_quality", regime)
+
+    def test_04b_raw_payload_includes_structured_macro_regime(self):
+        self.raw_engine.fetch_individual_stock_metrics = lambda: []
+        regime = {
+            "current_state": {"policy": "RESTRICTIVE", "liquidity": "ABUNDANT"},
+            "momentum": {"liquidity_30d": "DETERIORATING"},
+            "consensus": {"quality": "UNAVAILABLE"},
+            "data_quality": {"quality": "OK"},
+        }
+        payload = self.raw_engine.build_raw_payload(macro_regime=regime)
+
+        self.assertEqual(payload["macro_regime"], regime)
+
+    def test_04c_legacy_snapshot_rows_read_with_absent_regime_fields(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshots = Path(tmp) / "legacy.csv"
+            snapshots.write_text(
+                "date,net_liquidity,policy_rate\n2026-08-01,6000.0,4.25\n",
+                encoding="utf-8",
+            )
+            storage = MacroStorage(
+                indicators_csv=Path(tmp) / "ind.csv",
+                observations_csv=Path(tmp) / "obs.csv",
+                snapshots_csv=snapshots,
+                news_csv=Path(tmp) / "news.csv",
+                run_logs_csv=Path(tmp) / "logs.csv",
+            )
+            rows = storage.get_recent_snapshots()
+
+        self.assertEqual(rows.iloc[0]["policy_rate"], 4.25)
+        self.assertTrue(pd.isna(rows.iloc[0]["policy_state"]))
+        self.assertTrue(pd.isna(rows.iloc[0]["liquidity_percentile"]))
 
     def test_04_raw_payload_generation(self):
         """Test un-hardcoded raw data JSON payload generation."""
@@ -760,7 +903,9 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_05b_credit_stress_is_visible_negative_evidence_for_financials(self):
         """Credit stress must remain visible even when the macro quadrant favors financials."""
-        macro_situation = self.matrix_engine.classify_situation("HOLDING_RESTRICTIVE", 40.0, 3.5, False, 0.30)
+        macro_situation = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "ABUNDANT", quality="OK", context={"cpi_yoy": 3.5, "spread_10y_2y": 0.30}
+        )
         summary = {
             "liquidity_regime": "Expanding (+30d)",
             "overall_regime": macro_situation["name"],
@@ -791,7 +936,9 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_05c_restrictive_real_yields_are_visible_negative_technology_evidence(self):
         """Restrictive real yields are an explicit counterweight to discounted technology."""
-        macro_situation = self.matrix_engine.classify_situation("HOLDING_RESTRICTIVE", 40.0, 3.5, False, 0.30)
+        macro_situation = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "ABUNDANT", quality="OK", context={"cpi_yoy": 3.5, "spread_10y_2y": 0.30}
+        )
         summary = {
             "liquidity_regime": "Expanding (+30d)",
             "overall_regime": macro_situation["name"],
@@ -823,7 +970,9 @@ class TestMacroPipeline(unittest.TestCase):
 
     def test_05d_valuation_stretch_is_visible_negative_ai_evidence(self):
         """A rich historical valuation must appear as evidence, not a trade command."""
-        macro_situation = self.matrix_engine.classify_situation("HOLDING_RESTRICTIVE", 40.0, 3.5, False, 0.30)
+        macro_situation = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "ABUNDANT", quality="OK", context={"cpi_yoy": 3.5, "spread_10y_2y": 0.30}
+        )
         summary = {
             "liquidity_regime": "Expanding (+30d)",
             "overall_regime": macro_situation["name"],
@@ -977,7 +1126,9 @@ class TestMacroPipeline(unittest.TestCase):
             "news_events": [],
             "sector_valuations": [],
             "ai_ecosystem": [],
-            "macro_situation": self.matrix_engine.classify_situation("CUTTING", 10.0, None, False, None),
+            "macro_situation": self.matrix_engine.classify_situation(
+                "ACCOMMODATIVE", "ABUNDANT", quality="OK", context={}
+            ),
             "constituent_assessments": [],
             "evidence_assessments": [],
         }
@@ -1140,7 +1291,9 @@ class TestMacroPipeline(unittest.TestCase):
             ]))
 
             market = MacroAnalyzer(storage).analyze_market_sentiment()
-            quadrant = MacroMatrixEngine().classify_situation("CUTTING", 50.0, 2.5, False, -0.50)
+            quadrant = MacroMatrixEngine().classify_situation(
+                "ACCOMMODATIVE", "ABUNDANT", quality="OK", context={}
+            )
 
         self.assertEqual(market["shiller_pe"], 40.46)
         self.assertEqual(market["shiller_pe_rating"], "Very Expensive")
