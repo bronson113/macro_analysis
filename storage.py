@@ -68,6 +68,13 @@ SNAPSHOT_COLUMNS = [
     "input_age_iorb", "input_age_sofr", "dff_age_days", "core_pce_age_days",
     "rstar_age_days", "fed_assets_age_days", "tga_age_days", "rrp_age_days",
     "nominal_gdp_age_days", "effr_age_days", "iorb_age_days", "sofr_age_days",
+    "policy_history_start", "policy_history_end", "policy_history_count",
+    "policy_sample_start", "policy_sample_end", "policy_sample_count",
+    "policy_history_sample_start", "policy_history_sample_end", "policy_history_sample_count",
+    "liquidity_history_start", "liquidity_history_end", "liquidity_history_count",
+    "liquidity_sample_start", "liquidity_sample_end", "liquidity_sample_count",
+    "liquidity_history_sample_start", "liquidity_history_sample_end",
+    "liquidity_history_sample_count",
 ]
 
 # Keep columns and versions in one place so new writers cannot silently drift apart.
@@ -484,13 +491,18 @@ class MacroStorage:
             return None
         return filtered.sort_values(by="date", ascending=False).iloc[0].to_dict()
 
-    def get_indicator_series(self, indicator_key: str, limit: int = 365) -> pd.DataFrame:
+    def get_indicator_series(
+        self, indicator_key: str, limit: Optional[int] = 365
+    ) -> pd.DataFrame:
         with self._lock:
             frame = self._read_csv_unlocked(self._csv_paths["observations"], "observations")
         filtered = frame[frame["indicator_key"] == indicator_key]
         if filtered.empty:
             return pd.DataFrame(columns=["date", "value"])
-        filtered = filtered.sort_values(by="date", ascending=False).head(limit).copy()
+        filtered = filtered.sort_values(by="date", ascending=False)
+        if limit is not None:
+            filtered = filtered.head(limit)
+        filtered = filtered.copy()
         filtered["date"] = pd.to_datetime(filtered["date"])
         return filtered.sort_values("date").reset_index(drop=True)[["date", "value"]]
 

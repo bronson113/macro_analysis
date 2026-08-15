@@ -108,7 +108,7 @@ class MacroAnalyzer:
     def _load_regime_series(self) -> Dict[str, pd.DataFrame]:
         """Load the point-in-time inputs consumed by the pure regime module."""
 
-        def series(*keys: str, limit: int = 2500) -> pd.DataFrame:
+        def series(*keys: str, limit: Optional[int] = None) -> pd.DataFrame:
             for key in keys:
                 frame = self.storage.get_indicator_series(key, limit=limit)
                 if not frame.empty:
@@ -646,6 +646,14 @@ class MacroAnalyzer:
 
         input_ages = macro_regime.get("data_quality", {}).get("input_ages", {})
 
+        def snapshot_date(value: Any) -> Optional[str]:
+            if value is None or (not isinstance(value, (dict, list, tuple)) and pd.isna(value)):
+                return None
+            try:
+                return pd.Timestamp(value).strftime("%Y-%m-%d")
+            except (TypeError, ValueError):
+                return str(value)
+
         snapshot = {
             "date": today_str,
             "net_liquidity": liq.get("net_liquidity"),
@@ -736,6 +744,32 @@ class MacroAnalyzer:
             "effr_age_days": input_ages.get("effr"),
             "iorb_age_days": input_ages.get("iorb"),
             "sofr_age_days": input_ages.get("sofr"),
+            "policy_history_start": snapshot_date(regime_policy.get("history_start")),
+            "policy_history_end": snapshot_date(regime_policy.get("history_end")),
+            "policy_history_count": regime_policy.get("history_count"),
+            "policy_sample_start": snapshot_date(regime_policy.get("history_start")),
+            "policy_sample_end": snapshot_date(regime_policy.get("history_end")),
+            "policy_sample_count": regime_policy.get("history_count"),
+            "policy_history_sample_start": snapshot_date(regime_policy.get("history_start")),
+            "policy_history_sample_end": snapshot_date(regime_policy.get("history_end")),
+            "policy_history_sample_count": regime_policy.get("history_count"),
+            "liquidity_history_start": snapshot_date(regime_liq.get("history_start")),
+            "liquidity_history_end": snapshot_date(regime_liq.get("history_end")),
+            "liquidity_history_count": regime_liq.get("history_count"),
+            "liquidity_sample_start": snapshot_date(
+                regime_liq.get("history_sample_start") or regime_liq.get("history_start")
+            ),
+            "liquidity_sample_end": snapshot_date(
+                regime_liq.get("history_sample_end") or regime_liq.get("history_end")
+            ),
+            "liquidity_sample_count": regime_liq.get("history_count"),
+            "liquidity_history_sample_start": snapshot_date(
+                regime_liq.get("history_sample_start") or regime_liq.get("history_start")
+            ),
+            "liquidity_history_sample_end": snapshot_date(
+                regime_liq.get("history_sample_end") or regime_liq.get("history_end")
+            ),
+            "liquidity_history_sample_count": regime_liq.get("history_count"),
             "created_at": datetime.now().isoformat()
         }
 

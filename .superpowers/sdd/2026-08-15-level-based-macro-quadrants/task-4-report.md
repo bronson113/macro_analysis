@@ -122,3 +122,63 @@ python -m py_compile analyzer.py macro_matrix.py storage.py raw_data_engine.py
 
 Task 4 is ready to commit. The final commit should include only the five Task 4 source/
 test files and this report.
+
+## Review Round 1 — Important Findings
+
+### Finding 1: unbounded regime-series loading
+
+The first review found that `_load_regime_series()` passed `limit=2500` to every
+storage series. This truncated daily DFF history before the pure policy classifier
+could construct its required trailing ten-year context. The RED test stored 4,018
+daily DFF observations and observed a policy history count of only 79; it also
+verified the new unbounded storage call path.
+
+The fix changes `MacroStorage.get_indicator_series()` to accept `limit=None` and skip
+the `.head()` truncation in that case. The analyzer now requests unbounded series for
+all regime inputs, while unrelated callers retain the existing default limit.
+
+### Finding 2: snapshot history metadata was not persisted
+
+The first review also found that snapshots persisted percentile values and thresholds
+but omitted the auditable historical sample windows. New scalar columns now persist:
+
+- policy history start, end, and count, plus sample aliases;
+- liquidity history start, end, and count;
+- liquidity sample start, end, and count, plus source-compatible sample aliases.
+
+The analyzer populates these fields from the pure policy/liquidity dictionaries and
+normalizes dates to `YYYY-MM-DD`. Legacy rows are schema-normalized with blank values;
+the regression test confirms the new fields remain `NaN` when the old header lacks
+them.
+
+### Round-1 TDD evidence
+
+The RED focused run after adding the review tests was:
+
+```text
+PYTHONPATH=. .venv/bin/pytest tests/test_macro_pipeline.py -q
+3 failed, 53 passed
+```
+
+The three failures were the expected missing metadata columns and truncated policy
+history. After implementation:
+
+```text
+PYTHONPATH=. .venv/bin/pytest tests/test_macro_pipeline.py -q
+56 passed in 4.09s
+
+PYTHONPATH=. .venv/bin/pytest tests/test_macro_pipeline.py tests/test_dashboard_history.py -q
+59 passed in 4.49s
+
+PYTHONPATH=. .venv/bin/pytest -q
+159 passed in 10.00s
+```
+
+The broader runs emit existing pandas `PerformanceWarning` messages while adding the
+expanded canonical snapshot schema column-by-column; they do not fail tests and are
+outside the two Important findings addressed in this round.
+
+### Round-1 result
+
+Both Important findings are addressed. The separately noted Minor consensus parsing
+items were not changed, as requested.

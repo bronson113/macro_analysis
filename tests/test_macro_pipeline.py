@@ -713,6 +713,163 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertEqual(rows.iloc[0]["policy_rate"], 4.25)
         self.assertTrue(pd.isna(rows.iloc[0]["policy_state"]))
         self.assertTrue(pd.isna(rows.iloc[0]["liquidity_percentile"]))
+        self.assertTrue(pd.isna(rows.iloc[0]["policy_history_start"]))
+        self.assertTrue(pd.isna(rows.iloc[0]["policy_history_count"]))
+        self.assertTrue(pd.isna(rows.iloc[0]["liquidity_history_end"]))
+        self.assertTrue(pd.isna(rows.iloc[0]["liquidity_sample_count"]))
+
+    def test_04d_storage_and_analyzer_load_unbounded_daily_history(self):
+        """Regime analysis must retain more than 2,500 daily observations."""
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(
+                indicators_csv=Path(tmp) / "ind.csv",
+                observations_csv=Path(tmp) / "obs.csv",
+                snapshots_csv=Path(tmp) / "snap.csv",
+                news_csv=Path(tmp) / "news.csv",
+                run_logs_csv=Path(tmp) / "logs.csv",
+            )
+            as_of = pd.Timestamp("2026-08-15")
+            dff_dates = pd.date_range(end="2026-08-14", periods=4018, freq="D")
+            storage.save_observations(
+                "dff", pd.DataFrame({"date": dff_dates, "value": [4.25] * len(dff_dates)})
+            )
+            pce_dates = pd.date_range(start="2015-06-30", end="2026-06-30", freq="ME")
+            storage.save_observations(
+                "core_pce", pd.DataFrame({"date": pce_dates, "value": [120.0] * len(pce_dates)})
+            )
+            storage.save_observations(
+                "rstar", pd.DataFrame([{"date": "2026-06-30", "value": 0.10}])
+            )
+
+            all_dff = storage.get_indicator_series("dff", limit=None)
+            regime = MacroAnalyzer(storage).analyze_macro_regime(as_of=as_of)
+
+        self.assertEqual(len(all_dff), 4018)
+        self.assertGreater(regime["policy"]["history_count"], 100)
+        self.assertLessEqual(regime["policy"]["history_start"], pd.Timestamp("2017-01-31"))
+
+    def test_04e_snapshot_persists_policy_and_liquidity_history_metadata(self):
+        """New snapshots persist auditable policy/liquidity sample windows."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            storage = MacroStorage(
+                indicators_csv=root / "ind.csv",
+                observations_csv=root / "obs.csv",
+                snapshots_csv=root / "snap.csv",
+                news_csv=root / "news.csv",
+                run_logs_csv=root / "logs.csv",
+            )
+            analyzer = MacroAnalyzer(storage)
+            policy_history_start = pd.Timestamp("2016-08-15")
+            policy_history_end = pd.Timestamp("2026-07-31")
+            liquidity_history_start = pd.Timestamp("2016-08-12")
+            liquidity_history_end = pd.Timestamp("2026-08-07")
+            macro_regime = {
+                "policy": {
+                    "state": "RESTRICTIVE",
+                    "real_policy_rate": 1.0,
+                    "rstar_value": 0.1,
+                    "neutral_real_rate": 0.1,
+                    "policy_gap": 0.9,
+                    "historical_percentile": 80.0,
+                    "history_start": policy_history_start,
+                    "history_end": policy_history_end,
+                    "history_count": 119,
+                    "momentum_30d": "STABLE",
+                    "momentum_30d_value": 0.0,
+                    "momentum_90d": "TIGHTENING",
+                    "momentum_90d_value": 0.2,
+                },
+                "liquidity": {
+                    "state": "ABUNDANT",
+                    "normalized_liquidity_pct_gdp": 20.0,
+                    "current_percentile": 80.0,
+                    "historical_median": 15.0,
+                    "historical_p40": 13.0,
+                    "historical_p60": 17.0,
+                    "history_start": liquidity_history_start,
+                    "history_end": liquidity_history_end,
+                    "history_sample_start": liquidity_history_start,
+                    "history_sample_end": liquidity_history_end,
+                    "history_count": 500,
+                    "momentum_30d": "DETERIORATING",
+                    "momentum_30d_value": -0.2,
+                    "momentum_90d": "STABLE",
+                    "momentum_90d_value": 0.0,
+                },
+                "consensus": {"quality": "UNAVAILABLE"},
+                "data_quality": {"quality": "OK", "input_ages": {}},
+                "quadrant": {
+                    "situation_id": 4,
+                    "name": "SITUATION 4",
+                    "rates_label": "Restrictive",
+                    "bs_label": "Abundant",
+                    "quality": "OK",
+                    "favored_sectors": [],
+                    "favored_company_types": [],
+                    "disfavored_sectors": [],
+                },
+            }
+            analyzer.analyze_macro_regime = lambda **_kwargs: macro_regime
+            analyzer.calculate_net_liquidity = lambda: {
+                "net_liquidity": 6000.0,
+                "fed_assets_billion": 7000.0,
+                "tga_billion": 800.0,
+                "rrp_billion": 200.0,
+                "m2_yoy": 2.0,
+                "quality": "OK",
+            }
+            analyzer.analyze_yield_curve = lambda: {
+                "treasury_10y": 4.0,
+                "treasury_2y": 3.0,
+                "spread_10y_2y": 1.0,
+                "regime": "Normal",
+            }
+            analyzer.analyze_policy_stance = lambda: {
+                "policy_rate": 4.25,
+                "policy_rate_change_30d": 0.0,
+                "real_yield_10y": 1.5,
+            }
+            analyzer.analyze_credit_markets = lambda: {
+                "high_yield_oas": 3.0,
+                "regime": "Normal",
+            }
+            analyzer.analyze_market_sentiment = lambda: {
+                "vix": 15.0,
+                "dxy": 100.0,
+                "sp500": 5000.0,
+                "cnn_fear_greed_index": None,
+                "shiller_pe": None,
+            }
+            analyzer.analyze_labor_and_inflation = lambda: {
+                "unemployment_rate": 4.0,
+                "cpi_yoy": 2.0,
+                "housing_yoy": 1.0,
+                "breakeven_10y": 2.0,
+                "sahm_rule_triggered": False,
+            }
+            analyzer.news_analyzer.get_major_event_summary = lambda limit: []
+            analyzer.valuation_engine.calculate_sector_valuations = lambda: []
+            analyzer.valuation_engine.save_valuations_to_storage = lambda values: None
+            analyzer.ai_tracker.analyze_ecosystem_valuations = lambda: []
+            analyzer.evidence_engine.generate_assessments = lambda *args: []
+            analyzer.storage.save_signal_assessments = lambda *args, **kwargs: 0
+            analyzer.raw_engine.build_raw_payload = lambda **kwargs: {}
+            analyzer.mechanical_analyst.analyze_raw_payload = lambda payload: {}
+            analyzer.raw_engine.publish_constituent_assessments = lambda *args, **kwargs: {}
+
+            analyzer.generate_full_snapshot()
+            snapshot = pd.read_csv(root / "snap.csv").iloc[0]
+
+        self.assertEqual(snapshot["policy_history_start"], "2016-08-15")
+        self.assertEqual(snapshot["policy_history_end"], "2026-07-31")
+        self.assertEqual(snapshot["policy_history_count"], 119)
+        self.assertEqual(snapshot["liquidity_history_start"], "2016-08-12")
+        self.assertEqual(snapshot["liquidity_history_end"], "2026-08-07")
+        self.assertEqual(snapshot["liquidity_history_count"], 500)
+        self.assertEqual(snapshot["liquidity_sample_start"], "2016-08-12")
+        self.assertEqual(snapshot["liquidity_sample_end"], "2026-08-07")
+        self.assertEqual(snapshot["liquidity_sample_count"], 500)
 
     def test_04_raw_payload_generation(self):
         """Test un-hardcoded raw data JSON payload generation."""
