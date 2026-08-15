@@ -40,12 +40,39 @@ def liquidity_fixture(effr=4.33, iorb=4.40, sofr=4.36):
     }
 
 
+def normalized_values_fixture(normalized_values, *, freq="7D"):
+    """Build source-unit observations from literal normalized test values."""
+
+    gdp = 30_000.0
+    reserve_values = [value * gdp / 100.0 for value in normalized_values]
+    return {
+        "fed_assets": dated(
+            [(value + 1_000.0) * 1_000.0 for value in reserve_values],
+            "2026-08-14",
+            freq,
+        ),
+        "tga": dated([800_000.0] * len(normalized_values), "2026-08-14", freq),
+        "rrp": dated([200.0] * len(normalized_values), "2026-08-14", freq),
+        "nominal_gdp": dated([gdp] * 50, "2026-08-01", "QS"),
+        "effr": dated([4.33] * 5, "2026-08-14", "D"),
+        "iorb": dated([4.40] * 5, "2026-08-14", "D"),
+        "sofr": dated([4.36] * 5, "2026-08-14", "D"),
+        "as_of": pd.Timestamp("2026-08-15"),
+    }
+
+
 def test_high_but_falling_liquidity_remains_abundant():
     out = classify_liquidity_level(**liquidity_fixture())
 
     assert out["state"] == "ABUNDANT"
     assert out["momentum_30d"] == "DETERIORATING"
     assert out["quality"] == "OK"
+    assert out["current_percentile"] == 94.8
+    assert out["history_count"] == 269
+    assert out["history_start"] == pd.Timestamp("2021-06-18")
+    assert out["history_end"] == pd.Timestamp("2026-08-07")
+    assert out["effr_iorb_spread_bp"] == -7.0
+    assert out["sofr_iorb_spread_bp"] == -4.0
 
 
 def test_two_money_market_pressure_flags_withhold_liquidity_state():
@@ -114,6 +141,201 @@ def test_one_money_market_pressure_flag_is_partial_without_changing_state():
     assert out["quality"] == "PARTIAL"
     assert out["effr_iorb_pressure"] is True
     assert out["sofr_iorb_pressure"] is False
+
+
+def test_effr_iorb_pressure_boundary_is_inclusive_at_minus_two_basis_points():
+    out = classify_liquidity_level(
+        **liquidity_fixture(effr=4.38, iorb=4.40, sofr=4.36)
+    )
+
+    assert out["effr_iorb_spread_bp"] == -2.0
+    assert out["effr_iorb_pressure"] is True
+    assert out["state"] == "ABUNDANT"
+
+
+def test_sofr_iorb_pressure_boundary_is_inclusive_at_plus_ten_basis_points():
+    out = classify_liquidity_level(
+        **liquidity_fixture(effr=4.33, iorb=4.40, sofr=4.50)
+    )
+
+    assert out["sofr_iorb_spread_bp"] == 10.0
+    assert out["sofr_iorb_pressure"] is True
+    assert out["state"] == "ABUNDANT"
+
+
+def test_money_market_spread_means_use_five_literal_business_day_observations():
+    fixture = liquidity_fixture()
+    fixture["effr"] = dated([4.30, 4.31, 4.32, 4.33, 4.34], "2026-08-14", "D")
+    fixture["iorb"] = dated([4.40, 4.40, 4.40, 4.40, 4.40], "2026-08-14", "D")
+    fixture["sofr"] = dated([4.35, 4.36, 4.37, 4.38, 4.39], "2026-08-14", "D")
+
+    out = classify_liquidity_level(**fixture)
+
+    assert out["effr_iorb_spread_bp"] == -8.0
+    assert out["sofr_iorb_spread_bp"] == -3.0
+    assert out["corroboration_dates"] == [
+        pd.Timestamp("2026-08-10"),
+        pd.Timestamp("2026-08-11"),
+        pd.Timestamp("2026-08-12"),
+        pd.Timestamp("2026-08-13"),
+        pd.Timestamp("2026-08-14"),
+    ]
+
+
+def test_rank_just_below_abundant_boundary_stays_neutral_before_rounding():
+    values = [10.0] * 241 + [30.0] * 161 + [20.0]
+
+    out = classify_liquidity_level(**normalized_values_fixture(values))
+
+    # 241 / 402 * 100 = 59.950248756..., which reports as 60.0 but is
+    # strictly below the abundant boundary.
+    assert out["history_count"] == 402
+    assert out["current_percentile"] == 60.0
+    assert out["state"] == "NEUTRAL"
+
+
+def test_rank_just_above_scarce_boundary_stays_neutral_before_rounding():
+    values = [10.0] * 161 + [30.0] * 241 + [20.0]
+
+    out = classify_liquidity_level(**normalized_values_fixture(values))
+
+    # 161 / 402 * 100 = 40.049751243..., which reports as 40.0 but is
+    # strictly above the scarce boundary.
+    assert out["history_count"] == 402
+    assert out["current_percentile"] == 40.0
+    assert out["state"] == "NEUTRAL"
+
+
+def test_as_of_joins_ignore_future_extreme_observations():
+    fixture = liquidity_fixture()
+    future_date = pd.Timestamp("2026-08-21")
+    for key, value in (
+        ("fed_assets", 99_000_000.0),
+        ("tga", 1.0),
+        ("rrp", 1.0),
+        ("nominal_gdp", 1.0),
+        ("effr", 9.0),
+        ("iorb", 1.0),
+        ("sofr", 9.0),
+    ):
+        fixture[key] = pd.concat(
+            [
+                fixture[key],
+                pd.DataFrame({"date": [future_date], "value": [value]}),
+            ],
+            ignore_index=True,
+        )
+
+    out = classify_liquidity_level(**fixture)
+
+    assert out["normalized_liquidity_pct_gdp"] == 19.5
+    assert out["state"] == "ABUNDANT"
+    assert out["fed_assets_date"] == pd.Timestamp("2026-08-14")
+    assert out["nominal_gdp_date"] == pd.Timestamp("2026-07-01")
+    assert out["effr_date"] == pd.Timestamp("2026-08-14")
+
+
+def test_required_liquidity_freshness_limits_are_inclusive_and_one_day_stale_fails():
+    required_limits = (
+        ("fed_assets", 14, "7D"),
+        ("tga", 14, "7D"),
+        ("rrp", 7, "7D"),
+        ("nominal_gdp", 120, "93D"),
+    )
+    for key, limit_days, frequency in required_limits:
+        fresh = liquidity_fixture()
+        target = fresh["as_of"] - pd.Timedelta(days=limit_days)
+        fresh[key] = dated(
+            [fresh[key]["value"].iloc[-1]] * len(fresh[key]),
+            target,
+            frequency,
+        )
+        fresh_out = classify_liquidity_level(**fresh)
+        assert fresh_out["state"] is not None, key
+        assert not any(
+            key.replace("_", " ") in reason.lower() and "stale" in reason.lower()
+            for reason in fresh_out["reasons"]
+        ), key
+
+        stale = liquidity_fixture()
+        stale_target = stale["as_of"] - pd.Timedelta(days=limit_days + 1)
+        stale[key] = dated(
+            [stale[key]["value"].iloc[-1]] * len(stale[key]),
+            stale_target,
+            frequency,
+        )
+        stale_out = classify_liquidity_level(**stale)
+        assert stale_out["state"] is None, key
+        assert any("stale" in reason.lower() for reason in stale_out["reasons"]), key
+
+
+def test_money_market_freshness_limits_are_inclusive_and_one_day_stale_is_partial():
+    for key in ("effr", "iorb", "sofr"):
+        fresh = liquidity_fixture()
+        fresh_dates = pd.date_range(end="2026-08-08", periods=7, freq="D")
+        fresh[key] = pd.DataFrame({"date": fresh_dates, "value": [4.33] * 7})
+        # Keep all three corroboration series on the same five business days.
+        for other in ("effr", "iorb", "sofr"):
+            if other != key:
+                fresh[other] = pd.DataFrame({"date": fresh_dates, "value": [4.33] * 7})
+        fresh_out = classify_liquidity_level(**fresh)
+        assert fresh_out["state"] == "ABUNDANT", key
+
+        stale = {
+            name: frame.copy() if hasattr(frame, "copy") else frame
+            for name, frame in fresh.items()
+        }
+        stale_dates = pd.date_range(end="2026-08-07", periods=7, freq="D")
+        stale[key] = pd.DataFrame({"date": stale_dates, "value": [4.33] * 7})
+        stale_out = classify_liquidity_level(**stale)
+        assert stale_out["state"] == "ABUNDANT", key
+        assert stale_out["quality"] == "PARTIAL", key
+        assert any(
+            key in reason.lower() and "stale" in reason.lower()
+            for reason in stale_out["reasons"]
+        ), key
+
+
+def test_liquidity_history_requires_two_hundred_weeks_and_five_calendar_years():
+    short_span = normalized_values_fixture([10.0] * 200 + [20.0])
+    short_span_out = classify_liquidity_level(**short_span)
+    assert short_span_out["history_count"] == 200
+    assert short_span_out["state"] is None
+    assert any("five years" in reason.lower() for reason in short_span_out["reasons"])
+
+    sparse = normalized_values_fixture([10.0] * 100 + [20.0], freq="19D")
+    sparse_out = classify_liquidity_level(**sparse)
+    assert sparse_out["history_count"] == 100
+    assert sparse_out["state"] is None
+    assert any("minimum 200" in reason.lower() for reason in sparse_out["reasons"])
+
+
+def test_liquidity_momentum_exact_boundaries_are_stable():
+    increasing = classify_liquidity_level(
+        **normalized_values_fixture([10.0] * 269 + [10.05])
+    )
+    decreasing = classify_liquidity_level(
+        **normalized_values_fixture([10.0] * 269 + [9.95])
+    )
+
+    assert increasing["momentum_30d"] == "STABLE"
+    assert increasing["momentum_90d"] == "STABLE"
+    assert decreasing["momentum_30d"] == "STABLE"
+    assert decreasing["momentum_90d"] == "STABLE"
+
+
+def test_liquidity_momentum_just_outside_boundaries_is_actionable():
+    increasing = classify_liquidity_level(
+        **normalized_values_fixture([10.0] * 269 + [10.0501])
+    )
+    decreasing = classify_liquidity_level(
+        **normalized_values_fixture([10.0] * 269 + [9.9499])
+    )
+
+    assert increasing["momentum_30d"] == "IMPROVING"
+    assert increasing["momentum_90d"] == "IMPROVING"
+    assert decreasing["momentum_30d"] == "DETERIORATING"
+    assert decreasing["momentum_90d"] == "DETERIORATING"
 
 
 def test_policy_uses_real_rate_gap_not_recent_direction():

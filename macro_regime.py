@@ -918,7 +918,8 @@ def classify_liquidity_level(
 
     if current_record is not None and history:
         current_value = float(current_record["normalized_liquidity_pct_gdp"])
-        result["current_percentile"] = _round(float((history_values <= current_value).mean() * 100.0), 1)
+        raw_percentile = float((history_values <= current_value).mean() * 100.0)
+        result["current_percentile"] = _round(raw_percentile, 1)
         result["liquidity_percentile"] = result["current_percentile"]
         result["historical_percentile"] = result["current_percentile"]
         result["historical_median"] = _round(float(history_values.median()))
@@ -929,7 +930,7 @@ def classify_liquidity_level(
         result["threshold_40"] = result["historical_p40"]
         result["threshold_60"] = result["historical_p60"]
         if history_valid:
-            result["core_state"] = classify_liquidity_percentile(result["current_percentile"])
+            result["core_state"] = classify_liquidity_percentile(raw_percentile)
 
     # Independent momentum overlays use the nearest aligned observation on or
     # before each target date.
@@ -1007,8 +1008,14 @@ def classify_liquidity_level(
         corroboration_ok = False
         reasons.append("Five-business-day money-market corroboration is unavailable")
     elif corroboration_ok:
-        result["effr_iorb_pressure"] = bool(effr_iorb_bp >= -2.0)
-        result["sofr_iorb_pressure"] = bool(sofr_iorb_bp >= 10.0)
+        result["effr_iorb_pressure"] = bool(
+            effr_iorb_bp >= -2.0
+            or math.isclose(effr_iorb_bp, -2.0, rel_tol=0.0, abs_tol=1e-12)
+        )
+        result["sofr_iorb_pressure"] = bool(
+            sofr_iorb_bp >= 10.0
+            or math.isclose(sofr_iorb_bp, 10.0, rel_tol=0.0, abs_tol=1e-12)
+        )
     pressure_flags = []
     if result["effr_iorb_pressure"]:
         pressure_flags.append("EFFR_IORB")
