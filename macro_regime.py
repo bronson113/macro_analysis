@@ -8,6 +8,7 @@ historical tests.
 
 from __future__ import annotations
 
+import math
 from typing import Any, Dict, Iterable, Optional
 
 import pandas as pd
@@ -44,8 +45,14 @@ def classify_delta(
         numeric_threshold = abs(float(threshold))
     except (TypeError, ValueError):
         return None
-    if not pd.notna(numeric_delta) or not pd.notna(numeric_threshold):
+    if not math.isfinite(numeric_delta) or not math.isfinite(numeric_threshold):
         return None
+    epsilon = 1e-12
+    if (
+        abs(numeric_delta - numeric_threshold) <= epsilon
+        or abs(numeric_delta + numeric_threshold) <= epsilon
+    ):
+        return stable_label
     if numeric_delta > numeric_threshold:
         return positive_label
     if numeric_delta < -numeric_threshold:
@@ -62,7 +69,7 @@ def classify_policy_gap(real_policy_rate: Optional[float], rstar: Optional[float
         gap = float(real_policy_rate) - float(rstar)
     except (TypeError, ValueError):
         return None
-    if not pd.notna(gap):
+    if not math.isfinite(gap):
         return None
     if gap > POLICY_GAP_THRESHOLD_PP:
         return "RESTRICTIVE"
@@ -84,16 +91,31 @@ def _prepare_series(frame: Optional[pd.DataFrame]) -> pd.DataFrame:
     """Normalize a source frame without mutating the caller's object."""
 
     if frame is None or not isinstance(frame, pd.DataFrame):
-        return pd.DataFrame(columns=["date", "value"])
+        result = pd.DataFrame(columns=["date", "value"])
+        result.attrs["nonfinite_dates"] = []
+        return result
     if "date" not in frame.columns or "value" not in frame.columns:
-        return pd.DataFrame(columns=["date", "value"])
+        result = pd.DataFrame(columns=["date", "value"])
+        result.attrs["nonfinite_dates"] = []
+        return result
 
     result = frame.loc[:, ["date", "value"]].copy()
     result["date"] = pd.to_datetime(result["date"], errors="coerce", utc=True).dt.tz_convert(None)
     result["value"] = pd.to_numeric(result["value"], errors="coerce")
-    result = result.dropna(subset=["date", "value"])
+    finite_values = result["value"].map(
+        lambda value: bool(pd.notna(value)) and math.isfinite(float(value))
+    )
+    invalid_mask = result["date"].notna() & ~finite_values
+    nonfinite_dates = result.loc[invalid_mask, "date"].tolist()
+    result = result.loc[~invalid_mask].dropna(subset=["date", "value"])
     result = result.sort_values("date").drop_duplicates("date", keep="last")
-    return result.reset_index(drop=True)
+    result = result.reset_index(drop=True)
+    result.attrs["nonfinite_dates"] = nonfinite_dates
+    return result
+
+
+def _has_nonfinite_on_or_before(frame: pd.DataFrame, as_of: pd.Timestamp) -> bool:
+    return any(pd.Timestamp(date) <= as_of for date in frame.attrs.get("nonfinite_dates", []))
 
 
 def _latest_on_or_before(frame: pd.DataFrame, as_of: pd.Timestamp) -> Optional[pd.Series]:
@@ -112,7 +134,13 @@ def _age_days(observation_date: Optional[pd.Timestamp], as_of: pd.Timestamp) -> 
 
 
 def _round(value: Optional[float], digits: int = 3) -> Optional[float]:
-    return round(float(value), digits) if value is not None and pd.notna(value) else None
+    if value is None:
+        return None
+    try:
+        numeric_value = float(value)
+    except (TypeError, ValueError):
+        return None
+    return round(numeric_value, digits) if math.isfinite(numeric_value) else None
 
 
 def _row_details(row: Optional[pd.Series], as_of: pd.Timestamp) -> Dict[str, Any]:
@@ -141,8 +169,9 @@ def _core_pce_measurement(
         return None
 
     latest_date = pd.Timestamp(latest["date"])
-    year_ago_target = latest_date - pd.DateOffset(years=1)
-    prior = _value_row_at_or_before(core_pce, year_ago_target)
+    year_ago_target = (latest_date - pd.DateOffset(years=1)).normalize()
+    same_period = core_pce.loc[core_pce["date"].dt.normalize() == year_ago_target]
+    prior = same_period.iloc[-1] if not same_period.empty else None
     if prior is None or float(prior["value"]) == 0:
         return {
             "date": latest_date,
@@ -206,6 +235,8 @@ def _real_policy_measurement_at(
         return None
     return {
         "date": pd.Timestamp(dff_row["date"]),
+        "dff_date": pd.Timestamp(dff_row["date"]),
+        "pce_date": pd.Timestamp(pce["date"]),
         "real_policy_rate": float(dff_row["value"]) - float(pce["yoy"]),
     }
 
@@ -215,11 +246,16 @@ def _historical_percentile(
     dff: pd.DataFrame,
     core_pce: pd.DataFrame,
     as_of: pd.Timestamp,
+    current_dff_date: pd.Timestamp,
+    current_pce_date: pd.Timestamp,
 ) -> tuple[Optional[float], Optional[pd.Timestamp], Optional[pd.Timestamp], int, Optional[str]]:
     """Calculate the current real policy rate's trailing percentile."""
 
     window_start = as_of - pd.DateOffset(years=HISTORICAL_WINDOW_YEARS)
     candidates: Iterable[pd.Timestamp]
+    window_start = window_start.normalize()
+    current_dff_date = pd.Timestamp(current_dff_date).normalize()
+    current_pce_date = pd.Timestamp(current_pce_date).normalize()
     if core_pce.empty:
         candidates = ()
     else:
@@ -233,8 +269,17 @@ def _historical_percentile(
         measurement = _real_policy_measurement_at(dff, core_pce, pd.Timestamp(candidate))
         if measurement is None:
             continue
-        # The current observation must not be part of its own percentile.
-        if measurement["date"] >= as_of - pd.Timedelta(days=1):
+        measurement_date = measurement["date"].normalize()
+        # Filter on the actual backward-filled source date, not the PCE
+        # candidate date used to discover it.
+        if measurement_date < window_start or measurement_date > as_of.normalize():
+            continue
+        # The current observation must not be part of its own percentile. A
+        # measurement is current only when both source dates match.
+        if (
+            measurement["dff_date"].normalize() == current_dff_date
+            and measurement["pce_date"].normalize() == current_pce_date
+        ):
             continue
         historical_rates.append(float(measurement["real_policy_rate"]))
         historical_dates.append(pd.Timestamp(measurement["date"]))
@@ -244,8 +289,7 @@ def _historical_percentile(
 
     sample_start = min(historical_dates)
     sample_end = max(historical_dates)
-    span = sample_end - sample_start
-    if span < pd.Timedelta(days=MIN_HISTORICAL_YEARS * 365):
+    if sample_end < sample_start + pd.DateOffset(years=MIN_HISTORICAL_YEARS):
         return (
             None,
             sample_start,
@@ -405,16 +449,27 @@ def classify_policy_level(
     reasons = []
     required_ok = True
 
+    for source_name, frame in (
+        ("DFF", dff_frame),
+        ("Core PCE", pce_frame),
+        ("R-star", rstar_frame),
+    ):
+        if _has_nonfinite_on_or_before(frame, as_of):
+            required_ok = False
+            reasons.append(f"{source_name} contains a non-finite input value")
+
     if dff_row is None:
         required_ok = False
-        reasons.append("Missing dff observation on or before as_of")
+        if not _has_nonfinite_on_or_before(dff_frame, as_of):
+            reasons.append("Missing dff observation on or before as_of")
     elif dff_details["age_days"] > DFF_MAX_AGE_DAYS:
         required_ok = False
         reasons.append(f"DFF observation is stale ({dff_details['age_days']} days old; maximum {DFF_MAX_AGE_DAYS})")
 
     if pce_measurement is None:
         required_ok = False
-        reasons.append("Missing core PCE observation on or before as_of")
+        if not _has_nonfinite_on_or_before(pce_frame, as_of):
+            reasons.append("Missing core PCE observation on or before as_of")
     else:
         if pce_details["age_days"] > CORE_PCE_MAX_AGE_DAYS:
             required_ok = False
@@ -427,7 +482,8 @@ def classify_policy_level(
 
     if rstar_row is None:
         required_ok = False
-        reasons.append("Missing r-star estimate on or before as_of")
+        if not _has_nonfinite_on_or_before(rstar_frame, as_of):
+            reasons.append("Missing r-star estimate on or before as_of")
     elif rstar_details["age_days"] > RSTAR_MAX_AGE_DAYS:
         required_ok = False
         reasons.append(
@@ -460,7 +516,14 @@ def classify_policy_level(
         result["history_end"],
         result["history_count"],
         history_reason,
-    ) = _historical_percentile(real_policy_rate, dff_frame, pce_frame, as_of)
+    ) = _historical_percentile(
+        real_policy_rate,
+        dff_frame,
+        pce_frame,
+        as_of,
+        pd.Timestamp(dff_row["date"]),
+        pd.Timestamp(pce_measurement["date"]),
+    )
     if history_reason:
         reasons.append(history_reason)
 
