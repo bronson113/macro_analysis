@@ -44,6 +44,8 @@ FRED_SERIES = {
     "tga_balance": {"id": "WDTGAL", "name": "Treasury General Account (Millions of USD)", "frequency": "weekly", "unit_scale": "millions"},
     "effr": {"id": "FEDFUNDS", "name": "Effective Federal Funds Rate (%)", "frequency": "monthly"},
     "dff": {"id": "DFF", "name": "Daily Effective Federal Funds Rate (%)", "frequency": "daily"},
+    "iorb": {"id": "IORB", "name": "Interest on Reserve Balances (%)", "frequency": "daily", "unit_scale": "percent"},
+    "sofr": {"id": "SOFR", "name": "Secured Overnight Financing Rate (%)", "frequency": "daily", "unit_scale": "percent"},
     "m2_money_supply": {"id": "M2SL", "name": "M2 Money Supply (Billions of USD)", "frequency": "monthly"},
     "bank_deposits": {"id": "DPSACBW027SBOG", "name": "Deposits, All Commercial Banks (Billions)", "frequency": "weekly"},
 
@@ -78,7 +80,10 @@ FRED_SERIES = {
     "breakeven_10y": {"id": "T10YIE", "name": "10-Year Breakeven Inflation Rate (%)", "frequency": "daily"},
 
     # 6. Real Economic Activity & Growth
-    "gdp": {"id": "GDPC1", "name": "Real Gross Domestic Product (Billions)", "frequency": "quarterly"},
+    # GDP is nominal and reported by FRED in billions; keep real GDP under a
+    # separate key so level-regime normalization cannot accidentally use it.
+    "nominal_gdp": {"id": "GDP", "name": "Nominal Gross Domestic Product (Billions of USD)", "frequency": "quarterly", "unit_scale": "billions"},
+    "real_gdp": {"id": "GDPC1", "name": "Real Gross Domestic Product (Billions of Chained 2017 Dollars)", "frequency": "quarterly", "unit_scale": "billions"},
     "retail_sales": {"id": "RSAFS", "name": "Advance Retail Sales (Millions)", "frequency": "monthly"},
     "industrial_production": {"id": "INDPRO", "name": "Industrial Production Index", "frequency": "monthly"},
     "housing_starts": {"id": "HOUST", "name": "Housing Starts: Total New Privately Owned", "frequency": "monthly"},
@@ -106,7 +111,10 @@ ACTIVE_FRED_SERIES_KEYS = {
     "tga_balance",
     "effr",
     "dff",
+    "iorb",
+    "sofr",
     "m2_money_supply",
+    "nominal_gdp",
     "treasury_10y",
     "treasury_2y",
     "treasury_3m",

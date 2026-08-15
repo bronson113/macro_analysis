@@ -242,6 +242,15 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertNotIn("core_pce", fetched_fred)
         self.assertNotIn("nasdaq", fetched_yahoo)
 
+    def test_01d2b_regime_sources_use_authoritative_fred_series_and_units(self):
+        """Level-regime inputs use nominal GDP and current money-market rates."""
+        self.assertEqual(config.FRED_SERIES["nominal_gdp"]["id"], "GDP")
+        self.assertEqual(config.FRED_SERIES["nominal_gdp"]["unit_scale"], "billions")
+        self.assertEqual(config.FRED_SERIES["iorb"]["id"], "IORB")
+        self.assertEqual(config.FRED_SERIES["sofr"]["id"], "SOFR")
+        self.assertEqual(config.FRED_SERIES["real_gdp"]["id"], "GDPC1")
+        self.assertTrue({"nominal_gdp", "iorb", "sofr"}.issubset(config.ACTIVE_FRED_SERIES_KEYS))
+
     def test_01d2a_scheduler_returns_machine_readable_source_status_counts(self):
         """Daily-job callers need source health totals without parsing fetcher output."""
         health_counts = {"FRED": {"CURRENT": 20, "ERROR": 1}, "YAHOO": {"CURRENT": 6}}
