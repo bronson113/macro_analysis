@@ -264,6 +264,44 @@ def test_differentiated_constituent_evidence_retains_existing_table(tmp_path):
     assert "No valid current EVE multiple is available." in content
 
 
+def test_malformed_constituent_factor_fields_are_safe(tmp_path):
+    differentiated_content = _write_report(
+        tmp_path,
+        [],
+        constituent_assessments=[
+            {
+                "ticker": "MU",
+                "group": "Memory",
+                "relative_valuation_status": "Insufficient History",
+                "posture": "WATCH",
+                "evidence": 1,
+                "missing_evidence": 1,
+            }
+        ],
+    )
+
+    assert "## 6. Constituent Evidence Assessments" in differentiated_content
+    assert "| `MU` | Memory | Insufficient History | `WATCH` | — | — |" in differentiated_content
+
+    neutral_content = _write_report(
+        tmp_path,
+        [],
+        constituent_assessments=[
+            {
+                "ticker": "NVDA",
+                "group": "Semiconductors",
+                "relative_valuation_status": "Insufficient History",
+                "posture": "NEUTRAL",
+                "evidence": 1,
+                "missing_evidence": 1,
+            }
+        ],
+    )
+
+    assert "## 6. Constituent Evidence Coverage" in neutral_content
+    assert "| Ticker | Peer Cohort |" not in neutral_content
+
+
 def test_reporter_is_parseable_by_pre_pep701_python():
     parser = shutil.which("python3.11") or shutil.which("python3.10")
     if parser is None:

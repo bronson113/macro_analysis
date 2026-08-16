@@ -485,18 +485,14 @@ class MacroReporter:
         if not constituent_assessments:
             return ""
 
-        def has_non_empty_value(value: Any) -> bool:
-            if isinstance(value, str):
-                return bool(value.strip())
-            if isinstance(value, (list, tuple, set, dict)):
-                return bool(value)
-            return value is not None and bool(value)
+        def has_non_empty_factor_list(value: Any) -> bool:
+            return isinstance(value, (list, tuple)) and bool(value)
 
         differentiated = any(
             str(assessment.get("posture") or "").strip().upper() in {"WATCH", "AVOID"}
-            or has_non_empty_value(assessment.get("evidence"))
-            or has_non_empty_value(assessment.get("positive_factors"))
-            or has_non_empty_value(assessment.get("negative_factors"))
+            or has_non_empty_factor_list(assessment.get("evidence"))
+            or has_non_empty_factor_list(assessment.get("positive_factors"))
+            or has_non_empty_factor_list(assessment.get("negative_factors"))
             for assessment in constituent_assessments
         )
 
@@ -645,6 +641,8 @@ Constituent review compares each company with its focused peer cohort and requir
     @staticmethod
     def _factor_descriptions(items: Iterable[Any]) -> str:
         """Format factor explanations defensively for compact Markdown table cells."""
+        if not isinstance(items, (list, tuple)):
+            return "—"
         descriptions = []
         for item in items or []:
             if isinstance(item, dict):
