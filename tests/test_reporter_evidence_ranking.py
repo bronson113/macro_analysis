@@ -159,6 +159,21 @@ def test_two_differentiated_sectors_split_between_stronger_and_weaker(tmp_path):
     assert "| Weaker evidence | Lower |" in ranking
 
 
+def test_duplicate_group_records_do_not_create_single_group_ranking_crash(tmp_path):
+    content = _write_report(
+        tmp_path,
+        [
+            _valid_assessment("Repeated", 4.0, "WATCH"),
+            _valid_assessment("Repeated", -2.0, "AVOID"),
+        ],
+    )
+
+    assert "No meaningful sector differentiation from current evidence." in content
+    assert "Usable assessments: `1`" in content
+    assert "Score spread: `Unavailable`" in content
+    assert "| Relative evidence |" not in content
+
+
 def test_stronger_boundary_ties_are_summarized_not_rendered_as_weaker(
     tmp_path,
 ):

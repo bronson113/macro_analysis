@@ -353,6 +353,10 @@ class MacroReporter:
             return ""
 
         usable = cls._usable_sector_assessments(assessments)
+        unique_by_group = {}
+        for assessment in usable:
+            unique_by_group.setdefault(assessment["sector_group"], assessment)
+        usable = list(unique_by_group.values())
         if len(usable) >= 2:
             scores = [assessment["score"] for assessment in usable]
             score_spread = max(scores) - min(scores)
@@ -389,10 +393,7 @@ class MacroReporter:
                 f"> {RESEARCH_DISCLOSURE}\n"
             )
 
-        unique_by_group = {}
-        for assessment in usable:
-            unique_by_group.setdefault(assessment["sector_group"], assessment)
-        unique_assessments = list(unique_by_group.values())
+        unique_assessments = usable
         stronger_candidates = sorted(
             unique_assessments,
             key=lambda assessment: (-assessment["score"], assessment["_input_index"]),
