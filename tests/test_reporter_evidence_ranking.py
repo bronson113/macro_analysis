@@ -14,7 +14,7 @@ class _StorageStub:
         return None
 
 
-def _analysis(assessments):
+def _analysis(assessments, constituent_assessments=None):
     return {
         "summary": {"date": "2026-08-15"},
         "liquidity_details": {},
@@ -27,16 +27,18 @@ def _analysis(assessments):
         "sector_valuations": [],
         "ai_ecosystem": [],
         "macro_situation": {},
-        "constituent_assessments": [],
+        "constituent_assessments": constituent_assessments or [],
         "evidence_assessments": assessments,
     }
 
 
-def _write_report(tmp_path, assessments):
+def _write_report(tmp_path, assessments, constituent_assessments=None):
     reporter = MacroReporter(
         storage=_StorageStub(), output_dir=tmp_path, verbose=False
     )
-    report_path = reporter.generate_markdown_report(_analysis(assessments))
+    report_path = reporter.generate_markdown_report(
+        _analysis(assessments, constituent_assessments)
+    )
     return Path(report_path).read_text(encoding="utf-8")
 
 
@@ -179,6 +181,87 @@ def test_invalid_directional_assessment_does_not_create_evidence_notable(tmp_pat
 
     assert "Usable assessments: `0`" in content
     assert "**Evidence:** Invalid directional" not in notable_summary
+
+
+def test_all_neutral_constituent_evidence_collapses_to_coverage_note(tmp_path):
+    missing_history = (
+        "Only 11 valid historical relative observations are available; 60 are required."
+    )
+    constituent_assessments = [
+        {
+            "ticker": "MU",
+            "group": "Memory",
+            "relative_valuation_status": "Insufficient History",
+            "posture": "NEUTRAL",
+            "evidence": [],
+            "missing_evidence": [missing_history],
+            "positive_factors": [],
+            "negative_factors": [],
+        },
+        {
+            "ticker": "NVDA",
+            "group": "Semiconductors",
+            "relative_valuation_status": "Insufficient History",
+            "posture": "NEUTRAL",
+            "evidence": [],
+            "missing_evidence": [missing_history],
+            "positive_factors": [],
+            "negative_factors": [],
+        },
+        {
+            "ticker": "CEG",
+            "group": "Downstream Power & Grid",
+            "relative_valuation_status": "Insufficient History",
+            "posture": "NEUTRAL",
+            "evidence": [],
+            "missing_evidence": [missing_history],
+            "positive_factors": [],
+            "negative_factors": [],
+        },
+    ]
+
+    content = _write_report(
+        tmp_path,
+        [],
+        constituent_assessments=constituent_assessments,
+    )
+
+    assert "## 6. Constituent Evidence Coverage" in content
+    assert "Constituents evaluated: `3`" in content
+    assert "no company-level differentiation is supported yet" in content
+    assert (
+        "Only 11 valid historical relative observations are available; 60 are required. "
+        "(`3` of `3` constituents)"
+    ) in content
+    assert "| Ticker | Peer Cohort |" not in content
+
+
+def test_differentiated_constituent_evidence_retains_existing_table(tmp_path):
+    constituent_assessments = [
+        {
+            "ticker": "MU",
+            "group": "Memory",
+            "relative_valuation_status": "Discounted vs Historical Cohort Relationship",
+            "posture": "WATCH",
+            "evidence": [
+                "Current Fwd P/E ratio is 30% below the cohort-history median."
+            ],
+            "missing_evidence": ["No valid current EVE multiple is available."],
+        }
+    ]
+
+    content = _write_report(
+        tmp_path,
+        [],
+        constituent_assessments=constituent_assessments,
+    )
+
+    assert "## 6. Constituent Evidence Assessments" in content
+    assert "| Ticker | Peer Cohort | Relative Valuation Status |" in content
+    assert "`MU`" in content
+    assert "Discounted vs Historical Cohort Relationship" in content
+    assert "Current Fwd P/E ratio is 30% below the cohort-history median." in content
+    assert "No valid current EVE multiple is available." in content
 
 
 def test_reporter_is_parseable_by_pre_pep701_python():

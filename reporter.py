@@ -473,6 +473,68 @@ class MacroReporter:
             f"> {RESEARCH_DISCLOSURE}\n"
         )
 
+    @classmethod
+    def _constituent_evidence_section(cls, assessments: Any) -> str:
+        """Collapse non-differentiated constituent evidence to a coverage note."""
+        if not isinstance(assessments, list) or not assessments:
+            return ""
+
+        constituent_assessments = [
+            assessment for assessment in assessments if isinstance(assessment, dict)
+        ]
+        if not constituent_assessments:
+            return ""
+
+        def has_non_empty_value(value: Any) -> bool:
+            if isinstance(value, str):
+                return bool(value.strip())
+            if isinstance(value, (list, tuple, set, dict)):
+                return bool(value)
+            return value is not None and bool(value)
+
+        differentiated = any(
+            str(assessment.get("posture") or "").strip().upper() in {"WATCH", "AVOID"}
+            or has_non_empty_value(assessment.get("evidence"))
+            or has_non_empty_value(assessment.get("positive_factors"))
+            or has_non_empty_value(assessment.get("negative_factors"))
+            for assessment in constituent_assessments
+        )
+
+        if not differentiated:
+            reason, reason_count, assessment_count = cls._dominant_missing_reason(
+                constituent_assessments
+            )
+            reason_text = md_cell(reason or "None identified")
+            return (
+                "## 6. Constituent Evidence Coverage\n\n"
+                f"Constituents evaluated: `{assessment_count}`\n\n"
+                "Current inputs do not support company-level differentiation yet. "
+                "In other words, no company-level differentiation is supported yet.\n\n"
+                f"- Dominant missing input: {reason_text} "
+                f"(`{reason_count}` of `{assessment_count}` constituents)\n"
+            )
+
+        constituent_rows = []
+        for assessment in constituent_assessments:
+            constituent_rows.append(
+                f"| `{md_cell(assessment.get('ticker', ''))}` | "
+                f"{md_cell(assessment.get('group', ''))} | "
+                f"{md_cell(assessment.get('relative_valuation_status', ''))} | "
+                f"`{md_cell(assessment.get('posture', ''))}` | "
+                f"{cls._factor_descriptions(assessment.get('evidence'))} | "
+                f"{cls._factor_descriptions(assessment.get('missing_evidence'))} |"
+            )
+        constituent_table_md = "\n".join(constituent_rows)
+        return f"""
+## 6. Constituent Evidence Assessments
+
+Constituent review compares each company with its focused peer cohort and requires sufficient historical relative evidence.
+
+| Ticker | Peer Cohort | Relative Valuation Status | Research Posture | Evidence | Missing Evidence |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+{constituent_table_md}
+"""
+
     def _load_previous_notable_items(self, today_str: str) -> List[NotableItem]:
         """Load the newest dated semantic notable-state sidecar before today."""
         candidates = []
@@ -993,28 +1055,7 @@ Market consensus is a forward-looking overlay and never changes the current quad
         evidence_section_md = self._sector_evidence_section(evidence_assessments)
 
         # Build constituent evidence markdown section.
-        constituent_section_md = ""
-        if constituent_assessments:
-            constituent_rows = []
-            for assessment in constituent_assessments:
-                constituent_rows.append(
-                    f"| `{md_cell(assessment.get('ticker', ''))}` | "
-                    f"{md_cell(assessment.get('group', ''))} | "
-                    f"{md_cell(assessment.get('relative_valuation_status', ''))} | "
-                    f"`{md_cell(assessment.get('posture', ''))}` | "
-                    f"{self._factor_descriptions(assessment.get('evidence'))} | "
-                    f"{self._factor_descriptions(assessment.get('missing_evidence'))} |"
-                )
-            constituent_table_md = "\n".join(constituent_rows)
-            constituent_section_md = f"""
-## 6. Constituent Evidence Assessments
-
-Constituent review compares each company with its focused peer cohort and requires sufficient historical relative evidence.
-
-| Ticker | Peer Cohort | Relative Valuation Status | Research Posture | Evidence | Missing Evidence |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-{constituent_table_md}
-"""
+        constituent_section_md = self._constituent_evidence_section(constituent_assessments)
 
         # Build AI & Physical AI Ecosystem Markdown section
         ai_section_md = ""
