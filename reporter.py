@@ -389,41 +389,67 @@ class MacroReporter:
                 f"> {RESEARCH_DISCLOSURE}\n"
             )
 
+        unique_by_group = {}
+        for assessment in usable:
+            unique_by_group.setdefault(assessment["sector_group"], assessment)
+        unique_assessments = list(unique_by_group.values())
         stronger_candidates = sorted(
-            usable, key=lambda assessment: (-assessment["score"], assessment["_input_index"])
+            unique_assessments,
+            key=lambda assessment: (-assessment["score"], assessment["_input_index"]),
         )
         weaker_candidates = sorted(
-            usable, key=lambda assessment: (assessment["score"], assessment["_input_index"])
+            unique_assessments,
+            key=lambda assessment: (assessment["score"], assessment["_input_index"]),
         )
-        selected_groups = set()
-        selected_input_indexes = set()
 
-        def select(candidates, limit):
-            selected = []
-            for candidate in candidates:
-                group = candidate["sector_group"]
-                if group in selected_groups or group in {item["sector_group"] for item in selected}:
-                    continue
-                selected.append(candidate)
-                selected_groups.add(group)
-                selected_input_indexes.add(candidate["_input_index"])
-                if len(selected) >= limit:
-                    break
-            return selected
+        # Choose the largest pair of capped, strictly separated score extremes.
+        # Searching the stronger count is necessary when a tie occupies the
+        # potential boundary: those tied groups must not spill onto the weaker
+        # side merely to fill its remaining row capacity.
+        max_stronger = min(3, len(unique_assessments) - 1)
+        best_partition = None
+        for stronger_count in range(1, max_stronger + 1):
+            stronger_candidate_set = stronger_candidates[:stronger_count]
+            stronger_groups = {
+                assessment["sector_group"] for assessment in stronger_candidate_set
+            }
+            stronger_boundary = stronger_candidate_set[-1]["score"]
+            weaker_pool = [
+                assessment
+                for assessment in weaker_candidates
+                if assessment["sector_group"] not in stronger_groups
+                and assessment["score"] < stronger_boundary
+            ]
+            weaker_candidate_set = weaker_pool[:3]
+            partition_key = (
+                len(stronger_candidate_set) + len(weaker_candidate_set),
+                len(stronger_candidate_set),
+            )
+            if best_partition is None or partition_key > best_partition[0]:
+                best_partition = (
+                    partition_key,
+                    stronger_candidate_set,
+                    weaker_candidate_set,
+                )
 
-        stronger = select(stronger_candidates, 3)
-        weaker = select(weaker_candidates, 3)
-        score_counts = Counter(assessment["score"] for assessment in usable)
+        _, stronger, weaker = best_partition
+        selected_groups = {
+            assessment["sector_group"] for assessment in stronger + weaker
+        }
+        score_counts = Counter(assessment["score"] for assessment in unique_assessments)
 
         def boundary_overflow(candidates, selected):
-            if len(selected) < 3:
+            if not selected:
                 return 0
             boundary = selected[-1]["score"]
+            selected_side_groups = {
+                assessment["sector_group"] for assessment in selected
+            }
             return sum(
                 1
                 for candidate in candidates
                 if candidate["score"] == boundary
-                and candidate["_input_index"] not in selected_input_indexes
+                and candidate["sector_group"] not in selected_side_groups
                 and candidate["sector_group"] not in selected_groups
             )
 

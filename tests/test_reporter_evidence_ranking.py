@@ -143,6 +143,46 @@ def test_differentiated_report_selects_stable_stronger_and_weaker_rows_and_forma
     ) < ranking.index("| Stronger evidence (tied) | Gamma |")
 
 
+def test_two_differentiated_sectors_split_between_stronger_and_weaker(tmp_path):
+    content = _write_report(
+        tmp_path,
+        [
+            _valid_assessment("Higher", 4.0, "WATCH"),
+            _valid_assessment("Lower", -2.0, "AVOID"),
+        ],
+    )
+    ranking = content.split("## 5. Sector Evidence Ranking", 1)[1]
+
+    assert ranking.count("| Stronger evidence") == 1
+    assert ranking.count("| Weaker evidence") == 1
+    assert "| Stronger evidence | Higher |" in ranking
+    assert "| Weaker evidence | Lower |" in ranking
+
+
+def test_stronger_boundary_ties_are_summarized_not_rendered_as_weaker(
+    tmp_path,
+):
+    assessments = [
+        _valid_assessment("Top One", 6.0, "WATCH"),
+        _valid_assessment("Top Two", 6.0, "WATCH"),
+        _valid_assessment("Top Three", 6.0, "WATCH"),
+        _valid_assessment("Top Four", 6.0, "WATCH"),
+        _valid_assessment("Lower One", -5.0, "AVOID"),
+        _valid_assessment("Lower Two", -4.0, "AVOID"),
+    ]
+
+    content = _write_report(tmp_path, assessments)
+    ranking = content.split("## 5. Sector Evidence Ranking", 1)[1]
+
+    assert ranking.count("| Stronger evidence") == 3
+    assert ranking.count("| Weaker evidence") == 2
+    assert "| Stronger evidence (tied) | Top One |" in ranking
+    assert "| Stronger evidence (tied) | Top Two |" in ranking
+    assert "| Stronger evidence (tied) | Top Three |" in ranking
+    assert "| Weaker evidence (tied) | Top Four |" not in ranking
+    assert "Additional sectors tied at this score: `1`" in ranking
+
+
 def test_explicit_empty_factors_do_not_fallback_to_legacy_factor_lists(tmp_path):
     stale_factor = {
         "factor_id": "legacy_factor",
