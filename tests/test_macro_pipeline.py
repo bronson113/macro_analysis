@@ -117,6 +117,136 @@ class TestMacroPipeline(unittest.TestCase):
             with_news_technology["posture"], without_news_technology["posture"]
         )
 
+    def test_recommendations_use_level_state_when_liquidity_momentum_is_falling(self):
+        """Abundant liquidity remains the Situation 4 sector hypothesis while falling."""
+        quadrant = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "ABUNDANT", quality="OK", context={}
+        )
+        regime = {
+            "policy": {"state": "RESTRICTIVE"},
+            "liquidity": {
+                "state": "ABUNDANT",
+                "momentum_30d": "DETERIORATING",
+            },
+            "quadrant": quadrant,
+        }
+        summary = {
+            "date": "2026-08-15",
+            # This legacy display value intentionally disagrees with the level
+            # state. It must not be used to select the sector hypothesis.
+            "liquidity_regime": "Contracting / Neutral",
+        }
+
+        recommendations = SectorEvidenceEngine().generate_recommendations(
+            summary,
+            {"high_yield_oas": 3.0},
+            [],
+            [],
+            [],
+            quadrant,
+            regime,
+        )
+
+        energy = next(
+            item for item in recommendations if item["sector_group"] == "Energy (XLE)"
+        )
+        self.assertTrue(any(
+            factor["factor_id"] == "macro_quadrant"
+            and factor["contribution"] > 0
+            for factor in energy["positive_factors"]
+        ))
+
+    def test_report_sections_are_in_decision_order(self):
+        """Structured regime report groups remain in the decision order."""
+        quadrant = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "ABUNDANT", quality="OK", context={}
+        )
+        analysis = {
+            "summary": {"date": "2026-08-15"},
+            "macro_regime": {
+                "policy": {
+                    "state": "RESTRICTIVE",
+                    "real_policy_rate": 1.20,
+                    "rstar_value": 0.10,
+                    "policy_gap": 1.10,
+                    "dff_date": "2026-08-14",
+                    "history_start": "2016-08-15",
+                    "history_end": "2026-07-31",
+                    "history_count": 119,
+                    "momentum_30d": "EASING",
+                    "momentum_30d_value": -0.20,
+                    "momentum_30d_date": "2026-07-16",
+                    "momentum_90d": "EASING",
+                    "momentum_90d_value": -0.30,
+                    "momentum_90d_date": "2026-05-17",
+                },
+                "liquidity": {
+                    "state": "ABUNDANT",
+                    "normalized_liquidity_pct_gdp": 19.5,
+                    "current_percentile": 75.0,
+                    "historical_p40": 13.0,
+                    "historical_p60": 17.0,
+                    "fed_assets_date": "2026-08-14",
+                    "history_start": "2016-08-12",
+                    "history_end": "2026-08-07",
+                    "history_count": 500,
+                    "momentum_30d": "DETERIORATING",
+                    "momentum_30d_value": -0.20,
+                    "momentum_30d_date": "2026-07-16",
+                    "momentum_90d": "STABLE",
+                    "momentum_90d_value": 0.00,
+                    "momentum_90d_date": "2026-05-16",
+                },
+                "quadrant": quadrant,
+                "momentum": {
+                    "policy": {"30d": "EASING", "90d": "EASING"},
+                    "liquidity": {"30d": "DETERIORATING", "90d": "STABLE"},
+                },
+                "consensus": {
+                    "quality": "OK",
+                    "policy_direction": "EASING",
+                    "balance_sheet_direction": "STABLE",
+                    "selected_survey_date": "2026-07-01",
+                    "selected_target_date": "2027-01-01",
+                },
+                "data_quality": {
+                    "quality": "OK",
+                    "policy_reasons": [],
+                    "liquidity_reasons": [],
+                },
+            },
+            "macro_situation": quadrant,
+            "liquidity_details": {},
+            "policy_details": {},
+            "yield_curve_details": {},
+            "credit_details": {},
+            "market_details": {},
+            "macro_details": {},
+            "news_events": [],
+            "sector_valuations": [],
+            "ai_ecosystem": [],
+            "constituent_assessments": [],
+            "evidence_assessments": [],
+        }
+
+        report_path = self.reporter.generate_markdown_report(analysis)
+        report = Path(report_path).read_text(encoding="utf-8")
+        headings = [
+            report.index(name)
+            for name in [
+                "Current State",
+                "Momentum",
+                "Consensus",
+                "Interpretation",
+                "Data Quality",
+            ]
+        ]
+        self.assertEqual(headings, sorted(headings))
+        self.assertIn("19.50", report)
+        self.assertIn("balance-sheet consensus", report.lower())
+        self.assertIn("2016-08-12", report)
+        self.assertIn("500", report)
+
     def test_01b_fred_fetch_keeps_ten_year_history_window(self):
         """FRED backfill should retain observations inside the dashboard's 10-year window."""
         class FakeResponse:

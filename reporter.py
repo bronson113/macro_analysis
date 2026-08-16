@@ -248,6 +248,214 @@ class MacroReporter:
                 descriptions.append(md_cell(description))
         return "<br>".join(descriptions) or "—"
 
+    @staticmethod
+    def _first_value(*values: Any) -> Any:
+        """Return the first present value, retaining meaningful zero values."""
+        for value in values:
+            if value is not None and value != "":
+                return value
+        return None
+
+    @staticmethod
+    def _date_value(value: Any) -> str:
+        """Render a structured observation date without leaking repr details."""
+        if value is None or value == "":
+            return "N/A"
+        try:
+            return value.strftime("%Y-%m-%d")
+        except AttributeError:
+            text = str(value)
+            return text.split("T", 1)[0].split(" ", 1)[0]
+
+    @staticmethod
+    def _list_value(value: Any) -> List[Any]:
+        return list(value) if isinstance(value, (list, tuple, set)) else []
+
+    def _structured_regime(self, analysis: Dict[str, Any]) -> Dict[str, Any]:
+        """Normalize current and legacy analysis payloads at the report boundary."""
+        regime = analysis.get("macro_regime")
+        regime = dict(regime) if isinstance(regime, dict) else {}
+        policy = regime.get("policy")
+        if not isinstance(policy, dict) or not policy:
+            policy = regime.get("policy_details")
+        if not isinstance(policy, dict) or not policy:
+            policy = analysis.get("policy_details")
+        policy = dict(policy) if isinstance(policy, dict) else {}
+
+        liquidity = regime.get("liquidity")
+        if not isinstance(liquidity, dict) or not liquidity:
+            liquidity = regime.get("liquidity_details")
+        if not isinstance(liquidity, dict) or not liquidity:
+            liquidity = analysis.get("liquidity_details")
+        liquidity = dict(liquidity) if isinstance(liquidity, dict) else {}
+
+        quadrant = regime.get("quadrant")
+        if not isinstance(quadrant, dict) or not quadrant:
+            quadrant = analysis.get("macro_situation")
+        quadrant = dict(quadrant) if isinstance(quadrant, dict) else {}
+
+        current_state = regime.get("current_state")
+        if not isinstance(current_state, dict):
+            current_state = analysis.get("current_state")
+        current_state = dict(current_state) if isinstance(current_state, dict) else {}
+
+        momentum = regime.get("momentum")
+        if not isinstance(momentum, dict):
+            momentum = analysis.get("momentum")
+        momentum = dict(momentum) if isinstance(momentum, dict) else {}
+
+        consensus = regime.get("consensus")
+        if not isinstance(consensus, dict):
+            consensus = analysis.get("consensus")
+        consensus = dict(consensus) if isinstance(consensus, dict) else {}
+
+        data_quality = regime.get("data_quality")
+        if not isinstance(data_quality, dict):
+            data_quality = analysis.get("data_quality")
+        data_quality = dict(data_quality) if isinstance(data_quality, dict) else {}
+
+        # The analyzer already publishes these aliases, but this fallback
+        # keeps reports useful for legacy snapshot and test fixtures.
+        policy.setdefault("state", self._first_value(
+            current_state.get("policy_state"), current_state.get("policy")
+        ))
+        liquidity.setdefault("state", self._first_value(
+            current_state.get("liquidity_state"), current_state.get("liquidity")
+        ))
+        quadrant.setdefault("situation_id", current_state.get("situation_id"))
+        regime.update({
+            "policy": policy,
+            "liquidity": liquidity,
+            "quadrant": quadrant,
+            "current_state": current_state,
+            "momentum": momentum,
+            "consensus": consensus,
+            "data_quality": data_quality,
+        })
+        return regime
+
+    def _regime_sections_markdown(self, analysis: Dict[str, Any]) -> str:
+        """Render the five decision groups from structured regime measurements."""
+        regime = self._structured_regime(analysis)
+        policy = regime["policy"]
+        liquidity = regime["liquidity"]
+        quadrant = regime["quadrant"]
+        momentum = regime["momentum"]
+        consensus = regime["consensus"]
+        quality = regime["data_quality"]
+
+        policy_state = self._first_value(policy.get("state"), "N/A")
+        liquidity_state = self._first_value(liquidity.get("state"), "N/A")
+        situation_id = self._first_value(quadrant.get("situation_id"), "N/A")
+        situation_name = self._first_value(quadrant.get("name"), "N/A")
+
+        policy_momentum = momentum.get("policy")
+        if not isinstance(policy_momentum, dict):
+            policy_momentum = {}
+        liquidity_momentum = momentum.get("liquidity")
+        if not isinstance(liquidity_momentum, dict):
+            liquidity_momentum = {}
+
+        # Explicit per-axis values keep 30- and 90-day overlays auditable even
+        # when a producer only includes the compact nested representation.
+        def momentum_row(label: str, measurement: Dict[str, Any], overlay: Dict[str, Any], horizon: str) -> str:
+            state = self._first_value(
+                overlay.get(horizon),
+                measurement.get(f"momentum_{horizon}d"),
+                momentum.get(f"{label.lower()}_{horizon}d"),
+            )
+            value = self._first_value(
+                overlay.get(f"{horizon}_value"),
+                measurement.get(f"momentum_{horizon}d_value"),
+                momentum.get(f"{label.lower()}_{horizon}d_value"),
+            )
+            date = self._first_value(
+                overlay.get(f"{horizon}_date"),
+                measurement.get(f"momentum_{horizon}d_date"),
+                momentum.get(f"{label.lower()}_{horizon}d_date"),
+            )
+            value_text = fmt_num(value, ":+.3f", default="N/A")
+            return f"- **{label} {horizon}:** `{md_cell(state or 'N/A')}`; change `{value_text}`; prior date `{self._date_value(date)}`."
+
+        policy_dates = policy.get("dates") if isinstance(policy.get("dates"), dict) else {}
+        liquidity_dates = liquidity.get("dates") if isinstance(liquidity.get("dates"), dict) else {}
+        policy_history_start = self._first_value(policy.get("history_start"), policy.get("history_sample_start"))
+        policy_history_end = self._first_value(policy.get("history_end"), policy.get("history_sample_end"))
+        liquidity_history_start = self._first_value(liquidity.get("history_start"), liquidity.get("history_sample_start"))
+        liquidity_history_end = self._first_value(liquidity.get("history_end"), liquidity.get("history_sample_end"))
+
+        current_state_md = f"""
+## Current State
+
+- **Quadrant:** `Situation {md_cell(situation_id)}` — `{md_cell(situation_name)}`.
+- **Policy level:** `{md_cell(policy_state)}`. Real policy rate: `{fmt_num(policy.get('real_policy_rate'), ':+.3f', ' pp')}`; neutral real rate (r-star): `{fmt_num(self._first_value(policy.get('rstar_value'), policy.get('neutral_real_rate')), ':+.3f', ' pp')}`; policy gap: `{fmt_num(policy.get('policy_gap'), ':+.3f', ' pp')}`; classification threshold: `±0.50 pp`.
+  - Current inputs — DFF: `{fmt_num(self._first_value(policy.get('dff_value'), policy.get('dff')), ':+.3f', ' pp')}`; core PCE YoY: `{fmt_num(self._first_value(policy.get('core_pce_yoy_pct'), policy.get('core_pce_yoy')), ':.3f', '%')}`; r-star: `{fmt_num(self._first_value(policy.get('rstar_value'), policy.get('rstar')), ':+.3f', ' pp')}`.
+  - Observation dates — DFF: `{self._date_value(self._first_value(policy.get('dff_date'), policy_dates.get('dff')))}`; core PCE: `{self._date_value(self._first_value(policy.get('core_pce_date'), policy_dates.get('core_pce')))}`; r-star: `{self._date_value(self._first_value(policy.get('rstar_date'), policy_dates.get('rstar')))}`.
+  - Historical sample: `{self._date_value(policy_history_start)}` through `{self._date_value(policy_history_end)}`; count `{md_cell(self._first_value(policy.get('history_count'), 0))}`.
+- **Reserve-liquidity level:** `{md_cell(liquidity_state)}`. Current normalized value: `{fmt_num(self._first_value(liquidity.get('normalized_liquidity_pct_gdp'), liquidity.get('normalized_liquidity')), ':,.3f', '% of GDP')}`; historical percentile: `{fmt_num(self._first_value(liquidity.get('current_percentile'), liquidity.get('liquidity_percentile')), ':.1f', 'th')}`; thresholds: P40 `{fmt_num(self._first_value(liquidity.get('historical_p40'), liquidity.get('threshold_40')), ':,.3f')}`, P60 `{fmt_num(self._first_value(liquidity.get('historical_p60'), liquidity.get('threshold_60')), ':,.3f')}`.
+  - Current inputs — Fed assets: `{fmt_num(self._first_value(liquidity.get('fed_assets_millions'), liquidity.get('fed_assets_value'), liquidity.get('fed_assets')), ':,.2f', ' M')}`; TGA: `{fmt_num(self._first_value(liquidity.get('tga_millions'), liquidity.get('tga_value'), liquidity.get('tga')), ':,.2f', ' M')}`; ON RRP: `{fmt_num(self._first_value(liquidity.get('rrp_billions'), liquidity.get('rrp_value'), liquidity.get('rrp')), ':,.2f', ' B')}`; nominal GDP: `{fmt_num(self._first_value(liquidity.get('nominal_gdp_billions'), liquidity.get('nominal_gdp_value'), liquidity.get('nominal_gdp')), ':,.2f', ' B')}`.
+  - Observation dates — Fed assets: `{self._date_value(self._first_value(liquidity.get('fed_assets_date'), liquidity_dates.get('fed_assets')))}`; TGA: `{self._date_value(self._first_value(liquidity.get('tga_date'), liquidity_dates.get('tga')))}`; ON RRP: `{self._date_value(self._first_value(liquidity.get('rrp_date'), liquidity_dates.get('rrp')))}`; nominal GDP: `{self._date_value(self._first_value(liquidity.get('nominal_gdp_date'), liquidity_dates.get('nominal_gdp')))}`.
+  - Historical sample: `{self._date_value(liquidity_history_start)}` through `{self._date_value(liquidity_history_end)}`; count `{md_cell(self._first_value(liquidity.get('history_count'), liquidity.get('history_sample_count'), 0))}`.
+""".strip() + "\n"
+
+        momentum_md = f"""
+## Momentum
+
+Momentum is a separate overlay and does not change the current level-based quadrant.
+{momentum_row('Policy', policy, policy_momentum, '30d')}
+{momentum_row('Policy', policy, policy_momentum, '90d')}
+{momentum_row('Liquidity', liquidity, liquidity_momentum, '30d')}
+{momentum_row('Liquidity', liquidity, liquidity_momentum, '90d')}
+""".strip() + "\n"
+
+        consensus_quality = self._first_value(consensus.get("quality"), "UNAVAILABLE")
+        consensus_reasons = self._list_value(consensus.get("reasons"))
+        consensus_reason_text = "; ".join(md_cell(reason) for reason in consensus_reasons) or "None reported"
+        consensus_md = f"""
+## Consensus
+
+Market consensus is a forward-looking overlay and never changes the current quadrant.
+- **Policy consensus:** `{md_cell(self._first_value(consensus.get('policy_direction'), consensus.get('policy'), 'N/A'))}`; expected DFF `{fmt_num(consensus.get('expected_dff'), ':,.3f', ' pp')}`.
+- **Fed balance-sheet consensus:** `{md_cell(self._first_value(consensus.get('balance_sheet_direction'), consensus.get('balance_sheet'), 'N/A'))}`; expected Fed assets `{fmt_num(consensus.get('expected_fed_assets'), ':,.2f', ' B')}`.
+- **Survey date:** `{self._date_value(self._first_value(consensus.get('selected_survey_date'), consensus.get('survey_date')))}`; target date: `{self._date_value(self._first_value(consensus.get('selected_target_date'), consensus.get('target_date')))}`; quality: `{md_cell(consensus_quality)}`.
+- **Consensus reasons:** {consensus_reason_text}.
+""".strip() + "\n"
+
+        favored = ", ".join(md_cell(item) for item in self._list_value(quadrant.get("favored_sectors"))) or "None listed"
+        company_types = ", ".join(md_cell(item) for item in self._list_value(quadrant.get("favored_company_types"))) or "None listed"
+        disfavored = ", ".join(md_cell(item) for item in self._list_value(quadrant.get("disfavored_sectors"))) or "None listed"
+        interpretation_md = f"""
+## Interpretation
+
+- **Macro interpretation:** {md_cell(quadrant.get('description') or 'No structured interpretation is available.')}
+- **Favored sector hypotheses:** {favored}.
+- **Preferred company characteristics:** {company_types}.
+- **Disfavored sector hypotheses:** {disfavored}.
+- **Quality caveat:** sector mappings are research hypotheses; independent evidence factors remain visible below.
+""".strip() + "\n"
+
+        quality_reasons = self._list_value(quality.get("reasons"))
+        quality_reasons.extend(self._list_value(quality.get("policy_reasons")))
+        quality_reasons.extend(self._list_value(quality.get("liquidity_reasons")))
+        quality_reasons.extend(self._list_value(regime.get("missing_inputs")))
+        quality_reasons.extend(self._list_value(regime.get("conflicts")))
+        quality_reason_text = "; ".join(md_cell(reason) for reason in quality_reasons) or "None reported"
+        input_ages = quality.get("input_ages") or quality.get("ages") or {}
+        age_text = ", ".join(
+            f"{md_cell(key)} `{md_cell(value)}` days"
+            for key, value in input_ages.items()
+            if value is not None
+        ) or "Unavailable"
+        data_quality_md = f"""
+## Data Quality
+
+- **Overall quality:** `{md_cell(self._first_value(quality.get('quality'), quality.get('overall'), quadrant.get('quality'), 'UNAVAILABLE'))}`; policy quality: `{md_cell(policy.get('quality') or 'N/A')}`; liquidity quality: `{md_cell(liquidity.get('quality') or 'N/A')}`.
+- **Input ages:** {age_text}.
+- **Reasons, missing inputs, and conflicts:** {quality_reason_text}.
+""".strip() + "\n"
+
+        return "\n".join((current_state_md, momentum_md, consensus_md, interpretation_md, data_quality_md))
+
     def print_terminal_dashboard(self, analysis: Dict[str, Any]):
         """Prints a clean, institutional-grade ASCII dashboard to terminal."""
         summary = analysis["summary"]
@@ -268,6 +476,10 @@ class MacroReporter:
         print(f"   DEFIANT GATEKEEPER 4-QUADRANT MACRO, SECTOR DISPERSION & TAX-AWARE DASHBOARD")
         print(f"                     Date: {summary.get('date', 'N/A')}")
         print("=" * 100)
+
+        # Keep the console and Markdown surfaces on the same structured,
+        # decision-order view of the level regime.
+        print(self._regime_sections_markdown(analysis))
 
         # Check for data staleness
         is_stale = False
@@ -533,6 +745,7 @@ Tracking valuation multiples and downstream physical dependencies across compute
         notable_summary_md = self._build_notable_summary_md(
             current_notable_items, previous_notable_items
         )
+        regime_sections_md = self._regime_sections_markdown(analysis)
 
         report_content = f"""# Daily Macro Evidence Report ({today_str})
 *Automated Capture Engine & Institutional Research Framework (Defiant Gatekeeper)*
@@ -540,6 +753,8 @@ Tracking valuation multiples and downstream physical dependencies across compute
 {stale_warning_md}
 ---
 {notable_summary_md}
+---
+{regime_sections_md}
 ---
 {sit_section_md}
 ---

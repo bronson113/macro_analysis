@@ -39,14 +39,25 @@ class SectorEvidenceEngine:
         ai_ecosystem: List[Dict[str, Any]],
         news_events: List[Dict[str, Any]],
         macro_situation: Dict[str, Any],
+        macro_regime: Optional[Dict[str, Any]] = None,
     ) -> List[Dict[str, Any]]:
         """Return deterministic sector assessments from the supplied evidence inputs."""
 
-        summary = summary or {}
+        summary = dict(summary or {})
         credit = credit or {}
         valuations = valuations or []
         ai_ecosystem = ai_ecosystem or []
-        macro_situation = macro_situation or {}
+        macro_regime = macro_regime or {}
+        macro_situation = macro_situation or macro_regime.get("quadrant") or {}
+        policy = macro_regime.get("policy") or {}
+        liquidity = macro_regime.get("liquidity") or {}
+        # The level state is the machine-readable source of truth.  Keep the
+        # legacy summary fields for report context, but never infer a factor
+        # from their rendered labels.
+        if summary.get("policy_state") is None and policy.get("state") is not None:
+            summary["policy_state"] = policy.get("state")
+        if summary.get("liquidity_state") is None and liquidity.get("state") is not None:
+            summary["liquidity_state"] = liquidity.get("state")
         _ = news_events  # News remains uninterpreted context, not directional evidence.
 
         valuations_by_sector = {
@@ -82,6 +93,37 @@ class SectorEvidenceEngine:
             assessments.append(assessment)
 
         return assessments
+
+    def generate_recommendations(
+        self,
+        summary: Dict[str, Any],
+        credit: Dict[str, Any],
+        valuations: List[Dict[str, Any]],
+        ai_ecosystem: List[Dict[str, Any]],
+        news_events: List[Dict[str, Any]],
+        macro_situation: Dict[str, Any],
+        macro_regime: Optional[Dict[str, Any]] = None,
+    ) -> List[Dict[str, Any]]:
+        """Return evidence-shaped sector recommendations from structured regime data.
+
+        The former recommendation engine exposed trade actions.  The current
+        evidence contract intentionally exposes factor contributions and
+        review postures instead.  This compatibility entry point keeps callers
+        that request recommendations on the structured regime boundary while
+        preserving that non-directive output contract.
+        """
+
+        regime = macro_regime or {}
+        quadrant = macro_situation or regime.get("quadrant") or {}
+        return self.generate_assessments(
+            summary,
+            credit,
+            valuations,
+            ai_ecosystem,
+            news_events,
+            quadrant,
+            macro_regime=regime,
+        )
 
     def _build_factors(
         self,
@@ -144,12 +186,13 @@ class SectorEvidenceEngine:
         as_of_date: Optional[str],
     ) -> EvidenceFactor:
         quality = macro_situation.get("quality")
-        if quality != "OK":
+        situation_id = macro_situation.get("situation_id")
+        if quality != "OK" or situation_id not in {1, 2, 3, 4}:
             return self._factor(
                 "macro_quadrant",
                 "macro",
                 0,
-                quality,
+                situation_id if situation_id is not None else quality,
                 "quality",
                 as_of_date,
                 "macro_matrix",
@@ -175,8 +218,12 @@ class SectorEvidenceEngine:
     def _liquidity_factor(
         self, summary: Dict[str, Any], as_of_date: Optional[str]
     ) -> EvidenceFactor:
-        regime = summary.get("liquidity_regime")
-        if not regime:
+        state = summary.get("liquidity_state")
+        if not isinstance(state, str) or state.upper() not in {
+            "ABUNDANT",
+            "SCARCE",
+            "NEUTRAL",
+        }:
             return self._missing_factor(
                 "liquidity",
                 "liquidity",
@@ -184,17 +231,17 @@ class SectorEvidenceEngine:
                 as_of_date,
                 "summary",
             )
-        normalized = str(regime).lower()
-        contribution = 1 if "expanding" in normalized else -1 if "contracting" in normalized else 0
+        normalized = state.upper()
+        contribution = 1 if normalized == "ABUNDANT" else -1 if normalized == "SCARCE" else 0
         return self._factor(
             "liquidity",
             "liquidity",
             contribution,
-            regime,
-            "regime",
+            normalized,
+            "level_state",
             as_of_date,
             "summary",
-            "Reserve-liquidity direction is expanding, contracting, or neutral.",
+            "Reserve-liquidity level is evaluated against its historical distribution.",
         )
 
     def _credit_factor(
@@ -383,3 +430,8 @@ class SectorEvidenceEngine:
         except (TypeError, ValueError):
             return None
         return number if isfinite(number) else None
+
+
+# Keep the historical class import usable while routing all behavior through
+# the evidence-oriented implementation above.
+SectorRecommendationEngine = SectorEvidenceEngine

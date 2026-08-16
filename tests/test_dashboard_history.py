@@ -45,6 +45,43 @@ class TestDashboardHistory(unittest.TestCase):
             self.assertEqual(exported["source_health"][0]["fetch_key"], "treasury_10y")
             self.assertIsNone(exported["outcome_evaluation"])
 
+    def test_export_dashboard_payload_exposes_ordered_regime_groups(self):
+        """Dashboard exports preserve the five structured regime groups in order."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            output_dir = root / "output"
+            data_dir = root / "data"
+            output_dir.mkdir()
+            data_dir.mkdir()
+            (output_dir / "latest_raw_payload.json").write_text(
+                json.dumps({
+                    "macro_regime": {
+                        "current_state": {"situation_id": 4},
+                        "momentum": {"liquidity_30d": "DETERIORATING"},
+                        "consensus": {"quality": "UNAVAILABLE"},
+                        "quadrant": {"description": "Liquidity remains abundant."},
+                        "data_quality": {"quality": "PARTIAL"},
+                    }
+                }),
+                encoding="utf-8",
+            )
+
+            old_output_dir = extract_dashboard_data.OUTPUT_DIR
+            old_source_health_csv = extract_dashboard_data.SOURCE_HEALTH_CSV
+            try:
+                extract_dashboard_data.OUTPUT_DIR = output_dir
+                extract_dashboard_data.SOURCE_HEALTH_CSV = data_dir / "source_health.csv"
+                payload = extract_dashboard_data.export_dashboard_payload()
+            finally:
+                extract_dashboard_data.OUTPUT_DIR = old_output_dir
+                extract_dashboard_data.SOURCE_HEALTH_CSV = old_source_health_csv
+
+        self.assertEqual(
+            [section["name"] for section in payload["macro_regime_sections"]],
+            ["Current State", "Momentum", "Consensus", "Interpretation", "Data Quality"],
+        )
+        self.assertEqual(payload["macro_regime_sections"][0]["data"]["situation_id"], 4)
+
     def test_extract_history_exports_ten_year_window(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp_path = Path(tmpdir)

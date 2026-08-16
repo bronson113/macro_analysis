@@ -51,11 +51,45 @@ def _latest_source_health():
     return records
 
 
+REGIME_SECTION_ORDER = (
+    "Current State",
+    "Momentum",
+    "Consensus",
+    "Interpretation",
+    "Data Quality",
+)
+
+
+def _ordered_regime_sections(regime):
+    """Expose the structured regime in the same decision order as reports."""
+    regime = regime if isinstance(regime, dict) else {}
+    current_state = regime.get("current_state")
+    current_state = dict(current_state) if isinstance(current_state, dict) else {}
+    if isinstance(regime.get("quadrant"), dict):
+        current_state.setdefault("situation_id", regime["quadrant"].get("situation_id"))
+        current_state.setdefault("quadrant", regime["quadrant"])
+    if isinstance(regime.get("policy"), dict):
+        current_state.setdefault("policy", regime["policy"])
+    if isinstance(regime.get("liquidity"), dict):
+        current_state.setdefault("liquidity", regime["liquidity"])
+
+    return [
+        {"name": REGIME_SECTION_ORDER[0], "data": current_state},
+        {"name": REGIME_SECTION_ORDER[1], "data": regime.get("momentum") or {}},
+        {"name": REGIME_SECTION_ORDER[2], "data": regime.get("consensus") or {}},
+        {"name": REGIME_SECTION_ORDER[3], "data": regime.get("quadrant") or {}},
+        {"name": REGIME_SECTION_ORDER[4], "data": regime.get("data_quality") or {}},
+    ]
+
+
 def export_dashboard_payload():
     """Publish a null-safe web payload with evidence, source health, and outcomes."""
     raw_payload = _read_json(OUTPUT_DIR / "latest_raw_payload.json", {})
     payload = dict(raw_payload) if isinstance(raw_payload, dict) else {}
     payload["evidence_assessments"] = payload.get("evidence_assessments") or []
+    payload["macro_regime_sections"] = _ordered_regime_sections(
+        payload.get("macro_regime")
+    )
     payload["source_health"] = _latest_source_health()
     payload["outcome_evaluation"] = _read_json(OUTPUT_DIR / "outcome_evaluation.json", None)
 
