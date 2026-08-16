@@ -1469,8 +1469,8 @@ class TestMacroPipeline(unittest.TestCase):
         serialized = json.dumps(analysis["evidence_assessments"])
         self.assertNotIn("conviction", serialized.lower())
         self.assertIsNone(re.search(r"\b(BUY|SELL|ACCUMULATE|TRIM)\b", serialized))
-        self.assertIn("Evidence Posture", report)
-        self.assertIn("Uncertainty Range", report)
+        self.assertIn("No meaningful sector differentiation from current evidence.", report)
+        self.assertIn("Score spread: `1.0` points", report)
         self.assertIn("Missing Evidence", report)
 
     def test_reporter_parses_with_python_310_grammar(self):

@@ -4,8 +4,10 @@ import json
 import os
 import re
 import tempfile
+from collections import Counter
 from dataclasses import asdict, dataclass
 from datetime import datetime
+from math import isfinite
 from pathlib import Path
 from tabulate import tabulate
 from typing import Dict, Any, Iterable, Optional, List
@@ -132,6 +134,340 @@ class MacroReporter:
             return "positive"
         return "strongly_positive"
 
+    @staticmethod
+    def _finite_float(value: Any) -> Optional[float]:
+        """Return a finite float, excluding booleans and malformed values."""
+        if isinstance(value, bool):
+            return None
+        try:
+            result = float(value)
+        except (TypeError, ValueError, OverflowError):
+            return None
+        return result if isfinite(result) else None
+
+    @classmethod
+    def _usable_sector_assessments(cls, assessments: Any) -> List[Dict[str, Any]]:
+        """Return copied, normalized assessments that meet the report contract."""
+        if not isinstance(assessments, list):
+            return []
+
+        usable = []
+        for input_index, assessment in enumerate(assessments):
+            if not isinstance(assessment, dict):
+                continue
+            sector_group = assessment.get("sector_group")
+            if not isinstance(sector_group, str) or not sector_group.strip():
+                continue
+
+            score = cls._finite_float(assessment.get("score"))
+            score_range = assessment.get("score_range")
+            if not isinstance(score_range, (list, tuple)) or len(score_range) != 2:
+                continue
+            low = cls._finite_float(score_range[0])
+            high = cls._finite_float(score_range[1])
+            coverage = cls._finite_float(assessment.get("coverage_pct"))
+            if (
+                score is None
+                or low is None
+                or high is None
+                or low > high
+                or coverage is None
+                or not 0.0 <= coverage <= 100.0
+            ):
+                continue
+
+            normalized = dict(assessment)
+            normalized["score"] = score
+            normalized["score_range"] = [low, high]
+            normalized["coverage_pct"] = coverage
+            posture = assessment.get("posture")
+            normalized["posture"] = str(posture or "NEUTRAL").strip().upper()
+            normalized["_input_index"] = input_index
+            usable.append(normalized)
+        return usable
+
+    @staticmethod
+    def _missing_reason(item: Any) -> Optional[str]:
+        """Return a non-empty missing reason from a string or factor dictionary."""
+        if isinstance(item, str):
+            reason = item.strip()
+            return reason or None
+        if not isinstance(item, dict):
+            return None
+        for key in ("missing_reason", "explanation"):
+            value = item.get(key)
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+        return None
+
+    @classmethod
+    def _missing_items(cls, assessment: Dict[str, Any]) -> List[Any]:
+        """Return candidate missing-evidence records without trusting their shape."""
+        missing = assessment.get("missing_evidence")
+        if isinstance(missing, (list, tuple)):
+            items = list(missing)
+        elif missing is None:
+            items = []
+        else:
+            items = [missing]
+        if items:
+            return items
+
+        factors = assessment.get("factors")
+        if not isinstance(factors, (list, tuple)):
+            return []
+        return [
+            factor
+            for factor in factors
+            if isinstance(factor, dict)
+            and str(factor.get("quality", "")).lower() != "current"
+        ]
+
+    @classmethod
+    def _dominant_missing_reason(
+        cls, assessments: Iterable[Dict[str, Any]]
+    ) -> tuple[Optional[str], int, int]:
+        """Return the most common missing reason and its assessment coverage."""
+        counts = Counter()
+        first_seen = {}
+        assessment_count = 0
+        for assessment_count, assessment in enumerate(assessments, start=1):
+            reasons = []
+            seen_reasons = set()
+            for item in cls._missing_items(assessment):
+                reason = cls._missing_reason(item)
+                if reason and reason not in seen_reasons:
+                    seen_reasons.add(reason)
+                    reasons.append(reason)
+            for reason in reasons:
+                if reason not in first_seen:
+                    first_seen[reason] = len(first_seen)
+                counts[reason] += 1
+
+        if not counts:
+            return None, 0, assessment_count
+        reason = min(
+            counts,
+            key=lambda value: (-counts[value], first_seen[value]),
+        )
+        return reason, counts[reason], assessment_count
+
+    @classmethod
+    def _format_leading_factors(cls, assessment: Dict[str, Any]) -> str:
+        """Format at most two current non-zero factors by weighted contribution."""
+        factors = assessment.get("factors")
+        if isinstance(factors, dict):
+            factors = [factors]
+        if not isinstance(factors, (list, tuple)) or not factors:
+            factors = []
+            for key in ("positive_factors", "negative_factors"):
+                values = assessment.get(key)
+                if isinstance(values, dict):
+                    values = [values]
+                if isinstance(values, (list, tuple)):
+                    factors.extend(values)
+
+        candidates = []
+        for factor_index, factor in enumerate(factors):
+            if not isinstance(factor, dict) or factor.get("quality") != "current":
+                continue
+            contribution = cls._finite_float(factor.get("contribution"))
+            weight = cls._finite_float(factor.get("weight"))
+            if contribution is None or weight is None or weight <= 0 or contribution == 0:
+                continue
+            weighted = contribution * weight
+            if not isfinite(weighted):
+                continue
+            candidates.append((abs(weighted), factor_index, factor, weighted))
+
+        candidates.sort(key=lambda item: (-item[0], item[1]))
+        labels = {
+            "macro_quadrant": "Macro quadrant",
+            "liquidity": "Reserve liquidity",
+            "credit": "High-yield credit spread",
+            "valuation_percentile": "Valuation percentile",
+            "real_yield": "10Y real yield",
+            "housing": "Housing growth",
+            "data_quality": "Data quality",
+        }
+        formatted = []
+        ignored_units = {"regime", "quality", "unknown"}
+        for _, _, factor, weighted in candidates[:2]:
+            factor_id = factor.get("factor_id")
+            if isinstance(factor_id, str) and factor_id.strip():
+                label = labels.get(factor_id, factor_id.replace("_", " ").title())
+            else:
+                label = "Observed factor"
+            label = md_cell(label)
+
+            observed_value = factor.get("observed_value")
+            has_value = observed_value is not None and str(observed_value) != ""
+            value_text = md_cell(observed_value) if has_value else ""
+            unit = factor.get("unit")
+            unit_text = ""
+            if has_value:
+                if unit == "percent":
+                    unit_text = "%"
+                elif unit == "percent_yoy":
+                    unit_text = "% YoY"
+                elif unit is not None and str(unit).strip().lower() not in ignored_units:
+                    unit_text = f" {md_cell(str(unit).strip())}"
+
+            observed_text = f"{value_text}{unit_text}" if has_value else ""
+            prefix = f"{label}: {observed_text}" if observed_text else label
+            detail = f"{prefix} ({weighted:+.1f}"
+            observed_at = factor.get("observed_at")
+            if observed_at is not None and str(observed_at).strip():
+                detail += f"; {md_cell(observed_at)}"
+            formatted.append(detail + ")")
+
+        return "<br>".join(formatted) or "No differentiating observed factor"
+
+    @classmethod
+    def _primary_missing_reason(cls, assessment: Dict[str, Any]) -> str:
+        """Return the highest-weight missing reason for one assessment."""
+        candidates = []
+        for item_index, item in enumerate(cls._missing_items(assessment)):
+            reason = cls._missing_reason(item)
+            if not reason:
+                if isinstance(item, dict):
+                    factor_id = item.get("factor_id")
+                    if isinstance(factor_id, str) and factor_id.strip():
+                        reason = factor_id.replace("_", " ").title()
+            if not reason:
+                continue
+            weight = cls._finite_float(item.get("weight")) if isinstance(item, dict) else None
+            candidates.append((-(weight if weight is not None and weight > 0 else 0.0), item_index, reason))
+        if not candidates:
+            return "None identified"
+        candidates.sort(key=lambda item: (item[0], item[1]))
+        return candidates[0][2]
+
+    @classmethod
+    def _sector_evidence_section(cls, assessments: Any) -> str:
+        """Render a gated, selective sector evidence ranking section."""
+        if not isinstance(assessments, list) or not assessments:
+            return ""
+
+        usable = cls._usable_sector_assessments(assessments)
+        if len(usable) >= 2:
+            scores = [assessment["score"] for assessment in usable]
+            score_spread = max(scores) - min(scores)
+            score_spread_text = f"{score_spread:.1f}"
+        else:
+            score_spread = None
+            score_spread_text = "Unavailable"
+
+        has_directional_posture = any(
+            assessment["posture"] in {"WATCH", "AVOID"} for assessment in usable
+        )
+        meaningfully_differentiated = (
+            has_directional_posture
+            and score_spread is not None
+            and score_spread >= 4.0
+        )
+        if not meaningfully_differentiated:
+            reason, reason_count, assessment_count = cls._dominant_missing_reason(usable)
+            missing_text = ""
+            if reason:
+                missing_text = (
+                    f"\n- Dominant missing input: {md_cell(reason)} "
+                    f"(`{reason_count}` of `{assessment_count}` sectors)"
+                )
+            return (
+                "## 5. Sector Evidence Ranking\n\n"
+                "> **No meaningful sector differentiation from current evidence.** "
+                "All sector views remain research-neutral or the score dispersion is "
+                "too small to support a useful ranking.\n\n"
+                f"- Usable assessments: `{len(usable)}`\n"
+                f"- Score spread: `{score_spread_text}`"
+                f"{' points' if score_spread is not None else ''}"
+                f"{missing_text}\n\n"
+                f"> {RESEARCH_DISCLOSURE}\n"
+            )
+
+        stronger_candidates = sorted(
+            usable, key=lambda assessment: (-assessment["score"], assessment["_input_index"])
+        )
+        weaker_candidates = sorted(
+            usable, key=lambda assessment: (assessment["score"], assessment["_input_index"])
+        )
+        selected_groups = set()
+        selected_input_indexes = set()
+
+        def select(candidates, limit):
+            selected = []
+            for candidate in candidates:
+                group = candidate["sector_group"]
+                if group in selected_groups or group in {item["sector_group"] for item in selected}:
+                    continue
+                selected.append(candidate)
+                selected_groups.add(group)
+                selected_input_indexes.add(candidate["_input_index"])
+                if len(selected) >= limit:
+                    break
+            return selected
+
+        stronger = select(stronger_candidates, 3)
+        weaker = select(weaker_candidates, 3)
+        score_counts = Counter(assessment["score"] for assessment in usable)
+
+        def boundary_overflow(candidates, selected):
+            if len(selected) < 3:
+                return 0
+            boundary = selected[-1]["score"]
+            return sum(
+                1
+                for candidate in candidates
+                if candidate["score"] == boundary
+                and candidate["_input_index"] not in selected_input_indexes
+                and candidate["sector_group"] not in selected_groups
+            )
+
+        stronger_overflow = boundary_overflow(stronger_candidates, stronger)
+        weaker_overflow = boundary_overflow(weaker_candidates, weaker)
+
+        rows = []
+        for side, selected in (("Stronger evidence", stronger), ("Weaker evidence", weaker)):
+            for assessment in selected:
+                tied = " (tied)" if score_counts[assessment["score"]] > 1 else ""
+                rows.append(
+                    f"| {side}{tied} | {md_cell(assessment.get('sector_group'))} | "
+                    f"{md_cell(assessment.get('instrument') or 'N/A')} | "
+                    f"`{md_cell(assessment.get('posture') or 'NEUTRAL')}` | "
+                    f"`{md_cell(f'{assessment['score']:+.1f}')}` | "
+                    f"`{md_cell(f'{assessment['coverage_pct']:.1f}%')}` | "
+                    f"{cls._format_leading_factors(assessment)} | "
+                    f"{md_cell(cls._primary_missing_reason(assessment))} |"
+                )
+
+        overflow_lines = []
+        if stronger_overflow:
+            overflow_lines.append(
+                f"- Additional sectors tied at this score: `{stronger_overflow}` (stronger side)"
+            )
+        if weaker_overflow:
+            overflow_lines.append(
+                f"- Additional sectors tied at this score: `{weaker_overflow}` (weaker side)"
+            )
+        overflow_text = "\n".join(overflow_lines)
+        if overflow_text:
+            overflow_text = f"\n\n{overflow_text}"
+
+        return (
+            "## 5. Sector Evidence Ranking\n\n"
+            "The following ordering summarizes relative research evidence only; it "
+            "does not imply a forecast or allocation.\n\n"
+            "| Relative evidence | Sector / Group | Instrument | Posture | Score | Coverage | "
+            "Leading observed factors | Primary missing input |\n"
+            "| :--- | :--- | :--- | :--- | ---: | ---: | :--- | :--- |\n"
+            + "\n".join(rows)
+            + overflow_text
+            + "\n\nThis ordering is relative research evidence, not an allocation recommendation; "
+            "the score is not a forecast return.\n\n"
+            f"> {RESEARCH_DISCLOSURE}\n"
+        )
+
     def _load_previous_notable_items(self, today_str: str) -> List[NotableItem]:
         """Load the newest dated semantic notable-state sidecar before today."""
         candidates = []
@@ -181,13 +517,19 @@ class MacroReporter:
             ))
 
         material_assessments = [
-            item for item in assessments if item.get("posture") in {"WATCH", "AVOID"}
+            item
+            for item in assessments
+            if isinstance(item, dict)
+            and str(item.get("posture") or "").strip().upper()
+            in {"WATCH", "AVOID"}
         ]
         for assessment in material_assessments[:3]:
             sector = md_cell(assessment.get("sector_group", "Unknown sector"))
             posture = md_cell(assessment.get("posture", "NEUTRAL"))
             score = fmt_num(assessment.get("score"), ":.2f")
-            score_range = assessment.get("score_range") or [None, None]
+            score_range = assessment.get("score_range")
+            if not isinstance(score_range, (list, tuple)):
+                score_range = [None, None]
             low = fmt_num(score_range[0] if len(score_range) > 0 else None, ":.2f")
             high = fmt_num(score_range[1] if len(score_range) > 1 else None, ":.2f")
             coverage = fmt_num(assessment.get("coverage_pct"), ":.1f", "%")
@@ -644,34 +986,8 @@ Market consensus is a forward-looking overlay and never changes the current quad
 {dis_sec_list}
 """
 
-        # Build sector evidence markdown section.
-        evidence_section_md = ""
-        if evidence_assessments:
-            evidence_rows = []
-            for assessment in evidence_assessments:
-                score_range = assessment.get("score_range") or [None, None]
-                low = fmt_num(score_range[0] if len(score_range) > 0 else None, ":.2f")
-                high = fmt_num(score_range[1] if len(score_range) > 1 else None, ":.2f")
-                evidence_rows.append(
-                    f"| **{md_cell(assessment.get('sector_group', ''))}** | "
-                    f"`{md_cell(assessment.get('posture', ''))}` | "
-                    f"`{fmt_num(assessment.get('score'), ':.2f')}` | "
-                    f"`{low}` to `{high}` | "
-                    f"`{fmt_num(assessment.get('coverage_pct'), ':.1f', '%')}` | "
-                    f"{self._factor_descriptions(assessment.get('positive_factors'))} | "
-                    f"{self._factor_descriptions(assessment.get('negative_factors'))} | "
-                    f"{self._factor_descriptions(assessment.get('missing_evidence'))} |"
-                )
-            evidence_table_md = "\n".join(evidence_rows)
-            evidence_section_md = f"""
-## 5. Sector Evidence Assessments
-
-Each assessment makes its deterministic evidence, uncertainty, and missing inputs visible for research review.
-
-| Sector / Supply Chain Group | Evidence Posture | Score | Uncertainty Range | Coverage | Positive Factors | Negative Factors | Missing Evidence |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-{evidence_table_md}
-"""
+        # Build the selective sector evidence markdown section.
+        evidence_section_md = self._sector_evidence_section(evidence_assessments)
 
         # Build constituent evidence markdown section.
         constituent_section_md = ""
