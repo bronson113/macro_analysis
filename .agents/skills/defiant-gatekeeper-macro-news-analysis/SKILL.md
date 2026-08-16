@@ -222,6 +222,24 @@ consensus limitation, and source failure. Missing evidence lowers coverage and
 widenes the score range; it is not favorable evidence. Situation 0 or
 `INSUFFICIENT_DATA` contributes missing evidence rather than a trade signal.
 
+### Evidence presentation gate
+
+- Preserve and emit the complete underlying evidence contract for storage and
+  audit; apply this gate only to concise report presentation.
+- Render a **Sector Evidence Ranking** only when at least one usable posture is
+  `WATCH` or `AVOID` and the sector score spread (maximum minus minimum) is at
+  least `4.0`.
+- Otherwise state exactly `No meaningful sector differentiation from current evidence.`
+  Summarize coverage and missing evidence instead of printing repeated
+  `NEUTRAL` rows.
+- Show at most three stronger and three weaker research hypotheses, with no
+  duplicates, observed factor values and contributions, dates, coverage, and
+  the primary missing input for each.
+- Collapse all-neutral or no-evidence constituent rows into a coverage
+  limitation.
+- Treat rankings as research priority only, never as forecasts or allocation
+  instructions.
+
 For each sector or instrument, emit only the evidence contract: posture
 `WATCH`, `NEUTRAL`, or `AVOID`; numeric `score`; `score_range`; `coverage_pct`;
 and the `positive_factors`, `negative_factors`, `neutral_factors`,
