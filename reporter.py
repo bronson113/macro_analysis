@@ -255,10 +255,13 @@ class MacroReporter:
     @classmethod
     def _format_leading_factors(cls, assessment: Dict[str, Any]) -> str:
         """Format at most two current non-zero factors by weighted contribution."""
-        factors = assessment.get("factors")
-        if isinstance(factors, dict):
-            factors = [factors]
-        if not isinstance(factors, (list, tuple)) or not factors:
+        if "factors" in assessment:
+            factors = assessment.get("factors")
+            if isinstance(factors, dict):
+                factors = [factors]
+            elif not isinstance(factors, (list, tuple)):
+                factors = []
+        else:
             factors = []
             for key in ("positive_factors", "negative_factors"):
                 values = assessment.get(key)
@@ -431,12 +434,14 @@ class MacroReporter:
         for side, selected in (("Stronger evidence", stronger), ("Weaker evidence", weaker)):
             for assessment in selected:
                 tied = " (tied)" if score_counts[assessment["score"]] > 1 else ""
+                score_text = md_cell(f"{assessment['score']:+.1f}")
+                coverage_text = md_cell(f"{assessment['coverage_pct']:.1f}%")
                 rows.append(
                     f"| {side}{tied} | {md_cell(assessment.get('sector_group'))} | "
                     f"{md_cell(assessment.get('instrument') or 'N/A')} | "
                     f"`{md_cell(assessment.get('posture') or 'NEUTRAL')}` | "
-                    f"`{md_cell(f'{assessment['score']:+.1f}')}` | "
-                    f"`{md_cell(f'{assessment['coverage_pct']:.1f}%')}` | "
+                    f"`{score_text}` | "
+                    f"`{coverage_text}` | "
                     f"{cls._format_leading_factors(assessment)} | "
                     f"{md_cell(cls._primary_missing_reason(assessment))} |"
                 )
@@ -518,10 +523,8 @@ class MacroReporter:
 
         material_assessments = [
             item
-            for item in assessments
-            if isinstance(item, dict)
-            and str(item.get("posture") or "").strip().upper()
-            in {"WATCH", "AVOID"}
+            for item in self._usable_sector_assessments(assessments)
+            if item["posture"] in {"WATCH", "AVOID"}
         ]
         for assessment in material_assessments[:3]:
             sector = md_cell(assessment.get("sector_group", "Unknown sector"))

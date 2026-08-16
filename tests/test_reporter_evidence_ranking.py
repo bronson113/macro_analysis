@@ -2,7 +2,10 @@
 
 from copy import deepcopy
 from pathlib import Path
+import shutil
+import subprocess
 
+import pytest
 from reporter import MacroReporter
 
 
@@ -107,6 +110,7 @@ def test_differentiated_report_selects_stable_stronger_and_weaker_rows_and_forma
         _valid_assessment("Beta", 6.0, "WATCH", factors=deepcopy(observed_factors)),
         _valid_assessment("Gamma", 6.0, "WATCH", factors=deepcopy(observed_factors)),
         _valid_assessment("Delta", 6.0, "WATCH", factors=deepcopy(observed_factors)),
+        _valid_assessment("Alpha", 6.0, "WATCH", factors=deepcopy(observed_factors)),
         _valid_assessment("Middle One", 1.0),
         _valid_assessment("Middle Two", 0.0),
         _valid_assessment("Lower One", -3.0, "AVOID"),
@@ -132,3 +136,59 @@ def test_differentiated_report_selects_stable_stronger_and_weaker_rows_and_forma
     for sector in ("Alpha", "Beta", "Gamma", "Lower One", "Lower Two", "Lower Three"):
         assert ranking.count(sector) == 1
     assert ranking.count("(tied)") >= 2
+    assert ranking.index("| Stronger evidence (tied) | Alpha |") < ranking.index(
+        "| Stronger evidence (tied) | Beta |"
+    ) < ranking.index("| Stronger evidence (tied) | Gamma |")
+
+
+def test_explicit_empty_factors_do_not_fallback_to_legacy_factor_lists(tmp_path):
+    stale_factor = {
+        "factor_id": "legacy_factor",
+        "quality": "current",
+        "contribution": 1.0,
+        "weight": 1.0,
+        "observed_value": "stale legacy value",
+        "unit": "quality",
+    }
+    content = _write_report(
+        tmp_path,
+        [
+            _valid_assessment(
+                "Legacy fallback",
+                6.0,
+                "WATCH",
+                factors=[],
+                positive_factors=[stale_factor],
+            ),
+            _valid_assessment("Lower", -3.0, "AVOID"),
+        ],
+    )
+    ranking = content.split("## 5. Sector Evidence Ranking", 1)[1]
+
+    assert "No differentiating observed factor" in ranking
+    assert "stale legacy value" not in ranking
+    assert "Legacy Factor" not in ranking
+
+
+def test_invalid_directional_assessment_does_not_create_evidence_notable(tmp_path):
+    content = _write_report(
+        tmp_path,
+        [_valid_assessment("Invalid directional", 6.0, "WATCH", score_range=[-10.0])],
+    )
+    notable_summary = content.split("## 1. Active Macro Situation", 1)[0]
+
+    assert "Usable assessments: `0`" in content
+    assert "**Evidence:** Invalid directional" not in notable_summary
+
+
+def test_reporter_is_parseable_by_pre_pep701_python():
+    parser = shutil.which("python3.11") or shutil.which("python3.10")
+    if parser is None:
+        pytest.skip("No pre-PEP-701 Python interpreter is available")
+    result = subprocess.run(
+        [parser, "-m", "py_compile", "reporter.py"],
+        cwd=Path(__file__).resolve().parents[1],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
