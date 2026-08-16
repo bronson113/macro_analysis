@@ -377,7 +377,7 @@ function buildDataQualitySection({ dataQuality, policy, liquidity, regime, quadr
     ? Object.entries(ages)
       .filter(([, age]) => age !== null && age !== undefined)
       .map(([name, age]) => `${name} ${age}d`)
-      .join(' · ')
+      .join(' · ') || 'Unavailable'
     : 'Unavailable';
 
   return {

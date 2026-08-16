@@ -50,6 +50,23 @@ test('presents level state separately from momentum and consensus', () => {
   assert.equal(view.sections[1].value.includes('Deteriorating'), true);
 });
 
+test('renders unavailable when every input age is null', () => {
+  const view = buildRegimePresentation({
+    ...fixture,
+    macro_regime: {
+      ...fixture.macro_regime,
+      data_quality: {
+        quality: 'PARTIAL',
+        input_ages: { dff: null, core_pce: null, rstar: null },
+      },
+    },
+  });
+  const qualitySection = view.sections.find(section => section.label === 'Data Quality');
+  const ages = qualitySection.details.find(item => item.label === 'Input ages');
+
+  assert.equal(ages.value, 'Unavailable');
+});
+
 test('dashboard sections follow decision relevance with source health last', () => {
   assert.deepEqual(
     DASHBOARD_SECTIONS.map(({ key, navLabel }) => [key, navLabel]),
