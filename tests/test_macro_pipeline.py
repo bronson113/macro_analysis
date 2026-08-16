@@ -156,6 +156,73 @@ class TestMacroPipeline(unittest.TestCase):
             for factor in energy["positive_factors"]
         ))
 
+    def test_structured_regime_overrides_conflicting_legacy_and_quadrant_inputs(self):
+        """Structured states and quadrant metadata are authoritative for evidence."""
+        canonical_quadrant = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "ABUNDANT", quality="OK", context={}
+        )
+        conflicting_quadrant = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "SCARCE", quality="OK", context={}
+        )
+        regime = {
+            "policy": {"state": "RESTRICTIVE"},
+            "liquidity": {"state": "ABUNDANT"},
+            "quadrant": canonical_quadrant,
+        }
+        summary = {
+            "date": "2026-08-15",
+            "policy_state": "ACCOMMODATIVE",
+            "liquidity_state": "SCARCE",
+        }
+
+        assessments = SectorEvidenceEngine().generate_recommendations(
+            summary,
+            {"high_yield_oas": 3.0},
+            [],
+            [],
+            [],
+            conflicting_quadrant,
+            regime,
+        )
+
+        energy = next(
+            item for item in assessments if item["sector_group"] == "Energy (XLE)"
+        )
+        positive = {item["factor_id"]: item for item in energy["positive_factors"]}
+        self.assertEqual(positive["macro_quadrant"]["contribution"], 2)
+        self.assertEqual(positive["liquidity"]["contribution"], 1)
+
+    def test_partial_valid_quadrant_keeps_macro_factor_and_degrades_quality(self):
+        """A valid PARTIAL quadrant retains sector evidence but widens uncertainty."""
+        partial_quadrant = self.matrix_engine.classify_situation(
+            "RESTRICTIVE", "ABUNDANT", quality="PARTIAL", context={}
+        )
+        regime = {
+            "policy": {"state": "RESTRICTIVE"},
+            "liquidity": {"state": "ABUNDANT"},
+            "quadrant": partial_quadrant,
+        }
+
+        assessments = SectorEvidenceEngine().generate_recommendations(
+            {"date": "2026-08-15"},
+            {"high_yield_oas": 3.0},
+            [],
+            [],
+            [],
+            partial_quadrant,
+            regime,
+        )
+
+        energy = next(
+            item for item in assessments if item["sector_group"] == "Energy (XLE)"
+        )
+        positive = {item["factor_id"]: item for item in energy["positive_factors"]}
+        missing = {item["factor_id"]: item for item in energy["missing_evidence"]}
+        self.assertEqual(positive["macro_quadrant"]["contribution"], 2)
+        self.assertEqual(positive["macro_quadrant"]["quality"], "current")
+        self.assertEqual(missing["data_quality"]["quality"], "missing")
+        self.assertIn("insufficient", missing["data_quality"]["missing_reason"].lower())
+
     def test_report_sections_are_in_decision_order(self):
         """Structured regime report groups remain in the decision order."""
         quadrant = self.matrix_engine.classify_situation(

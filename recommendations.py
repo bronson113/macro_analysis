@@ -31,6 +31,85 @@ METHODOLOGY = (
 class SectorEvidenceEngine:
     """Build independent, visible evidence factors for each tracked sector group."""
 
+    _SITUATION_BY_STATES = {
+        ("ACCOMMODATIVE", "ABUNDANT"): 1,
+        ("ACCOMMODATIVE", "SCARCE"): 2,
+        ("RESTRICTIVE", "SCARCE"): 3,
+        ("RESTRICTIVE", "ABUNDANT"): 4,
+    }
+
+    @staticmethod
+    def _state(value: Any) -> Optional[str]:
+        if not isinstance(value, str):
+            return None
+        return value.strip().upper() or None
+
+    @classmethod
+    def _resolve_regime_inputs(
+        cls,
+        summary: Dict[str, Any],
+        macro_situation: Dict[str, Any],
+        macro_regime: Dict[str, Any],
+    ) -> tuple[Dict[str, Any], Dict[str, Any]]:
+        """Make structured regime state and quadrant metadata authoritative."""
+        summary = dict(summary or {})
+        regime = macro_regime if isinstance(macro_regime, dict) else {}
+        policy = regime.get("policy")
+        policy = policy if isinstance(policy, dict) else {}
+        liquidity = regime.get("liquidity")
+        liquidity = liquidity if isinstance(liquidity, dict) else {}
+
+        # A supplied structured state is authoritative, including when its
+        # value conflicts with a legacy snapshot field. An explicitly invalid
+        # structured state must not silently fall back to that legacy field.
+        if "state" in policy:
+            summary["policy_state"] = cls._state(policy.get("state"))
+        if "state" in liquidity:
+            summary["liquidity_state"] = cls._state(liquidity.get("state"))
+
+        policy_state = summary.get("policy_state")
+        liquidity_state = summary.get("liquidity_state")
+        expected_situation_id = cls._SITUATION_BY_STATES.get(
+            (cls._state(policy_state), cls._state(liquidity_state))
+        )
+
+        structured_quadrant = regime.get("quadrant")
+        if isinstance(structured_quadrant, dict) and structured_quadrant:
+            quadrant = dict(structured_quadrant)
+        else:
+            quadrant = dict(macro_situation or {})
+
+        if expected_situation_id is not None:
+            candidate_id = quadrant.get("situation_id")
+            try:
+                candidate_id = int(candidate_id) if candidate_id is not None else None
+            except (TypeError, ValueError):
+                candidate_id = None
+            if candidate_id is None:
+                # Derive the identifier when older matrix metadata omitted it;
+                # the axis pair still comes solely from structured state.
+                quadrant["situation_id"] = expected_situation_id
+            elif candidate_id != expected_situation_id:
+                quadrant = {
+                    "quality": "INDETERMINATE_CONFLICT",
+                    "situation_id": 0,
+                    "favored_sectors": [],
+                    "favored_company_types": [],
+                    "disfavored_sectors": [],
+                }
+        elif "state" in policy or "state" in liquidity:
+            # Do not let a stale/separate quadrant provide sector metadata when
+            # the structured axis pair cannot form one of the four quadrants.
+            quadrant = {
+                "quality": "INSUFFICIENT_DATA",
+                "situation_id": 0,
+                "favored_sectors": [],
+                "favored_company_types": [],
+                "disfavored_sectors": [],
+            }
+
+        return summary, quadrant
+
     def generate_assessments(
         self,
         summary: Dict[str, Any],
@@ -48,16 +127,9 @@ class SectorEvidenceEngine:
         valuations = valuations or []
         ai_ecosystem = ai_ecosystem or []
         macro_regime = macro_regime or {}
-        macro_situation = macro_situation or macro_regime.get("quadrant") or {}
-        policy = macro_regime.get("policy") or {}
-        liquidity = macro_regime.get("liquidity") or {}
-        # The level state is the machine-readable source of truth.  Keep the
-        # legacy summary fields for report context, but never infer a factor
-        # from their rendered labels.
-        if summary.get("policy_state") is None and policy.get("state") is not None:
-            summary["policy_state"] = policy.get("state")
-        if summary.get("liquidity_state") is None and liquidity.get("state") is not None:
-            summary["liquidity_state"] = liquidity.get("state")
+        summary, macro_situation = self._resolve_regime_inputs(
+            summary, macro_situation, macro_regime
+        )
         _ = news_events  # News remains uninterpreted context, not directional evidence.
 
         valuations_by_sector = {
@@ -187,7 +259,7 @@ class SectorEvidenceEngine:
     ) -> EvidenceFactor:
         quality = macro_situation.get("quality")
         situation_id = macro_situation.get("situation_id")
-        if quality != "OK" or situation_id not in {1, 2, 3, 4}:
+        if str(quality or "").upper() not in {"OK", "PARTIAL"} or situation_id not in {1, 2, 3, 4}:
             return self._factor(
                 "macro_quadrant",
                 "macro",
