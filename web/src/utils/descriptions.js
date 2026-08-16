@@ -9,5 +9,11 @@ export const descriptions = {
   net_liquidity: "Net Liquidity is calculated as (Fed Total Assets) - (TGA Balance) - (Reverse Repo). It measures the actual cash available in the financial system to support risk assets. The S&P 500 tends to follow the trajectory of this liquidity proxy.",
   yield_curve: "Yield Curve Dynamics shows the relationship between short-term (2Y) and long-term (10Y) borrowing costs. When the 2Y is higher than the 10Y, the curve is 'inverted'. When it rapidly 'un-inverts' (steepens), it often signals the Fed is cutting rates because something in the economy broke.",
   market_stress: "Market Stress tracks the VIX (equity volatility / 'fear gauge') and the DXY (US Dollar Index). A soaring Dollar often tightens global financial conditions, while a spiking VIX indicates panic. Both rising together is a toxic combination for risk assets.",
-  inflation_policy: "Inflation (CPI YoY) vs Fed Funds Rate. This tracks how restrictive the Fed's policy is relative to inflation. If the Fed Funds Rate is significantly above CPI, policy is 'restrictive'. If it's below, policy is 'accommodative'."
+  inflation_policy: "Inflation (CPI YoY) vs Fed Funds Rate. This tracks how restrictive the Fed's policy is relative to inflation. If the Fed Funds Rate is significantly above CPI, policy is 'restrictive'. If it's below, policy is 'accommodative'.",
+
+  // Structured regime overview
+  policy_level: "Current policy level is based on the real-policy gap: real policy rate minus the neutral real rate (r-star). A gap above +0.50 percentage points is restrictive; below -0.50 points is accommodative.",
+  liquidity_level: "Current reserve-liquidity level is the normalized reserve-liquidity proxy as a share of GDP compared with a trailing historical sample. Below the 40th percentile is scarce; above the 60th percentile is abundant.",
+  regime_momentum: "Policy and reserve-liquidity momentum are separate 30-day and 90-day overlays. Momentum describes change; it does not replace the current level or select the quadrant.",
+  regime_consensus: "Market consensus is an optional, forward-looking overlay. It includes policy and, when available, Fed balance-sheet expectations; unavailable or stale consensus never changes the current state."
 };

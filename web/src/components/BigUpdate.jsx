@@ -4,10 +4,11 @@ import { useDialogFocus } from '../hooks/useDialogFocus';
 import { getNextTabIndex } from '../utils/keyboardNavigation';
 import { buildMarkdownUrl } from '../utils/markdownSource';
 import MarkdownContent from './MarkdownComponents';
+import RegimeOverview from './RegimeOverview';
 
 const latestReport = { date: '', path: '/latest_report.md' };
 
-const BigUpdate = ({ reports = [] }) => {
+const BigUpdate = ({ reports = [], macroRegime, macroSituation, macroRegimeSections }) => {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -140,6 +141,11 @@ const BigUpdate = ({ reports = [] }) => {
             )}
           </div>
         </div>
+        <RegimeOverview
+          regime={macroRegime}
+          situation={macroSituation}
+          sections={macroRegimeSections}
+        />
         <div className="glass-panel">
           {reportError ? (
             <p className="text-secondary">{reportError}</p>

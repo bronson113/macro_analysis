@@ -3,9 +3,52 @@ import assert from 'node:assert/strict';
 
 import {
   buildFreshnessStatus,
+  buildRegimePresentation,
   DASHBOARD_SECTIONS,
   splitReportSections,
 } from './dashboardPresentation.js';
+
+const fixture = {
+  macro_regime: {
+    current_state: {
+      policy: 'RESTRICTIVE',
+      liquidity: 'ABUNDANT',
+      situation_id: 4,
+    },
+    policy: {
+      state: 'RESTRICTIVE',
+      policy_gap: 0.8,
+      historical_percentile: 78,
+    },
+    liquidity: {
+      state: 'ABUNDANT',
+      normalized_liquidity_pct_gdp: 19.5,
+      current_percentile: 75,
+      historical_p40: 13,
+      historical_p60: 17,
+    },
+    momentum: {
+      policy: { '30d': 'EASING', '90d': 'EASING' },
+      liquidity: { '30d': 'DETERIORATING', '90d': 'STABLE' },
+    },
+    consensus: { quality: 'UNAVAILABLE' },
+    quadrant: {
+      situation_id: 4,
+      description: 'Policy remains restrictive while reserve liquidity is abundant.',
+    },
+    data_quality: { quality: 'OK' },
+  },
+};
+
+test('presents level state separately from momentum and consensus', () => {
+  const view = buildRegimePresentation(fixture);
+
+  assert.deepEqual(view.sections.map(section => section.label), [
+    'Current State', 'Momentum', 'Consensus', 'Interpretation', 'Data Quality',
+  ]);
+  assert.equal(view.sections[0].value.includes('Restrictive + Abundant'), true);
+  assert.equal(view.sections[1].value.includes('Deteriorating'), true);
+});
 
 test('dashboard sections follow decision relevance with source health last', () => {
   assert.deepEqual(

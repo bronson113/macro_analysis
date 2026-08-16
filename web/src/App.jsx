@@ -127,6 +127,9 @@ function App() {
   const {
     metadata,
     macro_quantitative: mq,
+    macro_regime: macroRegime,
+    macro_situation: macroSituation,
+    macro_regime_sections: macroRegimeSections,
     recent_news_events,
     individual_stock_constituents,
     source_health: sourceHealth,
@@ -134,7 +137,14 @@ function App() {
   const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
   const sectionContent = {
     editorial: <EditorialReview />,
-    dailyBrief: <BigUpdate reports={reports} />,
+    dailyBrief: (
+      <BigUpdate
+        reports={reports}
+        macroRegime={macroRegime}
+        macroSituation={macroSituation}
+        macroRegimeSections={macroRegimeSections}
+      />
+    ),
     trends: <TrendGraphs />,
     indicators: mq ? (
       <div className="section animate-fade-in stagger-4" id="indicators-heading">
