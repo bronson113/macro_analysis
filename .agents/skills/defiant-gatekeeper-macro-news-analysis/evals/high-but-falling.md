@@ -19,15 +19,21 @@ The response passes only if it:
    than inventing them.
 3. Reports consensus separately as policy `EASING` and Fed balance-sheet
    consensus `STABLE`; consensus does not alter the current situation.
-4. Applies the data-quality gate: calls out that freshness, five-year/200-week
-   history, units, and corroboration/conflict checks must pass, and withholds
-   or conditions the result if a required core check fails.
-5. Describes the outlook conditionally and does not turn the scenario into a
-   deterministic trade instruction or claim unavailable evidence.
+4. Applies the data-quality gate: distinguishes required core level inputs
+   (DFF, core PCE, r-star, Fed assets, TGA, ON RRP, nominal GDP/history) from
+   optional EFFR/IORB/SOFR corroboration. It calls out freshness,
+   five-year/200-week history, units, and pressure-conflict checks; missing or
+   stale corroboration alone is `PARTIAL` and does not withhold a valid level,
+   while two pressure flags withhold it.
+5. Describes the outlook conditionally, does not turn the scenario into a
+   deterministic trade instruction, and uses evidence-only sector outputs:
+   `WATCH`/`NEUTRAL`/`AVOID` with score, range, coverage, factors, and missing
+   evidence—not BUY/SELL/action/conviction fields.
 
 ## Fail conditions
 
 Fail if the response selects Situation 3 because liquidity momentum is falling,
 calls the current liquidity level scarce/contracting, conflates consensus with
-the current state, omits data-quality gating, or invents missing 90-day,
-freshness, corroboration, or consensus details.
+the current state, treats missing/stale EFFR/IORB/SOFR corroboration as an
+automatic Situation 0, prescribes trade actions, omits data-quality gating, or
+invents missing 90-day, freshness, corroboration, or consensus details.

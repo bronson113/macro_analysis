@@ -83,7 +83,10 @@ When run, the system generates and maintains local state in the following direct
   corroboration checks before treating a quadrant as actionable.
 - Sector mappings are conditional research hypotheses. Valuation, credit,
   labor/inflation, source quality, and tax friction can reduce confidence or
-  keep the posture at `HOLD`; they are not deterministic forecasts.
+  widen the evidence range or leave the posture `NEUTRAL`; they are not
+  deterministic forecasts or trade instructions. Public sector outputs are
+  `WATCH`, `NEUTRAL`, or `AVOID` with score, range, coverage, factors, and
+  missing-evidence fields.
 
 ## Architecture
 

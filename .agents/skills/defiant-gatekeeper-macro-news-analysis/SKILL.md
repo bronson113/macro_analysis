@@ -55,8 +55,11 @@ Classify only the gap:
 - `RESTRICTIVE` when `policy_gap_pct > +0.50 pp`.
 - `ACCOMMODATIVE` when `policy_gap_pct < -0.50 pp`.
 - `NEUTRAL` when `-0.50 <= policy_gap_pct <= +0.50 pp`.
-- `INSUFFICIENT_DATA` when any required input is missing, malformed, future-
-  dated, or stale.
+- `INSUFFICIENT_DATA` when no valid selected observation exists on or before
+  `as_of`, the selected core input is malformed/stale, or core PCE YoY cannot
+  be formed. Exclude every row dated after `as_of` before selecting the latest
+  valid row; future rows are never current and do not invalidate an older
+  valid selected observation. Disclose future-row exclusion when relevant.
 
 The exact `-0.50` and `+0.50` boundaries are neutral. Required freshness is
 `DFF <= 7` calendar days, core PCE `<= 75` days, and r-star `<= 180` days.
@@ -127,9 +130,13 @@ Only the two current-level states select a situation:
 Momentum, consensus, CPI, labor data, the yield curve, credit, valuation,
 news, and sentiment may change the explanation or confidence, but never the
 `situation_id`. If either level is `NEUTRAL` or `INSUFFICIENT_DATA`, if a
-required source is stale, or if core evidence is materially contradictory,
-return Situation `0: NO ACTIONABLE MACRO QUADRANT`. A valid level quadrant may
-remain visible with `PARTIAL` quality; `INDETERMINATE_CONFLICT` withholds it.
+required **core level** source is absent/stale, or if core evidence is
+materially contradictory, return Situation `0: NO ACTIONABLE MACRO QUADRANT`.
+Core level sources are DFF, core PCE, r-star, Fed assets, TGA, ON RRP, and
+nominal GDP/history inputs. Missing or stale EFFR/IORB/SOFR corroboration alone
+keeps a valid level quadrant and makes liquidity quality `PARTIAL`; one
+pressure flag also remains `PARTIAL`, while two pressure flags make
+`INDETERMINATE_CONFLICT` and withhold it.
 
 Situation-specific starting hypotheses (not automatic actions):
 
@@ -207,33 +214,37 @@ freshness, the five-year/200-week history requirements, units, and money-market
 conflict flags; disclose missing checks and withhold the state if a required
 gate fails.
 
-## Data-quality gate and recommendations
+## Data-quality gate and evidence assessments
 
-Before an actionable research posture, list every missing or stale core input,
+Before interpreting a sector assessment, list every missing or stale core input,
 history shortfall, unit problem, future-date exclusion, corroboration flag,
-consensus limitation, and source failure. Missing evidence lowers confidence;
-it is not favorable evidence. Situation 0 or `INSUFFICIENT_DATA` defaults
-broad sector posture to `HOLD`.
+consensus limitation, and source failure. Missing evidence lowers coverage and
+widenes the score range; it is not favorable evidence. Situation 0 or
+`INSUFFICIENT_DATA` contributes missing evidence rather than a trade signal.
 
-For each sector or instrument, keep action vocabulary research-oriented
-(`BUY / ACCUMULATE`, `HOLD / SELECTIVE BUY`, `HOLD`, `HOLD / CAUTION`,
-`SELL / TRIM`) and include conviction, rationale, invalidation trigger, and
-data quality. A macro hypothesis never overrides valuation, credit, labor,
-inflation, tax friction, or sector catalysts:
+For each sector or instrument, emit only the evidence contract: posture
+`WATCH`, `NEUTRAL`, or `AVOID`; numeric `score`; `score_range`; `coverage_pct`;
+and the `positive_factors`, `negative_factors`, `neutral_factors`,
+`missing_evidence`, and complete `factors` lists. Preserve factor dates,
+sources, observed values, quality, explanations, and missing reasons. These
+are research-review states, not execution instructions: do not emit
+`BUY`, `SELL`, `ACCUMULATE`, `TRIM`, action, conviction, allocation, entry, or
+exit fields. A macro hypothesis never overrides valuation, credit, labor,
+inflation, tax friction, or sector-specific evidence:
 
 - Compare forward P/E, EV/EBITDA, earnings yield versus the 10Y Treasury, and
-  sector norms. Negative ERP alone is not a sell signal; require meaningful
-  ERP and valuation stretch for `SELL / TRIM`.
+  sector norms as visible valuation factors. Negative ERP is a rate/valuation
+  headwind factor, not a standalone execution signal.
 - Use HY/CCC/IG OAS, NFCI, VIX, real yields, DXY, commodities, earnings
   revisions, and bellwether filings/news as separate evidence.
-- Restrictive real yields usually downgrade long-duration growth unless
-  valuation and earnings justify it. Financials require credit and funding
-  confirmation, not merely high rates or a favorable situation.
-- Apply tax-aware friction: prefer `HOLD` unless expected research risk/reward
-  clears a meaningful threshold. Flag a single-stock laggard only when it is at
-  least 20% cheaper than peers on forward P/E or EV/EBITDA, has no obvious
-  balance-sheet/earnings/legal/structural break, and belongs to at least a
-  `HOLD` sector.
+- Restrictive real yields can be a negative duration factor unless valuation
+  and earnings justify it. Financials require credit and funding evidence, not
+  merely high rates or a favorable situation.
+- Tax friction is a factor and a research limitation, not permission to emit
+  an allocation instruction. A single-stock laggard can be flagged for review
+  only when it is at least 20% cheaper than peers on forward P/E or EV/EBITDA,
+  has no obvious balance-sheet/earnings/legal/structural break, and belongs to
+  a sector whose evidence posture is not `AVOID`.
 
 ## Morning workflow
 
@@ -245,8 +256,8 @@ inflation, tax friction, or sector catalysts:
    quadrant axes.
 5. Render Current State, Momentum, Market Consensus, Interpretation, and Data
    Quality in that order.
-6. Produce conditional sector research postures and invalidation triggers;
-   disclose stale/missing inputs and never claim strategy validation.
+6. Produce evidence postures with score ranges, coverage, factors, and missing
+   evidence; disclose stale/missing inputs and never claim strategy validation.
 
 ## Preferred sources
 
