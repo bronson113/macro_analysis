@@ -58,7 +58,13 @@ class TestDashboardHistory(unittest.TestCase):
                     "macro_regime": {
                         "current_state": {"situation_id": 4},
                         "momentum": {"liquidity_30d": "DETERIORATING"},
-                        "consensus": {"quality": "UNAVAILABLE"},
+                        "consensus": {
+                            "quality": "STALE",
+                            "publication_date": "2026-07-10",
+                            "selected_horizon_months": 6,
+                            "source_url": "https://www.newyorkfed.org/sme",
+                            "reasons": ["Consensus survey is stale"],
+                        },
                         "quadrant": {"description": "Liquidity remains abundant."},
                         "data_quality": {"quality": "PARTIAL"},
                     }
@@ -81,6 +87,11 @@ class TestDashboardHistory(unittest.TestCase):
             ["Current State", "Momentum", "Consensus", "Interpretation", "Data Quality"],
         )
         self.assertEqual(payload["macro_regime_sections"][0]["data"]["situation_id"], 4)
+        consensus = payload["macro_regime_sections"][2]["data"]
+        self.assertEqual(consensus["publication_date"], "2026-07-10")
+        self.assertEqual(consensus["selected_horizon_months"], 6)
+        self.assertEqual(consensus["source_url"], "https://www.newyorkfed.org/sme")
+        self.assertEqual(consensus["reasons"], ["Consensus survey is stale"])
 
     def test_extract_history_exports_ten_year_window(self):
         with tempfile.TemporaryDirectory() as tmpdir:

@@ -28,6 +28,25 @@ OUTCOMES_JSON = OUTPUT_DIR / "outcome_evaluation.json"
 
 DASHBOARD_HISTORY_DAYS = 365 * 10
 
+# Official New York Fed HLW natural-rate source.  The workbook contains
+# quarterly US estimates and is intentionally kept outside FRED because the
+# New York Fed publishes it as a vintage-bearing spreadsheet.
+HLW_RSTAR_SOURCE = {
+    "source": "NY Fed HLW",
+    "url": "https://www.newyorkfed.org/medialibrary/media/research/economists/williams/data/Holston_Laubach_Williams_current_estimates.xlsx",
+    "realtime_url": "https://www.newyorkfed.org/medialibrary/media/research/economists/williams/data/Holston_Laubach_Williams_real_time_estimates.xlsx",
+    "landing_url": "https://www.newyorkfed.org/research/policy/rstar/",
+    "sheet_name": "HLW Estimates",
+    "unit": "percent",
+    "frequency": "quarterly",
+}
+
+NYFED_SME_SOURCE = {
+    "source": "NY Fed Survey of Market Expectations",
+    "url": "https://www.newyorkfed.org/markets/market-intelligence/survey-of-market-expectations",
+    "unit": "mixed",
+}
+
 
 def configure_yfinance_cache(yf_module) -> None:
     """Point yfinance at a writable project-local cache when the API is available."""
@@ -39,13 +58,16 @@ def configure_yfinance_cache(yf_module) -> None:
 # Maps human-readable key to FRED Series ID and description
 FRED_SERIES = {
     # 1. Federal Reserve & Liquidity
-    "fed_total_assets": {"id": "WALCL", "name": "Fed Total Assets (Millions of USD)", "frequency": "weekly", "unit_scale": "millions"},
-    "reverse_repo": {"id": "RRPONTSYD", "name": "Overnight Reverse Repo (Billions of USD)", "frequency": "daily", "unit_scale": "billions"},
-    "tga_balance": {"id": "WDTGAL", "name": "Treasury General Account (Millions of USD)", "frequency": "weekly", "unit_scale": "millions"},
-    "effr": {"id": "FEDFUNDS", "name": "Effective Federal Funds Rate (%)", "frequency": "monthly"},
-    "dff": {"id": "DFF", "name": "Daily Effective Federal Funds Rate (%)", "frequency": "daily"},
-    "iorb": {"id": "IORB", "name": "Interest on Reserve Balances (%)", "frequency": "daily", "unit_scale": "percent"},
-    "sofr": {"id": "SOFR", "name": "Secured Overnight Financing Rate (%)", "frequency": "daily", "unit_scale": "percent"},
+    "fed_total_assets": {"id": "WALCL", "name": "Fed Total Assets (Millions of USD)", "frequency": "weekly", "unit_scale": "millions", "unit": "millions"},
+    "reverse_repo": {"id": "RRPONTSYD", "name": "Overnight Reverse Repo (Billions of USD)", "frequency": "daily", "unit_scale": "billions", "unit": "billions"},
+    "tga_balance": {"id": "WDTGAL", "name": "Treasury General Account (Millions of USD)", "frequency": "weekly", "unit_scale": "millions", "unit": "millions"},
+    # DFF is the official daily effective federal funds rate used for both
+    # policy measurement and five-business-day corroboration.  FEDFUNDS is
+    # monthly and is intentionally not used for the corroboration window.
+    "effr": {"id": "DFF", "name": "Daily Effective Federal Funds Rate (%)", "frequency": "daily", "unit": "percent", "source_url": "https://fred.stlouisfed.org/series/DFF"},
+    "dff": {"id": "DFF", "name": "Daily Effective Federal Funds Rate (%)", "frequency": "daily", "unit": "percent", "source_url": "https://fred.stlouisfed.org/series/DFF"},
+    "iorb": {"id": "IORB", "name": "Interest on Reserve Balances (%)", "frequency": "daily", "unit_scale": "percent", "unit": "percent", "source_url": "https://fred.stlouisfed.org/series/IORB"},
+    "sofr": {"id": "SOFR", "name": "Secured Overnight Financing Rate (%)", "frequency": "daily", "unit_scale": "percent", "unit": "percent", "source_url": "https://fred.stlouisfed.org/series/SOFR"},
     "m2_money_supply": {"id": "M2SL", "name": "M2 Money Supply (Billions of USD)", "frequency": "monthly"},
     "bank_deposits": {"id": "DPSACBW027SBOG", "name": "Deposits, All Commercial Banks (Billions)", "frequency": "weekly"},
 
@@ -75,15 +97,15 @@ FRED_SERIES = {
     "cpi": {"id": "CPIAUCSL", "name": "Consumer Price Index All Urban Consumers", "frequency": "monthly"},
     "core_cpi": {"id": "CPILFESL", "name": "Core CPI (Less Food and Energy)", "frequency": "monthly"},
     "pce": {"id": "PCEPI", "name": "Personal Consumption Expenditures Price Index", "frequency": "monthly"},
-    "core_pce": {"id": "PCEPILFE", "name": "Core PCE Price Index", "frequency": "monthly"},
+    "core_pce": {"id": "PCEPILFE", "name": "Core PCE Price Index", "frequency": "monthly", "unit": "index", "source_url": "https://fred.stlouisfed.org/series/PCEPILFE"},
     "breakeven_5y": {"id": "T5YIE", "name": "5-Year Breakeven Inflation Rate (%)", "frequency": "daily"},
     "breakeven_10y": {"id": "T10YIE", "name": "10-Year Breakeven Inflation Rate (%)", "frequency": "daily"},
 
     # 6. Real Economic Activity & Growth
     # GDP is nominal and reported by FRED in billions; keep real GDP under a
     # separate key so level-regime normalization cannot accidentally use it.
-    "nominal_gdp": {"id": "GDP", "name": "Nominal Gross Domestic Product (Billions of USD)", "frequency": "quarterly", "unit_scale": "billions"},
-    "real_gdp": {"id": "GDPC1", "name": "Real Gross Domestic Product (Billions of Chained 2017 Dollars)", "frequency": "quarterly", "unit_scale": "billions"},
+    "nominal_gdp": {"id": "GDP", "name": "Nominal Gross Domestic Product (Billions of USD)", "frequency": "quarterly", "unit_scale": "billions", "unit": "billions", "source_url": "https://fred.stlouisfed.org/series/GDP"},
+    "real_gdp": {"id": "GDPC1", "name": "Real Gross Domestic Product (Billions of Chained 2017 Dollars)", "frequency": "quarterly", "unit_scale": "billions", "unit": "billions"},
     "retail_sales": {"id": "RSAFS", "name": "Advance Retail Sales (Millions)", "frequency": "monthly"},
     "industrial_production": {"id": "INDPRO", "name": "Industrial Production Index", "frequency": "monthly"},
     "housing_starts": {"id": "HOUST", "name": "Housing Starts: Total New Privately Owned", "frequency": "monthly"},
@@ -111,6 +133,7 @@ ACTIVE_FRED_SERIES_KEYS = {
     "tga_balance",
     "effr",
     "dff",
+    "core_pce",
     "iorb",
     "sofr",
     "m2_money_supply",
@@ -131,6 +154,11 @@ ACTIVE_FRED_SERIES_KEYS = {
     "breakeven_10y",
     "housing_starts",
 }
+
+# Non-FRED primary sources fetched by the normal pipeline.  These sources
+# carry publication/vintage metadata that cannot be represented by a plain
+# FRED graph CSV.
+ACTIVE_OFFICIAL_SOURCE_KEYS = {"rstar", "nyfed_sme"}
 
 ACTIVE_YAHOO_TICKER_KEYS = {
     "sp500",

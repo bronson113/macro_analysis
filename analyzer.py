@@ -2,6 +2,7 @@
 
 import pandas as pd
 from datetime import datetime
+import json
 from typing import Dict, Any, Optional, Mapping, Iterable
 from config import REGIME_THRESHOLDS
 from storage import MacroStorage
@@ -105,12 +106,22 @@ class MacroAnalyzer:
         self.matrix_engine = MacroMatrixEngine()
         self.evidence_engine = SectorEvidenceEngine()
 
-    def _load_regime_series(self) -> Dict[str, pd.DataFrame]:
+    def _load_regime_series(self, as_of: Optional[pd.Timestamp] = None) -> Dict[str, pd.DataFrame]:
         """Load the point-in-time inputs consumed by the pure regime module."""
 
         def series(*keys: str, limit: Optional[int] = None) -> pd.DataFrame:
             for key in keys:
-                frame = self.storage.get_indicator_series(key, limit=limit)
+                frame = self.storage.get_indicator_series(
+                    key,
+                    limit=limit,
+                    as_of=as_of,
+                    include_metadata=True,
+                    # Existing installations have legacy rows without vintage
+                    # metadata.  Permit those only when the series has no
+                    # metadata-bearing rows; mixed rows stay conservative in
+                    # MacroStorage's point-in-time selector.
+                    allow_legacy=True,
+                )
                 if not frame.empty:
                     return frame
             return pd.DataFrame(columns=["date", "value"])
@@ -172,7 +183,7 @@ class MacroAnalyzer:
         """Assemble current level states, overlays, and a pure matrix result."""
 
         analysis_date = pd.Timestamp(as_of if as_of is not None else datetime.now().date()).normalize()
-        series = self._load_regime_series()
+        series = self._load_regime_series(as_of=analysis_date)
         policy = classify_policy_level(
             series["dff"], series["core_pce"], series["rstar"], analysis_date
         )
@@ -292,6 +303,27 @@ class MacroAnalyzer:
             quadrant = self.matrix_engine.classify_situation(
                 policy.get("state"), liquidity.get("state")
             )
+        # The matrix owns the actionability gate.  A neutral axis or a
+        # two-flag conflict can therefore downgrade public data quality even
+        # when each raw measurement was individually parseable.
+        matrix_quality = quadrant.get("data_quality") if isinstance(quadrant, dict) else None
+        if isinstance(matrix_quality, dict):
+            data_quality = dict(data_quality)
+            data_quality.update(matrix_quality)
+            data_quality["reasons"] = list(dict.fromkeys(
+                list(data_quality.get("reasons") or [])
+                + list(matrix_quality.get("reasons") or [])
+                + list(matrix_quality.get("actionability_reasons") or [])
+            ))
+            data_quality["missing_inputs"] = list(dict.fromkeys(
+                list(data_quality.get("missing_inputs") or [])
+                + list(quadrant.get("missing_inputs") or [])
+            ))
+            data_quality["conflicts"] = list(dict.fromkeys(
+                list(data_quality.get("conflicts") or [])
+                + list(quadrant.get("conflicts") or [])
+            ))
+            quality = data_quality.get("quality", quality)
         current_state = {
             "policy": policy.get("state"),
             "liquidity": liquidity.get("state"),
@@ -719,9 +751,19 @@ class MacroAnalyzer:
             "consensus_expected_fed_assets": consensus.get("expected_fed_assets"),
             "consensus_survey_date": consensus.get("selected_survey_date"),
             "consensus_target_date": consensus.get("selected_target_date"),
+            "consensus_survey_reference_date": consensus.get("survey_reference_date"),
+            "consensus_publication_date": consensus.get("publication_date"),
+            "consensus_horizon_months": consensus.get("selected_horizon_months"),
+            "consensus_metric": consensus.get("metric"),
+            "consensus_unit": consensus.get("unit"),
+            "consensus_source_url": consensus.get("source_url"),
+            "consensus_parsing_status": consensus.get("parsing_status"),
+            "consensus_provider": consensus.get("provider"),
+            "consensus_age_days": consensus.get("survey_age_days"),
             "consensus_policy_date": consensus.get("selected_survey_date"),
             "consensus_balance_sheet_date": consensus.get("selected_survey_date"),
             "consensus_quality": consensus.get("quality"),
+            "consensus_reasons": json.dumps(consensus.get("reasons") or [], ensure_ascii=False),
             "quadrant_quality": macro_situation.get("quality"),
             "situation_id": macro_situation.get("situation_id"),
             "input_age_dff": input_ages.get("dff"),

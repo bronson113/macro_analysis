@@ -30,8 +30,22 @@ from config import (
 from storage import MacroStorage
 from news_analyzer import MacroNewsAnalyzer
 from source_health import SourceHealth, classify_source_error
+from hlw_rstar import HolstonLaubachWilliamsProvider
+from consensus import NewYorkFedSMEProvider
 
 configure_yfinance_cache(yf)
+
+EXPECTED_FRED_UNITS = {
+    "fed_total_assets": "millions",
+    "tga_balance": "millions",
+    "reverse_repo": "billions",
+    "nominal_gdp": "billions",
+    "core_pce": "index",
+    "dff": "percent",
+    "effr": "percent",
+    "iorb": "percent",
+    "sofr": "percent",
+}
 
 logging.basicConfig(
     filename=LOG_DIR / "fetcher.log",
@@ -44,11 +58,54 @@ class MacroFetcher:
     CNN_FEAR_GREED_URL = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
     SHILLER_PE_URL = "https://www.multpl.com/shiller-pe"
 
-    def __init__(self, storage: Optional[MacroStorage] = None):
+    def __init__(
+        self,
+        storage: Optional[MacroStorage] = None,
+        *,
+        hlw_provider: Optional[HolstonLaubachWilliamsProvider] = None,
+        consensus_provider: Optional[NewYorkFedSMEProvider] = None,
+    ):
         self.storage = storage or MacroStorage()
         self.news_analyzer = MacroNewsAnalyzer(self.storage)
+        self.hlw_provider = hlw_provider or HolstonLaubachWilliamsProvider()
+        self.consensus_provider = consensus_provider or NewYorkFedSMEProvider()
         self.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) MacroAnalysis/2.0"
         self._urlopen = urllib.request.urlopen
+
+    def fetch_hlw_rstar(self, as_of: Optional[Any] = None) -> Tuple[int, Optional[str]]:
+        """Fetch and persist the official New York Fed HLW US r-star series."""
+        try:
+            records = self.hlw_provider.get_records(as_of=as_of)
+            if not records:
+                return 0, "HLW provider returned no usable observations"
+            frame = pd.DataFrame(records)
+            columns = [
+                "date",
+                "value",
+                "publication_date",
+                "vintage_date",
+                "source_url",
+                "unit",
+            ]
+            if "release_date" in frame.columns:
+                columns.insert(2, "release_date")
+            count = self.storage.save_observations("rstar", frame[columns])
+            return count, None
+        except Exception as error:
+            logging.error("Failed to fetch NY Fed HLW r-star: %s", error)
+            return 0, f"Failed to fetch NY Fed HLW r-star: {error}"
+
+    def fetch_consensus(self, as_of: Optional[Any] = None) -> Tuple[int, Optional[str]]:
+        """Fetch the optional NY Fed SME overlay into the durable CSV boundary."""
+        try:
+            records = self.consensus_provider.get_records(as_of=as_of)
+            count = self.storage.save_consensus_records(records)
+            if count <= 0:
+                return 0, "NY Fed SME provider returned no usable observations"
+            return count, None
+        except Exception as error:
+            logging.error("Failed to fetch NY Fed SME consensus: %s", error)
+            return 0, f"Failed to fetch NY Fed SME consensus: {error}"
 
     def fetch_fred_series(self, key: str, series_info: Dict[str, Any], max_retries: int = 3) -> Tuple[int, Optional[str]]:
         """
@@ -56,6 +113,20 @@ class MacroFetcher:
         """
         series_id = series_info["id"]
         url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
+        source_url = series_info.get("source_url") or url
+        declared_unit = series_info.get("unit") or series_info.get("unit_scale")
+        expected_unit = EXPECTED_FRED_UNITS.get(key)
+        if expected_unit is not None and str(declared_unit or "").strip().lower() != expected_unit:
+            return (
+                0,
+                f"Rejected {key}: source unit {declared_unit or 'missing'}; "
+                f"expected {expected_unit}",
+            )
+        # FRED's graph CSV is an observation file, not a vintage-history API.
+        # Persist the retrieval date as the conservative availability vintage;
+        # callers evaluating an earlier as-of date will not see this row unless
+        # the source supplied an earlier explicit vintage.
+        retrieval_vintage = datetime.now().strftime("%Y-%m-%d")
         
         # Check local pre-fetched cache first (unless urlopen is mocked in unit tests)
         is_mocked = "Mock" in str(type(urllib.request.urlopen))
@@ -79,7 +150,13 @@ class MacroFetcher:
                         cutoff_date = (datetime.now() - timedelta(days=history_days)).strftime("%Y-%m-%d")
                         df = df[df["date"] >= cutoff_date]
                         
-                        count = self.storage.save_observations(key, df[["date", "value"]])
+                        count = self.storage.save_observations(
+                            key,
+                            df[["date", "value"]],
+                            vintage_date=retrieval_vintage,
+                            source_url=source_url,
+                            unit=declared_unit,
+                        )
                         logging.info(f"Successfully loaded {count} records from cached FRED file for {key} ({series_id})")
                         return count, None
             except Exception as cache_err:
@@ -156,7 +233,13 @@ class MacroFetcher:
                 cutoff_date = (datetime.now() - timedelta(days=history_days)).strftime("%Y-%m-%d")
                 df = df[df["date"] >= cutoff_date]
                 
-                count = self.storage.save_observations(key, df[["date", "value"]])
+                count = self.storage.save_observations(
+                    key,
+                    df[["date", "value"]],
+                    vintage_date=retrieval_vintage,
+                    source_url=source_url,
+                    unit=declared_unit,
+                )
                 logging.info(f"Successfully saved {count} records for FRED key: {key} ({series_id})")
                 return count, None
 
@@ -279,7 +362,9 @@ class MacroFetcher:
             source=source,
             fetch_key=fetch_key,
             observation_time=(
-                str(latest_observation.get("date")) if latest_observation is not None else None
+                pd.Timestamp(latest_observation.get("date")).strftime("%Y-%m-%d")
+                if latest_observation is not None and latest_observation.get("date") is not None
+                else None
             ),
             fetch_time=datetime.now().isoformat(),
             status="CURRENT" if error is None else "ERROR",
@@ -306,6 +391,7 @@ class MacroFetcher:
             count: int,
             error: Optional[str],
             require_records: bool = False,
+            counts_as_failure: bool = True,
         ):
             if error is None and require_records and count <= 0:
                 error = "Empty usable observation set returned by source"
@@ -315,8 +401,9 @@ class MacroFetcher:
             if error is None:
                 success_keys.append(key)
                 return count
-            failed_keys.append(key)
-            errors[key] = error
+            if counts_as_failure:
+                failed_keys.append(key)
+                errors[key] = error
             return 0
         fetch_all_series = os.getenv("MACRO_FETCH_ALL_SERIES") == "1"
         fred_series = FRED_SERIES if fetch_all_series else {
@@ -344,6 +431,24 @@ class MacroFetcher:
                 except Exception as e:
                     count, err = 0, str(e)
                 total_records += record_result("FRED", key, count, err, require_records=True)
+
+        print("--> Fetching New York Fed HLW r-star...")
+        try:
+            count, err = self.fetch_hlw_rstar()
+        except Exception as error:
+            count, err = 0, str(error)
+        total_records += record_result(
+            "NY Fed HLW", "rstar", count, err, require_records=True, counts_as_failure=False
+        )
+
+        print("--> Fetching NY Fed Survey of Market Expectations...")
+        try:
+            count, err = self.fetch_consensus()
+        except Exception as error:
+            count, err = 0, str(error)
+        total_records += record_result(
+            "NY Fed SME", "nyfed_sme", count, err, require_records=True, counts_as_failure=False
+        )
 
         print("--> Fetching Yahoo Finance Market Prices...")
         with ThreadPoolExecutor(max_workers=5) as executor:

@@ -2,3 +2,4 @@ pandas
 yfinance
 tabulate
 requests
+openpyxl

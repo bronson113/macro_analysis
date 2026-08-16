@@ -17,6 +17,11 @@ WITHHOLDING_QUALITIES = {
     "UNAVAILABLE",
     "STALE",
 }
+QUALITY_ALIASES = {
+    "MISSING": "INSUFFICIENT_DATA",
+    "MISSING_DATA": "INSUFFICIENT_DATA",
+    "CONFLICT": "INDETERMINATE_CONFLICT",
+}
 
 
 def _state(value: Any, allowed: set[str]) -> Optional[str]:
@@ -64,6 +69,7 @@ class MacroMatrixEngine:
         normalized_policy = _state(policy_state, POLICY_STATES)
         normalized_liquidity = _state(liquidity_state, LIQUIDITY_STATES)
         normalized_quality = str(quality or "OK").upper()
+        normalized_quality = QUALITY_ALIASES.get(normalized_quality, normalized_quality)
         reasons = []
         conflicts = []
 
@@ -101,6 +107,26 @@ class MacroMatrixEngine:
         if situation_id == 0 and normalized_quality == "OK":
             effective_quality = "INSUFFICIENT_DATA"
 
+        if situation_id == 0:
+            if normalized_quality == "OK":
+                effective_quality = "INSUFFICIENT_DATA"
+            actionability = "WITHHELD"
+        else:
+            actionability = "ACTIONABLE"
+        provided_quality = context.get("data_quality")
+        data_quality = dict(provided_quality) if isinstance(provided_quality, Mapping) else {}
+        existing_quality = str(data_quality.get("quality", normalized_quality) or normalized_quality).upper()
+        existing_quality = QUALITY_ALIASES.get(existing_quality, existing_quality)
+        if situation_id == 0 and existing_quality == "OK":
+            existing_quality = effective_quality
+        data_quality["quality"] = existing_quality
+        data_quality["overall"] = existing_quality
+        data_quality["actionability"] = actionability
+        data_quality["actionability_quality"] = existing_quality
+        quality_reasons = list(data_quality.get("reasons") or [])
+        quality_reasons.extend(reason for reason in reasons if reason not in quality_reasons)
+        data_quality["reasons"] = quality_reasons
+        data_quality["actionability_reasons"] = list(reasons)
         common = {
             "policy_state": normalized_policy,
             "liquidity_state": normalized_liquidity,
@@ -120,11 +146,11 @@ class MacroMatrixEngine:
                 "policy_90d": _context_value(context, "momentum_90d"),
             },
             "consensus": context.get("consensus") or {},
-            "data_quality": context.get("data_quality") or {"quality": effective_quality},
+            "data_quality": data_quality,
             "momentum_30d": (context.get("momentum") or {}).get("liquidity_30d"),
             "momentum_90d": (context.get("momentum") or {}).get("liquidity_90d"),
-            "missing_inputs": list(context.get("missing_inputs") or reasons),
-            "conflicts": list(context.get("conflicts") or conflicts),
+            "missing_inputs": list(dict.fromkeys(list(context.get("missing_inputs") or []) + reasons)),
+            "conflicts": list(dict.fromkeys(list(context.get("conflicts") or []) + conflicts)),
             "quality": effective_quality,
         }
 

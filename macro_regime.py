@@ -34,6 +34,19 @@ LIQUIDITY_MIN_HISTORY_WEEKS = 200
 HISTORICAL_WINDOW_YEARS = 10
 MIN_HISTORICAL_YEARS = 5
 
+EXPECTED_SOURCE_UNITS = {
+    "DFF": {"percent"},
+    "EFFR": {"percent"},
+    "IORB": {"percent"},
+    "SOFR": {"percent"},
+    "Core PCE": {"index"},
+    "R-star": {"percent"},
+    "Fed assets": {"millions"},
+    "TGA": {"millions"},
+    "RRP": {"billions"},
+    "Nominal GDP": {"billions"},
+}
+
 
 def classify_delta(
     delta: Optional[float],
@@ -109,8 +122,31 @@ def _prepare_series(frame: Optional[pd.DataFrame]) -> pd.DataFrame:
         result.attrs["nonfinite_dates"] = []
         return result
 
-    result = frame.loc[:, ["date", "value"]].copy()
+    metadata_columns = [
+        column
+        for column in ("release_date", "publication_date", "vintage_date")
+        if column in frame.columns
+    ]
+    result = frame.loc[:, ["date", "value", *metadata_columns]].copy()
+    declared_units = set()
+    if "unit" in frame.columns:
+        declared_units = {
+            str(unit).strip().lower()
+            for unit in frame["unit"].dropna()
+            if str(unit).strip()
+        }
+    result.attrs["declared_units"] = declared_units
     result["date"] = pd.to_datetime(result["date"], errors="coerce", utc=True).dt.tz_convert(None)
+    for column in metadata_columns:
+        result[column] = pd.to_datetime(result[column], errors="coerce", utc=True).dt.tz_convert(None)
+    availability = pd.Series(pd.NaT, index=result.index, dtype="datetime64[ns]")
+    # A vintage/release date is the conservative date on which this value was
+    # available to an analyst.  Legacy rows have no such metadata and fall
+    # back to their economic observation date for freshness checks.
+    for column in ("vintage_date", "publication_date", "release_date"):
+        if column in result.columns:
+            availability = availability.fillna(result[column])
+    result["availability_date"] = availability
     result["value"] = pd.to_numeric(result["value"], errors="coerce")
     finite_values = result["value"].map(
         lambda value: bool(pd.notna(value)) and math.isfinite(float(value))
@@ -122,6 +158,18 @@ def _prepare_series(frame: Optional[pd.DataFrame]) -> pd.DataFrame:
     result = result.reset_index(drop=True)
     result.attrs["nonfinite_dates"] = nonfinite_dates
     return result
+
+
+def _unit_error(frame: pd.DataFrame, label: str) -> Optional[str]:
+    """Return a structured unit error when a source declares the wrong unit."""
+    expected = EXPECTED_SOURCE_UNITS.get(label)
+    declared = frame.attrs.get("declared_units", set())
+    if expected and declared and not declared.issubset(expected):
+        return (
+            f"{label} unit mismatch: declared {', '.join(sorted(declared))}; "
+            f"expected {', '.join(sorted(expected))}"
+        )
+    return None
 
 
 def _has_nonfinite_on_or_before(frame: pd.DataFrame, as_of: pd.Timestamp) -> bool:
@@ -143,6 +191,16 @@ def _age_days(observation_date: Optional[pd.Timestamp], as_of: pd.Timestamp) -> 
     return int((as_of.normalize() - observation_date.normalize()).days)
 
 
+def _row_age_days(row: Optional[pd.Series], as_of: pd.Timestamp) -> Optional[int]:
+    """Return age from source availability, falling back to observation date."""
+    if row is None:
+        return None
+    availability = row.get("availability_date")
+    if availability is not None and not pd.isna(availability):
+        return _age_days(pd.Timestamp(availability), as_of)
+    return _age_days(pd.Timestamp(row["date"]), as_of)
+
+
 def _round(value: Optional[float], digits: int = 3) -> Optional[float]:
     if value is None:
         return None
@@ -157,9 +215,15 @@ def _row_details(row: Optional[pd.Series], as_of: pd.Timestamp) -> Dict[str, Any
     if row is None:
         return {"date": None, "age_days": None, "value": None}
     date = pd.Timestamp(row["date"])
+    availability = row.get("availability_date")
+    if availability is not None and pd.isna(availability):
+        availability = None
+    if availability is not None:
+        availability = pd.Timestamp(availability)
     return {
         "date": date,
-        "age_days": _age_days(date, as_of),
+        "availability_date": availability,
+        "age_days": _row_age_days(row, as_of),
         "value": _round(float(row["value"])),
     }
 
@@ -194,6 +258,7 @@ def _core_pce_measurement(
     yoy = (float(latest["value"]) / float(prior["value"]) - 1.0) * 100.0
     return {
         "date": latest_date,
+        "availability_date": latest.get("availability_date"),
         "value": float(latest["value"]),
         "prior_date": pd.Timestamp(prior["date"]),
         "prior_value": float(prior["value"]),
@@ -411,7 +476,13 @@ def classify_policy_level(
 
     dff_details = _row_details(dff_row, as_of)
     pce_details = _row_details(
-        pd.Series({"date": pce_measurement["date"], "value": pce_measurement["value"]})
+        pd.Series(
+            {
+                "date": pce_measurement["date"],
+                "value": pce_measurement["value"],
+                "availability_date": pce_measurement.get("availability_date"),
+            }
+        )
         if pce_measurement is not None
         else None,
         as_of,
@@ -467,6 +538,10 @@ def classify_policy_level(
         if _has_nonfinite_on_or_before(frame, as_of):
             required_ok = False
             reasons.append(f"{source_name} contains a non-finite input value")
+        unit_reason = _unit_error(frame, source_name)
+        if unit_reason:
+            required_ok = False
+            reasons.append(unit_reason)
 
     if dff_row is None:
         required_ok = False
@@ -816,11 +891,32 @@ def classify_liquidity_level(
         if _has_nonfinite_on_or_before(frame, as_of):
             required_ok = False
             reasons.append(f"{label} contains a non-finite input value")
-        elif row is None:
+        unit_reason = _unit_error(frame, label)
+        if unit_reason:
+            required_ok = False
+            reasons.append(unit_reason)
+        if key == "nominal_gdp":
+            non_positive = frame.loc[
+                (frame["date"] <= as_of) & (frame["value"] <= 0)
+            ]
+            if not non_positive.empty:
+                required_ok = False
+                reasons.append("Nominal GDP must be positive; non-positive input was rejected")
+            mis_scaled = frame.loc[
+                (frame["date"] <= as_of)
+                & ((frame["value"] < 1_000.0) | (frame["value"] > 1_000_000.0))
+            ]
+            if not mis_scaled.empty and non_positive.empty:
+                required_ok = False
+                reasons.append(
+                    "Nominal GDP value appears mis-scaled for billions; expected roughly "
+                    "1,000 to 1,000,000"
+                )
+        if row is None:
             required_ok = False
             reasons.append(f"Missing {key.replace('_', ' ')} observation on or before as_of")
         else:
-            age = _age_days(pd.Timestamp(row["date"]), as_of)
+            age = _row_age_days(row, as_of)
             if age is not None and age > max_age:
                 required_ok = False
                 reasons.append(
@@ -991,11 +1087,11 @@ def classify_liquidity_level(
         elif row is None:
             corroboration_ok = False
             reasons.append(f"Missing {label} corroboration on or before as_of")
-        elif _age_days(pd.Timestamp(row["date"]), as_of) > max_age:
+        elif _row_age_days(row, as_of) > max_age:
             corroboration_ok = False
             reasons.append(
                 f"{label} corroboration is stale ("
-                f"{_age_days(pd.Timestamp(row['date']), as_of)} days old; maximum {max_age})"
+                f"{_row_age_days(row, as_of)} days old; maximum {max_age})"
             )
 
     effr_iorb_bp, sofr_iorb_bp, corroboration_dates = _liquidity_money_market_means(

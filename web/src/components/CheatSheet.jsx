@@ -56,7 +56,7 @@ const CheatSheet = ({ isOpen, onClose }) => {
             <div className="situation-detail"><strong>Policy level:</strong> Restrictive</div>
             <div className="situation-detail situation-detail-last"><strong>Liquidity level:</strong> Abundant</div>
             <p className="situation-summary">
-              <strong>Policy/Liquidity Conflict.</strong> Rates are high but money is printing. Favors hard assets, commodity producers, energy, and inflation-linked cash flows.
+              <strong>Policy/Liquidity Conflict.</strong> Policy is restrictive while reserve liquidity remains historically abundant. Favors hard assets, commodity producers, energy, and inflation-linked cash flows only when independent evidence confirms.
             </p>
           </div>
 
@@ -73,7 +73,7 @@ const CheatSheet = ({ isOpen, onClose }) => {
         <h3 className="cheat-sheet-heading">Important Definitions</h3>
         <ul className="text-secondary cheat-sheet-definitions">
           <li><strong>Policy level:</strong> Compare the real policy rate with the neutral real rate (r-star). The real-policy gap is <em>real policy rate − r-star</em>; above +0.50 percentage points is restrictive, below -0.50 points is accommodative, and the middle band is neutral.</li>
-          <li><strong>Reserve-liquidity level:</strong> The proxy is Fed Assets − TGA Balance − ON RRP, normalized as a share of nominal GDP. Compare it with the trailing historical distribution: below P40 is scarce and above P60 is abundant. This is history-relative, not a 30-day direction label.</li>
+          <li><strong>Reserve-liquidity level:</strong> The proxy is Fed Assets − TGA Balance − ON RRP, normalized as a share of nominal GDP. Compare it with the trailing historical distribution: scarce at-or-below P40 and abundant at-or-above P60. This is history-relative, not a 30-day direction label.</li>
           <li><strong>Momentum:</strong> Show policy and liquidity separately at both 30 days and 90 days. Easing or deteriorating momentum can coexist with a high current level and cannot change the current quadrant.</li>
           <li><strong>Consensus:</strong> An optional forward-looking survey overlay reports expected policy and, when available, the Fed balance-sheet path. Unavailable or stale consensus leaves the current level-based quadrant unchanged.</li>
           <li><strong>High-but-falling example:</strong> A restrictive policy level plus an abundant liquidity level is <strong>Situation 4</strong> even when policy momentum is easing and liquidity momentum is deteriorating. Report those falling overlays separately.</li>

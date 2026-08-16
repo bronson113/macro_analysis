@@ -7,6 +7,7 @@ import {
   DASHBOARD_SECTIONS,
   splitReportSections,
 } from './dashboardPresentation.js';
+import { descriptions } from './descriptions.js';
 
 const fixture = {
   macro_regime: {
@@ -31,7 +32,17 @@ const fixture = {
       policy: { '30d': 'EASING', '90d': 'EASING' },
       liquidity: { '30d': 'DETERIORATING', '90d': 'STABLE' },
     },
-    consensus: { quality: 'UNAVAILABLE' },
+    consensus: {
+      quality: 'OK',
+      selected_survey_date: '2026-07-01',
+      publication_date: '2026-07-10',
+      selected_target_date: '2027-01-01',
+      selected_horizon_months: 6,
+      metric: 'FED_FUNDS_RATE_AND_FED_BALANCE_SHEET_ASSETS',
+      unit: 'percent_and_billions_usd',
+      source_url: 'https://www.newyorkfed.org/sme',
+      parsing_status: 'OK',
+    },
     quadrant: {
       situation_id: 4,
       description: 'Policy remains restrictive while reserve liquidity is abundant.',
@@ -48,6 +59,15 @@ test('presents level state separately from momentum and consensus', () => {
   ]);
   assert.equal(view.sections[0].value.includes('Restrictive + Abundant'), true);
   assert.equal(view.sections[1].value.includes('Deteriorating'), true);
+  const consensus = view.sections.find(section => section.label === 'Consensus');
+  assert.equal(consensus.details.find(item => item.label === 'Publication date').value, '2026-07-10');
+  assert.equal(consensus.details.find(item => item.label === 'Horizon').value, '6 months');
+  assert.equal(consensus.details.find(item => item.label === 'Source URL').value, 'https://www.newyorkfed.org/sme');
+});
+
+test('uses inclusive scarce and abundant liquidity boundary copy', () => {
+  assert.match(descriptions.liquidity_level, /at-or-below P40/);
+  assert.match(descriptions.liquidity_level, /at-or-above P60/);
 });
 
 test('renders unavailable when every input age is null', () => {
@@ -65,6 +85,44 @@ test('renders unavailable when every input age is null', () => {
   const ages = qualitySection.details.find(item => item.label === 'Input ages');
 
   assert.equal(ages.value, 'Unavailable');
+});
+
+test('renders stale or unavailable consensus metadata and data-quality reasons', () => {
+  const view = buildRegimePresentation({
+    ...fixture,
+    macro_regime: {
+      ...fixture.macro_regime,
+      consensus: {
+        quality: 'STALE',
+        publication_date: '2026-01-01',
+        selected_horizon_months: 6,
+        parsing_status: 'UNAVAILABLE',
+        reasons: ['Consensus survey is stale (226 days old)'],
+      },
+      data_quality: {
+        quality: 'PARTIAL',
+        actionability: 'WITHHELD',
+        actionability_reasons: ['Policy axis is neutral'],
+        input_ages: { dff: 2, rstar: 80 },
+      },
+    },
+  });
+
+  const consensus = view.sections.find(section => section.label === 'Consensus');
+  assert.equal(consensus.value.includes('Stale'), true);
+  assert.equal(consensus.details.find(item => item.label === 'Publication date').value, '2026-01-01');
+  assert.equal(consensus.details.find(item => item.label === 'Parsing status').value, 'UNAVAILABLE');
+  assert.equal(
+    consensus.details.find(item => item.label === 'Consensus reasons').value,
+    'Consensus survey is stale (226 days old)',
+  );
+
+  const quality = view.sections.find(section => section.label === 'Data Quality');
+  assert.equal(quality.details.find(item => item.label === 'Input ages').value, 'dff 2d · rstar 80d');
+  assert.match(
+    quality.details.find(item => item.label === 'Reasons and conflicts').value,
+    /Policy axis is neutral/,
+  );
 });
 
 test('dashboard sections follow decision relevance with source health last', () => {

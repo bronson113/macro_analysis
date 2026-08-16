@@ -91,9 +91,9 @@ than 120 days and never use a later release. For the trailing ten calendar
 years, exclude the current observation and require at least five years and 200
 aligned weekly observations. Classify the current percentile as:
 
-- `ABUNDANT` at or above the historical 60th percentile (inclusive).
-- `SCARCE` at or below the historical 40th percentile (inclusive).
-- `NEUTRAL` between the 40th and 60th percentiles.
+- `ABUNDANT` at-or-above P60 (the historical 60th percentile, inclusive).
+- `SCARCE` at-or-below P40 (the historical 40th percentile, inclusive).
+- `NEUTRAL` between P40 and P60.
 - `INSUFFICIENT_DATA` when a required component, freshness limit, history
   window, or observation count fails.
 

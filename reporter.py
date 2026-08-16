@@ -417,7 +417,9 @@ Momentum is a separate overlay and does not change the current level-based quadr
 Market consensus is a forward-looking overlay and never changes the current quadrant.
 - **Policy consensus:** `{md_cell(self._first_value(consensus.get('policy_direction'), consensus.get('policy'), 'N/A'))}`; expected DFF `{fmt_num(consensus.get('expected_dff'), ':,.3f', ' pp')}`.
 - **Fed balance-sheet consensus:** `{md_cell(self._first_value(consensus.get('balance_sheet_direction'), consensus.get('balance_sheet'), 'N/A'))}`; expected Fed assets `{fmt_num(consensus.get('expected_fed_assets'), ':,.2f', ' B')}`.
-- **Survey date:** `{self._date_value(self._first_value(consensus.get('selected_survey_date'), consensus.get('survey_date')))}`; target date: `{self._date_value(self._first_value(consensus.get('selected_target_date'), consensus.get('target_date')))}`; quality: `{md_cell(consensus_quality)}`.
+- **Survey reference/publication:** `{self._date_value(self._first_value(consensus.get('survey_reference_date'), consensus.get('reference_date'), consensus.get('selected_survey_date'), consensus.get('survey_date')))}` / `{self._date_value(consensus.get('publication_date'))}`; target date: `{self._date_value(self._first_value(consensus.get('selected_target_date'), consensus.get('target_date')))}`; horizon: `{md_cell(consensus.get('selected_horizon_months') or consensus.get('horizon_months') or 'N/A')}` months; quality: `{md_cell(consensus_quality)}`.
+- **Metric / unit:** `{md_cell(consensus.get('metric') or 'N/A')}` / `{md_cell(consensus.get('unit') or 'N/A')}`; parsing status: `{md_cell(consensus.get('parsing_status') or 'N/A')}`; provider: `{md_cell(consensus.get('provider') or 'N/A')}`.
+- **Source URL:** `{md_cell(consensus.get('source_url') or 'N/A')}`.
 - **Consensus reasons:** {consensus_reason_text}.
 """.strip() + "\n"
 
@@ -437,6 +439,9 @@ Market consensus is a forward-looking overlay and never changes the current quad
         quality_reasons = self._list_value(quality.get("reasons"))
         quality_reasons.extend(self._list_value(quality.get("policy_reasons")))
         quality_reasons.extend(self._list_value(quality.get("liquidity_reasons")))
+        quality_reasons.extend(self._list_value(quality.get("actionability_reasons")))
+        quality_reasons.extend(self._list_value(quality.get("missing_inputs")))
+        quality_reasons.extend(self._list_value(quality.get("conflicts")))
         quality_reasons.extend(self._list_value(regime.get("missing_inputs")))
         quality_reasons.extend(self._list_value(regime.get("conflicts")))
         quality_reason_text = "; ".join(md_cell(reason) for reason in quality_reasons) or "None reported"
@@ -624,7 +629,7 @@ Market consensus is a forward-looking overlay and never changes the current quad
 > [!IMPORTANT]
 > **Active Quadrant**: `{macro_sit.get('name', 'N/A')}`
 > - **Rates Stance**: `{macro_sit.get('rates_label', 'N/A')}`
-> - **Net Liquidity Direction**: `{macro_sit.get('bs_label', 'N/A')}`
+> - **Reserve Liquidity Level**: `{macro_sit.get('bs_label', 'N/A')}`
 > - **Macro Environment**: {macro_sit.get('description', '')}
 
 ### Sector & Company Type Alignment for Current Situation
@@ -779,7 +784,7 @@ The yield curve slope is a key indicator of economic cycle transitions and reces
 | Rate / Spread | Current Level | Institutional Signal |
 | :--- | :--- | :--- |
 | **Policy Rate** | `{policy_rate_val}` | Source: `{policy.get('source', 'N/A')}` / Stance: `{policy.get('policy_stance', 'N/A')}` |
-| **Policy Rate 30d Change** | `{policy_change_val}` | Used for Rates Stance in Matrix |
+| **Policy Rate 30d Change** | `{policy_change_val}` | Momentum diagnostic overlay; the matrix uses the real-policy gap level |
 | **10Y Real Yield Proxy** | `{real_yield_val}` | 10Y Treasury minus 10Y breakeven |
 | **10-Year Treasury Yield** | `{t10_val}` | Benchmark Long Rate |
 | **2-Year Treasury Yield** | `{t2_val}` | Short Rate / Fed Expectations |

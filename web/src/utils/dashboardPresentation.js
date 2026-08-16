@@ -117,7 +117,7 @@ const REGIME_SECTION_ORDER = Object.freeze([
 ]);
 
 const POLICY_LEVEL_HELP = 'Policy level uses the real-policy gap: real policy rate minus neutral real rate (r-star). A gap above +0.50 pp is restrictive; below -0.50 pp is accommodative.';
-const LIQUIDITY_LEVEL_HELP = 'Liquidity level uses normalized reserve liquidity as a share of GDP against a trailing historical sample. Below P40 is scarce; above P60 is abundant.';
+const LIQUIDITY_LEVEL_HELP = 'Liquidity level uses normalized reserve liquidity as a share of GDP against a trailing historical sample. It is scarce at-or-below P40 and abundant at-or-above P60.';
 const MOMENTUM_HELP = 'Momentum is a separate 30-day or 90-day change overlay. It does not change the current level or quadrant.';
 const CONSENSUS_HELP = 'Consensus is an optional, forward-looking survey overlay. Missing or stale consensus never changes the current state.';
 
@@ -339,7 +339,13 @@ function buildConsensusSection({ consensus }) {
       detail('Policy consensus', titleCase(policyDirection), CONSENSUS_HELP),
       detail('Fed balance-sheet consensus', titleCase(balanceSheetDirection), CONSENSUS_HELP),
       detail('Survey quality', qualityLabel, CONSENSUS_HELP),
-      detail('Survey / target dates', `${formatDateValue(firstPresent(consensus.selected_survey_date, consensus.survey_date))} / ${formatDateValue(firstPresent(consensus.selected_target_date, consensus.target_date))}`),
+      detail('Survey date', formatDateValue(firstPresent(consensus.selected_survey_date, consensus.survey_date)), CONSENSUS_HELP),
+      detail('Publication date', formatDateValue(consensus.publication_date), CONSENSUS_HELP),
+      detail('Target date', formatDateValue(firstPresent(consensus.selected_target_date, consensus.target_date)), CONSENSUS_HELP),
+      detail('Horizon', `${formatNumber(firstPresent(consensus.selected_horizon_months, consensus.horizon_months), 0)} months`, CONSENSUS_HELP),
+      detail('Metric / unit', `${firstPresent(consensus.metric, 'N/A')} / ${firstPresent(consensus.unit, 'N/A')}`, CONSENSUS_HELP),
+      detail('Parsing status', firstPresent(consensus.parsing_status, 'N/A'), CONSENSUS_HELP),
+      detail('Source URL', firstPresent(consensus.source_url, 'N/A'), CONSENSUS_HELP),
       ...(Array.isArray(consensus.reasons) && consensus.reasons.length
         ? [detail('Consensus reasons', consensus.reasons.join('; '))]
         : []),
@@ -369,6 +375,9 @@ function buildDataQualitySection({ dataQuality, policy, liquidity, regime, quadr
     ...(Array.isArray(dataQuality.reasons) ? dataQuality.reasons : []),
     ...(Array.isArray(dataQuality.policy_reasons) ? dataQuality.policy_reasons : []),
     ...(Array.isArray(dataQuality.liquidity_reasons) ? dataQuality.liquidity_reasons : []),
+    ...(Array.isArray(dataQuality.actionability_reasons) ? dataQuality.actionability_reasons : []),
+    ...(Array.isArray(dataQuality.missing_inputs) ? dataQuality.missing_inputs : []),
+    ...(Array.isArray(dataQuality.conflicts) ? dataQuality.conflicts : []),
     ...(Array.isArray(regime.missing_inputs) ? regime.missing_inputs : []),
     ...(Array.isArray(regime.conflicts) ? regime.conflicts : []),
   ].filter(Boolean).filter((reason, index, values) => values.indexOf(reason) === index);
@@ -383,7 +392,7 @@ function buildDataQualitySection({ dataQuality, policy, liquidity, regime, quadr
   return {
     key: 'dataQuality',
     label: 'Data Quality',
-    value: `Overall ${titleCase(quality)} · Policy ${titleCase(policy.quality)} · Liquidity ${titleCase(liquidity.quality)}`,
+    value: `Overall ${titleCase(quality)} · Actionability ${titleCase(firstPresent(dataQuality.actionability, dataQuality.actionability_quality, quality))} · Policy ${titleCase(policy.quality)} · Liquidity ${titleCase(liquidity.quality)}`,
     details: [
       detail('Input ages', ageText),
       detail('Reasons and conflicts', reasons.length ? reasons.join('; ') : 'None reported'),

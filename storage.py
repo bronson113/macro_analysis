@@ -14,6 +14,7 @@ import pandas as pd
 
 from config import (
     FRED_SERIES,
+    HLW_RSTAR_SOURCE,
     INDICATORS_CSV,
     MARKET_SENTIMENT_INDICATORS,
     NEWS_CSV,
@@ -30,10 +31,37 @@ from source_health import SOURCE_HEALTH_COLUMNS, SourceHealth
 
 CSV_SCHEMA_VERSION = 1
 
+OBSERVATION_METADATA_COLUMNS = [
+    "release_date",
+    "publication_date",
+    "vintage_date",
+    "source_url",
+    "unit",
+]
+
 NEWS_COLUMNS = [
     "id", "date", "title", "summary", "source", "link", "category",
     "topic_tags", "interpretation_status", "published_at", "retrieved_at",
     "impact_score", "sentiment", "created_at",
+]
+
+CONSENSUS_COLUMNS = [
+    "survey_reference_date",
+    "survey_date",
+    "publication_date",
+    "release_date",
+    "target_date",
+    "horizon_months",
+    "metric",
+    "expected_dff",
+    "expected_fed_assets",
+    "median_value",
+    "unit",
+    "source_url",
+    "parsing_status",
+    "provider",
+    "metrics_json",
+    "updated_at",
 ]
 
 SIGNAL_COLUMNS = [
@@ -61,7 +89,11 @@ SNAPSHOT_COLUMNS = [
     "liquidity_momentum_90d", "liquidity_momentum_90d_value", "consensus_policy_direction",
     "consensus_balance_sheet_direction", "consensus_expected_dff",
     "consensus_expected_fed_assets", "consensus_survey_date", "consensus_target_date",
-    "consensus_policy_date", "consensus_balance_sheet_date", "consensus_quality",
+    "consensus_survey_reference_date", "consensus_publication_date",
+    "consensus_horizon_months", "consensus_metric", "consensus_unit",
+    "consensus_source_url", "consensus_parsing_status", "consensus_provider",
+    "consensus_age_days", "consensus_policy_date", "consensus_balance_sheet_date",
+    "consensus_quality", "consensus_reasons",
     "quadrant_quality", "situation_id",
     "input_age_dff", "input_age_core_pce", "input_age_rstar", "input_age_fed_assets",
     "input_age_tga", "input_age_rrp", "input_age_nominal_gdp", "input_age_effr",
@@ -85,10 +117,17 @@ CSV_SCHEMAS: Dict[str, Dict[str, Any]] = {
     },
     "observations": {
         "version": CSV_SCHEMA_VERSION,
-        "columns": ["indicator_key", "date", "value", "updated_at"],
+        "columns": [
+            "indicator_key",
+            "date",
+            "value",
+            *OBSERVATION_METADATA_COLUMNS,
+            "updated_at",
+        ],
     },
     "snapshots": {"version": CSV_SCHEMA_VERSION, "columns": SNAPSHOT_COLUMNS},
     "news": {"version": CSV_SCHEMA_VERSION, "columns": NEWS_COLUMNS},
+    "consensus": {"version": CSV_SCHEMA_VERSION, "columns": CONSENSUS_COLUMNS},
     "run_logs": {
         "version": CSV_SCHEMA_VERSION,
         "columns": ["id", "run_time", "status", "records_updated", "message"],
@@ -154,6 +193,7 @@ class MacroStorage:
         run_logs_csv=RUN_LOGS_CSV,
         signals_csv=None,
         source_health_csv=None,
+        consensus_csv=None,
     ):
         # RLock allows one public mutation to update multiple files without self-deadlock.
         self._lock = threading.RLock()
@@ -172,6 +212,11 @@ class MacroStorage:
             if source_health_csv is not None
             else Path(self.snapshots_csv).parent / Path(SOURCE_HEALTH_CSV).name
         )
+        self.consensus_csv = str(
+            consensus_csv
+            if consensus_csv is not None
+            else Path(self.snapshots_csv).parent / "consensus.csv"
+        )
         self._csv_paths = {
             "indicators": Path(self.indicators_csv),
             "observations": Path(self.observations_csv),
@@ -180,6 +225,7 @@ class MacroStorage:
             "run_logs": Path(self.run_logs_csv),
             "source_health": Path(self.source_health_csv),
             "signals": Path(self.signals_csv),
+            "consensus": Path(self.consensus_csv),
         }
         self._init_csvs()
 
@@ -303,8 +349,18 @@ class MacroStorage:
                 "source": "FRED",
                 "category": self._categorize_key(key),
                 "frequency": info.get("frequency", "daily"),
+                "unit": info.get("unit") or info.get("unit_scale"),
                 "last_updated": now,
             })
+        records.append({
+            "key": "rstar",
+            "name": "Holston-Laubach-Williams Natural Rate of Interest",
+            "source": HLW_RSTAR_SOURCE.get("source", "NY Fed HLW"),
+            "category": "Federal Reserve & Liquidity",
+            "frequency": HLW_RSTAR_SOURCE.get("frequency", "quarterly"),
+            "unit": HLW_RSTAR_SOURCE.get("unit", "percent"),
+            "last_updated": now,
+        })
         for key, ticker in YAHOO_TICKERS.items():
             records.append({
                 "key": key,
@@ -312,6 +368,7 @@ class MacroStorage:
                 "source": "YAHOO",
                 "category": "Market Prices",
                 "frequency": "daily",
+                "unit": None,
                 "last_updated": now,
             })
         for key, info in MARKET_SENTIMENT_INDICATORS.items():
@@ -321,6 +378,7 @@ class MacroStorage:
                 "source": info["source"],
                 "category": info.get("category", "Market Sentiment"),
                 "frequency": info.get("frequency", "daily"),
+                "unit": info.get("unit"),
                 "last_updated": now,
             })
         seeded = pd.DataFrame(records)
@@ -363,16 +421,54 @@ class MacroStorage:
             return "Market Sentiment"
         return "Economic Growth"
 
-    def save_observations(self, indicator_key: str, df_obs: pd.DataFrame) -> int:
+    def save_observations(
+        self,
+        indicator_key: str,
+        df_obs: pd.DataFrame,
+        *,
+        release_date: Optional[Any] = None,
+        publication_date: Optional[Any] = None,
+        vintage_date: Optional[Any] = None,
+        source_url: Optional[str] = None,
+        unit: Optional[str] = None,
+    ) -> int:
+        """Persist observations without collapsing distinct source vintages.
+
+        ``date`` is the economic observation date.  Release/publication/vintage
+        fields describe when that value became available.  Rows carrying a
+        vintage are therefore keyed by that metadata in addition to the
+        observation date; legacy rows with no availability metadata remain
+        readable but cannot be used for strict point-in-time reads.
+        """
         if df_obs.empty:
             return 0
         to_save = df_obs.copy()
         to_save["indicator_key"] = indicator_key
+        metadata_defaults = {
+            "release_date": release_date,
+            "publication_date": publication_date,
+            "vintage_date": vintage_date,
+            "source_url": source_url,
+            "unit": unit,
+        }
+        for column, default in metadata_defaults.items():
+            if column not in to_save.columns:
+                to_save[column] = default
+        for column in ("date", *OBSERVATION_METADATA_COLUMNS[:3]):
+            if column in to_save.columns:
+                parsed = pd.to_datetime(to_save[column], errors="coerce")
+                to_save[column] = parsed.dt.strftime("%Y-%m-%d")
         to_save["updated_at"] = datetime.now().isoformat()
-        to_save = to_save[["indicator_key", "date", "value", "updated_at"]]
+        to_save = to_save[
+            ["indicator_key", "date", "value", *OBSERVATION_METADATA_COLUMNS, "updated_at"]
+        ]
 
         def save(existing: pd.DataFrame) -> pd.DataFrame:
-            return self._upsert_rows(existing, to_save, ["indicator_key", "date"])
+            return self._upsert_rows(
+                existing,
+                to_save,
+                ["indicator_key", "date", *OBSERVATION_METADATA_COLUMNS[:3]],
+            )
 
         self._mutate_csv(self._csv_paths["observations"], "observations", save)
 
@@ -489,32 +585,205 @@ class MacroStorage:
         filtered = frame[frame["indicator_key"] == indicator_key]
         if filtered.empty:
             return None
-        return filtered.sort_values(by="date", ascending=False).iloc[0].to_dict()
+        filtered = filtered.copy()
+        filtered["_observation_date"] = pd.to_datetime(filtered["date"], errors="coerce")
+        availability = self._availability_dates(filtered)
+        filtered["_availability_date"] = availability
+        filtered = filtered.sort_values(
+            by=["_observation_date", "_availability_date"],
+            ascending=[False, False],
+            na_position="last",
+        )
+        return filtered.iloc[0].drop(labels=["_observation_date", "_availability_date"]).to_dict()
+
+    @staticmethod
+    def _availability_dates(frame: pd.DataFrame) -> pd.Series:
+        """Return the conservative point-in-time availability date for rows."""
+        availability = pd.Series(pd.NaT, index=frame.index, dtype="datetime64[ns]")
+        for column in ("vintage_date", "publication_date", "release_date"):
+            if column not in frame.columns:
+                continue
+            parsed = pd.to_datetime(frame[column], errors="coerce")
+            availability = availability.fillna(parsed)
+        return availability
+
+    def get_observation_revisions(
+        self, indicator_key: str, date: Optional[Any] = None
+    ) -> pd.DataFrame:
+        """Return all stored vintages for an indicator, including legacy rows."""
+        with self._lock:
+            frame = self._read_csv_unlocked(self._csv_paths["observations"], "observations")
+        filtered = frame[frame["indicator_key"] == indicator_key].copy()
+        if date is not None:
+            target = pd.Timestamp(date).normalize()
+            dates = pd.to_datetime(filtered["date"], errors="coerce").dt.normalize()
+            filtered = filtered.loc[dates == target]
+        if filtered.empty:
+            return filtered
+        filtered["date"] = pd.to_datetime(filtered["date"], errors="coerce")
+        for column in OBSERVATION_METADATA_COLUMNS[:3]:
+            filtered[column] = pd.to_datetime(filtered[column], errors="coerce")
+        return filtered.sort_values(["date", "vintage_date", "publication_date", "release_date"])
 
     def get_indicator_series(
-        self, indicator_key: str, limit: Optional[int] = 365
+        self,
+        indicator_key: str,
+        limit: Optional[int] = 365,
+        *,
+        as_of: Optional[Any] = None,
+        include_metadata: bool = False,
+        allow_legacy: bool = False,
     ) -> pd.DataFrame:
+        """Return one visible vintage per observation date.
+
+        With ``as_of`` supplied, only rows whose release/publication/vintage
+        metadata is on or before that date are eligible.  Legacy rows lacking
+        all three fields are excluded unless ``allow_legacy`` is explicitly
+        requested; even then they are used only when the indicator has no
+        metadata-bearing rows, preserving a conservative mixed-vintage read.
+        """
         with self._lock:
             frame = self._read_csv_unlocked(self._csv_paths["observations"], "observations")
         filtered = frame[frame["indicator_key"] == indicator_key]
         if filtered.empty:
-            return pd.DataFrame(columns=["date", "value"])
-        filtered = filtered.sort_values(by="date", ascending=False)
-        if limit is not None:
-            filtered = filtered.head(limit)
+            columns = ["date", "value"]
+            if include_metadata:
+                columns.extend(OBSERVATION_METADATA_COLUMNS)
+            return pd.DataFrame(columns=columns)
         filtered = filtered.copy()
-        filtered["date"] = pd.to_datetime(filtered["date"])
-        return filtered.sort_values("date").reset_index(drop=True)[["date", "value"]]
+        filtered["date"] = pd.to_datetime(filtered["date"], errors="coerce")
+        filtered = filtered.dropna(subset=["date"])
+        filtered["_availability_date"] = self._availability_dates(filtered)
+        if as_of is not None:
+            analysis_date = pd.Timestamp(as_of).normalize()
+            has_known_vintage = filtered["_availability_date"].notna()
+            if allow_legacy and not has_known_vintage.any():
+                visible = filtered["date"] <= analysis_date
+            else:
+                visible = has_known_vintage & (filtered["_availability_date"] <= analysis_date)
+            filtered = filtered.loc[visible]
+        if filtered.empty:
+            columns = ["date", "value"]
+            if include_metadata:
+                columns.extend(OBSERVATION_METADATA_COLUMNS)
+            return pd.DataFrame(columns=columns)
 
-    def get_consensus_records(self, **_kwargs) -> List[Dict[str, Any]]:
-        """Return optional market-consensus records when a provider is configured.
+        # A series consumer sees the latest visible vintage for each economic
+        # observation date, while get_observation_revisions retains every row.
+        filtered = filtered.sort_values(
+            ["date", "_availability_date", "updated_at"],
+            ascending=[True, True, True],
+            na_position="first",
+        ).drop_duplicates(subset=["date"], keep="last")
+        if limit is not None:
+            filtered = filtered.sort_values("date", ascending=False).head(limit)
+        if include_metadata:
+            for column in OBSERVATION_METADATA_COLUMNS[:3]:
+                filtered[column] = pd.to_datetime(filtered[column], errors="coerce")
+        columns = ["date", "value"]
+        if include_metadata:
+            columns.extend(OBSERVATION_METADATA_COLUMNS)
+        return filtered.sort_values("date").reset_index(drop=True)[columns]
 
-        The base CSV store intentionally has no consensus feed or scraper.  A
-        caller can inject a provider into ``MacroAnalyzer``; returning an empty
-        list here keeps that optional overlay non-blocking for normal runs.
-        """
+    def save_consensus_records(self, records: List[Mapping[str, Any]]) -> int:
+        """Persist NY Fed SME records with publication and target metadata."""
+        if not records:
+            return 0
+        rows: list[dict[str, Any]] = []
+        for record in records:
+            if not isinstance(record, Mapping):
+                continue
+            row = {column: record.get(column) for column in CONSENSUS_COLUMNS}
+            row["survey_reference_date"] = record.get(
+                "survey_reference_date",
+                record.get("reference_date", record.get("survey_date")),
+            )
+            row["survey_date"] = record.get("survey_date", row["survey_reference_date"])
+            row["release_date"] = record.get("release_date")
+            row["metrics_json"] = json.dumps(
+                record.get("metrics") or [],
+                ensure_ascii=False,
+                separators=(",", ":"),
+                default=str,
+            )
+            row["updated_at"] = datetime.now().isoformat()
+            for column in (
+                "survey_reference_date",
+                "survey_date",
+                "publication_date",
+                "release_date",
+                "target_date",
+            ):
+                if row[column] is not None and not self._is_missing(row[column]):
+                    try:
+                        row[column] = pd.Timestamp(row[column]).strftime("%Y-%m-%d")
+                    except (TypeError, ValueError):
+                        row[column] = None
+            rows.append(row)
+        if not rows:
+            return 0
+        incoming = pd.DataFrame(rows, columns=CONSENSUS_COLUMNS)
 
-        return []
+        def save(existing: pd.DataFrame) -> pd.DataFrame:
+            return self._upsert_rows(
+                existing,
+                incoming,
+                [
+                    "survey_reference_date",
+                    "publication_date",
+                    "target_date",
+                    "horizon_months",
+                    "metric",
+                ],
+            )
+
+        self._mutate_csv(self._csv_paths["consensus"], "consensus", save)
+        return len(rows)
+
+    def get_consensus_records(self, as_of: Optional[Any] = None, **_kwargs) -> List[Dict[str, Any]]:
+        """Return the newest visible consensus rows for an optional as-of date."""
+        with self._lock:
+            frame = self._read_csv_unlocked(self._csv_paths["consensus"], "consensus")
+        if frame.empty:
+            return []
+        frame = frame.copy()
+        for column in (
+            "survey_reference_date",
+            "survey_date",
+            "publication_date",
+            "release_date",
+            "target_date",
+        ):
+            frame[column] = pd.to_datetime(frame[column], errors="coerce")
+        if as_of is not None:
+            analysis_date = pd.Timestamp(as_of).normalize()
+            # Unknown publication dates are deliberately excluded from
+            # historical reads; consensus cannot be safely point-in-time
+            # selected without an availability date.
+            frame = frame.loc[
+                frame["publication_date"].notna()
+                & (frame["publication_date"] <= analysis_date)
+            ]
+        if frame.empty:
+            return []
+        frame = frame.sort_values(
+            ["publication_date", "target_date", "updated_at"],
+            ascending=[True, True, True],
+            na_position="last",
+        )
+        records: list[dict[str, Any]] = []
+        for record in frame.to_dict("records"):
+            metrics_json = record.pop("metrics_json", "")
+            try:
+                record["metrics"] = json.loads(metrics_json) if metrics_json else []
+            except (TypeError, json.JSONDecodeError):
+                record["metrics"] = []
+            record.pop("updated_at", None)
+            for key in ("survey_date", "survey_reference_date", "publication_date", "release_date", "target_date"):
+                if pd.isna(record.get(key)):
+                    record[key] = None
+            records.append(record)
+        return records
 
     def save_daily_snapshot(self, snapshot_data: Dict[str, Any]) -> None:
         to_save = pd.DataFrame([snapshot_data])

@@ -100,6 +100,178 @@ class TestStorageResilience(unittest.TestCase):
         self.assertEqual(row["value"], 3.1)
         self.assertEqual(row["operator_note"], "preserve this")
 
+    def test_latest_observation_keeps_legacy_string_date_shape(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            storage = temp_storage(Path(tmp_dir))
+            storage.save_observations(
+                "cpi", pd.DataFrame([{"date": "2026-08-01", "value": 3.1}])
+            )
+
+            latest = storage.get_latest_observation("cpi")
+
+        assert latest["date"] == "2026-08-01"
+
+    def test_observation_revisions_are_preserved_by_vintage_metadata(self):
+        """A revised observation must remain alongside its earlier vintage."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            storage = temp_storage(Path(tmp_dir))
+            storage.save_observations(
+                "core_pce",
+                pd.DataFrame([
+                    {
+                        "date": "2026-06-30",
+                        "value": 120.0,
+                        "vintage_date": "2026-07-31",
+                        "publication_date": "2026-07-31",
+                        "source_url": "https://example.test/pce",
+                        "unit": "index",
+                    },
+                    {
+                        "date": "2026-06-30",
+                        "value": 121.0,
+                        "vintage_date": "2026-08-29",
+                        "publication_date": "2026-08-29",
+                        "source_url": "https://example.test/pce",
+                        "unit": "index",
+                    },
+                ]),
+            )
+
+            rows = storage.get_indicator_series(
+                "core_pce", limit=None, as_of=pd.Timestamp("2026-08-31"), include_metadata=True
+            )
+
+        assert len(rows) == 1
+        assert rows.iloc[0]["value"] == 121.0
+        assert rows.iloc[0]["vintage_date"] == pd.Timestamp("2026-08-29")
+
+    def test_observation_as_of_uses_only_vintages_available_by_date(self):
+        """An earlier analysis date must not see a later revision."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            storage = temp_storage(Path(tmp_dir))
+            storage.save_observations(
+                "core_pce",
+                pd.DataFrame([
+                    {"date": "2026-06-30", "value": 120.0, "vintage_date": "2026-07-31"},
+                    {"date": "2026-06-30", "value": 121.0, "vintage_date": "2026-08-29"},
+                ]),
+            )
+
+            rows = storage.get_indicator_series(
+                "core_pce", limit=None, as_of=pd.Timestamp("2026-08-15"), include_metadata=True
+            )
+
+        assert len(rows) == 1
+        assert rows.iloc[0]["value"] == 120.0
+        assert rows.iloc[0]["vintage_date"] == pd.Timestamp("2026-07-31")
+
+    def test_fred_fetch_persists_source_and_vintage_metadata(self):
+        """Fetcher writes source URL, declared unit, and fetch vintage metadata."""
+        class FakeResponse:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+            def read(self):
+                return b"DATE,TEST\n2026-08-01,3.0\n"
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            storage = temp_storage(Path(tmp_dir))
+            fetcher = MacroFetcher(storage)
+            with patch("fetcher.urllib.request.urlopen", return_value=FakeResponse()):
+                count, error = fetcher.fetch_fred_series(
+                    "test_metric",
+                    {
+                        "id": "TEST",
+                        "unit": "percent",
+                        "source_url": "https://fred.stlouisfed.org/series/TEST",
+                    },
+                    max_retries=1,
+                )
+            rows = storage.get_indicator_series(
+                "test_metric", limit=None, include_metadata=True
+            )
+
+        assert error is None
+        assert count == 1
+        assert rows.iloc[0]["unit"] == "percent"
+        assert rows.iloc[0]["source_url"].endswith("/series/TEST")
+        assert pd.notna(rows.iloc[0]["vintage_date"])
+
+    def test_fred_fetch_rejects_wrong_regime_source_unit(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            storage = temp_storage(Path(tmp_dir))
+            fetcher = MacroFetcher(storage)
+            count, error = fetcher.fetch_fred_series(
+                "nominal_gdp",
+                {"id": "GDP", "unit": "millions"},
+                max_retries=1,
+            )
+
+        assert count == 0
+        assert error is not None
+        assert "unit" in error.lower()
+
+    def test_consensus_storage_preserves_point_in_time_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            storage = temp_storage(Path(tmp_dir))
+            storage.save_consensus_records(
+                [
+                    {
+                        "survey_reference_date": "2026-07-01",
+                        "publication_date": "2026-07-10",
+                        "target_date": "2027-01-01",
+                        "horizon_months": 6,
+                        "metric": "FED_FUNDS_RATE_AND_FED_BALANCE_SHEET_ASSETS",
+                        "expected_dff": 4.0,
+                        "expected_fed_assets": 7040.0,
+                        "unit": "percent_and_billions_usd",
+                        "source_url": "https://example.test/sme",
+                        "parsing_status": "OK",
+                    },
+                    {
+                        "survey_reference_date": "2026-07-01",
+                        "publication_date": "2026-08-01",
+                        "target_date": "2027-01-01",
+                        "horizon_months": 6,
+                        "metric": "FED_FUNDS_RATE_AND_FED_BALANCE_SHEET_ASSETS",
+                        "expected_dff": 3.9,
+                        "expected_fed_assets": 7050.0,
+                        "unit": "percent_and_billions_usd",
+                        "source_url": "https://example.test/sme",
+                        "parsing_status": "OK",
+                    },
+                ]
+            )
+            records = storage.get_consensus_records(as_of=pd.Timestamp("2026-07-31"))
+
+        assert len(records) == 1
+        assert records[0]["expected_dff"] == 4.0
+        assert records[0]["publication_date"] == pd.Timestamp("2026-07-10")
+        assert records[0]["source_url"].endswith("/sme")
+        assert records[0]["parsing_status"] == "OK"
+
+    def test_legacy_observation_without_vintage_is_excluded_from_strict_as_of_reads(self):
+        """Unknown legacy availability must not be treated as point-in-time evidence."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            storage = temp_storage(Path(tmp_dir))
+            storage.save_observations(
+                "rstar", pd.DataFrame([{"date": "2026-06-30", "value": 0.1}])
+            )
+
+            strict_rows = storage.get_indicator_series(
+                "rstar", limit=None, as_of=pd.Timestamp("2026-08-15"), include_metadata=True
+            )
+            legacy_rows = storage.get_indicator_series(
+                "rstar", limit=None, as_of=pd.Timestamp("2026-08-15"),
+                include_metadata=True, allow_legacy=True,
+            )
+
+        assert strict_rows.empty
+        assert len(legacy_rows) == 1
+
     def test_daily_snapshot_update_keeps_existing_operator_owned_columns(self):
         """Refreshing a canonical snapshot must retain its operator-owned context."""
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -193,6 +365,8 @@ class TestStorageResilience(unittest.TestCase):
             fetcher.fetch_yahoo_ticker = lambda key, ticker: (1, None)
             fetcher.fetch_cnn_fear_greed_index = lambda: (1, None)
             fetcher.fetch_shiller_pe_ratio = lambda: (1, None)
+            fetcher.fetch_hlw_rstar = lambda: (1, None)
+            fetcher.fetch_consensus = lambda: (1, None)
             fetcher.news_analyzer.fetch_and_store_news = lambda: 0
 
             fetcher.fetch_all()
@@ -214,6 +388,8 @@ class TestStorageResilience(unittest.TestCase):
             fetcher.fetch_yahoo_ticker = lambda key, ticker: (1, None)
             fetcher.fetch_cnn_fear_greed_index = lambda: (1, None)
             fetcher.fetch_shiller_pe_ratio = lambda: (1, None)
+            fetcher.fetch_hlw_rstar = lambda: (1, None)
+            fetcher.fetch_consensus = lambda: (1, None)
             fetcher.news_analyzer.fetch_and_store_news = lambda: 0
 
             fetcher.fetch_all()
@@ -239,6 +415,8 @@ class TestStorageResilience(unittest.TestCase):
             fetcher.fetch_yahoo_ticker = lambda key, ticker: (1, None)
             fetcher.fetch_cnn_fear_greed_index = lambda: (1, None)
             fetcher.fetch_shiller_pe_ratio = lambda: (1, None)
+            fetcher.fetch_hlw_rstar = lambda: (1, None)
+            fetcher.fetch_consensus = lambda: (1, None)
             fetcher.news_analyzer.fetch_and_store_news = lambda: 0
 
             fetcher.fetch_all()
@@ -259,6 +437,8 @@ class TestStorageResilience(unittest.TestCase):
             fetcher.fetch_yahoo_ticker = lambda key, ticker: (1, None)
             fetcher.fetch_cnn_fear_greed_index = lambda: (1, None)
             fetcher.fetch_shiller_pe_ratio = lambda: (1, None)
+            fetcher.fetch_hlw_rstar = lambda: (1, None)
+            fetcher.fetch_consensus = lambda: (1, None)
             news = MacroNewsAnalyzer(storage=storage)
             fetcher.news_analyzer = news
 

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from consensus import interpret_consensus
+from consensus import NewYorkFedSMEProvider, interpret_consensus, parse_sme_frame
 
 
 def record(*, survey_date="2026-07-01", horizon_months=6, expected_dff=4.25, expected_fed_assets=7000.0):
@@ -111,3 +111,171 @@ def test_consensus_ignores_future_survey_vintages():
 
     assert out["quality"] == "UNAVAILABLE"
     assert out["selected_horizon_months"] is None
+
+
+def test_consensus_carries_publication_metric_unit_source_and_parse_status():
+    out = interpret_consensus(
+        [
+            {
+                "survey_date": "2026-07-01",
+                "publication_date": "2026-07-10",
+                "target_date": "2027-01-01",
+                "horizon_months": 6,
+                "expected_dff": 4.0,
+                "expected_fed_assets": 7040.0,
+                "metric": "FED_FUNDS_RATE_AND_FED_BALANCE_SHEET_ASSETS",
+                "unit": "percent_and_billions_usd",
+                "source_url": "https://www.newyorkfed.org/sme",
+                "parsing_status": "OK",
+            }
+        ],
+        4.25,
+        7000,
+        pd.Timestamp("2026-08-15"),
+    )
+
+    assert out["publication_date"] == pd.Timestamp("2026-07-10")
+    assert out["target_date"] == pd.Timestamp("2027-01-01")
+    assert out["metric"].startswith("FED_FUNDS_RATE")
+    assert out["unit"] == "percent_and_billions_usd"
+    assert out["source_url"].endswith("/sme")
+    assert out["parsing_status"] == "OK"
+
+
+def test_consensus_selects_latest_publication_for_same_survey_horizon():
+    out = interpret_consensus(
+        [
+            {
+                **record(),
+                "publication_date": "2026-07-10",
+                "expected_dff": 4.10,
+            },
+            {
+                **record(),
+                "publication_date": "2026-08-01",
+                "expected_dff": 4.00,
+            },
+        ],
+        4.25,
+        7000,
+        pd.Timestamp("2026-08-15"),
+    )
+
+    assert out["publication_date"] == pd.Timestamp("2026-08-01")
+    assert out["expected_dff"] == 4.00
+
+
+def test_malformed_non_selected_consensus_record_does_not_poison_selected_result():
+    out = interpret_consensus(
+        [
+            record(expected_dff=4.0),
+            {"survey_date": "not-a-date", "horizon_months": 6, "expected_dff": "bad"},
+        ],
+        4.25,
+        7000,
+        pd.Timestamp("2026-08-15"),
+    )
+
+    assert out["quality"] == "OK"
+    assert out["policy_direction"] == "EASING"
+
+
+def test_ny_fed_sme_fixture_parser_and_provider_are_offline_testable():
+    frame = pd.DataFrame(
+        [
+            {
+                "survey_date": "2026-07-01",
+                "publication_date": "2026-07-10",
+                "target_date": "2027-01-01",
+                "horizon_months": 6,
+                "metric": "FED_FUNDS_RATE",
+                "median_value": 4.0,
+                "unit": "percent",
+            },
+            {
+                "survey_date": "2026-07-01",
+                "publication_date": "2026-07-10",
+                "target_date": "2027-01-01",
+                "horizon_months": 6,
+                "metric": "FED_BALANCE_SHEET_ASSETS",
+                "median_value": 7040.0,
+                "unit": "billions_usd",
+            },
+        ]
+    )
+    records = parse_sme_frame(frame, source_url="https://example.test/sme")
+    assert len(records) == 1
+    assert records[0]["expected_dff"] == 4.0
+    assert records[0]["expected_fed_assets"] == 7040.0
+    assert records[0]["publication_date"] == pd.Timestamp("2026-07-10")
+    assert len(records[0]["metrics"]) == 2
+
+
+def test_ny_fed_sme_parser_accepts_official_release_layout():
+    frame = pd.DataFrame(
+        [
+            {
+                "survey_release_date": "2026-06-03",
+                "subject": "fed_funds_target_range",
+                "horizon": "Dec. 8-9 2026",
+                "horizon_date": "2026-12-09",
+                "aggregation": "pctl50",
+                "aggregation_value": 0.0363,
+                "left_header_value": "Target rate / midpoint of target range",
+            },
+            {
+                "survey_release_date": "2026-06-03",
+                "subject": "fed_assets_total_assets",
+                "horizon": "December 2026",
+                "horizon_date": "2026-12-15",
+                "aggregation": "pctl50",
+                "aggregation_value": 6794.0,
+                "left_header_value": "Total Assets",
+            },
+        ]
+    )
+
+    records = parse_sme_frame(frame, source_url="https://example.test/jun-2026-data.xlsx")
+
+    assert len(records) == 1
+    assert records[0]["horizon_months"] == 6
+    assert records[0]["expected_dff"] == 3.63
+    assert records[0]["expected_fed_assets"] == 6794.0
+
+
+def test_ny_fed_sme_parser_prefers_combined_panel_when_present():
+    frame = pd.DataFrame(
+        [
+            {
+                "survey_release_date": "2026-06-03",
+                "panel_type": "Combined",
+                "subject": "fed_funds_target_range",
+                "horizon": "Dec. 8-9 2026",
+                "horizon_date": "2026-12-09",
+                "aggregation": "pctl50",
+                "aggregation_value": 0.0363,
+            },
+            {
+                "survey_release_date": "2026-06-03",
+                "panel_type": "Primary Dealers",
+                "subject": "fed_funds_target_range",
+                "horizon": "Dec. 8-9 2026",
+                "horizon_date": "2026-12-09",
+                "aggregation": "pctl50",
+                "aggregation_value": 0.08,
+            },
+        ]
+    )
+
+    records = parse_sme_frame(frame, source_url="https://example.test/sme.xlsx")
+
+    assert records[0]["expected_dff"] == 3.63
+    assert records[0]["parsing_status"] == "OK"
+
+    provider = NewYorkFedSMEProvider(
+        fetch_bytes=lambda _url: b"fixture",
+        read_excel=lambda *_args, **_kwargs: frame,
+        data_url="https://example.test/jul-data.xlsx",
+    )
+    provided = provider.get_records()
+    assert provided[0]["source_url"] == "https://example.test/jul-data.xlsx"

@@ -274,10 +274,20 @@ class TestMacroPipeline(unittest.TestCase):
                     "policy_direction": "EASING",
                     "balance_sheet_direction": "STABLE",
                     "selected_survey_date": "2026-07-01",
+                    "survey_reference_date": "2026-07-01",
+                    "publication_date": "2026-07-10",
                     "selected_target_date": "2027-01-01",
+                    "selected_horizon_months": 6,
+                    "metric": "FED_FUNDS_RATE_AND_FED_BALANCE_SHEET_ASSETS",
+                    "unit": "percent_and_billions_usd",
+                    "source_url": "https://www.newyorkfed.org/sme",
+                    "parsing_status": "OK",
+                    "provider": "NY Fed Survey of Market Expectations",
                 },
                 "data_quality": {
                     "quality": "OK",
+                    "actionability": "ACTIONABLE",
+                    "actionability_reasons": ["Money-market corroboration is optional context"],
                     "policy_reasons": [],
                     "liquidity_reasons": [],
                 },
@@ -311,8 +321,15 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertEqual(headings, sorted(headings))
         self.assertIn("19.50", report)
         self.assertIn("balance-sheet consensus", report.lower())
+        self.assertIn("2026-07-10", report)
+        self.assertIn("FED_FUNDS_RATE_AND_FED_BALANCE_SHEET_ASSETS", report)
+        self.assertIn("https://www.newyorkfed.org/sme", report)
+        self.assertIn("Money-market corroboration is optional context", report)
         self.assertIn("2016-08-12", report)
         self.assertIn("500", report)
+        self.assertNotIn("Net Liquidity Direction", report)
+        self.assertNotIn("Used for Rates Stance in Matrix", report)
+        self.assertIn("Reserve Liquidity Level", report)
 
     def test_01b_fred_fetch_keeps_ten_year_history_window(self):
         """FRED backfill should retain observations inside the dashboard's 10-year window."""
@@ -411,6 +428,8 @@ class TestMacroPipeline(unittest.TestCase):
         fetcher.fetch_yahoo_ticker = lambda key, ticker: (1, None)
         fetcher.fetch_cnn_fear_greed_index = lambda: (1, None)
         fetcher.fetch_shiller_pe_ratio = lambda: (1, None)
+        fetcher.fetch_hlw_rstar = lambda: (1, None)
+        fetcher.fetch_consensus = lambda: (1, None)
         fetcher.news_analyzer.fetch_and_store_news = lambda: 0
 
         result = fetcher.fetch_all()
@@ -418,8 +437,8 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertEqual(result["status"], "SUCCESS")
         self.assertGreaterEqual(max_active, 2)
 
-    def test_01d2_fetch_all_skips_unused_series_by_default(self):
-        """The daily report fetch should skip configured series that no current report consumes."""
+    def test_01d2_fetch_all_uses_active_regime_series_by_default(self):
+        """The daily report fetches every configured current-regime series."""
         with tempfile.TemporaryDirectory() as tmp:
             storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
             fetcher = MacroFetcher(storage)
@@ -430,13 +449,15 @@ class TestMacroPipeline(unittest.TestCase):
             fetcher.fetch_yahoo_ticker = lambda key, ticker: (fetched_yahoo.append(key) or (1, None))
             fetcher.fetch_cnn_fear_greed_index = lambda: (1, None)
             fetcher.fetch_shiller_pe_ratio = lambda: (1, None)
+            fetcher.fetch_hlw_rstar = lambda: (1, None)
+            fetcher.fetch_consensus = lambda: (1, None)
             fetcher.news_analyzer.fetch_and_store_news = lambda: 0
 
             fetcher.fetch_all()
 
         self.assertEqual(set(fetched_fred), config.ACTIVE_FRED_SERIES_KEYS)
         self.assertEqual(set(fetched_yahoo), config.ACTIVE_YAHOO_TICKER_KEYS)
-        self.assertNotIn("core_pce", fetched_fred)
+        self.assertIn("core_pce", fetched_fred)
         self.assertNotIn("nasdaq", fetched_yahoo)
 
     def test_01d2b_regime_sources_use_authoritative_fred_series_and_units(self):
@@ -802,6 +823,21 @@ class TestMacroPipeline(unittest.TestCase):
 
         self.assertEqual(res["situation_id"], 0)
         self.assertEqual(res["quality"], "INSUFFICIENT_DATA")
+
+    def test_neutral_axis_propagates_actionability_quality_and_reasons(self):
+        """Public regime quality must expose the matrix gate, not report OK."""
+        data_quality = {"quality": "OK", "reasons": []}
+        res = self.matrix_engine.classify_situation(
+            "NEUTRAL",
+            "ABUNDANT",
+            quality="OK",
+            context={"data_quality": data_quality},
+        )
+
+        assert res["situation_id"] == 0
+        assert res["data_quality"]["quality"] == "INSUFFICIENT_DATA"
+        assert res["data_quality"]["actionability"] == "WITHHELD"
+        assert any("neutral" in reason.lower() for reason in res["data_quality"]["reasons"])
 
     def test_03h_analyzer_keeps_high_falling_liquidity_in_situation_four(self):
         """A falling 30-day overlay must not turn abundant liquidity into scarce."""

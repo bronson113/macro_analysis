@@ -95,6 +95,41 @@ def test_liquidity_level_normalizes_reserves_by_nominal_gdp():
     assert out["historical_p60"] == 16.0
 
 
+def test_non_positive_nominal_gdp_is_rejected_with_structured_quality_reason():
+    fixture = liquidity_fixture()
+    fixture["nominal_gdp"] = fixture["nominal_gdp"].assign(value=0.0)
+
+    out = classify_liquidity_level(**fixture)
+
+    assert out["state"] is None
+    assert out["quality"] == "INSUFFICIENT_DATA"
+    assert any("gdp" in reason.lower() and "positive" in reason.lower() for reason in out["reasons"])
+
+
+def test_declared_source_unit_mismatch_is_rejected_before_normalization():
+    fixture = liquidity_fixture()
+    fixture["nominal_gdp"] = fixture["nominal_gdp"].assign(unit="millions")
+
+    out = classify_liquidity_level(**fixture)
+
+    assert out["state"] is None
+    assert out["quality"] == "INSUFFICIENT_DATA"
+    assert any("unit" in reason.lower() and "gdp" in reason.lower() for reason in out["reasons"])
+
+
+def test_mis_scaled_nominal_gdp_is_rejected_with_structured_reason():
+    fixture = liquidity_fixture()
+    fixture["nominal_gdp"] = fixture["nominal_gdp"].assign(
+        value=30_000_000.0,
+        unit="billions",
+    )
+
+    out = classify_liquidity_level(**fixture)
+
+    assert out["state"] is None
+    assert any("gdp" in reason.lower() and "scale" in reason.lower() for reason in out["reasons"])
+
+
 def test_liquidity_percentile_boundaries_are_inclusive():
     from macro_regime import classify_liquidity_percentile
 
@@ -409,6 +444,27 @@ def test_stale_rstar_withholds_state():
 
     assert out["state"] is None
     assert any("r-star" in reason.lower() and "stale" in reason.lower() for reason in out["reasons"])
+
+
+def test_rstar_freshness_uses_publication_date_when_available():
+    rstar = series(("2026-01-01", 0.10)).assign(
+        publication_date=pd.to_datetime(["2026-05-29"]),
+        vintage_date=pd.to_datetime(["2026-05-29"]),
+        unit="percent",
+    )
+    out = classify_policy_level(
+        series(("2026-08-14", 4.25)).assign(unit="percent"),
+        series(
+            ("2026-06-30", 120.0),
+            ("2025-06-30", 116.0),
+        ).assign(unit="index"),
+        rstar,
+        pd.Timestamp("2026-08-15"),
+    )
+
+    assert out["state"] == "RESTRICTIVE"
+    assert out["rstar_date"] == pd.Timestamp("2026-01-01")
+    assert out["rstar_age_days"] == 78
 
 
 def test_nonfinite_required_inputs_withhold_state():
