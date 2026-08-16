@@ -19,6 +19,12 @@ Morning checklist:
 1. Load the repository skill before analysis.
    - Open and follow `.agents/skills/defiant-gatekeeper-macro-news-analysis/SKILL.md` from the repository.
    - If the skill cannot be loaded, stop and report that the editorial review is blocked.
+   - Apply its level-based regime contract in order: classify current policy
+     from the real-policy gap, classify current normalized reserve liquidity
+     from its historical percentile, select the situation from those two
+     levels only, then report policy/liquidity momentum and NY Fed SME
+     consensus as separate overlays. Consensus never changes the current
+     situation.
 
 2. Confirm the newest scheduled macro workflow completed successfully.
    - If it is still running, wait and check again.
@@ -38,6 +44,7 @@ Morning checklist:
    - Explain material agreement and disagreement across liquidity, policy, credit, valuation, labor/inflation, and source quality.
    - Describe what evidence could change the interpretation and name follow-up research questions when appropriate.
    - Keep the 3-month to 1-year, tax-aware research horizon in view, while making clear that this is a research note rather than personalized advice.
+   - Keep the current level, momentum, consensus, interpretation, and data-quality gate visibly separate. A high current liquidity percentile can coexist with deteriorating momentum; do not relabel the current level from that overlay. Do not invent unavailable freshness, history, corroboration, or consensus fields.
 
 5. Use this structure:
 
@@ -47,6 +54,12 @@ Morning checklist:
    ## Editorial interpretation
    ## Tensions, limits, and invalidation
    ## Research follow-up (optional)
+
+   For any regime discussion, include the current policy/liquidity levels and
+   situation first, then independent 30-/90-day momentum, then the NY Fed
+   policy and Fed balance-sheet consensus, followed by interpretation and
+   freshness/history/conflict/missing-input quality disclosures. Situation 0
+   or insufficient core data is an intentional non-actionable result.
 
 6. Publish the editorial review.
    - Update only `web/public/llm_analysis.md` and use a clear commit message such as `Publish editorial evidence review for YYYY-MM-DD`.

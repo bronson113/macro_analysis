@@ -63,6 +63,28 @@ When run, the system generates and maintains local state in the following direct
 - FRED, Yahoo Finance, Google News, and other free sources can be delayed, incomplete, rate-limited, or change format. `data/source_health.csv` records the latest fetch outcome per source key; the exported dashboard surfaces those machine-readable states instead of silently treating failed inputs as current.
 - Outcome evaluation is a point-in-time research check against recorded sector postures, with a one-way 10 bps cost and no look-ahead pricing. It remains `INSUFFICIENT_SAMPLE` until at least 30 matured observations cover at least 365 elapsed days, so it is not strategy validation or a performance promise.
 
+## Regime interpretation contract
+
+- The four macro situations describe **current levels**, not recent direction:
+  policy is classified from the real-policy gap (`> +0.50 pp` restrictive,
+  `< -0.50 pp` accommodative) and reserve liquidity from its normalized,
+  history-relative percentile (`>= 60th` abundant, `<= 40th` scarce).
+- Situation 4 is `RESTRICTIVE + ABUNDANT`; a high liquidity percentile remains
+  abundant even when its 30-day momentum is deteriorating. Neutral, stale,
+  missing, or materially conflicted core evidence intentionally returns
+  Situation 0 rather than forcing a quadrant.
+- Report policy and liquidity momentum separately at 30 and 90 days. Report
+  New York Fed Survey of Market Expectations policy and Fed balance-sheet
+  consensus separately; consensus is forward-looking, optional, and never
+  changes the current situation.
+- The reserve-liquidity proxy (`Fed assets - TGA - ON RRP`, normalized by
+  nominal GDP) is a research heuristic, not broad money or proof of QE. The
+  skill and dashboard require freshness, history coverage, units, and
+  corroboration checks before treating a quadrant as actionable.
+- Sector mappings are conditional research hypotheses. Valuation, credit,
+  labor/inflation, source quality, and tax friction can reduce confidence or
+  keep the posture at `HOLD`; they are not deterministic forecasts.
+
 ## Architecture
 
 - **`fetcher.py`**: Retrieves data from FRED and Yahoo Finance.

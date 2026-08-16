@@ -1,212 +1,257 @@
 ---
 name: defiant-gatekeeper-macro-news-analysis
-description: Evaluate daily macro data, Fed policy stance, reserve-liquidity direction, yield curve risk, credit stress, valuations, and sector recommendations for a tax-aware 3M-1Y investment horizon.
+description: Use when producing the daily macro report or evaluating a 3M-1Y, tax-aware sector research posture from policy, reserve liquidity, markets, and news.
 ---
 
-# Defiant Gatekeeper Macro Sector Recommendation Skill
+# Defiant Gatekeeper Macro Analysis
 
-Use this skill when producing the morning macro report or refining the recommendation engine. The goal is a useful sector action posture for a 3-month to 1-year horizon, not a deterministic market forecast.
+Use this skill for a conditional research note, not a deterministic forecast or
+personalized investment advice. The macro quadrant is a level-based state:
+current policy level × current normalized reserve-liquidity level. Recent
+changes and survey expectations are overlays.
 
-This framework is a **risk-liquidity heuristic**. It combines Fed policy-rate stance, reserve-liquidity direction, yield-curve risk, credit spreads, inflation/labor data, valuation, and sector-specific catalysts. Treat every recommendation as conditional on data quality and confidence.
+## Operating contract
 
-## Non-Negotiable Guardrails
+Always produce these sections in this order:
 
-1. **Never force a quadrant when core data is missing.**
-   If policy-rate trend or 30-day reserve-liquidity direction is unavailable, return `INSUFFICIENT DATA` and default broad sector actions to `HOLD` unless independent valuation or risk controls override.
+1. **Current State** — policy level, liquidity level, and the situation (or
+   Situation 0 when the level gate withholds it).
+2. **Momentum** — policy and liquidity separately at both 30 and 90 days.
+3. **Market Consensus** — the New York Fed survey path, or explicit
+   `UNAVAILABLE`/`STALE`.
+4. **Interpretation** — the situation hypothesis and named risk checks.
+5. **Data Quality** — freshness, history coverage, missing inputs, conflicts,
+   corroboration, and confidence.
 
-2. **Do not confuse the yield curve with Fed policy.**
-   Fed policy stance must come from the federal funds target/EFFR/DFF trend or explicit FOMC communication. A positive or negative yield curve is a recession/financial-conditions signal, not proof that the Fed is cutting or hiking.
+Do not infer a missing value, backfill a future observation, or turn an overlay
+into a current-state classification.
 
-3. **Do not label all liquidity expansion as QE.**
-   QE means Fed asset purchases for accommodation, market functioning, or reserve management. The net-liquidity proxy can rise because Fed assets rise, TGA falls, or RRP falls. Call it `reserve liquidity expansion`, not QE, unless the source data confirms asset purchases.
+## Classify in this exact order
 
-4. **Report direction, not just level.**
-   `Fed Assets - TGA - RRP` is a level. “Expanding” requires a positive change over a defined lookback, normally 30 calendar days or the nearest available weekly point.
+1. **Classify current policy level from the real-policy gap.**
+2. **Classify current reserve-liquidity level from its historical percentile.**
+3. **Select the quadrant only from those two current states.**
+4. **Report 30-day and 90-day momentum separately.**
+5. **Report NY Fed SME consensus separately; it never changes the current
+   quadrant.**
 
-5. **Separate macro tailwind from valuation discipline.**
-   A favored macro quadrant does not automatically justify buying an expensive sector. Check forward P/E, EV/EBITDA, earnings yield vs Treasury yield, credit stress, and sector news before issuing `BUY`.
+If a step lacks required or sufficiently fresh evidence, preserve the missing
+state and apply the data-quality gate; do not substitute a different signal.
 
-6. **Recommendations must include confidence.**
-   Every sector output should include action, conviction, rationale, and the data that would invalidate the call.
+## 1. Current policy level
 
-## Core Data Inputs
+Use point-in-time observations of daily effective fed funds (`DFF`), the core
+PCE price index (`PCEPILFE`), and the latest Holston-Laubach-Williams natural
+real-rate estimate (`r-star`) published on or before the analysis date:
 
-Use these preferred U.S. sources when available:
-
-- Fed assets: `WALCL`, FRED, millions of USD.
-- Treasury General Account: `WDTGAL` preferred for Wednesday level, or `WTREGEN` for weekly average, FRED, millions of USD.
-- Overnight Reverse Repo: `RRPONTSYD`, FRED, billions of USD.
-- Policy rate: daily `DFF` or `EFFR`; use target-range/FOMC communication when available.
-- Yield curve: use both `T10Y2Y` and `T10Y3M`; `T10Y3M` is the classic NY Fed recession-probability spread.
-- Credit stress: high-yield OAS, investment-grade OAS, CCC OAS, and Chicago Fed NFCI.
-- Labor/inflation: unemployment, Sahm Rule, payrolls, claims, CPI/PCE, breakevens.
-- Market/sector: VIX, DXY, S&P 500, commodities, sector P/E, forward P/E, EV/EBITDA, and major bellwether news.
-
-Normalize all balance-sheet components into billions before computing the liquidity proxy.
-
-## Reserve-Liquidity Proxy
-
-```
-reserve_liquidity_b = Fed Assets_b - TGA_b - ON_RRP_b
-reserve_liquidity_30d_change_b = current reserve_liquidity_b - nearest value on or before current_date - 30 days
-```
-
-Interpretation:
-
-- Positive 30-day change: reserve liquidity expanding.
-- Negative 30-day change: reserve liquidity contracting.
-- Missing Fed assets, TGA, or RRP: insufficient data.
-
-This proxy approximates reserve supply pressure. It is not the full monetary base, not broad money, and not a complete measure of global liquidity.
-
-## Policy-Rate Stance
-
-Classify policy-rate trend from actual policy-rate data:
-
-- `CUTTING`: 30-day policy-rate change <= -10 bps, or explicit FOMC cut.
-- `RAISING`: 30-day policy-rate change >= +10 bps, or explicit FOMC hike.
-- `HOLDING`: change is between -10 bps and +10 bps.
-- `HOLDING_RESTRICTIVE`: policy rate is flat, but real-yield evidence is restrictive. Use 10Y Treasury minus 10Y breakeven; a 10Y real yield around 1.50% or higher is restrictive enough to enter the restrictive quadrants unless stronger context says otherwise.
-- `UNKNOWN`: insufficient policy-rate data.
-
-For the 4-quadrant matrix, `CUTTING` is easing. `RAISING` and `HOLDING_RESTRICTIVE` are restrictive. Plain `HOLDING` is not an actionable quadrant by itself; fall back to valuation, credit, earnings, and tax constraints.
-
-## 4 Macro Situations
-
-Use the matrix as a starting hypothesis, not as the final recommendation.
-
-```
-                          RESERVE LIQUIDITY DIRECTION
-                      EXPANDING                    CONTRACTING
-                  +--------------------------+--------------------------+
- CUTTING/EASING   | Situation 1              | Situation 2              |
-                  | Risk-liquidity tailwind  | Late-cycle caution       |
-                  +--------------------------+--------------------------+
- RAISING/HAWKISH  | Situation 4              | Situation 3              |
- OR RESTRICTIVE   | Policy/liquidity conflict| Restrictive liquidity    |
- HOLDING          |                          |                          |
-                  +--------------------------+--------------------------+
+```text
+core_pce_yoy_pct = 100 * (core_pce_latest / core_pce_same_period_one_year_ago - 1)
+real_policy_rate_pct = DFF_pct - core_pce_yoy_pct
+policy_gap_pct = real_policy_rate_pct - rstar_pct
 ```
 
-### Situation 1: Easing + Reserve Liquidity Expanding
+Classify only the gap:
 
-Typical read: risk-liquidity tailwind.
+- `RESTRICTIVE` when `policy_gap_pct > +0.50 pp`.
+- `ACCOMMODATIVE` when `policy_gap_pct < -0.50 pp`.
+- `NEUTRAL` when `-0.50 <= policy_gap_pct <= +0.50 pp`.
+- `INSUFFICIENT_DATA` when any required input is missing, malformed, future-
+  dated, or stale.
 
-Potentially favored:
-- Profitable technology and AI infrastructure.
-- Semiconductors and HBM memory.
-- Downstream power, grid, cooling, and industrial electrification.
-- Consumer discretionary only if labor and credit are not deteriorating.
+The exact `-0.50` and `+0.50` boundaries are neutral. Required freshness is
+`DFF <= 7` calendar days, core PCE `<= 75` days, and r-star `<= 180` days.
+Report the real-policy-rate percentile over the trailing ten calendar years,
+excluding the current observation, only as context; require at least five
+years. Never classify policy from the yield curve, a recent nominal-rate move,
+or the 10-year real yield alone. Those are separate financial-condition
+diagnostics.
 
-Risk checks:
-- Avoid chasing sectors with stretched valuation, negative equity risk premium, or deteriorating earnings revisions.
-- If Sahm Rule or credit stress is flashing, downgrade from `BUY` to `HOLD / SELECTIVE`.
+## 2. Current reserve-liquidity level
 
-### Situation 2: Easing + Reserve Liquidity Contracting
+Normalize source units before computing the proxy:
 
-Typical read: late-cycle or recession-risk caution. The Fed may be easing because growth/labor is weakening while reserve liquidity is still a headwind.
+```text
+reserve_liquidity_b = Fed_assets_b - TGA_b - ON_RRP_b
+normalized_liquidity_pct_gdp = 100 * reserve_liquidity_b / nominal_GDP_b
+```
 
-Potentially favored:
-- Healthcare.
-- Consumer staples.
-- Quality dividend/low leverage.
-- Gold or precious metals when real-rate or dollar context supports it.
+Use `WALCL` for Fed assets, `WDTGAL` (or `WTREGEN`) for TGA, `RRPONTSYD` for
+ON RRP, and `GDP` for nominal GDP. Fed assets and TGA are commonly millions;
+RRP and GDP are billions. The proxy is a reserve-supply heuristic, not broad
+money and not proof of QE. If it rises, identify whether the cause is Fed
+assets, TGA, or RRP before calling it support; use `reserve-liquidity
+expansion`, not QE, unless official data confirms asset purchases.
 
-Risk checks:
-- Curve un-inversion can be a warning, but do not treat it as automatically bearish. Confirm with labor, credit, earnings, and volatility.
-- High-beta unprofitable growth and high-debt small caps need extra scrutiny.
+Build the history point-in-time: align weekly observations using the latest
+input on or before each weekly date; carry nominal GDP forward for no more
+than 120 days and never use a later release. For the trailing ten calendar
+years, exclude the current observation and require at least five years and 200
+aligned weekly observations. Classify the current percentile as:
 
-### Situation 3: Hawkish/Holding + Reserve Liquidity Contracting
+- `ABUNDANT` at or above the historical 60th percentile (inclusive).
+- `SCARCE` at or below the historical 40th percentile (inclusive).
+- `NEUTRAL` between the 40th and 60th percentiles.
+- `INSUFFICIENT_DATA` when a required component, freshness limit, history
+  window, or observation count fails.
 
-Typical read: restrictive liquidity and higher multiple-compression risk.
+Required freshness is Fed assets/TGA `<= 14` days, ON RRP `<= 7` days, and
+nominal GDP `<= 120` days. Report current percentile, median, p40, p60,
+sample start/end, and count so the level is auditable. Never classify from a
+raw-dollar historical average or a recent change alone.
 
-Potentially favored:
-- Cash and T-bills.
-- Low-leverage, high-free-cash-flow companies.
-- Energy only when commodity trend and valuation support it.
-- Financials only when credit quality and deposit/funding conditions are stable.
+Use five-business-day money-market corroboration when available:
 
-Risk checks:
-- Do not blanket-buy financials merely because rates are high. Credit stress, inverted/volatile funding curves, and deposit pressure can dominate net-interest-margin benefits.
-- Long-duration growth needs valuation support and resilient earnings to avoid `SELL / TRIM`.
+```text
+effr_iorb_spread_bp = 100 * (EFFR - IORB)
+sofr_iorb_spread_bp = 100 * (SOFR - IORB)
+```
 
-### Situation 4: Hawkish/Holding + Reserve Liquidity Expanding
+Flag pressure when the five-day mean `EFFR-IORB >= -2 bp` or
+`SOFR-IORB >= +10 bp`. One flag makes quality `PARTIAL` but does not change a
+valid level. Both flags make quality `INDETERMINATE_CONFLICT` and withhold the
+quadrant. Missing corroboration is disclosed and lowers confidence; it does
+not erase an otherwise valid historical level. EFFR, IORB, and SOFR each have
+`<= 7`-day freshness limits.
 
-Typical read: policy/liquidity conflict. This can be reserve management, TGA/RRP mechanics, market-functioning support, or emergency liquidity. It is not automatically stagflation or bailout.
+## 3. Select the current quadrant
 
-Potentially favored:
-- Hard assets and commodity producers if inflation is sticky.
-- Energy, copper, gold, and inflation-linked cash flows when real-economy and commodity data confirm.
-- Quality cyclicals only if credit stress is contained.
+Only the two current-level states select a situation:
 
-Risk checks:
-- Confirm whether liquidity expansion is from Fed assets, TGA drawdown, or RRP runoff.
-- Avoid calling it emergency support without evidence from Fed facilities or official communication.
+| Situation | Current policy | Current liquidity | Default read |
+|---|---|---|---|
+| 1 | `ACCOMMODATIVE` | `ABUNDANT` | Strongest risk-liquidity tailwind |
+| 2 | `ACCOMMODATIVE` | `SCARCE` | Easing response with limited liquidity support; late-cycle caution |
+| 3 | `RESTRICTIVE` | `SCARCE` | Strongest liquidity and valuation headwind |
+| 4 | `RESTRICTIVE` | `ABUNDANT` | Policy restraint offset by abundant liquidity; inspect the source |
 
-## Recommendation Scoring
+Momentum, consensus, CPI, labor data, the yield curve, credit, valuation,
+news, and sentiment may change the explanation or confidence, but never the
+`situation_id`. If either level is `NEUTRAL` or `INSUFFICIENT_DATA`, if a
+required source is stale, or if core evidence is materially contradictory,
+return Situation `0: NO ACTIONABLE MACRO QUADRANT`. A valid level quadrant may
+remain visible with `PARTIAL` quality; `INDETERMINATE_CONFLICT` withholds it.
 
-For each sector, combine:
+Situation-specific starting hypotheses (not automatic actions):
 
-- Macro quadrant: tailwind, neutral, or headwind.
-- Data quality: OK, partial, insufficient.
-- Valuation: forward P/E vs sector norm, EV/EBITDA vs norm, earnings yield vs 10Y Treasury.
-- Credit/volatility: HY OAS, CCC OAS, NFCI, VIX.
-- Rates and real yields: 10Y yield minus 10Y breakeven.
-- Dollar/commodities: DXY, oil, gold, copper.
-- Sector-specific catalysts: earnings, supply chain, regulation, credit contagion.
-- Tax friction: prefer HOLD unless expected risk/reward clears a meaningful threshold.
+- **Situation 1:** favor profitable duration, technology/AI infrastructure,
+  semiconductors, grid/power, and discretionary only when labor and credit are
+  sound. Sahm or credit warnings downgrade confidence.
+- **Situation 2:** favor healthcare, staples, quality dividends, and low
+  leverage when real-rate and dollar context support them; scrutinize high-beta
+  or highly indebted growth.
+- **Situation 3:** emphasize cash/T-bills and low-leverage free-cash-flow
+  businesses. Financials need credit, deposit, and funding confirmation; high
+  real yields raise duration risk.
+- **Situation 4:** inspect whether abundant liquidity comes from assets, TGA,
+  RRP, reserve management, or emergency facilities. Consider energy, copper,
+  gold, inflation-linked cash flows, and quality cyclicals only when inflation,
+  commodities, and credit confirm the hypothesis.
 
-Scoring discipline:
+## 4. Report momentum as an overlay
 
-- Negative ERP is a rate/valuation headwind, not a standalone sell trigger.
-- `SELL / TRIM` from ERP should require both meaningfully negative ERP and valuation stretch versus the sector norm.
-- Restrictive real yields should downgrade long-duration growth to `HOLD / CAUTION` unless valuation is also stretched.
-- Financials require credit-quality confirmation; do not buy them solely because the macro quadrant favors them.
+Calculate changes from the nearest observation on or before 30 and 90 calendar
+days before the analysis date. Publish all four readings independently:
 
-Recommended action vocabulary:
+- Policy gap: lower is more accommodative; change `< -0.10 pp` is `EASING`,
+  change `> +0.10 pp` is `TIGHTENING`, otherwise `STABLE`.
+- Normalized liquidity: change `> +0.05 pp of GDP` is `IMPROVING`, change
+  `< -0.05 pp` is `DETERIORATING`, otherwise `STABLE`.
 
-- `BUY / ACCUMULATE`: macro, valuation, and risk controls align.
-- `HOLD / SELECTIVE BUY`: sector ETF is not clearly attractive, but one or two constituents are unusually discounted with acceptable fundamentals.
-- `HOLD`: default when signal is mixed or tax friction dominates.
-- `HOLD / CAUTION`: stay invested but avoid adding; monitor named risks.
-- `SELL / TRIM`: macro headwind plus valuation/risk deterioration.
+At exactly a threshold, report `STABLE`. A high current level can therefore
+coexist with easing policy momentum or deteriorating liquidity momentum. State
+the prior date/value when available and say `UNAVAILABLE` when it is not;
+never let a momentum label replace a level.
 
-## Single-Stock Lagging Opportunity Rule
+## 5. Report NY Fed SME consensus as a non-blocking overlay
 
-Use single-stock lagging signals only after sector-level risk is acceptable.
+Use the New York Fed Survey of Market Expectations for primary dealers and
+active market participants, not the FOMC Summary of Economic Projections and
+not an inferred Treasury-yield path. Select the supported target closest to
+six months ahead among horizons from three through nine months, using the
+lower horizon for an exact tie. Store survey reference/publication date,
+target date, metric, median value/unit, source URL, and parsing status.
 
-A candidate can be flagged when:
+Compare the selected median with the current level:
 
-- It trades at least 20% cheaper than relevant peers on forward P/E or EV/EBITDA, and
-- It is not cheap because of obvious balance-sheet stress, broken earnings, severe litigation/regulatory risk, or structurally declining demand, and
-- It belongs to a sector that is at least `HOLD`, not a clear macro `SELL / TRIM`.
+- Expected DFF at least `10 bp` below current DFF: policy consensus `EASING`.
+- At least `10 bp` above: `TIGHTENING`; otherwise `STABLE`.
+- Expected Fed assets at least `0.5%` above current assets: balance-sheet
+  consensus `EXPANDING`; at least `0.5%` below: `CONTRACTING`; otherwise
+  `STABLE`.
 
-Examples to monitor: `MU`, `WDC`, `C`, `BAC`, `MOD`, `EOG`, but do not hard-code them as buys.
+Call the second signal **Fed balance-sheet consensus**, not net-liquidity
+consensus: the survey does not forecast TGA or ON RRP. Mark consensus
+`UNAVAILABLE` when the metric or supported format/horizon is absent; mark it
+`STALE` when the selected survey is more than 120 days old. Consensus is
+non-blocking and never changes the current quadrant. Do not invent a consensus
+path from market prices.
 
-## Bellwether News Rules
+## High-but-falling regression example
 
-Track bellwethers as evidence, not as automatic contagion:
+Given a policy gap of `+0.80 pp` and falling, normalized reserve liquidity at
+the `75th historical percentile` and down `0.10 pp of GDP` over 30 days, and
+NY Fed SME consensus for lower DFF with a stable Fed balance sheet, report:
 
-- `NVDA`, `AMD`, `AVGO`, `TSM`: AI compute and semiconductor demand.
-- `MU`, `WDC`: memory pricing and HBM cycle.
-- `JPM`, `BAC`, `C`: credit quality, deposits, capital markets.
-- `XOM`, `CVX`, `EOG`: energy supply/demand and cash-flow discipline.
-- `TSLA`, `SYM`, `TER`, `ROK`, `ISRG`: physical AI and robotics.
+```text
+Current State: RESTRICTIVE policy + ABUNDANT reserve liquidity (Situation 4;
+75th percentile).
+Momentum: policy EASING; liquidity DETERIORATING over 30 days. Report 90-day
+values separately and do not invent them if absent.
+Market Consensus: policy EASING; Fed balance-sheet consensus STABLE.
+```
 
-Upgrade conviction only when bellwether news confirms the macro/valuation signal. Downgrade when news contradicts it.
+The current state is Situation 4 because `+0.80 pp` is restrictive and the
+75th percentile is abundant. Falling momentum does not make liquidity scarce,
+and consensus does not alter the quadrant. Apply the data-quality gate: verify
+freshness, the five-year/200-week history requirements, units, and money-market
+conflict flags; disclose missing checks and withhold the state if a required
+gate fails.
 
-## Morning Workflow
+## Data-quality gate and recommendations
 
-1. Fetch/update data and log failures by source.
-2. Verify freshness for all core macro inputs.
-3. Compute reserve-liquidity level and 30-day direction.
-4. Compute policy-rate stance from actual policy-rate data.
-5. Classify macro situation, or return insufficient data.
-6. Evaluate yield-curve, Sahm/labor, inflation, credit, volatility, and valuation risk.
-7. Generate sector recommendations with action, conviction, rationale, and invalidation trigger.
-8. Flag selective single-stock opportunities only after sector and balance-sheet risk checks.
-9. In the report, explicitly list missing or stale inputs so the recommendation can be trusted at the right confidence level.
+Before an actionable research posture, list every missing or stale core input,
+history shortfall, unit problem, future-date exclusion, corroboration flag,
+consensus limitation, and source failure. Missing evidence lowers confidence;
+it is not favorable evidence. Situation 0 or `INSUFFICIENT_DATA` defaults
+broad sector posture to `HOLD`.
 
-## Source Discipline
+For each sector or instrument, keep action vocabulary research-oriented
+(`BUY / ACCUMULATE`, `HOLD / SELECTIVE BUY`, `HOLD`, `HOLD / CAUTION`,
+`SELL / TRIM`) and include conviction, rationale, invalidation trigger, and
+data quality. A macro hypothesis never overrides valuation, credit, labor,
+inflation, tax friction, or sector catalysts:
 
-Prefer primary sources for macro mechanics: Federal Reserve Board, New York Fed, St. Louis Fed/FRED, Treasury, BLS, BEA, and official company filings. Use financial media for timely context, but do not let headlines override the quantitative framework without confirmation.
+- Compare forward P/E, EV/EBITDA, earnings yield versus the 10Y Treasury, and
+  sector norms. Negative ERP alone is not a sell signal; require meaningful
+  ERP and valuation stretch for `SELL / TRIM`.
+- Use HY/CCC/IG OAS, NFCI, VIX, real yields, DXY, commodities, earnings
+  revisions, and bellwether filings/news as separate evidence.
+- Restrictive real yields usually downgrade long-duration growth unless
+  valuation and earnings justify it. Financials require credit and funding
+  confirmation, not merely high rates or a favorable situation.
+- Apply tax-aware friction: prefer `HOLD` unless expected research risk/reward
+  clears a meaningful threshold. Flag a single-stock laggard only when it is at
+  least 20% cheaper than peers on forward P/E or EV/EBITDA, has no obvious
+  balance-sheet/earnings/legal/structural break, and belongs to at least a
+  `HOLD` sector.
+
+## Morning workflow
+
+1. Fetch preferred primary sources and log failures; normalize units.
+2. Check point-in-time dates and freshness for all core inputs.
+3. Run the five classification steps in order and apply the data-quality gate.
+4. Evaluate yield curve, labor/inflation, credit, volatility, valuation,
+   dollar/commodity, and bellwether context without feeding them into the
+   quadrant axes.
+5. Render Current State, Momentum, Market Consensus, Interpretation, and Data
+   Quality in that order.
+6. Produce conditional sector research postures and invalidation triggers;
+   disclose stale/missing inputs and never claim strategy validation.
+
+## Preferred sources
+
+Prefer Federal Reserve Board, New York Fed, FRED/St. Louis Fed, Treasury, BLS,
+BEA, and official company filings for mechanics. Financial media can add timely
+context, but headlines do not override quantitative evidence without
+confirmation. The reserve-liquidity proxy remains a heuristic and is not a
+complete measure of global liquidity.
