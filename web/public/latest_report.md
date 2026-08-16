@@ -1,20 +1,12 @@
-# Daily 4-Quadrant Macro & Dynamic Sector Strategy Report (2026-07-31)
-*Automated Capture Engine & Institutional Framework (Defiant Gatekeeper)*
+# Daily Macro Evidence Report (2026-08-14)
+*Automated Capture Engine & Institutional Research Framework (Defiant Gatekeeper)*
+> Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.
 
 ---
 ## Notable Summary
 
-- **New:** **Decision:** Active quadrant is `SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Contracting (-30d)). Restrictive setup: policy-rate pressure and reserve-liquidity drainage raise valuation multiple-compression risk.
-- **Changed:** **Decision:** Technology (XLK): **SELL / TRIM** (HIGH (Macro Risk Avoidance)). Previously: **Decision:** Technology (XLK): **HOLD / CAUTION** (MODERATE (Restrictive Real Yield Headwind)).
-- **Unchanged:** **Decision:** Financials (XLF): **BUY / ACCUMULATE** (HIGH (Macro Quadrant Tailwinds)).
-- **New:** **Decision:** Industrials (XLI): **SELL / TRIM** (HIGH (Negative ERP + Valuation Stretch)).
-- **New:** **Decision:** `VLO`: **WATCHLIST / SELECTIVE REVIEW (Lagging Value)**. Peer-discount watchlist candidate within Energy & Oil/Gas: Valero Energy Corporation (VLO) appears discounted relative to its historical sector-relative norm. Confirm sector signal, earnings quality, balance sheet, and catalyst before buying. EV/EBITDA relative multiple (0.73x sector) is 26.5% below its historical sector-relative norm (0.99x sector)
-- **Changed:** **Valuation:** Shiller PE Ratio is `40.62` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta. Previously: **Valuation:** Shiller PE Ratio is `39.93` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
-- **Removed:** **Decision:** Active quadrant is `SITUATION 4: RESTRICTIVE POLICY + RESERVE LIQUIDITY EXPANSION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Expanding (+30d)). Policy/liquidity conflict: reserve liquidity is expanding while policy remains restrictive. Identify whether the liquidity source is Fed assets, TGA, RRP, or emergency facilities before drawing conclusions. Sticky inflation confirmed (3.7% CPI).
-- **Removed:** **Decision:** Energy (XLE): **BUY / ACCUMULATE** (HIGH (Macro Quadrant Tailwinds)).
-- **Removed:** **Decision:** `TER`: **WATCHLIST / SELECTIVE REVIEW (Lagging Value)**. Peer-discount watchlist candidate within Physical AI & Robotics: Teradyne, Inc. (TER) appears discounted relative to its historical sector-relative norm. Confirm sector signal, earnings quality, balance sheet, and catalyst before buying. EV/EBITDA relative multiple (0.67x sector) is 23.2% below its historical sector-relative norm (0.88x sector); Lagging price performance (-34.5% below 52-week high)
-- **Removed:** **Decision:** `MU`: **WATCHLIST / SELECTIVE REVIEW (Lagging Value)**. Peer-discount watchlist candidate within Technology & Semiconductors: Micron Technology, Inc. (MU) appears discounted relative to its historical sector-relative norm. Confirm sector signal, earnings quality, balance sheet, and catalyst before buying. Forward P/E (6.1x) is 69.8% below peer group avg (20.2x); historical relative history unavailable; EV/EBITDA (16.1x) is 49.9% below peer group avg (32.1x); historical relative history unavailable; Lagging price performance (-25.1% below 52-week high)
-- **Removed:** **Decision:** `MSFT`: **WATCHLIST / SELECTIVE REVIEW (Lagging Value)**. Peer-discount watchlist candidate within Technology & Semiconductors: Microsoft Corporation (MSFT) appears discounted relative to its historical sector-relative norm. Confirm sector signal, earnings quality, balance sheet, and catalyst before buying. EV/EBITDA (15.6x) is 51.4% below peer group avg (32.1x); historical relative history unavailable; Lagging price performance (-30.7% below 52-week high)
+- **Unchanged:** **Macro:** Active quadrant is `SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Contracting (-30d)). Restrictive setup: policy-rate pressure and reserve-liquidity drainage raise valuation multiple-compression risk.
+- **Unchanged:** **Valuation:** Shiller PE Ratio is `42.65` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
 
 ---
 
@@ -50,10 +42,10 @@ Reserve liquidity proxy is calculated as `Fed Total Assets - TGA Balance - Rever
 
 | Component | Value (Billions USD) | Notes / Description |
 | :--- | :--- | :--- |
-| **Reserve Liquidity Proxy** | **$5,766.67 B** | **30-Day Change: -63.58 B** |
-| Fed Total Assets | $6,738.19 B | Total Balance Sheet Size |
-| Treasury General Account (TGA) | $970.44 B | Treasury Cash Buffer at Fed |
-| Reverse Repo Facility (RRP) | $1.08 B | Overnight Liquidity Drain |
+| **Reserve Liquidity Proxy** | **$5,800.10 B** | **30-Day Change: -185.47 B** |
+| Fed Total Assets | $6,759.95 B | Total Balance Sheet Size |
+| Treasury General Account (TGA) | $959.40 B | Treasury Cash Buffer at Fed |
+| Reverse Repo Facility (RRP) | $0.45 B | Overnight Liquidity Drain |
 
 ---
 
@@ -64,12 +56,12 @@ The yield curve slope is a key indicator of economic cycle transitions and reces
 | Rate / Spread | Current Level | Institutional Signal |
 | :--- | :--- | :--- |
 | **Policy Rate** | `3.63%` | Source: `dff` / Stance: `HOLDING_RESTRICTIVE` |
-| **Policy Rate 30d Change** | `+0.00%` | Used for Rates Stance in Matrix |
-| **10Y Real Yield Proxy** | `+2.40%` | 10Y Treasury minus 10Y breakeven |
-| **10-Year Treasury Yield** | `4.67%` | Benchmark Long Rate |
-| **2-Year Treasury Yield** | `4.22%` | Short Rate / Fed Expectations |
-| **10Y - 2Y Spread** | `+0.45%` | **Regime: Normal (Steep)** |
-| **10Y - 3M Spread** | `+0.86%` | Classic Recession Gauge |
+| **Policy Rate 30d Change** | `+0.01%` | Used for Rates Stance in Matrix |
+| **10Y Real Yield Proxy** | `+2.44%` | 10Y Treasury minus 10Y breakeven |
+| **10-Year Treasury Yield** | `4.68%` | Benchmark Long Rate |
+| **2-Year Treasury Yield** | `4.20%` | Short Rate / Fed Expectations |
+| **10Y - 2Y Spread** | `+0.48%` | **Regime: Normal (Steep)** |
+| **10Y - 3M Spread** | `+0.76%` | Classic Recession Gauge |
 
 ---
 
@@ -79,19 +71,29 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 
 | Metric | Current Value | Threshold Benchmark |
 | :--- | :--- | :--- |
-| **ICE BofA High Yield OAS** | `2.87%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
-| **Investment Grade OAS** | `0.46%` | High Quality Corporate Premium |
-| **Chicago Fed Financial Conditions** | `-0.56` | Negative = Loose, Positive = Tight |
+| **ICE BofA High Yield OAS** | `2.71%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
+| **Investment Grade OAS** | `0.40%` | High Quality Corporate Premium |
+| **Chicago Fed Financial Conditions** | `-0.58` | Negative = Loose, Positive = Tight |
 
 ---
 
-## 5. Single-Stock Historical Sector-Relative Valuation
+## 5. Sector Evidence Assessments
 
-The following individual constituent stocks were identified as trading below their own historical relationship to the sector. This is a valuation screen, not a standalone buy signal; earnings quality, balance sheet, macro regime, and catalysts still need confirmation.
+Each assessment makes its deterministic evidence, uncertainty, and missing inputs visible for research review.
 
-| Ticker | Company Name | Sector Group | Forward P/E | Current Relative Fwd P/E | Historical Relative Norm | Relative Discount | Action Posture | Strategic Rationale |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| `VLO` | **Valero Energy Corporation** | Energy & Oil/Gas | `12.4x` | `0.97x` | `0.94x` | `-2.1%` | **WATCHLIST / SELECTIVE REVIEW (Lagging Value)** | Peer-discount watchlist candidate within Energy & Oil/Gas: Valero Energy Corporation (VLO) appears discounted relative to its historical sector-relative norm. Confirm sector signal, earnings quality, balance sheet, and catalyst before buying. EV/EBITDA relative multiple (0.73x sector) is 26.5% below its historical sector-relative norm (0.99x sector) |
+| Sector / Supply Chain Group | Evidence Posture | Score | Uncertainty Range | Coverage | Positive Factors | Negative Factors | Missing Evidence |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Technology (XLK)** | `NEUTRAL` | `-4.00` | `-10.00` to `10.00` | `85.7%` | — | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral.<br>Restrictive real yields are a headwind for long-duration sector groups. | Valuation percentile is unavailable. |
+| **Financials (XLF)** | `NEUTRAL` | `1.00` | `-10.00` to `10.00` | `85.7%` | Macro quadrant is favorable, unfavorable, or neutral for this sector group. | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Healthcare (XLV)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Energy (XLE)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Industrials (XLI)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Consumer Discretionary (XLY)** | `NEUTRAL` | `-3.00` | `-10.00` to `10.00` | `85.7%` | — | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Consumer Staples (XLP)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **AI Compute & Accelerators** | `NEUTRAL` | `-4.00` | `-10.00` to `10.00` | `85.7%` | — | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral.<br>Restrictive real yields are a headwind for long-duration sector groups. | Valuation percentile is unavailable. |
+| **High-Bandwidth Memory (HBM)** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
+| **Physical AI & Robotics** | `NEUTRAL` | `-4.00` | `-10.00` to `10.00` | `85.7%` | — | Macro quadrant is favorable, unfavorable, or neutral for this sector group.<br>Reserve-liquidity direction is expanding, contracting, or neutral.<br>Restrictive real yields are a headwind for long-duration sector groups. | Valuation percentile is unavailable. |
+| **Downstream Power & Grid** | `NEUTRAL` | `-1.00` | `-10.00` to `10.00` | `85.7%` | — | Reserve-liquidity direction is expanding, contracting, or neutral. | Valuation percentile is unavailable. |
 
 ---
 
@@ -101,17 +103,78 @@ Constituent review compares each company with its focused peer cohort and requir
 
 | Ticker | Peer Cohort | Relative Valuation Status | Research Posture | Evidence | Missing Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Technology (XLK)** | **SELL / TRIM** | `HIGH (Macro Risk Avoidance)` | `19.1x` | `None` | Sector faces severe headwinds in the current SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION regime. |
-| **Financials (XLF)** | **BUY / ACCUMULATE** | `HIGH (Macro Quadrant Tailwinds)` | `13.7x` | `None` | Sector is highly favored in the current SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION regime. |
-| **Healthcare (XLV)** | **HOLD** | `HIGH (Tax-Aware Default)` | `17.6x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
-| **Energy (XLE)** | **HOLD** | `HIGH (Tax-Aware Default)` | `12.9x` | `None` | Mid-term horizon (3-12m): Valuation and macro drivers are within stable parameters. Holding avoids unnecessary tax drag. |
-| **Industrials (XLI)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `29.4x` | `None` | Negative ERP (-1.27%) combined with valuation stretch (29.4x vs 19.0x norm). Risk-free yield competes strongly with sector earnings yield. |
-| **Consumer Discretionary (XLY)** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `35.8x` | `None` | Negative ERP (-1.88%) combined with valuation stretch (35.8x vs 22.0x norm). Risk-free yield competes strongly with sector earnings yield. |
-| **Consumer Staples (XLP)** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `24.8x` | `None` | Negative ERP (-0.64%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
-| **AI Compute & Accelerators** | **SELL / TRIM** | `HIGH (Macro Risk Avoidance)` | `22.2x` | `None` | Sector faces severe headwinds in the current SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION regime. |
-| **High-Bandwidth Memory (HBM)** | **HOLD / CAUTION** | `MODERATE` | `17.1x` | `None` | Memory supply chain headline volatility present. Maintain position for mid-term HBM structural cycle; avoid panic selling. |
-| **Physical AI & Robotics** | **SELL / TRIM** | `HIGH (Negative ERP + Valuation Stretch)` | `58.4x` | `None` | Negative ERP (-2.96%) combined with valuation stretch (58.4x vs 30.0x norm). Risk-free yield competes strongly with sector earnings yield. |
-| **Downstream Power & Grid** | **HOLD / CAUTION** | `MODERATE (Rate/Valuation Headwind)` | `24.5x` | `None` | Negative ERP (-0.59%) is a rate/valuation headwind, but valuation is not stretched enough to justify an automatic sell. |
+| `BAC` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `C` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `JPM` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `SCHW` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `WFC` | Banks | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `AXP` | Capital Markets | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `BLK` | Capital Markets | Insufficient Comparable Peers | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `GS` | Capital Markets | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `MS` | Capital Markets | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `AAPL` | Consumer Hardware & Platforms | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `GOOGL` | Consumer Hardware & Platforms | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `META` | Consumer Hardware & Platforms | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `FCX` | Critical Minerals | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `MP` | Critical Minerals | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>No valid current EVE multiple is available. |
+| `MOD` | Datacenter Cooling | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `SMCI` | Datacenter Cooling | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `VRT` | Datacenter Cooling | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `CEG` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `ETN` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `GEV` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `VST` | Downstream Power & Grid | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `COP` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>Only 10 valid historical relative observations are available; 60 are required. |
+| `CVX` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>Only 10 valid historical relative observations are available; 60 are required. |
+| `EOG` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>Only 10 valid historical relative observations are available; 60 are required. |
+| `XOM` | Energy Producers | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>Only 10 valid historical relative observations are available; 60 are required. |
+| `AMD` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `AVGO` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `NVDA` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `QCOM` | Fabless Accelerators | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `GFS` | Foundries | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `INTC` | Foundries | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `TSM` | Foundries | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `CAT` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `DE` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `GE` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `HON` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `ROK` | Industrial Machinery | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `CI` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `CVS` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `ELV` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `HUM` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `UNH` | Managed Care | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `MU` | Memory | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `STX` | Memory | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `WDC` | Memory | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `ABBV` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `JNJ` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `LLY` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `MRK` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `PFE` | Pharmaceuticals | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `ISRG` | Physical AI & Robotics | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `SYM` | Physical AI & Robotics | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `TSLA` | Physical AI & Robotics | Insufficient Comparable Peers | `NEUTRAL` | — | No valid current FPE multiple is available.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `MPC` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `PSX` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `VLO` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
+| `AMZN` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `BKNG` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `HD` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `LOW` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `MCD` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `NKE` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `SBUX` | Retail & Consumer | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `AMAT` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `ASML` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required.<br>No valid current EVE multiple is available. |
+| `KLAC` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `LRCX` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `TER` | Semiconductor Equipment | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `ADBE` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `CRM` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `MSFT` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
+| `ORCL` | Software & Cloud | Insufficient Relative History | `NEUTRAL` | — | Only 11 valid historical relative observations are available; 60 are required. |
 
 ---
 
@@ -121,13 +184,13 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Ecosystem Sub-Group | Key Tickers | Avg Forward P/E | Avg EV / EBITDA | Historical Norm (P/E) | Supply Chain & Valuation Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.21x` | `45.77x` | `28.0x` | `Undervalued / Discounted Super-Cycle` |
-| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `17.06x` | `30.29x` | `16.0x` | `Fairly Valued` |
-| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `58.37x` | `51.47x` | `30.0x` | `Rich Multiple / Growth Premium` |
-| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `24.52x` | `29.25x` | `22.0x` | `Fairly Valued` |
-| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `16.92x` | `24.21x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
-| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `27.92x` | `41.61x` | `26.0x` | `Fairly Valued` |
-| **7. Critical Materials & Magnets** | `FCX`, `MP` | `29.67x` | `11.22x` | `18.0x` | `Rich Multiple / Growth Premium` |
+| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.49x` | `41.85x` | `28.0x` | `Fairly Valued` |
+| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `10.75x` | `24.81x` | `16.0x` | `Undervalued / Discounted Super-Cycle` |
+| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `38.19x` | `59.17x` | `30.0x` | `Rich Multiple / Growth Premium` |
+| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `26.29x` | `31.27x` | `22.0x` | `Fairly Valued` |
+| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `19.03x` | `25.77x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
+| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `30.50x` | `46.56x` | `26.0x` | `Fairly Valued` |
+| **7. Critical Materials & Magnets** | `FCX`, `MP` | `39.78x` | `11.97x` | `18.0x` | `Rich Multiple / Growth Premium` |
 
 ---
 
@@ -135,14 +198,14 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
-| **CBOE Volatility (VIX)** | `17.08` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `100.35` | Global Currency Tightness |
-| **S&P 500 Index** | `7,437.63` | US Equity Benchmark |
-| **CNN Fear & Greed Index** | `38.97` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
-| **Shiller PE Ratio** | `40.62` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$85.23` | Energy Cost Drivers |
-| **Gold** | `$4,112.60` | Monetary Protection / Safe Haven |
-| **Copper** | `$6.49` | Industrial Demand Indicator |
+| **CBOE Volatility (VIX)** | `14.50` | `Low Volatility (Complacency)` |
+| **US Dollar Index (DXY)** | `99.70` | Global Currency Tightness |
+| **S&P 500 Index** | `7,798.99` | US Equity Benchmark |
+| **CNN Fear & Greed Index** | `66.74` | `Greed risk-appetite overlay: risk appetite is firm, so avoid chasing weak valuation setups.` |
+| **Shiller PE Ratio** | `42.65` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
+| **WTI Crude Oil** | `$81.81` | Energy Cost Drivers |
+| **Gold** | `$4,407.30` | Monetary Protection / Safe Haven |
+| **Copper** | `$6.58` | Industrial Demand Indicator |
 
 ---
 *Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.*

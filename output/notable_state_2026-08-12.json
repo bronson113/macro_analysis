@@ -1,0 +1,12 @@
+[
+  {
+    "key": "macro:regime",
+    "fingerprint": "macro:regime|SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION|Interest Rates: Raising / Holding Restrictive|Reserve Liquidity: Contracting (-30d)|OK",
+    "body": "**Macro:** Active quadrant is `SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Contracting (-30d)). Restrictive setup: policy-rate pressure and reserve-liquidity drainage raise valuation multiple-compression risk."
+  },
+  {
+    "key": "valuation:shiller_pe",
+    "fingerprint": "valuation:shiller_pe|Very Expensive",
+    "body": "**Valuation:** Shiller PE Ratio is `42.24` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta."
+  }
+]
