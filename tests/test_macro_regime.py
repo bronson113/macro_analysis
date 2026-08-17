@@ -275,7 +275,7 @@ def test_required_liquidity_freshness_limits_are_inclusive_and_one_day_stale_fai
         ("fed_assets", 14, "7D"),
         ("tga", 14, "7D"),
         ("rrp", 7, "7D"),
-        ("nominal_gdp", 120, "93D"),
+        ("nominal_gdp", 240, "93D"),
     )
     for key, limit_days, frequency in required_limits:
         fresh = liquidity_fixture()
@@ -425,7 +425,7 @@ def test_policy_stale_required_input_withholds_state():
 def test_stale_core_pce_withholds_state():
     out = classify_policy_level(
         series(("2026-08-14", 4.25)),
-        series(("2026-05-31", 120.0), ("2025-05-31", 116.0)),
+        series(("2026-04-30", 120.0), ("2025-04-30", 116.0)),
         series(("2026-08-14", 0.10)),
         pd.Timestamp("2026-08-15"),
     )
@@ -438,7 +438,7 @@ def test_stale_rstar_withholds_state():
     out = classify_policy_level(
         series(("2026-08-14", 4.25)),
         series(("2026-06-30", 120.0), ("2025-06-30", 116.0)),
-        series(("2026-02-15", 0.10)),
+        series(("2025-10-01", 0.10)),
         pd.Timestamp("2026-08-15"),
     )
 

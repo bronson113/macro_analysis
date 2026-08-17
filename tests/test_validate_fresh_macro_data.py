@@ -164,3 +164,40 @@ class TestFreshMacroDataValidator(unittest.TestCase):
         errors = validate_observations(observations, today=today, source_health_path=health)
 
         assert any("source health" in error for error in errors)
+
+    def test_accepts_administered_rate_up_to_four_days_in_future(self):
+        today = date(2026, 8, 16)
+        observations = self.tmp_path / "observations.csv"
+        _write_complete_observations(observations, today, {"iorb": today + timedelta(days=3)})
+
+        errors = validate_observations(observations, today=today)
+
+        self.assertFalse(any("iorb" in error and "future" in error for error in errors))
+
+    def test_rejects_truly_future_observation(self):
+        today = date(2026, 8, 16)
+        observations = self.tmp_path / "observations.csv"
+        _write_complete_observations(observations, today, {"iorb": today + timedelta(days=10)})
+
+        errors = validate_observations(observations, today=today)
+
+        self.assertTrue(any("iorb" in error and "future" in error for error in errors))
+
+    def test_rejects_stale_quarterly_and_monthly_series(self):
+        today = date(2026, 8, 16)
+        observations = self.tmp_path / "observations.csv"
+        _write_complete_observations(
+            observations,
+            today,
+            {
+                "nominal_gdp": today - timedelta(days=245),
+                "core_pce": today - timedelta(days=105),
+                "rstar": today - timedelta(days=275),
+            },
+        )
+
+        errors = validate_observations(observations, today=today)
+
+        self.assertTrue(any("nominal_gdp" in error and "stale" in error for error in errors))
+        self.assertTrue(any("core_pce" in error and "stale" in error for error in errors))
+        self.assertTrue(any("rstar" in error and "stale" in error for error in errors))

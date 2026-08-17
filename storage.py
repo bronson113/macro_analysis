@@ -293,7 +293,7 @@ class MacroStorage:
 
     def _read_csv_unlocked(self, path: Path, schema_name: str) -> pd.DataFrame:
         try:
-            frame = pd.read_csv(path)
+            frame = pd.read_csv(path, low_memory=False)
         except (FileNotFoundError, pd.errors.EmptyDataError):
             frame = pd.DataFrame()
         return self._normalize_schema(frame, schema_name)
@@ -312,7 +312,7 @@ class MacroStorage:
         with self._lock:
             with self._file_lock(path):
                 try:
-                    existing = pd.read_csv(path)
+                    existing = pd.read_csv(path, low_memory=False)
                 except (FileNotFoundError, pd.errors.EmptyDataError):
                     existing = pd.DataFrame()
                 normalized = self._normalize_schema(existing, schema_name)

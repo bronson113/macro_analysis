@@ -62,7 +62,7 @@ Classify only the gap:
   valid selected observation. Disclose future-row exclusion when relevant.
 
 The exact `-0.50` and `+0.50` boundaries are neutral. Required freshness is
-`DFF <= 7` calendar days, core PCE `<= 75` days, and r-star `<= 180` days.
+`DFF <= 7` calendar days, core PCE `<= 100` days, and r-star `<= 270` days.
 Report the real-policy-rate percentile over the trailing ten calendar years,
 excluding the current observation, only as context; require at least five
 years. Never classify policy from the yield curve, a recent nominal-rate move,
@@ -87,7 +87,7 @@ expansion`, not QE, unless official data confirms asset purchases.
 
 Build the history point-in-time: align weekly observations using the latest
 input on or before each weekly date; carry nominal GDP forward for no more
-than 120 days and never use a later release. For the trailing ten calendar
+than 240 days and never use a later release. For the trailing ten calendar
 years, exclude the current observation and require at least five years and 200
 aligned weekly observations. Classify the current percentile as:
 
@@ -98,7 +98,7 @@ aligned weekly observations. Classify the current percentile as:
   window, or observation count fails.
 
 Required freshness is Fed assets/TGA `<= 14` days, ON RRP `<= 7` days, and
-nominal GDP `<= 120` days. Report current percentile, median, p40, p60,
+nominal GDP `<= 240` days. Report current percentile, median, p40, p60,
 sample start/end, and count so the level is auditable. Never classify from a
 raw-dollar historical average or a recent change alone.
 

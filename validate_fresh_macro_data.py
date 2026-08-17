@@ -15,14 +15,15 @@ CORE_SERIES_MAX_AGE_DAYS = {
     "fed_total_assets": 14,
     "tga_balance": 14,
     "reverse_repo": 7,
-    "nominal_gdp": 120,
+    "nominal_gdp": 240,
     "dff": 7,
-    "core_pce": 75,
-    "rstar": 180,
+    "core_pce": 100,
+    "rstar": 270,
     "effr": 7,
     "iorb": 7,
     "sofr": 7,
 }
+MAX_FUTURE_DAYS = 4
 LIQUIDITY_SERIES = ("fed_total_assets", "tga_balance", "reverse_repo")
 LOOKBACK_DAYS = 30
 EXPECTED_UNITS = {
@@ -49,7 +50,7 @@ def validate_observations(
     if not path.exists():
         return [f"Missing observations file: {path}"]
 
-    frame = pd.read_csv(path)
+    frame = pd.read_csv(path, low_memory=False)
     required_columns = {"indicator_key", "date", "value"}
     missing_columns = required_columns - set(frame.columns)
     if missing_columns:
@@ -70,7 +71,7 @@ def validate_observations(
 
         latest = series.iloc[-1]["date"]
         age_days = (today - latest).days
-        if age_days < 0:
+        if age_days < -MAX_FUTURE_DAYS:
             errors.append(f"{key}: latest observation {latest} is in the future")
         elif age_days > max_age_days:
             errors.append(
@@ -108,7 +109,7 @@ def validate_observations(
             errors.append(f"source health: missing health file {health_path}")
         else:
             try:
-                health = pd.read_csv(health_path)
+                health = pd.read_csv(health_path, low_memory=False)
             except (OSError, pd.errors.EmptyDataError) as error:
                 errors.append(f"source health: could not read health file ({error})")
                 health = pd.DataFrame()

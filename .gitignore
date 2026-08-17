@@ -15,3 +15,4 @@ logs/
 credentials*.json
 secrets*.json
 .secrets/
+*.lock
