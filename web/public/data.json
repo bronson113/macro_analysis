@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated_at": "2026-08-16T23:55:56.081990",
-    "date": "2026-08-16",
+    "generated_at": "2026-08-17T07:08:49.622621",
+    "date": "2026-08-17",
     "engine_version": "3.0-EvidenceRawPayload"
   },
   "macro_quantitative": {
@@ -11,10 +11,10 @@
       "value": 6759955.0,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WALCL",
       "unit": "millions",
-      "updated_at": "2026-08-16T23:51:20.668862"
+      "updated_at": "2026-08-17T06:57:22.655516"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
@@ -22,10 +22,10 @@
       "value": 959405.0,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WDTGAL",
       "unit": "millions",
-      "updated_at": "2026-08-16T23:51:20.656010"
+      "updated_at": "2026-08-17T06:57:22.673873"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
@@ -33,10 +33,10 @@
       "value": 0.25,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RRPONTSYD",
       "unit": "billions",
-      "updated_at": "2026-08-16T23:51:20.678813"
+      "updated_at": "2026-08-17T06:57:22.712504"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
@@ -44,10 +44,10 @@
       "value": 4.63,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
       "unit": null,
-      "updated_at": "2026-08-16T23:52:33.374759"
+      "updated_at": "2026-08-17T07:00:19.949514"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
@@ -55,10 +55,10 @@
       "value": 4.15,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS2",
       "unit": null,
-      "updated_at": "2026-08-16T23:52:33.381757"
+      "updated_at": "2026-08-17T07:00:19.951820"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
@@ -66,10 +66,10 @@
       "value": 0.51,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y2Y",
       "unit": null,
-      "updated_at": "2026-08-16T23:52:33.396740"
+      "updated_at": "2026-08-17T07:00:20.040210"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
@@ -77,10 +77,10 @@
       "value": 2.71,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A0HYM2",
       "unit": null,
-      "updated_at": "2026-08-16T23:53:42.271618"
+      "updated_at": "2026-08-17T07:03:30.907734"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
@@ -88,10 +88,10 @@
       "value": 0.41,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A1CAAA",
       "unit": null,
-      "updated_at": "2026-08-16T23:53:42.281006"
+      "updated_at": "2026-08-17T07:03:30.930946"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
@@ -99,10 +99,10 @@
       "value": -0.579,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ANFCI",
       "unit": null,
-      "updated_at": "2026-08-16T23:53:42.287435"
+      "updated_at": "2026-08-17T07:03:30.943133"
     },
     "vix": {
       "indicator_key": "vix",
@@ -113,18 +113,18 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-16T23:55:04.157319"
+      "updated_at": "2026-08-17T07:06:51.454267"
     },
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-08-17",
-      "value": 99.46399688720705,
+      "value": 99.4209976196289,
       "release_date": null,
       "publication_date": null,
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-16T23:55:04.149747"
+      "updated_at": "2026-08-17T07:06:51.470080"
     },
     "sp500": {
       "indicator_key": "sp500",
@@ -135,40 +135,40 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-16T23:55:04.130849"
+      "updated_at": "2026-08-17T07:06:51.502564"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-08-17",
-      "value": 81.7699966430664,
+      "value": 81.86000061035156,
       "release_date": null,
       "publication_date": null,
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-16T23:55:04.141688"
+      "updated_at": "2026-08-17T07:06:51.525695"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-08-17",
-      "value": 4453.2001953125,
+      "value": 4458.2998046875,
       "release_date": null,
       "publication_date": null,
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-16T23:55:04.124811"
+      "updated_at": "2026-08-17T07:06:51.485384"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-08-17",
-      "value": 6.7245001792907715,
+      "value": 6.721499919891357,
       "release_date": null,
       "publication_date": null,
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-16T23:55:12.233444"
+      "updated_at": "2026-08-17T07:07:11.786818"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
@@ -176,10 +176,10 @@
       "value": 4.1,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE",
       "unit": null,
-      "updated_at": "2026-08-16T23:53:42.297485"
+      "updated_at": "2026-08-17T07:03:30.963191"
     },
     "cpi": {
       "indicator_key": "cpi",
@@ -187,10 +187,10 @@
       "value": 332.813,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL",
       "unit": null,
-      "updated_at": "2026-08-16T23:54:10.207524"
+      "updated_at": "2026-08-17T07:04:54.469195"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
@@ -198,10 +198,10 @@
       "value": 2.24,
       "release_date": null,
       "publication_date": null,
-      "vintage_date": "2026-08-16",
+      "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T5YIE",
       "unit": null,
-      "updated_at": "2026-08-16T23:54:10.220621"
+      "updated_at": "2026-08-17T07:04:54.506617"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
@@ -212,22 +212,22 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-16T23:55:14.361976"
+      "updated_at": "2026-08-17T07:07:16.759076"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
-      "date": "2026-08-16",
+      "date": "2026-08-17",
       "value": 42.56,
       "release_date": null,
       "publication_date": null,
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-16T23:55:15.079175"
+      "updated_at": "2026-08-17T07:07:17.742584"
     }
   },
   "macro_regime": {
-    "as_of": "2026-08-16T00:00:00",
+    "as_of": "2026-08-17T00:00:00",
     "current_state": {
       "policy": "ACCOMMODATIVE",
       "liquidity": "SCARCE",
@@ -235,14 +235,14 @@
       "liquidity_state": "SCARCE",
       "situation_id": 2,
       "policy_measurement": {
-        "as_of": "2026-08-16T00:00:00",
+        "as_of": "2026-08-17T00:00:00",
         "state": "ACCOMMODATIVE",
         "quality": "OK",
         "reasons": [],
         "dff": 3.63,
         "dff_observation": {
           "date": "2026-08-13T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.63
         },
@@ -252,7 +252,7 @@
         "core_pce": 130.266,
         "core_pce_observation": {
           "date": "2026-06-01T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 130.266
         },
@@ -266,7 +266,7 @@
         "rstar": 1.057,
         "rstar_observation": {
           "date": "2026-01-01T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 1.057
         },
@@ -286,10 +286,10 @@
         "history_count": 106,
         "momentum_30d": "STABLE",
         "momentum_30d_value": 0.0,
-        "momentum_30d_date": "2026-07-17T00:00:00",
+        "momentum_30d_date": "2026-07-18T00:00:00",
         "momentum_90d": "TIGHTENING",
-        "momentum_90d_value": 0.135,
-        "momentum_90d_date": "2026-05-18T00:00:00",
+        "momentum_90d_value": 0.145,
+        "momentum_90d_date": "2026-05-19T00:00:00",
         "dates": {
           "dff": "2026-08-13T00:00:00",
           "core_pce": "2026-06-01T00:00:00",
@@ -307,7 +307,7 @@
         }
       },
       "liquidity_measurement": {
-        "as_of": "2026-08-16T00:00:00",
+        "as_of": "2026-08-17T00:00:00",
         "state": "SCARCE",
         "core_state": "SCARCE",
         "quality": "PARTIAL",
@@ -355,47 +355,47 @@
         "fed_assets": 6759955.0,
         "fed_assets_observation": {
           "date": "2026-08-12T00:00:00",
-          "age_days": 4,
+          "age_days": 5,
           "value": 6759955.0
         },
         "fed_assets_date": "2026-08-12T00:00:00",
-        "fed_assets_age_days": 4,
+        "fed_assets_age_days": 5,
         "fed_assets_value": 6759955.0,
         "fed_assets_millions": 6759955.0,
         "tga": 959405.0,
         "tga_observation": {
           "date": "2026-08-12T00:00:00",
-          "age_days": 4,
+          "age_days": 5,
           "value": 959405.0
         },
         "tga_date": "2026-08-12T00:00:00",
-        "tga_age_days": 4,
+        "tga_age_days": 5,
         "tga_value": 959405.0,
         "tga_millions": 959405.0,
         "rrp": 0.725,
         "rrp_observation": {
           "date": "2026-08-12T00:00:00",
-          "age_days": 4,
+          "age_days": 5,
           "value": 0.725
         },
         "rrp_date": "2026-08-12T00:00:00",
-        "rrp_age_days": 4,
+        "rrp_age_days": 5,
         "rrp_value": 0.725,
         "rrp_billions": 0.725,
         "nominal_gdp": 32475.21,
         "nominal_gdp_observation": {
           "date": "2026-04-01T00:00:00",
-          "age_days": 137,
+          "age_days": 138,
           "value": 32475.21
         },
         "nominal_gdp_date": "2026-04-01T00:00:00",
-        "nominal_gdp_age_days": 137,
+        "nominal_gdp_age_days": 138,
         "nominal_gdp_value": 32475.21,
         "nominal_gdp_billions": 32475.21,
         "effr": 3.63,
         "effr_observation": {
           "date": "2026-08-13T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.63
         },
@@ -404,18 +404,18 @@
         "effr_value": 3.63,
         "iorb": 3.65,
         "iorb_observation": {
-          "date": "2026-08-16T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "date": "2026-08-17T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.65
         },
-        "iorb_date": "2026-08-16T00:00:00",
+        "iorb_date": "2026-08-17T00:00:00",
         "iorb_age_days": 0,
         "iorb_value": 3.65,
         "sofr": 3.62,
         "sofr_observation": {
           "date": "2026-08-13T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.62
         },
@@ -428,14 +428,14 @@
           "rrp": "2026-08-12T00:00:00",
           "nominal_gdp": "2026-04-01T00:00:00",
           "effr": "2026-08-13T00:00:00",
-          "iorb": "2026-08-16T00:00:00",
+          "iorb": "2026-08-17T00:00:00",
           "sofr": "2026-08-13T00:00:00"
         },
         "ages": {
-          "fed_assets": 4,
-          "tga": 4,
-          "rrp": 4,
-          "nominal_gdp": 137,
+          "fed_assets": 5,
+          "tga": 5,
+          "rrp": 5,
+          "nominal_gdp": 138,
           "effr": 0,
           "iorb": 0,
           "sofr": 0
@@ -454,14 +454,14 @@
         "policy_state": "ACCOMMODATIVE",
         "liquidity_state": "SCARCE",
         "policy_measurement": {
-          "as_of": "2026-08-16T00:00:00",
+          "as_of": "2026-08-17T00:00:00",
           "state": "ACCOMMODATIVE",
           "quality": "OK",
           "reasons": [],
           "dff": 3.63,
           "dff_observation": {
             "date": "2026-08-13T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.63
           },
@@ -471,7 +471,7 @@
           "core_pce": 130.266,
           "core_pce_observation": {
             "date": "2026-06-01T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 130.266
           },
@@ -485,7 +485,7 @@
           "rstar": 1.057,
           "rstar_observation": {
             "date": "2026-01-01T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 1.057
           },
@@ -505,10 +505,10 @@
           "history_count": 106,
           "momentum_30d": "STABLE",
           "momentum_30d_value": 0.0,
-          "momentum_30d_date": "2026-07-17T00:00:00",
+          "momentum_30d_date": "2026-07-18T00:00:00",
           "momentum_90d": "TIGHTENING",
-          "momentum_90d_value": 0.135,
-          "momentum_90d_date": "2026-05-18T00:00:00",
+          "momentum_90d_value": 0.145,
+          "momentum_90d_date": "2026-05-19T00:00:00",
           "dates": {
             "dff": "2026-08-13T00:00:00",
             "core_pce": "2026-06-01T00:00:00",
@@ -526,7 +526,7 @@
           }
         },
         "liquidity_measurement": {
-          "as_of": "2026-08-16T00:00:00",
+          "as_of": "2026-08-17T00:00:00",
           "state": "SCARCE",
           "core_state": "SCARCE",
           "quality": "PARTIAL",
@@ -574,47 +574,47 @@
           "fed_assets": 6759955.0,
           "fed_assets_observation": {
             "date": "2026-08-12T00:00:00",
-            "age_days": 4,
+            "age_days": 5,
             "value": 6759955.0
           },
           "fed_assets_date": "2026-08-12T00:00:00",
-          "fed_assets_age_days": 4,
+          "fed_assets_age_days": 5,
           "fed_assets_value": 6759955.0,
           "fed_assets_millions": 6759955.0,
           "tga": 959405.0,
           "tga_observation": {
             "date": "2026-08-12T00:00:00",
-            "age_days": 4,
+            "age_days": 5,
             "value": 959405.0
           },
           "tga_date": "2026-08-12T00:00:00",
-          "tga_age_days": 4,
+          "tga_age_days": 5,
           "tga_value": 959405.0,
           "tga_millions": 959405.0,
           "rrp": 0.725,
           "rrp_observation": {
             "date": "2026-08-12T00:00:00",
-            "age_days": 4,
+            "age_days": 5,
             "value": 0.725
           },
           "rrp_date": "2026-08-12T00:00:00",
-          "rrp_age_days": 4,
+          "rrp_age_days": 5,
           "rrp_value": 0.725,
           "rrp_billions": 0.725,
           "nominal_gdp": 32475.21,
           "nominal_gdp_observation": {
             "date": "2026-04-01T00:00:00",
-            "age_days": 137,
+            "age_days": 138,
             "value": 32475.21
           },
           "nominal_gdp_date": "2026-04-01T00:00:00",
-          "nominal_gdp_age_days": 137,
+          "nominal_gdp_age_days": 138,
           "nominal_gdp_value": 32475.21,
           "nominal_gdp_billions": 32475.21,
           "effr": 3.63,
           "effr_observation": {
             "date": "2026-08-13T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.63
           },
@@ -623,18 +623,18 @@
           "effr_value": 3.63,
           "iorb": 3.65,
           "iorb_observation": {
-            "date": "2026-08-16T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "date": "2026-08-17T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.65
           },
-          "iorb_date": "2026-08-16T00:00:00",
+          "iorb_date": "2026-08-17T00:00:00",
           "iorb_age_days": 0,
           "iorb_value": 3.65,
           "sofr": 3.62,
           "sofr_observation": {
             "date": "2026-08-13T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.62
           },
@@ -647,14 +647,14 @@
             "rrp": "2026-08-12T00:00:00",
             "nominal_gdp": "2026-04-01T00:00:00",
             "effr": "2026-08-13T00:00:00",
-            "iorb": "2026-08-16T00:00:00",
+            "iorb": "2026-08-17T00:00:00",
             "sofr": "2026-08-13T00:00:00"
           },
           "ages": {
-            "fed_assets": 4,
-            "tga": 4,
-            "rrp": 4,
-            "nominal_gdp": 137,
+            "fed_assets": 5,
+            "tga": 5,
+            "rrp": 5,
+            "nominal_gdp": 138,
             "effr": 0,
             "iorb": 0,
             "sofr": 0
@@ -682,7 +682,7 @@
           "policy_30d": "STABLE",
           "policy_30d_value": 0.0,
           "policy_90d": "TIGHTENING",
-          "policy_90d_value": 0.135,
+          "policy_90d_value": 0.145,
           "liquidity_30d": "DETERIORATING",
           "liquidity_30d_value": -0.453,
           "liquidity_90d": "DETERIORATING",
@@ -691,7 +691,7 @@
             "30d": "STABLE",
             "30d_value": 0.0,
             "90d": "TIGHTENING",
-            "90d_value": 0.135
+            "90d_value": 0.145
           },
           "liquidity": {
             "30d": "DETERIORATING",
@@ -701,7 +701,7 @@
           }
         },
         "consensus": {
-          "as_of": "2026-08-16T00:00:00",
+          "as_of": "2026-08-17T00:00:00",
           "quality": "OK",
           "reasons": [],
           "blocks_quadrant": false,
@@ -714,7 +714,7 @@
           "selected_target_date": "2026-12-09T00:00:00",
           "horizon_months": 6,
           "selected_horizon_months": 6,
-          "survey_age_days": 74,
+          "survey_age_days": 75,
           "expected_dff": 3.63,
           "expected_fed_assets": 6824.0,
           "current_dff": 3.63,
@@ -775,10 +775,10 @@
             "dff": 0,
             "core_pce": 0,
             "rstar": 0,
-            "fed_assets": 4,
-            "tga": 4,
-            "rrp": 4,
-            "nominal_gdp": 137,
+            "fed_assets": 5,
+            "tga": 5,
+            "rrp": 5,
+            "nominal_gdp": 138,
             "effr": 0,
             "iorb": 0,
             "sofr": 0
@@ -787,10 +787,10 @@
             "dff": 0,
             "core_pce": 0,
             "rstar": 0,
-            "fed_assets": 4,
-            "tga": 4,
-            "rrp": 4,
-            "nominal_gdp": 137,
+            "fed_assets": 5,
+            "tga": 5,
+            "rrp": 5,
+            "nominal_gdp": 138,
             "effr": 0,
             "iorb": 0,
             "sofr": 0
@@ -835,7 +835,7 @@
       "policy_30d": "STABLE",
       "policy_30d_value": 0.0,
       "policy_90d": "TIGHTENING",
-      "policy_90d_value": 0.135,
+      "policy_90d_value": 0.145,
       "liquidity_30d": "DETERIORATING",
       "liquidity_30d_value": -0.453,
       "liquidity_90d": "DETERIORATING",
@@ -844,7 +844,7 @@
         "30d": "STABLE",
         "30d_value": 0.0,
         "90d": "TIGHTENING",
-        "90d_value": 0.135
+        "90d_value": 0.145
       },
       "liquidity": {
         "30d": "DETERIORATING",
@@ -854,7 +854,7 @@
       }
     },
     "consensus": {
-      "as_of": "2026-08-16T00:00:00",
+      "as_of": "2026-08-17T00:00:00",
       "quality": "OK",
       "reasons": [],
       "blocks_quadrant": false,
@@ -867,7 +867,7 @@
       "selected_target_date": "2026-12-09T00:00:00",
       "horizon_months": 6,
       "selected_horizon_months": 6,
-      "survey_age_days": 74,
+      "survey_age_days": 75,
       "expected_dff": 3.63,
       "expected_fed_assets": 6824.0,
       "current_dff": 3.63,
@@ -928,10 +928,10 @@
         "dff": 0,
         "core_pce": 0,
         "rstar": 0,
-        "fed_assets": 4,
-        "tga": 4,
-        "rrp": 4,
-        "nominal_gdp": 137,
+        "fed_assets": 5,
+        "tga": 5,
+        "rrp": 5,
+        "nominal_gdp": 138,
         "effr": 0,
         "iorb": 0,
         "sofr": 0
@@ -940,10 +940,10 @@
         "dff": 0,
         "core_pce": 0,
         "rstar": 0,
-        "fed_assets": 4,
-        "tga": 4,
-        "rrp": 4,
-        "nominal_gdp": 137,
+        "fed_assets": 5,
+        "tga": 5,
+        "rrp": 5,
+        "nominal_gdp": 138,
         "effr": 0,
         "iorb": 0,
         "sofr": 0
@@ -960,14 +960,14 @@
       ]
     },
     "policy": {
-      "as_of": "2026-08-16T00:00:00",
+      "as_of": "2026-08-17T00:00:00",
       "state": "ACCOMMODATIVE",
       "quality": "OK",
       "reasons": [],
       "dff": 3.63,
       "dff_observation": {
         "date": "2026-08-13T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 3.63
       },
@@ -977,7 +977,7 @@
       "core_pce": 130.266,
       "core_pce_observation": {
         "date": "2026-06-01T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 130.266
       },
@@ -991,7 +991,7 @@
       "rstar": 1.057,
       "rstar_observation": {
         "date": "2026-01-01T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 1.057
       },
@@ -1011,10 +1011,10 @@
       "history_count": 106,
       "momentum_30d": "STABLE",
       "momentum_30d_value": 0.0,
-      "momentum_30d_date": "2026-07-17T00:00:00",
+      "momentum_30d_date": "2026-07-18T00:00:00",
       "momentum_90d": "TIGHTENING",
-      "momentum_90d_value": 0.135,
-      "momentum_90d_date": "2026-05-18T00:00:00",
+      "momentum_90d_value": 0.145,
+      "momentum_90d_date": "2026-05-19T00:00:00",
       "dates": {
         "dff": "2026-08-13T00:00:00",
         "core_pce": "2026-06-01T00:00:00",
@@ -1032,7 +1032,7 @@
       }
     },
     "liquidity": {
-      "as_of": "2026-08-16T00:00:00",
+      "as_of": "2026-08-17T00:00:00",
       "state": "SCARCE",
       "core_state": "SCARCE",
       "quality": "PARTIAL",
@@ -1080,47 +1080,47 @@
       "fed_assets": 6759955.0,
       "fed_assets_observation": {
         "date": "2026-08-12T00:00:00",
-        "age_days": 4,
+        "age_days": 5,
         "value": 6759955.0
       },
       "fed_assets_date": "2026-08-12T00:00:00",
-      "fed_assets_age_days": 4,
+      "fed_assets_age_days": 5,
       "fed_assets_value": 6759955.0,
       "fed_assets_millions": 6759955.0,
       "tga": 959405.0,
       "tga_observation": {
         "date": "2026-08-12T00:00:00",
-        "age_days": 4,
+        "age_days": 5,
         "value": 959405.0
       },
       "tga_date": "2026-08-12T00:00:00",
-      "tga_age_days": 4,
+      "tga_age_days": 5,
       "tga_value": 959405.0,
       "tga_millions": 959405.0,
       "rrp": 0.725,
       "rrp_observation": {
         "date": "2026-08-12T00:00:00",
-        "age_days": 4,
+        "age_days": 5,
         "value": 0.725
       },
       "rrp_date": "2026-08-12T00:00:00",
-      "rrp_age_days": 4,
+      "rrp_age_days": 5,
       "rrp_value": 0.725,
       "rrp_billions": 0.725,
       "nominal_gdp": 32475.21,
       "nominal_gdp_observation": {
         "date": "2026-04-01T00:00:00",
-        "age_days": 137,
+        "age_days": 138,
         "value": 32475.21
       },
       "nominal_gdp_date": "2026-04-01T00:00:00",
-      "nominal_gdp_age_days": 137,
+      "nominal_gdp_age_days": 138,
       "nominal_gdp_value": 32475.21,
       "nominal_gdp_billions": 32475.21,
       "effr": 3.63,
       "effr_observation": {
         "date": "2026-08-13T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 3.63
       },
@@ -1129,18 +1129,18 @@
       "effr_value": 3.63,
       "iorb": 3.65,
       "iorb_observation": {
-        "date": "2026-08-16T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "date": "2026-08-17T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 3.65
       },
-      "iorb_date": "2026-08-16T00:00:00",
+      "iorb_date": "2026-08-17T00:00:00",
       "iorb_age_days": 0,
       "iorb_value": 3.65,
       "sofr": 3.62,
       "sofr_observation": {
         "date": "2026-08-13T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 3.62
       },
@@ -1153,14 +1153,14 @@
         "rrp": "2026-08-12T00:00:00",
         "nominal_gdp": "2026-04-01T00:00:00",
         "effr": "2026-08-13T00:00:00",
-        "iorb": "2026-08-16T00:00:00",
+        "iorb": "2026-08-17T00:00:00",
         "sofr": "2026-08-13T00:00:00"
       },
       "ages": {
-        "fed_assets": 4,
-        "tga": 4,
-        "rrp": 4,
-        "nominal_gdp": 137,
+        "fed_assets": 5,
+        "tga": 5,
+        "rrp": 5,
+        "nominal_gdp": 138,
         "effr": 0,
         "iorb": 0,
         "sofr": 0
@@ -1176,14 +1176,14 @@
       }
     },
     "policy_details": {
-      "as_of": "2026-08-16T00:00:00",
+      "as_of": "2026-08-17T00:00:00",
       "state": "ACCOMMODATIVE",
       "quality": "OK",
       "reasons": [],
       "dff": 3.63,
       "dff_observation": {
         "date": "2026-08-13T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 3.63
       },
@@ -1193,7 +1193,7 @@
       "core_pce": 130.266,
       "core_pce_observation": {
         "date": "2026-06-01T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 130.266
       },
@@ -1207,7 +1207,7 @@
       "rstar": 1.057,
       "rstar_observation": {
         "date": "2026-01-01T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 1.057
       },
@@ -1227,10 +1227,10 @@
       "history_count": 106,
       "momentum_30d": "STABLE",
       "momentum_30d_value": 0.0,
-      "momentum_30d_date": "2026-07-17T00:00:00",
+      "momentum_30d_date": "2026-07-18T00:00:00",
       "momentum_90d": "TIGHTENING",
-      "momentum_90d_value": 0.135,
-      "momentum_90d_date": "2026-05-18T00:00:00",
+      "momentum_90d_value": 0.145,
+      "momentum_90d_date": "2026-05-19T00:00:00",
       "dates": {
         "dff": "2026-08-13T00:00:00",
         "core_pce": "2026-06-01T00:00:00",
@@ -1248,7 +1248,7 @@
       }
     },
     "liquidity_details": {
-      "as_of": "2026-08-16T00:00:00",
+      "as_of": "2026-08-17T00:00:00",
       "state": "SCARCE",
       "core_state": "SCARCE",
       "quality": "PARTIAL",
@@ -1296,47 +1296,47 @@
       "fed_assets": 6759955.0,
       "fed_assets_observation": {
         "date": "2026-08-12T00:00:00",
-        "age_days": 4,
+        "age_days": 5,
         "value": 6759955.0
       },
       "fed_assets_date": "2026-08-12T00:00:00",
-      "fed_assets_age_days": 4,
+      "fed_assets_age_days": 5,
       "fed_assets_value": 6759955.0,
       "fed_assets_millions": 6759955.0,
       "tga": 959405.0,
       "tga_observation": {
         "date": "2026-08-12T00:00:00",
-        "age_days": 4,
+        "age_days": 5,
         "value": 959405.0
       },
       "tga_date": "2026-08-12T00:00:00",
-      "tga_age_days": 4,
+      "tga_age_days": 5,
       "tga_value": 959405.0,
       "tga_millions": 959405.0,
       "rrp": 0.725,
       "rrp_observation": {
         "date": "2026-08-12T00:00:00",
-        "age_days": 4,
+        "age_days": 5,
         "value": 0.725
       },
       "rrp_date": "2026-08-12T00:00:00",
-      "rrp_age_days": 4,
+      "rrp_age_days": 5,
       "rrp_value": 0.725,
       "rrp_billions": 0.725,
       "nominal_gdp": 32475.21,
       "nominal_gdp_observation": {
         "date": "2026-04-01T00:00:00",
-        "age_days": 137,
+        "age_days": 138,
         "value": 32475.21
       },
       "nominal_gdp_date": "2026-04-01T00:00:00",
-      "nominal_gdp_age_days": 137,
+      "nominal_gdp_age_days": 138,
       "nominal_gdp_value": 32475.21,
       "nominal_gdp_billions": 32475.21,
       "effr": 3.63,
       "effr_observation": {
         "date": "2026-08-13T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 3.63
       },
@@ -1345,18 +1345,18 @@
       "effr_value": 3.63,
       "iorb": 3.65,
       "iorb_observation": {
-        "date": "2026-08-16T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "date": "2026-08-17T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 3.65
       },
-      "iorb_date": "2026-08-16T00:00:00",
+      "iorb_date": "2026-08-17T00:00:00",
       "iorb_age_days": 0,
       "iorb_value": 3.65,
       "sofr": 3.62,
       "sofr_observation": {
         "date": "2026-08-13T00:00:00",
-        "availability_date": "2026-08-16T00:00:00",
+        "availability_date": "2026-08-17T00:00:00",
         "age_days": 0,
         "value": 3.62
       },
@@ -1369,14 +1369,14 @@
         "rrp": "2026-08-12T00:00:00",
         "nominal_gdp": "2026-04-01T00:00:00",
         "effr": "2026-08-13T00:00:00",
-        "iorb": "2026-08-16T00:00:00",
+        "iorb": "2026-08-17T00:00:00",
         "sofr": "2026-08-13T00:00:00"
       },
       "ages": {
-        "fed_assets": 4,
-        "tga": 4,
-        "rrp": 4,
-        "nominal_gdp": 137,
+        "fed_assets": 5,
+        "tga": 5,
+        "rrp": 5,
+        "nominal_gdp": 138,
         "effr": 0,
         "iorb": 0,
         "sofr": 0
@@ -1395,14 +1395,14 @@
       "policy_state": "ACCOMMODATIVE",
       "liquidity_state": "SCARCE",
       "policy_measurement": {
-        "as_of": "2026-08-16T00:00:00",
+        "as_of": "2026-08-17T00:00:00",
         "state": "ACCOMMODATIVE",
         "quality": "OK",
         "reasons": [],
         "dff": 3.63,
         "dff_observation": {
           "date": "2026-08-13T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.63
         },
@@ -1412,7 +1412,7 @@
         "core_pce": 130.266,
         "core_pce_observation": {
           "date": "2026-06-01T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 130.266
         },
@@ -1426,7 +1426,7 @@
         "rstar": 1.057,
         "rstar_observation": {
           "date": "2026-01-01T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 1.057
         },
@@ -1446,10 +1446,10 @@
         "history_count": 106,
         "momentum_30d": "STABLE",
         "momentum_30d_value": 0.0,
-        "momentum_30d_date": "2026-07-17T00:00:00",
+        "momentum_30d_date": "2026-07-18T00:00:00",
         "momentum_90d": "TIGHTENING",
-        "momentum_90d_value": 0.135,
-        "momentum_90d_date": "2026-05-18T00:00:00",
+        "momentum_90d_value": 0.145,
+        "momentum_90d_date": "2026-05-19T00:00:00",
         "dates": {
           "dff": "2026-08-13T00:00:00",
           "core_pce": "2026-06-01T00:00:00",
@@ -1467,7 +1467,7 @@
         }
       },
       "liquidity_measurement": {
-        "as_of": "2026-08-16T00:00:00",
+        "as_of": "2026-08-17T00:00:00",
         "state": "SCARCE",
         "core_state": "SCARCE",
         "quality": "PARTIAL",
@@ -1515,47 +1515,47 @@
         "fed_assets": 6759955.0,
         "fed_assets_observation": {
           "date": "2026-08-12T00:00:00",
-          "age_days": 4,
+          "age_days": 5,
           "value": 6759955.0
         },
         "fed_assets_date": "2026-08-12T00:00:00",
-        "fed_assets_age_days": 4,
+        "fed_assets_age_days": 5,
         "fed_assets_value": 6759955.0,
         "fed_assets_millions": 6759955.0,
         "tga": 959405.0,
         "tga_observation": {
           "date": "2026-08-12T00:00:00",
-          "age_days": 4,
+          "age_days": 5,
           "value": 959405.0
         },
         "tga_date": "2026-08-12T00:00:00",
-        "tga_age_days": 4,
+        "tga_age_days": 5,
         "tga_value": 959405.0,
         "tga_millions": 959405.0,
         "rrp": 0.725,
         "rrp_observation": {
           "date": "2026-08-12T00:00:00",
-          "age_days": 4,
+          "age_days": 5,
           "value": 0.725
         },
         "rrp_date": "2026-08-12T00:00:00",
-        "rrp_age_days": 4,
+        "rrp_age_days": 5,
         "rrp_value": 0.725,
         "rrp_billions": 0.725,
         "nominal_gdp": 32475.21,
         "nominal_gdp_observation": {
           "date": "2026-04-01T00:00:00",
-          "age_days": 137,
+          "age_days": 138,
           "value": 32475.21
         },
         "nominal_gdp_date": "2026-04-01T00:00:00",
-        "nominal_gdp_age_days": 137,
+        "nominal_gdp_age_days": 138,
         "nominal_gdp_value": 32475.21,
         "nominal_gdp_billions": 32475.21,
         "effr": 3.63,
         "effr_observation": {
           "date": "2026-08-13T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.63
         },
@@ -1564,18 +1564,18 @@
         "effr_value": 3.63,
         "iorb": 3.65,
         "iorb_observation": {
-          "date": "2026-08-16T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "date": "2026-08-17T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.65
         },
-        "iorb_date": "2026-08-16T00:00:00",
+        "iorb_date": "2026-08-17T00:00:00",
         "iorb_age_days": 0,
         "iorb_value": 3.65,
         "sofr": 3.62,
         "sofr_observation": {
           "date": "2026-08-13T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.62
         },
@@ -1588,14 +1588,14 @@
           "rrp": "2026-08-12T00:00:00",
           "nominal_gdp": "2026-04-01T00:00:00",
           "effr": "2026-08-13T00:00:00",
-          "iorb": "2026-08-16T00:00:00",
+          "iorb": "2026-08-17T00:00:00",
           "sofr": "2026-08-13T00:00:00"
         },
         "ages": {
-          "fed_assets": 4,
-          "tga": 4,
-          "rrp": 4,
-          "nominal_gdp": 137,
+          "fed_assets": 5,
+          "tga": 5,
+          "rrp": 5,
+          "nominal_gdp": 138,
           "effr": 0,
           "iorb": 0,
           "sofr": 0
@@ -1623,7 +1623,7 @@
         "policy_30d": "STABLE",
         "policy_30d_value": 0.0,
         "policy_90d": "TIGHTENING",
-        "policy_90d_value": 0.135,
+        "policy_90d_value": 0.145,
         "liquidity_30d": "DETERIORATING",
         "liquidity_30d_value": -0.453,
         "liquidity_90d": "DETERIORATING",
@@ -1632,7 +1632,7 @@
           "30d": "STABLE",
           "30d_value": 0.0,
           "90d": "TIGHTENING",
-          "90d_value": 0.135
+          "90d_value": 0.145
         },
         "liquidity": {
           "30d": "DETERIORATING",
@@ -1642,7 +1642,7 @@
         }
       },
       "consensus": {
-        "as_of": "2026-08-16T00:00:00",
+        "as_of": "2026-08-17T00:00:00",
         "quality": "OK",
         "reasons": [],
         "blocks_quadrant": false,
@@ -1655,7 +1655,7 @@
         "selected_target_date": "2026-12-09T00:00:00",
         "horizon_months": 6,
         "selected_horizon_months": 6,
-        "survey_age_days": 74,
+        "survey_age_days": 75,
         "expected_dff": 3.63,
         "expected_fed_assets": 6824.0,
         "current_dff": 3.63,
@@ -1716,10 +1716,10 @@
           "dff": 0,
           "core_pce": 0,
           "rstar": 0,
-          "fed_assets": 4,
-          "tga": 4,
-          "rrp": 4,
-          "nominal_gdp": 137,
+          "fed_assets": 5,
+          "tga": 5,
+          "rrp": 5,
+          "nominal_gdp": 138,
           "effr": 0,
           "iorb": 0,
           "sofr": 0
@@ -1728,10 +1728,10 @@
           "dff": 0,
           "core_pce": 0,
           "rstar": 0,
-          "fed_assets": 4,
-          "tga": 4,
-          "rrp": 4,
-          "nominal_gdp": 137,
+          "fed_assets": 5,
+          "tga": 5,
+          "rrp": 5,
+          "nominal_gdp": 138,
           "effr": 0,
           "iorb": 0,
           "sofr": 0
@@ -1775,14 +1775,14 @@
       "policy_state": "ACCOMMODATIVE",
       "liquidity_state": "SCARCE",
       "policy_measurement": {
-        "as_of": "2026-08-16T00:00:00",
+        "as_of": "2026-08-17T00:00:00",
         "state": "ACCOMMODATIVE",
         "quality": "OK",
         "reasons": [],
         "dff": 3.63,
         "dff_observation": {
           "date": "2026-08-13T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.63
         },
@@ -1792,7 +1792,7 @@
         "core_pce": 130.266,
         "core_pce_observation": {
           "date": "2026-06-01T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 130.266
         },
@@ -1806,7 +1806,7 @@
         "rstar": 1.057,
         "rstar_observation": {
           "date": "2026-01-01T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 1.057
         },
@@ -1826,10 +1826,10 @@
         "history_count": 106,
         "momentum_30d": "STABLE",
         "momentum_30d_value": 0.0,
-        "momentum_30d_date": "2026-07-17T00:00:00",
+        "momentum_30d_date": "2026-07-18T00:00:00",
         "momentum_90d": "TIGHTENING",
-        "momentum_90d_value": 0.135,
-        "momentum_90d_date": "2026-05-18T00:00:00",
+        "momentum_90d_value": 0.145,
+        "momentum_90d_date": "2026-05-19T00:00:00",
         "dates": {
           "dff": "2026-08-13T00:00:00",
           "core_pce": "2026-06-01T00:00:00",
@@ -1847,7 +1847,7 @@
         }
       },
       "liquidity_measurement": {
-        "as_of": "2026-08-16T00:00:00",
+        "as_of": "2026-08-17T00:00:00",
         "state": "SCARCE",
         "core_state": "SCARCE",
         "quality": "PARTIAL",
@@ -1895,47 +1895,47 @@
         "fed_assets": 6759955.0,
         "fed_assets_observation": {
           "date": "2026-08-12T00:00:00",
-          "age_days": 4,
+          "age_days": 5,
           "value": 6759955.0
         },
         "fed_assets_date": "2026-08-12T00:00:00",
-        "fed_assets_age_days": 4,
+        "fed_assets_age_days": 5,
         "fed_assets_value": 6759955.0,
         "fed_assets_millions": 6759955.0,
         "tga": 959405.0,
         "tga_observation": {
           "date": "2026-08-12T00:00:00",
-          "age_days": 4,
+          "age_days": 5,
           "value": 959405.0
         },
         "tga_date": "2026-08-12T00:00:00",
-        "tga_age_days": 4,
+        "tga_age_days": 5,
         "tga_value": 959405.0,
         "tga_millions": 959405.0,
         "rrp": 0.725,
         "rrp_observation": {
           "date": "2026-08-12T00:00:00",
-          "age_days": 4,
+          "age_days": 5,
           "value": 0.725
         },
         "rrp_date": "2026-08-12T00:00:00",
-        "rrp_age_days": 4,
+        "rrp_age_days": 5,
         "rrp_value": 0.725,
         "rrp_billions": 0.725,
         "nominal_gdp": 32475.21,
         "nominal_gdp_observation": {
           "date": "2026-04-01T00:00:00",
-          "age_days": 137,
+          "age_days": 138,
           "value": 32475.21
         },
         "nominal_gdp_date": "2026-04-01T00:00:00",
-        "nominal_gdp_age_days": 137,
+        "nominal_gdp_age_days": 138,
         "nominal_gdp_value": 32475.21,
         "nominal_gdp_billions": 32475.21,
         "effr": 3.63,
         "effr_observation": {
           "date": "2026-08-13T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.63
         },
@@ -1944,18 +1944,18 @@
         "effr_value": 3.63,
         "iorb": 3.65,
         "iorb_observation": {
-          "date": "2026-08-16T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "date": "2026-08-17T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.65
         },
-        "iorb_date": "2026-08-16T00:00:00",
+        "iorb_date": "2026-08-17T00:00:00",
         "iorb_age_days": 0,
         "iorb_value": 3.65,
         "sofr": 3.62,
         "sofr_observation": {
           "date": "2026-08-13T00:00:00",
-          "availability_date": "2026-08-16T00:00:00",
+          "availability_date": "2026-08-17T00:00:00",
           "age_days": 0,
           "value": 3.62
         },
@@ -1968,14 +1968,14 @@
           "rrp": "2026-08-12T00:00:00",
           "nominal_gdp": "2026-04-01T00:00:00",
           "effr": "2026-08-13T00:00:00",
-          "iorb": "2026-08-16T00:00:00",
+          "iorb": "2026-08-17T00:00:00",
           "sofr": "2026-08-13T00:00:00"
         },
         "ages": {
-          "fed_assets": 4,
-          "tga": 4,
-          "rrp": 4,
-          "nominal_gdp": 137,
+          "fed_assets": 5,
+          "tga": 5,
+          "rrp": 5,
+          "nominal_gdp": 138,
           "effr": 0,
           "iorb": 0,
           "sofr": 0
@@ -2003,7 +2003,7 @@
         "policy_30d": "STABLE",
         "policy_30d_value": 0.0,
         "policy_90d": "TIGHTENING",
-        "policy_90d_value": 0.135,
+        "policy_90d_value": 0.145,
         "liquidity_30d": "DETERIORATING",
         "liquidity_30d_value": -0.453,
         "liquidity_90d": "DETERIORATING",
@@ -2012,7 +2012,7 @@
           "30d": "STABLE",
           "30d_value": 0.0,
           "90d": "TIGHTENING",
-          "90d_value": 0.135
+          "90d_value": 0.145
         },
         "liquidity": {
           "30d": "DETERIORATING",
@@ -2022,7 +2022,7 @@
         }
       },
       "consensus": {
-        "as_of": "2026-08-16T00:00:00",
+        "as_of": "2026-08-17T00:00:00",
         "quality": "OK",
         "reasons": [],
         "blocks_quadrant": false,
@@ -2035,7 +2035,7 @@
         "selected_target_date": "2026-12-09T00:00:00",
         "horizon_months": 6,
         "selected_horizon_months": 6,
-        "survey_age_days": 74,
+        "survey_age_days": 75,
         "expected_dff": 3.63,
         "expected_fed_assets": 6824.0,
         "current_dff": 3.63,
@@ -2096,10 +2096,10 @@
           "dff": 0,
           "core_pce": 0,
           "rstar": 0,
-          "fed_assets": 4,
-          "tga": 4,
-          "rrp": 4,
-          "nominal_gdp": 137,
+          "fed_assets": 5,
+          "tga": 5,
+          "rrp": 5,
+          "nominal_gdp": 138,
           "effr": 0,
           "iorb": 0,
           "sofr": 0
@@ -2108,10 +2108,10 @@
           "dff": 0,
           "core_pce": 0,
           "rstar": 0,
-          "fed_assets": 4,
-          "tga": 4,
-          "rrp": 4,
-          "nominal_gdp": 137,
+          "fed_assets": 5,
+          "tga": 5,
+          "rrp": 5,
+          "nominal_gdp": 138,
           "effr": 0,
           "iorb": 0,
           "sofr": 0
@@ -2155,8 +2155,8 @@
   },
   "recent_news_events": [
     {
-      "id": 598.0,
-      "date": "2026-08-16",
+      "id": 642.0,
+      "date": "2026-08-17",
       "title": "[UNH - UnitedHealth Group] Sector Update: Healthcare Stocks Decline Late Afternoon",
       "summary": "Healthcare stocks were lower late Friday afternoon, with the NYSE Healthcare Index decreasing 0.4% a",
       "source": "Yahoo Finance (UNH)",
@@ -2167,14 +2167,14 @@
       ],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T19:51:28Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175945"
+      "created_at": "2026-08-17T07:07:22.517406"
     },
     {
-      "id": 597.0,
-      "date": "2026-08-16",
+      "id": 641.0,
+      "date": "2026-08-17",
       "title": "[UNH - UnitedHealth Group] Luigi Mangione Pleads Guilty to Federal Charges in Killing of Insurance Executive",
       "summary": "The 28-year-old admitted in court to killing UnitedHealthcare leader Brian Thompson, but a state murder trial still looms.",
       "source": "Yahoo Finance (UNH)",
@@ -2183,14 +2183,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T20:09:00Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175931"
+      "created_at": "2026-08-17T07:07:22.517400"
     },
     {
-      "id": 596.0,
-      "date": "2026-08-16",
+      "id": 640.0,
+      "date": "2026-08-17",
       "title": "[UNH - UnitedHealth Group] Humana, UnitedHealth trim Medicare Advantage on rising costs",
       "summary": "Yahoo Finance Senior Columnist Kerry Hannon explains that major health insurers like Humana (HUM) and UnitedHealth Group (UNH) are dropping hundreds of thousands of Medicare Advantage members to prote",
       "source": "Yahoo Finance (UNH)",
@@ -2199,14 +2199,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T21:11:40Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175919"
+      "created_at": "2026-08-17T07:07:22.517394"
     },
     {
-      "id": 595.0,
-      "date": "2026-08-16",
+      "id": 639.0,
+      "date": "2026-08-17",
       "title": "[CAT - Caterpillar] DIVO or JEPI: Which Monthly Dividend Actually Protects Your Principal?",
       "summary": "Both DIVO and JEPI hand you a monthly paycheck funded by covered calls on blue-chip stocks, but one of them has been quietly compounding your principal while the other trades that growth away for a fa",
       "source": "Yahoo Finance (CAT)",
@@ -2215,14 +2215,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-15T18:23:12Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175905"
+      "created_at": "2026-08-17T07:07:22.517387"
     },
     {
-      "id": 594.0,
-      "date": "2026-08-16",
+      "id": 638.0,
+      "date": "2026-08-17",
       "title": "[CAT - Caterpillar] Caterpillar (CAT) Is Gaining Attention For Long Term AI Infrastructure Demand",
       "summary": "Caterpillar (NYSE:CAT) is drawing fresh investor attention as a potential beneficiary of AI-related infrastructure build-out and associated equipment demand. Recent commentary highlights the company a",
       "source": "Yahoo Finance (CAT)",
@@ -2231,14 +2231,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-15T20:09:36Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175887"
+      "created_at": "2026-08-17T07:07:22.517381"
     },
     {
-      "id": 593.0,
-      "date": "2026-08-16",
+      "id": 637.0,
+      "date": "2026-08-17",
       "title": "[CAT - Caterpillar] Palantir Makes Its Case Against Frontier AI",
       "summary": "CEO Alex Karp made the case that Palantir\u2019s offerings posed fewer risks than the AI models other coming out today.",
       "source": "Yahoo Finance (CAT)",
@@ -2247,14 +2247,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-15T21:50:19Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175871"
+      "created_at": "2026-08-17T07:07:22.517375"
     },
     {
-      "id": 592.0,
-      "date": "2026-08-16",
+      "id": 636.0,
+      "date": "2026-08-17",
       "title": "[TSLA - Tesla] Waymo shipped 3,200 Chinese-built EVs to LA for its robotaxi fleet despite 127.5% tariffs Americans can't get around",
       "summary": "Waymo has imported 3,200 Zeekr cars from China since 2024 through the Port of Los Angeles. Most of those vehicles were imported this year.",
       "source": "Yahoo Finance (TSLA)",
@@ -2263,14 +2263,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T16:30:00Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175857"
+      "created_at": "2026-08-17T07:07:22.517368"
     },
     {
-      "id": 591.0,
-      "date": "2026-08-16",
+      "id": 635.0,
+      "date": "2026-08-17",
       "title": "[TSLA - Tesla] Elon Musk\u2019s SpaceX Holdings Revealed. (Hint: It\u2019s A Lot.)",
       "summary": "SpaceX  is a popular stock, backed by some investing and corporate heavy hitters.  The heaviest hitter of all, of course, is Elon Musk.  It\u2019s the first time public funds have disclosed SpaceX position",
       "source": "Yahoo Finance (TSLA)",
@@ -2279,14 +2279,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T16:46:00Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175844"
+      "created_at": "2026-08-17T07:07:22.517362"
     },
     {
-      "id": 590.0,
-      "date": "2026-08-16",
+      "id": 634.0,
+      "date": "2026-08-17",
       "title": "[TSLA - Tesla] Elon Musk Says Tesla Is \u2018Most Made in America\u2019 Car Brand as Trump Tariffs Shake Up Auto Industry",
       "summary": "Tesla Inc. (NASDAQ:TSLA) CEO Elon Musk has backed the automaker\u2019s domestic manufacturing prowess amid President Donald Trump\u2018s tariffs on the auto industry. Domestic Assembly, Domestic Parts On Saturd",
       "source": "Yahoo Finance (TSLA)",
@@ -2295,14 +2295,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T03:59:29Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175827"
+      "created_at": "2026-08-17T07:07:22.517355"
     },
     {
-      "id": 589.0,
-      "date": "2026-08-16",
+      "id": 633.0,
+      "date": "2026-08-17",
       "title": "[XOM - ExxonMobil] Reading Between The Lines Of XOM's Latest Call",
       "summary": "ExxonMobil's latest earnings call forced management to explain a strange problem: why its best project is so successful that the company's share of the oil is now falling.",
       "source": "Yahoo Finance (XOM)",
@@ -2311,14 +2311,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-13T18:55:14Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175810"
+      "created_at": "2026-08-17T07:07:22.517349"
     },
     {
-      "id": 588.0,
-      "date": "2026-08-16",
+      "id": 632.0,
+      "date": "2026-08-17",
       "title": "[XOM - ExxonMobil] 2 Reasons XOM is Risky and 1 Stock to Buy Instead",
       "summary": "While the S&P 500 is up 13.5% since February 2026, ExxonMobil (currently trading at $159.68 per share) has lagged behind, posting a return of 6.5%. This might have investors contemplating their next m",
       "source": "Yahoo Finance (XOM)",
@@ -2327,14 +2327,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T16:53:00Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175792"
+      "created_at": "2026-08-17T07:07:22.517343"
     },
     {
-      "id": 587.0,
-      "date": "2026-08-16",
+      "id": 631.0,
+      "date": "2026-08-17",
       "title": "[XOM - ExxonMobil] Exxon Stock Rises While Iran Threat Lifts Oil",
       "summary": "Exxon's enormous cash generation gives it direct financial leverage to oil prices rising on renewed fears surrounding the Strait of Hormuz.",
       "source": "Yahoo Finance (XOM)",
@@ -2343,14 +2343,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T18:20:50Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175776"
+      "created_at": "2026-08-17T07:07:22.517336"
     },
     {
-      "id": 586.0,
-      "date": "2026-08-16",
+      "id": 630.0,
+      "date": "2026-08-17",
       "title": "[JPM - JPMorgan Chase] JPMorgan Raises S&P 500 Target to 8,000 as Earnings and AI Growth Strengthen Outlook",
       "summary": "JPMorgan has increased its 2026 S&P 500 price target to 8,000 from 7,800, pointing to an exceptionally strong second-quarter earnings season and growing evidence that massive artificial intelligence i",
       "source": "Yahoo Finance (JPM)",
@@ -2359,14 +2359,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T13:41:00Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175757"
+      "created_at": "2026-08-17T07:07:22.517330"
     },
     {
-      "id": 585.0,
-      "date": "2026-08-16",
+      "id": 629.0,
+      "date": "2026-08-17",
       "title": "[JPM - JPMorgan Chase] 3 Bank Stocks Walking a Fine Line",
       "summary": "Banks serve as the backbone of the economy, facilitating lending, deposits, and financial services that keep businesses and consumers moving forward. Still, investors are uneasy as banks face challeng",
       "source": "Yahoo Finance (JPM)",
@@ -2375,14 +2375,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T16:37:00Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175742"
+      "created_at": "2026-08-17T07:07:22.517323"
     },
     {
-      "id": 584.0,
-      "date": "2026-08-16",
+      "id": 628.0,
+      "date": "2026-08-17",
       "title": "[JPM - JPMorgan Chase] Banks Cheer as Trump\u2019s Regulatory Rollback Spreads to Europe",
       "summary": "Bankers in Europe are increasingly hopeful their regulatory constraints will ease",
       "source": "Yahoo Finance (JPM)",
@@ -2393,14 +2393,14 @@
       ],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T04:00:05Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175724"
+      "created_at": "2026-08-17T07:07:22.517317"
     },
     {
-      "id": 583.0,
-      "date": "2026-08-16",
+      "id": 627.0,
+      "date": "2026-08-17",
       "title": "[AAPL - Apple] Berkshire Piles $17 Billion More into Google: Why Is Michael Burry Worried?",
       "summary": "Berkshire boosted its Alphabet stake by $17 billion in Q2, but Michael Burry says Greg Abel lacks Buffett's discipline.",
       "source": "Yahoo Finance (AAPL)",
@@ -2409,14 +2409,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T02:16:27Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175708"
+      "created_at": "2026-08-17T07:07:22.517310"
     },
     {
-      "id": 582.0,
-      "date": "2026-08-16",
+      "id": 626.0,
+      "date": "2026-08-17",
       "title": "[AAPL - Apple] Micron Nears $1,000 \u2013 And Apple Could Be The Next Catalyst",
       "summary": "Gains in KOSPI could push Micron shares on Monday, retail traders said.",
       "source": "Yahoo Finance (AAPL)",
@@ -2425,14 +2425,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T02:34:38Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175691"
+      "created_at": "2026-08-17T07:07:22.517303"
     },
     {
-      "id": 581.0,
-      "date": "2026-08-16",
+      "id": 625.0,
+      "date": "2026-08-17",
       "title": "[AAPL - Apple] Ross Gerber Says 'Now Is a Good Time' to Buy iPhone 17 as Apple Prepares for Potential Price Hike With Next Model: 'If You're Looking\u2026'",
       "summary": "Over the weekend, Ross Gerber, co-founder, president and CEO of Gerber Kawasaki Wealth & Investment Management, said that iPhone sales remain robust despite rising prices across Cupertino\u2019s hardware l",
       "source": "Yahoo Finance (AAPL)",
@@ -2441,14 +2441,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T05:35:29Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175673"
+      "created_at": "2026-08-17T07:07:22.517297"
     },
     {
-      "id": 580.0,
-      "date": "2026-08-16",
+      "id": 624.0,
+      "date": "2026-08-17",
       "title": "[NVDA - NVIDIA] Michael Burry Says \u2018You Could Have Heard It First\u2019 \u2014 As Big Tech\u2019s $3T AI Spending Risk Comes Into Focus",
       "summary": "The total includes $1.2 trillion in unstarted leases and $1.9 trillion in purchase commitments.",
       "source": "Yahoo Finance (NVDA)",
@@ -2457,14 +2457,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T05:52:11Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175656"
+      "created_at": "2026-08-17T07:07:22.517290"
     },
     {
-      "id": 579.0,
-      "date": "2026-08-16",
+      "id": 623.0,
+      "date": "2026-08-17",
       "title": "[NVDA - NVIDIA] What Nvidia's $500 billion Wall Street deal signals about the AI boom",
       "summary": "Nvidia and six of the world's largest investment firms announced plans last week to channel more than $500 billion (\u20ac433bn) into AI infrastructure, an arrangement designed to let tech companies build ",
       "source": "Yahoo Finance (NVDA)",
@@ -2473,14 +2473,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T06:05:19Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175639"
+      "created_at": "2026-08-17T07:07:22.517284"
     },
     {
-      "id": 578.0,
-      "date": "2026-08-16",
+      "id": 622.0,
+      "date": "2026-08-17",
       "title": "[NVDA - NVIDIA] 3 Critical Things Investors Overlooked in Rivian's Strong Q2",
       "summary": "Rivian topped Wall Street estimates in the second quarter, but there were several positive developments.",
       "source": "Yahoo Finance (NVDA)",
@@ -2489,14 +2489,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T06:35:00Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175622"
+      "created_at": "2026-08-17T07:07:22.517276"
     },
     {
-      "id": 577.0,
-      "date": "2026-08-16",
+      "id": 621.0,
+      "date": "2026-08-17",
       "title": "[MU - Micron Technology] Micron Is Worth $1.1 Trillion and Sits 23% Below Its 52-Week High. Is the Stock a Buy?",
       "summary": "The memory maker's earnings keep setting records, and its guidance points to another one. The stock sits about 23% below its high anyway.",
       "source": "Yahoo Finance (MU)",
@@ -2505,14 +2505,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T21:49:00Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175605"
+      "created_at": "2026-08-17T07:07:22.517269"
     },
     {
-      "id": 576.0,
-      "date": "2026-08-16",
+      "id": 620.0,
+      "date": "2026-08-17",
       "title": "[MU - Micron Technology] Wall Street\u2019s Biggest Funds Are Dumping Broadcom and Adding Taiwan Semiconductor. Time to Follow the \u2018Smart Money?\u2019",
       "summary": "Top hedge funds quietly rotated out of one chip giant and piled into another last quarter, and the price action since then suggests they knew something. Here is what Druckenmiller, Loeb, and Tepper ac",
       "source": "Yahoo Finance (MU)",
@@ -2521,14 +2521,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T22:13:14Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175584"
+      "created_at": "2026-08-17T07:07:22.517263"
     },
     {
-      "id": 575.0,
-      "date": "2026-08-16",
+      "id": 619.0,
+      "date": "2026-08-17",
       "title": "[MU - Micron Technology] Micron Nears $1,000 \u2013 And Apple Could Be The Next Catalyst",
       "summary": "Gains in KOSPI could push Micron shares on Monday, retail traders said.",
       "source": "Yahoo Finance (MU)",
@@ -2537,14 +2537,14 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T02:34:38Z",
-      "retrieved_at": "2026-08-16T23:55:18.612042",
+      "retrieved_at": "2026-08-17T07:07:21.328328",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175566"
+      "created_at": "2026-08-17T07:07:22.517257"
     },
     {
-      "id": 574.0,
-      "date": "2026-08-16",
+      "id": 618.0,
+      "date": "2026-08-17",
       "title": "Oil gains hold as Hormuz supply risks rise amid dimming US-Iran peace hopes - The News Pakistan",
       "summary": "Oil gains hold as Hormuz supply risks rise amid dimming US-Iran peace hopes&nbsp;&nbsp;The News Pakistan",
       "source": "The News Pakistan",
@@ -2553,10 +2553,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "Mon, 17 Aug 2026 02:25:53 GMT",
-      "retrieved_at": "2026-08-16T23:55:15.338628",
+      "retrieved_at": "2026-08-17T07:07:18.369678",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-16T23:55:20.175549"
+      "created_at": "2026-08-17T07:07:22.517250"
     }
   ],
   "evidence_assessments": [
@@ -2578,7 +2578,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -2592,7 +2592,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -2606,7 +2606,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -2622,7 +2622,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -2636,7 +2636,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -2652,7 +2652,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -2666,7 +2666,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -2682,7 +2682,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -2696,7 +2696,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -2710,7 +2710,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -2724,7 +2724,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -2738,7 +2738,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -2752,7 +2752,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -2766,7 +2766,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -2777,7 +2777,7 @@
       "instrument": "XLK",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": -1.0,
@@ -2797,7 +2797,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -2813,7 +2813,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -2827,7 +2827,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -2841,7 +2841,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -2855,7 +2855,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -2871,7 +2871,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -2885,7 +2885,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -2901,7 +2901,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -2915,7 +2915,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -2929,7 +2929,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -2943,7 +2943,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -2957,7 +2957,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -2971,7 +2971,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -2985,7 +2985,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -2996,7 +2996,7 @@
       "instrument": "XLF",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": 1.0,
@@ -3015,7 +3015,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -3031,7 +3031,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -3047,7 +3047,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -3061,7 +3061,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -3075,7 +3075,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -3091,7 +3091,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -3105,7 +3105,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -3121,7 +3121,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -3135,7 +3135,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -3149,7 +3149,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -3163,7 +3163,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -3177,7 +3177,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -3191,7 +3191,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -3205,7 +3205,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -3216,7 +3216,7 @@
       "instrument": "XLV",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": -1.0,
@@ -3236,7 +3236,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -3252,7 +3252,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -3266,7 +3266,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -3280,7 +3280,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -3294,7 +3294,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -3310,7 +3310,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -3324,7 +3324,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -3340,7 +3340,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -3354,7 +3354,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -3368,7 +3368,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -3382,7 +3382,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -3396,7 +3396,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -3410,7 +3410,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -3424,7 +3424,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -3435,7 +3435,7 @@
       "instrument": "XLE",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": -3.0,
@@ -3455,7 +3455,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -3469,7 +3469,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -3485,7 +3485,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -3499,7 +3499,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -3513,7 +3513,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -3529,7 +3529,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -3543,7 +3543,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -3559,7 +3559,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -3573,7 +3573,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -3587,7 +3587,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -3601,7 +3601,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -3615,7 +3615,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -3629,7 +3629,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -3643,7 +3643,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -3654,7 +3654,7 @@
       "instrument": "XLI",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": -3.0,
@@ -3674,7 +3674,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -3688,7 +3688,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -3704,7 +3704,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -3718,7 +3718,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -3732,7 +3732,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -3748,7 +3748,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -3762,7 +3762,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -3778,7 +3778,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -3792,7 +3792,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -3806,7 +3806,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -3820,7 +3820,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -3834,7 +3834,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -3848,7 +3848,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -3862,7 +3862,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -3873,7 +3873,7 @@
       "instrument": "XLY",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": 1.0,
@@ -3892,7 +3892,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -3908,7 +3908,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -3924,7 +3924,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -3938,7 +3938,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -3952,7 +3952,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -3968,7 +3968,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -3982,7 +3982,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -3998,7 +3998,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -4012,7 +4012,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -4026,7 +4026,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -4040,7 +4040,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -4054,7 +4054,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -4068,7 +4068,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -4082,7 +4082,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -4093,7 +4093,7 @@
       "instrument": "XLP",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": -4.0,
@@ -4113,7 +4113,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -4127,7 +4127,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -4141,7 +4141,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -4157,7 +4157,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -4171,7 +4171,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -4187,7 +4187,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -4201,7 +4201,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -4217,7 +4217,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -4231,7 +4231,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -4245,7 +4245,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -4259,7 +4259,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -4273,7 +4273,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -4287,7 +4287,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -4301,7 +4301,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -4312,7 +4312,7 @@
       "instrument": "NVDA/AMD/TSM",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": -1.0,
@@ -4332,7 +4332,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -4348,7 +4348,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -4362,7 +4362,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -4376,7 +4376,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -4390,7 +4390,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -4406,7 +4406,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -4420,7 +4420,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -4436,7 +4436,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -4450,7 +4450,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -4464,7 +4464,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -4478,7 +4478,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -4492,7 +4492,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -4506,7 +4506,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -4520,7 +4520,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -4531,7 +4531,7 @@
       "instrument": "MU/WDC",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": -4.0,
@@ -4551,7 +4551,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -4565,7 +4565,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -4579,7 +4579,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -4595,7 +4595,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -4609,7 +4609,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -4625,7 +4625,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -4639,7 +4639,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -4655,7 +4655,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -4669,7 +4669,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -4683,7 +4683,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -4697,7 +4697,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -4711,7 +4711,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -4725,7 +4725,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -4739,7 +4739,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -4750,7 +4750,7 @@
       "instrument": "TSLA/TER/SYM",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     },
     {
       "score": -1.0,
@@ -4770,7 +4770,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -4786,7 +4786,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -4800,7 +4800,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -4814,7 +4814,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -4828,7 +4828,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -4844,7 +4844,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -4858,7 +4858,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -4874,7 +4874,7 @@
           "weight": 1.0,
           "observed_value": "SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY",
           "unit": "regime",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "current",
           "explanation": "Macro quadrant is favorable, unfavorable, or neutral for this sector group.",
@@ -4888,7 +4888,7 @@
           "weight": 1.0,
           "observed_value": "SCARCE",
           "unit": "level_state",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Reserve-liquidity level is evaluated against its historical distribution.",
@@ -4902,7 +4902,7 @@
           "weight": 1.0,
           "observed_value": 2.71,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
@@ -4916,7 +4916,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "sector_valuations",
           "quality": "missing",
           "explanation": "Valuation percentile is unavailable.",
@@ -4930,7 +4930,7 @@
           "weight": 1.0,
           "observed_value": 2.36,
           "unit": "percent",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Restrictive real yields are a headwind for long-duration sector groups.",
@@ -4944,7 +4944,7 @@
           "weight": 1.0,
           "observed_value": 3.48,
           "unit": "percent_yoy",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "summary",
           "quality": "current",
           "explanation": "Housing growth is a cyclical-sector headwind only during sharp contraction.",
@@ -4958,7 +4958,7 @@
           "weight": 1.0,
           "observed_value": null,
           "unit": "unknown",
-          "observed_at": "2026-08-16",
+          "observed_at": "2026-08-17",
           "source": "macro_matrix",
           "quality": "missing",
           "explanation": "Macro input quality is insufficient.",
@@ -4969,7 +4969,7 @@
       "instrument": "CEG/VST/ETN",
       "benchmark": "SPY",
       "methodology": "Research-only sector evidence aggregation. Independent macro, liquidity, credit, valuation, real-yield, housing, and data-quality factors determine a review posture; missing or stale evidence widens uncertainty.",
-      "as_of_date": "2026-08-16"
+      "as_of_date": "2026-08-17"
     }
   ],
   "individual_stock_constituents": [
@@ -4997,7 +4997,7 @@
       "trailing_pe": 20.96,
       "forward_pe": 16.05,
       "ev_ebitda": 36.6,
-      "price_to_book": 24.33,
+      "price_to_book": null,
       "dist_from_52w_high_pct": -36.39,
       "return_30d_pct": -0.98,
       "relative_valuation_status": "Insufficient Comparable Peers",
@@ -5177,7 +5177,7 @@
       "trailing_pe": 55.51,
       "forward_pe": 31.0,
       "ev_ebitda": 44.17,
-      "price_to_book": 41.92,
+      "price_to_book": 45.67,
       "dist_from_52w_high_pct": -33.72,
       "return_30d_pct": -9.26,
       "relative_valuation_status": "Insufficient Relative History",
@@ -5192,7 +5192,7 @@
       "trailing_pe": 57.45,
       "forward_pe": 36.25,
       "ev_ebitda": 43.36,
-      "price_to_book": 19.06,
+      "price_to_book": 20.85,
       "dist_from_52w_high_pct": -14.17,
       "return_30d_pct": 22.41,
       "relative_valuation_status": "Insufficient Relative History",
@@ -5462,7 +5462,7 @@
       "trailing_pe": 36.77,
       "forward_pe": 23.48,
       "ev_ebitda": 10.47,
-      "price_to_book": 2.51,
+      "price_to_book": null,
       "dist_from_52w_high_pct": -9.29,
       "return_30d_pct": -4.59,
       "relative_valuation_status": "Insufficient Relative History",
@@ -5657,7 +5657,7 @@
       "trailing_pe": 12.33,
       "forward_pe": 11.04,
       "ev_ebitda": 8.64,
-      "price_to_book": 6.22,
+      "price_to_book": 5.27,
       "dist_from_52w_high_pct": -1.3,
       "return_30d_pct": 18.8,
       "relative_valuation_status": "Insufficient Comparable Peers",
@@ -5715,7 +5715,7 @@
       "peer_cohort": "Industrial Machinery",
       "price": 856.57,
       "trailing_pe": 36.91,
-      "forward_pe": 26.75,
+      "forward_pe": 26.72,
       "ev_ebitda": 26.64,
       "price_to_book": 20.3,
       "dist_from_52w_high_pct": -20.2,
@@ -6062,7 +6062,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "No valid current EVE multiple is available."
       ],
       "forward_pe_relative": 0.956,
@@ -6079,7 +6079,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "No valid current EVE multiple is available."
       ],
       "forward_pe_relative": 0.818,
@@ -6096,7 +6096,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "No valid current EVE multiple is available."
       ],
       "forward_pe_relative": 1.239,
@@ -6113,7 +6113,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "No valid current EVE multiple is available."
       ],
       "forward_pe_relative": 1.216,
@@ -6130,7 +6130,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "No valid current EVE multiple is available."
       ],
       "forward_pe_relative": 0.851,
@@ -6147,7 +6147,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "No valid current EVE multiple is available."
       ],
       "forward_pe_relative": 1.068,
@@ -6164,7 +6164,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "Fewer than 3 valid comparable peers are available for EVE."
       ],
       "forward_pe_relative": 1.148,
@@ -6181,7 +6181,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "No valid current EVE multiple is available."
       ],
       "forward_pe_relative": 0.824,
@@ -6198,7 +6198,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "No valid current EVE multiple is available."
       ],
       "forward_pe_relative": 0.936,
@@ -6351,7 +6351,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.751,
       "historical_forward_pe_relative": null,
@@ -6367,7 +6367,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.331,
       "historical_forward_pe_relative": null,
@@ -6383,7 +6383,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 2.0,
       "historical_forward_pe_relative": null,
@@ -6399,7 +6399,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.507,
       "historical_forward_pe_relative": null,
@@ -6415,7 +6415,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.907,
       "historical_forward_pe_relative": null,
@@ -6431,7 +6431,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.121,
       "historical_forward_pe_relative": null,
@@ -6447,7 +6447,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.655,
       "historical_forward_pe_relative": null,
@@ -6463,7 +6463,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.103,
       "historical_forward_pe_relative": null,
@@ -6479,7 +6479,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.891,
       "historical_forward_pe_relative": null,
@@ -6495,7 +6495,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.144,
       "historical_forward_pe_relative": null,
@@ -6511,7 +6511,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.874,
       "historical_forward_pe_relative": null,
@@ -6527,7 +6527,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.808,
       "historical_forward_pe_relative": null,
@@ -6594,9 +6594,9 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
-      "forward_pe_relative": 0.933,
+      "forward_pe_relative": 0.932,
       "historical_forward_pe_relative": null,
       "relative_fpe_discount_pct": null,
       "ev_ebitda_relative": 1.087,
@@ -6610,9 +6610,9 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
-      "forward_pe_relative": 0.947,
+      "forward_pe_relative": 0.948,
       "historical_forward_pe_relative": null,
       "relative_fpe_discount_pct": null,
       "ev_ebitda_relative": 0.911,
@@ -6626,9 +6626,9 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
-      "forward_pe_relative": 1.509,
+      "forward_pe_relative": 1.51,
       "historical_forward_pe_relative": null,
       "relative_fpe_discount_pct": null,
       "ev_ebitda_relative": 1.395,
@@ -6642,7 +6642,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.814,
       "historical_forward_pe_relative": null,
@@ -6658,7 +6658,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.128,
       "historical_forward_pe_relative": null,
@@ -6674,7 +6674,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.537,
       "historical_forward_pe_relative": null,
@@ -6690,7 +6690,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.728,
       "historical_forward_pe_relative": null,
@@ -6706,7 +6706,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.921,
       "historical_forward_pe_relative": null,
@@ -6722,7 +6722,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.883,
       "historical_forward_pe_relative": null,
@@ -6738,7 +6738,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.436,
       "historical_forward_pe_relative": null,
@@ -6805,7 +6805,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.867,
       "historical_forward_pe_relative": null,
@@ -6821,7 +6821,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.432,
       "historical_forward_pe_relative": null,
@@ -6837,7 +6837,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.688,
       "historical_forward_pe_relative": null,
@@ -6853,7 +6853,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.779,
       "historical_forward_pe_relative": null,
@@ -6869,7 +6869,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.507,
       "historical_forward_pe_relative": null,
@@ -6987,7 +6987,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.357,
       "historical_forward_pe_relative": null,
@@ -7003,7 +7003,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.845,
       "historical_forward_pe_relative": null,
@@ -7019,7 +7019,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.131,
       "historical_forward_pe_relative": null,
@@ -7035,7 +7035,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.803,
       "historical_forward_pe_relative": null,
@@ -7051,7 +7051,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.005,
       "historical_forward_pe_relative": null,
@@ -7067,7 +7067,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.875,
       "historical_forward_pe_relative": null,
@@ -7083,7 +7083,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.858,
       "historical_forward_pe_relative": null,
@@ -7099,7 +7099,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.901,
       "historical_forward_pe_relative": null,
@@ -7115,7 +7115,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required.",
+        "Only 2 valid historical relative observations are available; 60 are required.",
         "No valid current EVE multiple is available."
       ],
       "forward_pe_relative": 1.038,
@@ -7132,7 +7132,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.037,
       "historical_forward_pe_relative": null,
@@ -7148,7 +7148,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.927,
       "historical_forward_pe_relative": null,
@@ -7164,7 +7164,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.213,
       "historical_forward_pe_relative": null,
@@ -7180,7 +7180,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.696,
       "historical_forward_pe_relative": null,
@@ -7196,7 +7196,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 0.917,
       "historical_forward_pe_relative": null,
@@ -7212,7 +7212,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.663,
       "historical_forward_pe_relative": null,
@@ -7228,7 +7228,7 @@
       "posture": "NEUTRAL",
       "evidence": [],
       "missing_evidence": [
-        "Only 1 valid historical relative observations are available; 60 are required."
+        "Only 2 valid historical relative observations are available; 60 are required."
       ],
       "forward_pe_relative": 1.091,
       "historical_forward_pe_relative": null,
@@ -7248,14 +7248,14 @@
         "liquidity_state": "SCARCE",
         "situation_id": 2,
         "policy_measurement": {
-          "as_of": "2026-08-16T00:00:00",
+          "as_of": "2026-08-17T00:00:00",
           "state": "ACCOMMODATIVE",
           "quality": "OK",
           "reasons": [],
           "dff": 3.63,
           "dff_observation": {
             "date": "2026-08-13T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.63
           },
@@ -7265,7 +7265,7 @@
           "core_pce": 130.266,
           "core_pce_observation": {
             "date": "2026-06-01T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 130.266
           },
@@ -7279,7 +7279,7 @@
           "rstar": 1.057,
           "rstar_observation": {
             "date": "2026-01-01T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 1.057
           },
@@ -7299,10 +7299,10 @@
           "history_count": 106,
           "momentum_30d": "STABLE",
           "momentum_30d_value": 0.0,
-          "momentum_30d_date": "2026-07-17T00:00:00",
+          "momentum_30d_date": "2026-07-18T00:00:00",
           "momentum_90d": "TIGHTENING",
-          "momentum_90d_value": 0.135,
-          "momentum_90d_date": "2026-05-18T00:00:00",
+          "momentum_90d_value": 0.145,
+          "momentum_90d_date": "2026-05-19T00:00:00",
           "dates": {
             "dff": "2026-08-13T00:00:00",
             "core_pce": "2026-06-01T00:00:00",
@@ -7320,7 +7320,7 @@
           }
         },
         "liquidity_measurement": {
-          "as_of": "2026-08-16T00:00:00",
+          "as_of": "2026-08-17T00:00:00",
           "state": "SCARCE",
           "core_state": "SCARCE",
           "quality": "PARTIAL",
@@ -7368,47 +7368,47 @@
           "fed_assets": 6759955.0,
           "fed_assets_observation": {
             "date": "2026-08-12T00:00:00",
-            "age_days": 4,
+            "age_days": 5,
             "value": 6759955.0
           },
           "fed_assets_date": "2026-08-12T00:00:00",
-          "fed_assets_age_days": 4,
+          "fed_assets_age_days": 5,
           "fed_assets_value": 6759955.0,
           "fed_assets_millions": 6759955.0,
           "tga": 959405.0,
           "tga_observation": {
             "date": "2026-08-12T00:00:00",
-            "age_days": 4,
+            "age_days": 5,
             "value": 959405.0
           },
           "tga_date": "2026-08-12T00:00:00",
-          "tga_age_days": 4,
+          "tga_age_days": 5,
           "tga_value": 959405.0,
           "tga_millions": 959405.0,
           "rrp": 0.725,
           "rrp_observation": {
             "date": "2026-08-12T00:00:00",
-            "age_days": 4,
+            "age_days": 5,
             "value": 0.725
           },
           "rrp_date": "2026-08-12T00:00:00",
-          "rrp_age_days": 4,
+          "rrp_age_days": 5,
           "rrp_value": 0.725,
           "rrp_billions": 0.725,
           "nominal_gdp": 32475.21,
           "nominal_gdp_observation": {
             "date": "2026-04-01T00:00:00",
-            "age_days": 137,
+            "age_days": 138,
             "value": 32475.21
           },
           "nominal_gdp_date": "2026-04-01T00:00:00",
-          "nominal_gdp_age_days": 137,
+          "nominal_gdp_age_days": 138,
           "nominal_gdp_value": 32475.21,
           "nominal_gdp_billions": 32475.21,
           "effr": 3.63,
           "effr_observation": {
             "date": "2026-08-13T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.63
           },
@@ -7417,18 +7417,18 @@
           "effr_value": 3.63,
           "iorb": 3.65,
           "iorb_observation": {
-            "date": "2026-08-16T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "date": "2026-08-17T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.65
           },
-          "iorb_date": "2026-08-16T00:00:00",
+          "iorb_date": "2026-08-17T00:00:00",
           "iorb_age_days": 0,
           "iorb_value": 3.65,
           "sofr": 3.62,
           "sofr_observation": {
             "date": "2026-08-13T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.62
           },
@@ -7441,14 +7441,14 @@
             "rrp": "2026-08-12T00:00:00",
             "nominal_gdp": "2026-04-01T00:00:00",
             "effr": "2026-08-13T00:00:00",
-            "iorb": "2026-08-16T00:00:00",
+            "iorb": "2026-08-17T00:00:00",
             "sofr": "2026-08-13T00:00:00"
           },
           "ages": {
-            "fed_assets": 4,
-            "tga": 4,
-            "rrp": 4,
-            "nominal_gdp": 137,
+            "fed_assets": 5,
+            "tga": 5,
+            "rrp": 5,
+            "nominal_gdp": 138,
             "effr": 0,
             "iorb": 0,
             "sofr": 0
@@ -7467,14 +7467,14 @@
           "policy_state": "ACCOMMODATIVE",
           "liquidity_state": "SCARCE",
           "policy_measurement": {
-            "as_of": "2026-08-16T00:00:00",
+            "as_of": "2026-08-17T00:00:00",
             "state": "ACCOMMODATIVE",
             "quality": "OK",
             "reasons": [],
             "dff": 3.63,
             "dff_observation": {
               "date": "2026-08-13T00:00:00",
-              "availability_date": "2026-08-16T00:00:00",
+              "availability_date": "2026-08-17T00:00:00",
               "age_days": 0,
               "value": 3.63
             },
@@ -7484,7 +7484,7 @@
             "core_pce": 130.266,
             "core_pce_observation": {
               "date": "2026-06-01T00:00:00",
-              "availability_date": "2026-08-16T00:00:00",
+              "availability_date": "2026-08-17T00:00:00",
               "age_days": 0,
               "value": 130.266
             },
@@ -7498,7 +7498,7 @@
             "rstar": 1.057,
             "rstar_observation": {
               "date": "2026-01-01T00:00:00",
-              "availability_date": "2026-08-16T00:00:00",
+              "availability_date": "2026-08-17T00:00:00",
               "age_days": 0,
               "value": 1.057
             },
@@ -7518,10 +7518,10 @@
             "history_count": 106,
             "momentum_30d": "STABLE",
             "momentum_30d_value": 0.0,
-            "momentum_30d_date": "2026-07-17T00:00:00",
+            "momentum_30d_date": "2026-07-18T00:00:00",
             "momentum_90d": "TIGHTENING",
-            "momentum_90d_value": 0.135,
-            "momentum_90d_date": "2026-05-18T00:00:00",
+            "momentum_90d_value": 0.145,
+            "momentum_90d_date": "2026-05-19T00:00:00",
             "dates": {
               "dff": "2026-08-13T00:00:00",
               "core_pce": "2026-06-01T00:00:00",
@@ -7539,7 +7539,7 @@
             }
           },
           "liquidity_measurement": {
-            "as_of": "2026-08-16T00:00:00",
+            "as_of": "2026-08-17T00:00:00",
             "state": "SCARCE",
             "core_state": "SCARCE",
             "quality": "PARTIAL",
@@ -7587,47 +7587,47 @@
             "fed_assets": 6759955.0,
             "fed_assets_observation": {
               "date": "2026-08-12T00:00:00",
-              "age_days": 4,
+              "age_days": 5,
               "value": 6759955.0
             },
             "fed_assets_date": "2026-08-12T00:00:00",
-            "fed_assets_age_days": 4,
+            "fed_assets_age_days": 5,
             "fed_assets_value": 6759955.0,
             "fed_assets_millions": 6759955.0,
             "tga": 959405.0,
             "tga_observation": {
               "date": "2026-08-12T00:00:00",
-              "age_days": 4,
+              "age_days": 5,
               "value": 959405.0
             },
             "tga_date": "2026-08-12T00:00:00",
-            "tga_age_days": 4,
+            "tga_age_days": 5,
             "tga_value": 959405.0,
             "tga_millions": 959405.0,
             "rrp": 0.725,
             "rrp_observation": {
               "date": "2026-08-12T00:00:00",
-              "age_days": 4,
+              "age_days": 5,
               "value": 0.725
             },
             "rrp_date": "2026-08-12T00:00:00",
-            "rrp_age_days": 4,
+            "rrp_age_days": 5,
             "rrp_value": 0.725,
             "rrp_billions": 0.725,
             "nominal_gdp": 32475.21,
             "nominal_gdp_observation": {
               "date": "2026-04-01T00:00:00",
-              "age_days": 137,
+              "age_days": 138,
               "value": 32475.21
             },
             "nominal_gdp_date": "2026-04-01T00:00:00",
-            "nominal_gdp_age_days": 137,
+            "nominal_gdp_age_days": 138,
             "nominal_gdp_value": 32475.21,
             "nominal_gdp_billions": 32475.21,
             "effr": 3.63,
             "effr_observation": {
               "date": "2026-08-13T00:00:00",
-              "availability_date": "2026-08-16T00:00:00",
+              "availability_date": "2026-08-17T00:00:00",
               "age_days": 0,
               "value": 3.63
             },
@@ -7636,18 +7636,18 @@
             "effr_value": 3.63,
             "iorb": 3.65,
             "iorb_observation": {
-              "date": "2026-08-16T00:00:00",
-              "availability_date": "2026-08-16T00:00:00",
+              "date": "2026-08-17T00:00:00",
+              "availability_date": "2026-08-17T00:00:00",
               "age_days": 0,
               "value": 3.65
             },
-            "iorb_date": "2026-08-16T00:00:00",
+            "iorb_date": "2026-08-17T00:00:00",
             "iorb_age_days": 0,
             "iorb_value": 3.65,
             "sofr": 3.62,
             "sofr_observation": {
               "date": "2026-08-13T00:00:00",
-              "availability_date": "2026-08-16T00:00:00",
+              "availability_date": "2026-08-17T00:00:00",
               "age_days": 0,
               "value": 3.62
             },
@@ -7660,14 +7660,14 @@
               "rrp": "2026-08-12T00:00:00",
               "nominal_gdp": "2026-04-01T00:00:00",
               "effr": "2026-08-13T00:00:00",
-              "iorb": "2026-08-16T00:00:00",
+              "iorb": "2026-08-17T00:00:00",
               "sofr": "2026-08-13T00:00:00"
             },
             "ages": {
-              "fed_assets": 4,
-              "tga": 4,
-              "rrp": 4,
-              "nominal_gdp": 137,
+              "fed_assets": 5,
+              "tga": 5,
+              "rrp": 5,
+              "nominal_gdp": 138,
               "effr": 0,
               "iorb": 0,
               "sofr": 0
@@ -7695,7 +7695,7 @@
             "policy_30d": "STABLE",
             "policy_30d_value": 0.0,
             "policy_90d": "TIGHTENING",
-            "policy_90d_value": 0.135,
+            "policy_90d_value": 0.145,
             "liquidity_30d": "DETERIORATING",
             "liquidity_30d_value": -0.453,
             "liquidity_90d": "DETERIORATING",
@@ -7704,7 +7704,7 @@
               "30d": "STABLE",
               "30d_value": 0.0,
               "90d": "TIGHTENING",
-              "90d_value": 0.135
+              "90d_value": 0.145
             },
             "liquidity": {
               "30d": "DETERIORATING",
@@ -7714,7 +7714,7 @@
             }
           },
           "consensus": {
-            "as_of": "2026-08-16T00:00:00",
+            "as_of": "2026-08-17T00:00:00",
             "quality": "OK",
             "reasons": [],
             "blocks_quadrant": false,
@@ -7727,7 +7727,7 @@
             "selected_target_date": "2026-12-09T00:00:00",
             "horizon_months": 6,
             "selected_horizon_months": 6,
-            "survey_age_days": 74,
+            "survey_age_days": 75,
             "expected_dff": 3.63,
             "expected_fed_assets": 6824.0,
             "current_dff": 3.63,
@@ -7788,10 +7788,10 @@
               "dff": 0,
               "core_pce": 0,
               "rstar": 0,
-              "fed_assets": 4,
-              "tga": 4,
-              "rrp": 4,
-              "nominal_gdp": 137,
+              "fed_assets": 5,
+              "tga": 5,
+              "rrp": 5,
+              "nominal_gdp": 138,
               "effr": 0,
               "iorb": 0,
               "sofr": 0
@@ -7800,10 +7800,10 @@
               "dff": 0,
               "core_pce": 0,
               "rstar": 0,
-              "fed_assets": 4,
-              "tga": 4,
-              "rrp": 4,
-              "nominal_gdp": 137,
+              "fed_assets": 5,
+              "tga": 5,
+              "rrp": 5,
+              "nominal_gdp": 138,
               "effr": 0,
               "iorb": 0,
               "sofr": 0
@@ -7851,7 +7851,7 @@
         "policy_30d": "STABLE",
         "policy_30d_value": 0.0,
         "policy_90d": "TIGHTENING",
-        "policy_90d_value": 0.135,
+        "policy_90d_value": 0.145,
         "liquidity_30d": "DETERIORATING",
         "liquidity_30d_value": -0.453,
         "liquidity_90d": "DETERIORATING",
@@ -7860,7 +7860,7 @@
           "30d": "STABLE",
           "30d_value": 0.0,
           "90d": "TIGHTENING",
-          "90d_value": 0.135
+          "90d_value": 0.145
         },
         "liquidity": {
           "30d": "DETERIORATING",
@@ -7873,7 +7873,7 @@
     {
       "name": "Consensus",
       "data": {
-        "as_of": "2026-08-16T00:00:00",
+        "as_of": "2026-08-17T00:00:00",
         "quality": "OK",
         "reasons": [],
         "blocks_quadrant": false,
@@ -7886,7 +7886,7 @@
         "selected_target_date": "2026-12-09T00:00:00",
         "horizon_months": 6,
         "selected_horizon_months": 6,
-        "survey_age_days": 74,
+        "survey_age_days": 75,
         "expected_dff": 3.63,
         "expected_fed_assets": 6824.0,
         "current_dff": 3.63,
@@ -7941,14 +7941,14 @@
         "policy_state": "ACCOMMODATIVE",
         "liquidity_state": "SCARCE",
         "policy_measurement": {
-          "as_of": "2026-08-16T00:00:00",
+          "as_of": "2026-08-17T00:00:00",
           "state": "ACCOMMODATIVE",
           "quality": "OK",
           "reasons": [],
           "dff": 3.63,
           "dff_observation": {
             "date": "2026-08-13T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.63
           },
@@ -7958,7 +7958,7 @@
           "core_pce": 130.266,
           "core_pce_observation": {
             "date": "2026-06-01T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 130.266
           },
@@ -7972,7 +7972,7 @@
           "rstar": 1.057,
           "rstar_observation": {
             "date": "2026-01-01T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 1.057
           },
@@ -7992,10 +7992,10 @@
           "history_count": 106,
           "momentum_30d": "STABLE",
           "momentum_30d_value": 0.0,
-          "momentum_30d_date": "2026-07-17T00:00:00",
+          "momentum_30d_date": "2026-07-18T00:00:00",
           "momentum_90d": "TIGHTENING",
-          "momentum_90d_value": 0.135,
-          "momentum_90d_date": "2026-05-18T00:00:00",
+          "momentum_90d_value": 0.145,
+          "momentum_90d_date": "2026-05-19T00:00:00",
           "dates": {
             "dff": "2026-08-13T00:00:00",
             "core_pce": "2026-06-01T00:00:00",
@@ -8013,7 +8013,7 @@
           }
         },
         "liquidity_measurement": {
-          "as_of": "2026-08-16T00:00:00",
+          "as_of": "2026-08-17T00:00:00",
           "state": "SCARCE",
           "core_state": "SCARCE",
           "quality": "PARTIAL",
@@ -8061,47 +8061,47 @@
           "fed_assets": 6759955.0,
           "fed_assets_observation": {
             "date": "2026-08-12T00:00:00",
-            "age_days": 4,
+            "age_days": 5,
             "value": 6759955.0
           },
           "fed_assets_date": "2026-08-12T00:00:00",
-          "fed_assets_age_days": 4,
+          "fed_assets_age_days": 5,
           "fed_assets_value": 6759955.0,
           "fed_assets_millions": 6759955.0,
           "tga": 959405.0,
           "tga_observation": {
             "date": "2026-08-12T00:00:00",
-            "age_days": 4,
+            "age_days": 5,
             "value": 959405.0
           },
           "tga_date": "2026-08-12T00:00:00",
-          "tga_age_days": 4,
+          "tga_age_days": 5,
           "tga_value": 959405.0,
           "tga_millions": 959405.0,
           "rrp": 0.725,
           "rrp_observation": {
             "date": "2026-08-12T00:00:00",
-            "age_days": 4,
+            "age_days": 5,
             "value": 0.725
           },
           "rrp_date": "2026-08-12T00:00:00",
-          "rrp_age_days": 4,
+          "rrp_age_days": 5,
           "rrp_value": 0.725,
           "rrp_billions": 0.725,
           "nominal_gdp": 32475.21,
           "nominal_gdp_observation": {
             "date": "2026-04-01T00:00:00",
-            "age_days": 137,
+            "age_days": 138,
             "value": 32475.21
           },
           "nominal_gdp_date": "2026-04-01T00:00:00",
-          "nominal_gdp_age_days": 137,
+          "nominal_gdp_age_days": 138,
           "nominal_gdp_value": 32475.21,
           "nominal_gdp_billions": 32475.21,
           "effr": 3.63,
           "effr_observation": {
             "date": "2026-08-13T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.63
           },
@@ -8110,18 +8110,18 @@
           "effr_value": 3.63,
           "iorb": 3.65,
           "iorb_observation": {
-            "date": "2026-08-16T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "date": "2026-08-17T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.65
           },
-          "iorb_date": "2026-08-16T00:00:00",
+          "iorb_date": "2026-08-17T00:00:00",
           "iorb_age_days": 0,
           "iorb_value": 3.65,
           "sofr": 3.62,
           "sofr_observation": {
             "date": "2026-08-13T00:00:00",
-            "availability_date": "2026-08-16T00:00:00",
+            "availability_date": "2026-08-17T00:00:00",
             "age_days": 0,
             "value": 3.62
           },
@@ -8134,14 +8134,14 @@
             "rrp": "2026-08-12T00:00:00",
             "nominal_gdp": "2026-04-01T00:00:00",
             "effr": "2026-08-13T00:00:00",
-            "iorb": "2026-08-16T00:00:00",
+            "iorb": "2026-08-17T00:00:00",
             "sofr": "2026-08-13T00:00:00"
           },
           "ages": {
-            "fed_assets": 4,
-            "tga": 4,
-            "rrp": 4,
-            "nominal_gdp": 137,
+            "fed_assets": 5,
+            "tga": 5,
+            "rrp": 5,
+            "nominal_gdp": 138,
             "effr": 0,
             "iorb": 0,
             "sofr": 0
@@ -8169,7 +8169,7 @@
           "policy_30d": "STABLE",
           "policy_30d_value": 0.0,
           "policy_90d": "TIGHTENING",
-          "policy_90d_value": 0.135,
+          "policy_90d_value": 0.145,
           "liquidity_30d": "DETERIORATING",
           "liquidity_30d_value": -0.453,
           "liquidity_90d": "DETERIORATING",
@@ -8178,7 +8178,7 @@
             "30d": "STABLE",
             "30d_value": 0.0,
             "90d": "TIGHTENING",
-            "90d_value": 0.135
+            "90d_value": 0.145
           },
           "liquidity": {
             "30d": "DETERIORATING",
@@ -8188,7 +8188,7 @@
           }
         },
         "consensus": {
-          "as_of": "2026-08-16T00:00:00",
+          "as_of": "2026-08-17T00:00:00",
           "quality": "OK",
           "reasons": [],
           "blocks_quadrant": false,
@@ -8201,7 +8201,7 @@
           "selected_target_date": "2026-12-09T00:00:00",
           "horizon_months": 6,
           "selected_horizon_months": 6,
-          "survey_age_days": 74,
+          "survey_age_days": 75,
           "expected_dff": 3.63,
           "expected_fed_assets": 6824.0,
           "current_dff": 3.63,
@@ -8262,10 +8262,10 @@
             "dff": 0,
             "core_pce": 0,
             "rstar": 0,
-            "fed_assets": 4,
-            "tga": 4,
-            "rrp": 4,
-            "nominal_gdp": 137,
+            "fed_assets": 5,
+            "tga": 5,
+            "rrp": 5,
+            "nominal_gdp": 138,
             "effr": 0,
             "iorb": 0,
             "sofr": 0
@@ -8274,10 +8274,10 @@
             "dff": 0,
             "core_pce": 0,
             "rstar": 0,
-            "fed_assets": 4,
-            "tga": 4,
-            "rrp": 4,
-            "nominal_gdp": 137,
+            "fed_assets": 5,
+            "tga": 5,
+            "rrp": 5,
+            "nominal_gdp": 138,
             "effr": 0,
             "iorb": 0,
             "sofr": 0
@@ -8333,10 +8333,10 @@
           "dff": 0,
           "core_pce": 0,
           "rstar": 0,
-          "fed_assets": 4,
-          "tga": 4,
-          "rrp": 4,
-          "nominal_gdp": 137,
+          "fed_assets": 5,
+          "tga": 5,
+          "rrp": 5,
+          "nominal_gdp": 138,
           "effr": 0,
           "iorb": 0,
           "sofr": 0
@@ -8345,10 +8345,10 @@
           "dff": 0,
           "core_pce": 0,
           "rstar": 0,
-          "fed_assets": 4,
-          "tga": 4,
-          "rrp": 4,
-          "nominal_gdp": 137,
+          "fed_assets": 5,
+          "tga": 5,
+          "rrp": 5,
+          "nominal_gdp": 138,
           "effr": 0,
           "iorb": 0,
           "sofr": 0
@@ -8369,9 +8369,20 @@
   "source_health": [
     {
       "source": "FRED",
+      "fetch_key": "fed_total_assets",
+      "observation_time": "2026-08-12",
+      "fetch_time": "2026-08-17T07:00:20.127869",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 521,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
       "fetch_key": "tga_balance",
       "observation_time": "2026-08-12",
-      "fetch_time": "2026-08-16T23:52:33.439838",
+      "fetch_time": "2026-08-17T07:03:31.060371",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 521,
@@ -8382,7 +8393,7 @@
       "source": "FRED",
       "fetch_key": "iorb",
       "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-16T23:53:42.379742",
+      "fetch_time": "2026-08-17T07:04:54.941540",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1846,
@@ -8391,23 +8402,12 @@
     },
     {
       "source": "FRED",
-      "fetch_key": "fed_total_assets",
-      "observation_time": "2026-08-12",
-      "fetch_time": "2026-08-16T23:54:10.279065",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 521,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
       "fetch_key": "reverse_repo",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-16T23:54:55.465584",
+      "fetch_time": "2026-08-17T07:06:38.819171",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 2490,
+      "record_count": 2489,
       "error_category": null,
       "message": null
     },
@@ -8415,10 +8415,10 @@
       "source": "FRED",
       "fetch_key": "effr",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-16T23:54:56.662983",
+      "fetch_time": "2026-08-17T07:06:41.551746",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 3648,
+      "record_count": 3647,
       "error_category": null,
       "message": null
     },
@@ -8426,10 +8426,10 @@
       "source": "FRED",
       "fetch_key": "dff",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-16T23:54:56.723561",
+      "fetch_time": "2026-08-17T07:06:41.668971",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 3648,
+      "record_count": 3647,
       "error_category": null,
       "message": null
     },
@@ -8437,7 +8437,7 @@
       "source": "FRED",
       "fetch_key": "sofr",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-16T23:54:56.775879",
+      "fetch_time": "2026-08-17T07:06:41.794068",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2089,
@@ -8448,7 +8448,7 @@
       "source": "FRED",
       "fetch_key": "m2_money_supply",
       "observation_time": "2026-06-01",
-      "fetch_time": "2026-08-16T23:54:56.828930",
+      "fetch_time": "2026-08-17T07:06:41.899937",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 118,
@@ -8459,10 +8459,10 @@
       "source": "FRED",
       "fetch_key": "treasury_10y",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-16T23:54:56.881846",
+      "fetch_time": "2026-08-17T07:06:42.053991",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 2496,
+      "record_count": 2495,
       "error_category": null,
       "message": null
     },
@@ -8470,10 +8470,10 @@
       "source": "FRED",
       "fetch_key": "treasury_2y",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-16T23:54:56.935065",
+      "fetch_time": "2026-08-17T07:06:42.200595",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 2496,
+      "record_count": 2495,
       "error_category": null,
       "message": null
     },
@@ -8481,7 +8481,18 @@
       "source": "FRED",
       "fetch_key": "treasury_3m",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-16T23:54:56.987880",
+      "fetch_time": "2026-08-17T07:06:42.308623",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 2495,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "spread_10y_2y",
+      "observation_time": "2026-08-14",
+      "fetch_time": "2026-08-17T07:06:42.417114",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2496,
@@ -8490,20 +8501,9 @@
     },
     {
       "source": "FRED",
-      "fetch_key": "spread_10y_2y",
-      "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-16T23:54:57.041110",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 2497,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
       "fetch_key": "high_yield_oas",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-16T23:54:57.093837",
+      "fetch_time": "2026-08-17T07:06:42.523388",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 787,
@@ -8514,10 +8514,10 @@
       "source": "FRED",
       "fetch_key": "spread_10y_3m",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-16T23:54:57.147341",
+      "fetch_time": "2026-08-17T07:06:42.630570",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 2497,
+      "record_count": 2496,
       "error_category": null,
       "message": null
     },
@@ -8525,7 +8525,7 @@
       "source": "FRED",
       "fetch_key": "invest_grade_oas",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-16T23:54:57.199469",
+      "fetch_time": "2026-08-17T07:06:42.736601",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 787,
@@ -8536,7 +8536,7 @@
       "source": "FRED",
       "fetch_key": "chicago_fed_nfci",
       "observation_time": "2026-08-07",
-      "fetch_time": "2026-08-16T23:54:57.252159",
+      "fetch_time": "2026-08-17T07:06:42.841927",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 521,
@@ -8547,7 +8547,7 @@
       "source": "FRED",
       "fetch_key": "nonfarm_payrolls",
       "observation_time": "2026-07-01",
-      "fetch_time": "2026-08-16T23:54:57.303889",
+      "fetch_time": "2026-08-17T07:06:42.947315",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 119,
@@ -8558,7 +8558,7 @@
       "source": "FRED",
       "fetch_key": "unemployment_rate",
       "observation_time": "2026-07-01",
-      "fetch_time": "2026-08-16T23:54:57.355185",
+      "fetch_time": "2026-08-17T07:06:43.053665",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 118,
@@ -8569,7 +8569,7 @@
       "source": "FRED",
       "fetch_key": "initial_claims",
       "observation_time": "2026-08-08",
-      "fetch_time": "2026-08-16T23:54:57.406757",
+      "fetch_time": "2026-08-17T07:06:43.160670",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 521,
@@ -8580,7 +8580,7 @@
       "source": "FRED",
       "fetch_key": "cpi",
       "observation_time": "2026-07-01",
-      "fetch_time": "2026-08-16T23:54:57.458240",
+      "fetch_time": "2026-08-17T07:06:43.267661",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 130,
@@ -8591,7 +8591,7 @@
       "source": "FRED",
       "fetch_key": "core_pce",
       "observation_time": "2026-06-01",
-      "fetch_time": "2026-08-16T23:54:57.509511",
+      "fetch_time": "2026-08-17T07:06:43.373730",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 118,
@@ -8602,10 +8602,10 @@
       "source": "FRED",
       "fetch_key": "breakeven_5y",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-16T23:54:57.563915",
+      "fetch_time": "2026-08-17T07:06:43.483278",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 2497,
+      "record_count": 2496,
       "error_category": null,
       "message": null
     },
@@ -8613,10 +8613,10 @@
       "source": "FRED",
       "fetch_key": "breakeven_10y",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-16T23:54:57.617564",
+      "fetch_time": "2026-08-17T07:06:43.591849",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 2497,
+      "record_count": 2496,
       "error_category": null,
       "message": null
     },
@@ -8624,7 +8624,7 @@
       "source": "FRED",
       "fetch_key": "nominal_gdp",
       "observation_time": "2026-04-01",
-      "fetch_time": "2026-08-16T23:54:57.669137",
+      "fetch_time": "2026-08-17T07:06:43.697211",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 39,
@@ -8635,7 +8635,7 @@
       "source": "FRED",
       "fetch_key": "housing_starts",
       "observation_time": "2026-06-01",
-      "fetch_time": "2026-08-16T23:54:57.723356",
+      "fetch_time": "2026-08-17T07:06:43.802962",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 118,
@@ -8646,7 +8646,7 @@
       "source": "NY Fed HLW",
       "fetch_key": "rstar",
       "observation_time": "2026-01-01",
-      "fetch_time": "2026-08-16T23:55:01.571252",
+      "fetch_time": "2026-08-17T07:06:49.489968",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 261,
@@ -8657,7 +8657,7 @@
       "source": "NY Fed SME",
       "fetch_key": "nyfed_sme",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:03.425372",
+      "fetch_time": "2026-08-17T07:06:50.757367",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1,
@@ -8666,9 +8666,31 @@
     },
     {
       "source": "YAHOO",
+      "fetch_key": "vix",
+      "observation_time": "2026-08-14",
+      "fetch_time": "2026-08-17T07:07:11.983894",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 248,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "YAHOO",
+      "fetch_key": "dxy",
+      "observation_time": "2026-08-17",
+      "fetch_time": "2026-08-17T07:07:16.073132",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 248,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "YAHOO",
       "fetch_key": "gold",
       "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-16T23:55:12.093683",
+      "fetch_time": "2026-08-17T07:07:16.189872",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 251,
@@ -8679,10 +8701,10 @@
       "source": "YAHOO",
       "fetch_key": "sp500",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-16T23:55:12.147275",
+      "fetch_time": "2026-08-17T07:07:16.305180",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 251,
+      "record_count": 248,
       "error_category": null,
       "message": null
     },
@@ -8690,32 +8712,10 @@
       "source": "YAHOO",
       "fetch_key": "crude_oil",
       "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-16T23:55:12.199618",
+      "fetch_time": "2026-08-17T07:07:16.417877",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 251,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "YAHOO",
-      "fetch_key": "dxy",
-      "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-16T23:55:12.259133",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 251,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "YAHOO",
-      "fetch_key": "vix",
-      "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-16T23:55:13.972207",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 253,
       "error_category": null,
       "message": null
     },
@@ -8723,7 +8723,7 @@
       "source": "YAHOO",
       "fetch_key": "copper",
       "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-16T23:55:14.029933",
+      "fetch_time": "2026-08-17T07:07:16.532320",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 251,
@@ -8734,7 +8734,7 @@
       "source": "CNN",
       "fetch_key": "cnn_fear_greed_index",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-16T23:55:14.626617",
+      "fetch_time": "2026-08-17T07:07:17.371608",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1,
@@ -8744,8 +8744,8 @@
     {
       "source": "Multpl",
       "fetch_key": "shiller_pe",
-      "observation_time": "2026-08-16",
-      "fetch_time": "2026-08-16T23:55:15.335785",
+      "observation_time": "2026-08-17",
+      "fetch_time": "2026-08-17T07:07:18.354963",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1,
@@ -8756,7 +8756,7 @@
       "source": "Google News",
       "fetch_key": "google_news:federal_reserve_liquidity",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.261263",
+      "fetch_time": "2026-08-17T07:07:22.644770",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8767,7 +8767,7 @@
       "source": "Google News",
       "fetch_key": "google_news:inflation_prices",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.311973",
+      "fetch_time": "2026-08-17T07:07:22.756873",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8778,7 +8778,7 @@
       "source": "Google News",
       "fetch_key": "google_news:labor_employment",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.365270",
+      "fetch_time": "2026-08-17T07:07:22.869936",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8789,7 +8789,7 @@
       "source": "Google News",
       "fetch_key": "google_news:credit_rates",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.419974",
+      "fetch_time": "2026-08-17T07:07:22.997082",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8800,7 +8800,7 @@
       "source": "Google News",
       "fetch_key": "google_news:geopolitics_oil",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.470814",
+      "fetch_time": "2026-08-17T07:07:23.120010",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8811,7 +8811,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:mu",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.521941",
+      "fetch_time": "2026-08-17T07:07:23.233492",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8822,7 +8822,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:nvda",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.572829",
+      "fetch_time": "2026-08-17T07:07:23.384338",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8833,7 +8833,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:aapl",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.623991",
+      "fetch_time": "2026-08-17T07:07:23.501879",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8844,7 +8844,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:jpm",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.674948",
+      "fetch_time": "2026-08-17T07:07:23.615208",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8855,7 +8855,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:xom",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.725881",
+      "fetch_time": "2026-08-17T07:07:23.728244",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8866,7 +8866,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:tsla",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.777835",
+      "fetch_time": "2026-08-17T07:07:23.838752",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8877,7 +8877,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:cat",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.829688",
+      "fetch_time": "2026-08-17T07:07:23.948450",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8888,7 +8888,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:unh",
       "observation_time": null,
-      "fetch_time": "2026-08-16T23:55:20.881127",
+      "fetch_time": "2026-08-17T07:07:24.059056",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
