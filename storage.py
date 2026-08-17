@@ -227,6 +227,7 @@ class MacroStorage:
             "signals": Path(self.signals_csv),
             "consensus": Path(self.consensus_csv),
         }
+        self._read_cache: Dict[str, Tuple[int, pd.DataFrame]] = {}
         self._init_csvs()
 
     @staticmethod
@@ -252,28 +253,65 @@ class MacroStorage:
         would erase those retained values.  This helper updates only the fields the
         caller actually supplied while it is still inside the file-lock transaction.
         """
-        updated = existing.drop_duplicates(subset=key_columns, keep="last").copy()
-        for _, row in incoming.iterrows():
-            matches = pd.Series(True, index=updated.index, dtype=bool)
-            for column in key_columns:
-                value = row[column]
-                matches &= updated[column].isna() if pd.isna(value) else updated[column] == value
-            matching_indexes = updated.index[matches]
-            if len(matching_indexes):
-                target_index = matching_indexes[-1]
-                for column, value in row.items():
-                    # Schema migration can create an all-blank column, which pandas
-                    # rereads as float64.  Promote every explicitly updated column
-                    # before scalar assignment so a timestamp or other text value
-                    # remains valid across pandas versions.
-                    if column not in updated:
-                        updated[column] = pd.NA
-                    if not pd.api.types.is_object_dtype(updated[column]):
-                        updated[column] = updated[column].astype(object)
-                    updated.at[target_index, column] = value
+        if existing.empty:
+            return incoming.drop_duplicates(subset=key_columns, keep="last").copy()
+        if incoming.empty:
+            return existing.drop_duplicates(subset=key_columns, keep="last").copy()
+
+        # Deduplicate existing and incoming keeping last
+        dedup_existing = existing.drop_duplicates(subset=key_columns, keep="last").copy()
+        dedup_incoming = incoming.drop_duplicates(subset=key_columns, keep="last").copy()
+
+        # Ensure all columns from incoming exist in dedup_existing
+        missing_in_existing = [col for col in dedup_incoming.columns if col not in dedup_existing.columns]
+        if missing_in_existing:
+            missing_df = pd.DataFrame(
+                {col: pd.Series(pd.NA, index=dedup_existing.index) for col in missing_in_existing}
+            )
+            dedup_existing = pd.concat([dedup_existing, missing_df], axis=1)
+
+        def to_hashable(val: Any) -> Any:
+            if val is None or pd.isna(val):
+                return None
+            return str(val)
+
+        # Build key dictionary from existing for O(1) matching
+        existing_keys: Dict[Tuple[Any, ...], int] = {}
+        for idx, row in enumerate(dedup_existing[key_columns].itertuples(index=False)):
+            k = tuple(to_hashable(v) for v in row)
+            existing_keys[k] = idx
+
+        update_existing_indices: List[int] = []
+        update_incoming_indices: List[int] = []
+        new_incoming_indices: List[int] = []
+
+        for idx, row in enumerate(dedup_incoming[key_columns].itertuples(index=False)):
+            k = tuple(to_hashable(v) for v in row)
+            if k in existing_keys:
+                update_existing_indices.append(existing_keys[k])
+                update_incoming_indices.append(idx)
             else:
-                updated = pd.concat([updated, pd.DataFrame([row])], ignore_index=True)
-        return updated
+                new_incoming_indices.append(idx)
+
+        # Vectorized update of matched rows
+        if update_existing_indices:
+            update_cols = [c for c in dedup_incoming.columns if c not in key_columns]
+            for col in update_cols:
+                if not pd.api.types.is_object_dtype(dedup_existing[col]):
+                    dedup_existing[col] = dedup_existing[col].astype(object)
+                incoming_vals = dedup_incoming[col].iloc[update_incoming_indices].values
+                col_pos = dedup_existing.columns.get_loc(col)
+                dedup_existing.iloc[update_existing_indices, col_pos] = incoming_vals
+
+        # Append brand new non-matching rows in batch
+        if new_incoming_indices:
+            new_rows = dedup_incoming.iloc[new_incoming_indices].copy()
+            for col in dedup_existing.columns:
+                if col not in new_rows.columns:
+                    new_rows[col] = pd.NA
+            dedup_existing = pd.concat([dedup_existing, new_rows[dedup_existing.columns]], ignore_index=True)
+
+        return dedup_existing
 
     @staticmethod
     def _schema_columns(schema_name: str) -> List[str]:
@@ -292,19 +330,32 @@ class MacroStorage:
                 fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
 
     def _read_csv_unlocked(self, path: Path, schema_name: str) -> pd.DataFrame:
+        path_str = str(path)
         try:
+            mtime_ns = path.stat().st_mtime_ns
+            cached = self._read_cache.get(path_str)
+            if cached is not None and cached[0] == mtime_ns:
+                return cached[1].copy()
             frame = pd.read_csv(path, low_memory=False)
+            normalized = self._normalize_schema(frame, schema_name)
+            self._read_cache[path_str] = (mtime_ns, normalized)
+            return normalized.copy()
         except (FileNotFoundError, pd.errors.EmptyDataError):
+            self._read_cache.pop(path_str, None)
             frame = pd.DataFrame()
-        return self._normalize_schema(frame, schema_name)
+            return self._normalize_schema(frame, schema_name)
 
     def _normalize_schema(self, frame: pd.DataFrame, schema_name: str) -> pd.DataFrame:
         """Add canonical columns before retained unknown columns without dropping data."""
         canonical = self._schema_columns(schema_name)
-        normalized = frame.copy()
-        for column in canonical:
-            if column not in normalized.columns:
-                normalized[column] = pd.NA
+        missing = [column for column in canonical if column not in frame.columns]
+        if missing:
+            missing_df = pd.DataFrame(
+                {col: pd.Series(pd.NA, index=frame.index) for col in missing}
+            )
+            normalized = pd.concat([frame, missing_df], axis=1)
+        else:
+            normalized = frame.copy()
         unknown = [column for column in normalized.columns if column not in canonical]
         return normalized[canonical + unknown]
 

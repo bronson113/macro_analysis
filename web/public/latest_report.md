@@ -1,11 +1,11 @@
-# Daily Macro Evidence Report (2026-08-17)
+# Daily Macro Evidence Report (2026-08-16)
 *Automated Capture Engine & Institutional Research Framework (Defiant Gatekeeper)*
 > Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.
 
 ---
 ## Notable Summary
 
-- **Unchanged:** **Macro:** Active quadrant is `SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY` (Interest Rates: Accommodative (current level); Reserve Liquidity: Scarce (current level)). Policy is accommodative while reserve liquidity remains scarce; easing support is limited by the liquidity backdrop. Yield curve un-inversion is a caution signal.
+- **Changed:** **Macro:** Active quadrant is `SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY` (Interest Rates: Accommodative (current level); Reserve Liquidity: Scarce (current level)). Policy is accommodative while reserve liquidity remains scarce; easing support is limited by the liquidity backdrop. Yield curve un-inversion is a caution signal. Previously: **Macro:** Active quadrant is `SITUATION 3: RESTRICTIVE POLICY + RESERVE LIQUIDITY CONTRACTION` (Interest Rates: Raising / Holding Restrictive; Reserve Liquidity: Contracting (-30d)). Restrictive setup: policy-rate pressure and reserve-liquidity drainage raise valuation multiple-compression risk.
 - **Unchanged:** **Valuation:** Shiller PE Ratio is `42.56` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
 
 ---
@@ -25,7 +25,7 @@
 
 Momentum is a separate overlay and does not change the current level-based quadrant.
 - **Policy 30d:** `STABLE`; change `+0.000`; prior date `N/A`.
-- **Policy 90d:** `TIGHTENING`; change `+0.145`; prior date `N/A`.
+- **Policy 90d:** `TIGHTENING`; change `+0.135`; prior date `N/A`.
 - **Liquidity 30d:** `DETERIORATING`; change `-0.453`; prior date `N/A`.
 - **Liquidity 90d:** `DETERIORATING`; change `-0.362`; prior date `N/A`.
 
@@ -50,7 +50,7 @@ Market consensus is a forward-looking overlay and never changes the current quad
 ## Data Quality
 
 - **Overall quality:** `PARTIAL`; policy quality: `OK`; liquidity quality: `PARTIAL`.
-- **Input ages:** dff `0` days, core_pce `0` days, rstar `0` days, fed_assets `5` days, tga `5` days, rrp `5` days, nominal_gdp `138` days, effr `0` days, iorb `0` days, sofr `0` days.
+- **Input ages:** dff `0` days, core_pce `0` days, rstar `0` days, fed_assets `4` days, tga `4` days, rrp `4` days, nominal_gdp `137` days, effr `0` days, iorb `0` days, sofr `0` days.
 - **Reasons, missing inputs, and conflicts:** EFFR-IORB spread flags reserve pressure; EFFR-IORB spread flags reserve pressure; EFFR_IORB.
 
 ---
@@ -139,7 +139,7 @@ Constituents evaluated: `72`
 
 Current inputs do not support company-level differentiation yet. In other words, no company-level differentiation is supported yet.
 
-- Dominant missing input: Only 2 valid historical relative observations are available; 60 are required. (`52` of `72` constituents)
+- Dominant missing input: Only 1 valid historical relative observations are available; 60 are required. (`52` of `72` constituents)
 
 ---
 
@@ -149,7 +149,7 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Ecosystem Sub-Group | Key Tickers | Avg Forward P/E | Avg EV / EBITDA | Historical Norm (P/E) | Supply Chain & Valuation Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.64x` | `42.47x` | `28.0x` | `Fairly Valued` |
+| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.64x` | `42.48x` | `28.0x` | `Fairly Valued` |
 | **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `11.16x` | `26.20x` | `16.0x` | `Undervalued / Discounted Super-Cycle` |
 | **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `38.59x` | `59.84x` | `30.0x` | `Rich Multiple / Growth Premium` |
 | **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `26.50x` | `31.54x` | `22.0x` | `Fairly Valued` |
@@ -164,12 +164,12 @@ Tracking valuation multiples and downstream physical dependencies across compute
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
 | **CBOE Volatility (VIX)** | `14.25` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `99.42` | Global Currency Tightness |
+| **US Dollar Index (DXY)** | `99.46` | Global Currency Tightness |
 | **S&P 500 Index** | `7,785.76` | US Equity Benchmark |
 | **CNN Fear & Greed Index** | `64.97` | `Greed risk-appetite overlay: risk appetite is firm, so avoid chasing weak valuation setups.` |
 | **Shiller PE Ratio** | `42.56` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$81.86` | Energy Cost Drivers |
-| **Gold** | `$4,458.30` | Monetary Protection / Safe Haven |
+| **WTI Crude Oil** | `$81.77` | Energy Cost Drivers |
+| **Gold** | `$4,453.20` | Monetary Protection / Safe Haven |
 | **Copper** | `$6.72` | Industrial Demand Indicator |
 
 ---
