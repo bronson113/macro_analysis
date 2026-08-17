@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-08-17T07:08:49.622621",
+    "generated_at": "2026-08-17T07:16:54.121565",
     "date": "2026-08-17",
     "engine_version": "3.0-EvidenceRawPayload"
   },
@@ -14,7 +14,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WALCL",
       "unit": "millions",
-      "updated_at": "2026-08-17T06:57:22.655516"
+      "updated_at": "2026-08-17T07:14:13.632157"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
@@ -25,7 +25,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WDTGAL",
       "unit": "millions",
-      "updated_at": "2026-08-17T06:57:22.673873"
+      "updated_at": "2026-08-17T07:14:13.671521"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
@@ -36,7 +36,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RRPONTSYD",
       "unit": "billions",
-      "updated_at": "2026-08-17T06:57:22.712504"
+      "updated_at": "2026-08-17T07:14:13.682954"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
@@ -47,7 +47,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
       "unit": null,
-      "updated_at": "2026-08-17T07:00:19.949514"
+      "updated_at": "2026-08-17T07:14:19.072902"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
@@ -58,7 +58,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS2",
       "unit": null,
-      "updated_at": "2026-08-17T07:00:19.951820"
+      "updated_at": "2026-08-17T07:14:19.089076"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
@@ -69,7 +69,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y2Y",
       "unit": null,
-      "updated_at": "2026-08-17T07:00:20.040210"
+      "updated_at": "2026-08-17T07:14:19.132671"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
@@ -80,7 +80,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A0HYM2",
       "unit": null,
-      "updated_at": "2026-08-17T07:03:30.907734"
+      "updated_at": "2026-08-17T07:14:24.386343"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
@@ -91,7 +91,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A1CAAA",
       "unit": null,
-      "updated_at": "2026-08-17T07:03:30.930946"
+      "updated_at": "2026-08-17T07:14:24.403810"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
@@ -102,7 +102,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ANFCI",
       "unit": null,
-      "updated_at": "2026-08-17T07:03:30.943133"
+      "updated_at": "2026-08-17T07:14:24.419212"
     },
     "vix": {
       "indicator_key": "vix",
@@ -113,18 +113,18 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-17T07:06:51.454267"
+      "updated_at": "2026-08-17T07:14:40.194532"
     },
     "dxy": {
       "indicator_key": "dxy",
       "date": "2026-08-17",
-      "value": 99.4209976196289,
+      "value": 99.4290008544922,
       "release_date": null,
       "publication_date": null,
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-17T07:06:51.470080"
+      "updated_at": "2026-08-17T07:14:40.234455"
     },
     "sp500": {
       "indicator_key": "sp500",
@@ -135,40 +135,40 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-17T07:06:51.502564"
+      "updated_at": "2026-08-17T07:14:40.283669"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
       "date": "2026-08-17",
-      "value": 81.86000061035156,
+      "value": 81.91999816894531,
       "release_date": null,
       "publication_date": null,
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-17T07:06:51.525695"
+      "updated_at": "2026-08-17T07:14:40.261855"
     },
     "gold": {
       "indicator_key": "gold",
       "date": "2026-08-17",
-      "value": 4458.2998046875,
+      "value": 4457.60009765625,
       "release_date": null,
       "publication_date": null,
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-17T07:06:51.485384"
+      "updated_at": "2026-08-17T07:14:40.229417"
     },
     "copper": {
       "indicator_key": "copper",
       "date": "2026-08-17",
-      "value": 6.721499919891357,
+      "value": 6.710999965667725,
       "release_date": null,
       "publication_date": null,
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-17T07:07:11.786818"
+      "updated_at": "2026-08-17T07:14:44.957759"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
@@ -179,7 +179,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE",
       "unit": null,
-      "updated_at": "2026-08-17T07:03:30.963191"
+      "updated_at": "2026-08-17T07:14:24.443113"
     },
     "cpi": {
       "indicator_key": "cpi",
@@ -190,7 +190,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL",
       "unit": null,
-      "updated_at": "2026-08-17T07:04:54.469195"
+      "updated_at": "2026-08-17T07:14:29.664643"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
@@ -201,7 +201,7 @@
       "vintage_date": "2026-08-17",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T5YIE",
       "unit": null,
-      "updated_at": "2026-08-17T07:04:54.506617"
+      "updated_at": "2026-08-17T07:14:29.699472"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
@@ -212,7 +212,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-17T07:07:16.759076"
+      "updated_at": "2026-08-17T07:14:46.214893"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
@@ -223,7 +223,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-08-17T07:07:17.742584"
+      "updated_at": "2026-08-17T07:14:47.323093"
     }
   },
   "macro_regime": {
@@ -2167,10 +2167,10 @@
       ],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T19:51:28Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517406"
+      "created_at": "2026-08-17T07:14:52.259224"
     },
     {
       "id": 641.0,
@@ -2183,10 +2183,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T20:09:00Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517400"
+      "created_at": "2026-08-17T07:14:52.259213"
     },
     {
       "id": 640.0,
@@ -2199,10 +2199,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T21:11:40Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517394"
+      "created_at": "2026-08-17T07:14:52.259203"
     },
     {
       "id": 639.0,
@@ -2215,10 +2215,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-15T18:23:12Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517387"
+      "created_at": "2026-08-17T07:14:52.259193"
     },
     {
       "id": 638.0,
@@ -2231,10 +2231,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-15T20:09:36Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517381"
+      "created_at": "2026-08-17T07:14:52.259182"
     },
     {
       "id": 637.0,
@@ -2247,10 +2247,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-15T21:50:19Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517375"
+      "created_at": "2026-08-17T07:14:52.259172"
     },
     {
       "id": 636.0,
@@ -2263,10 +2263,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T16:30:00Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517368"
+      "created_at": "2026-08-17T07:14:52.259162"
     },
     {
       "id": 635.0,
@@ -2279,10 +2279,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T16:46:00Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517362"
+      "created_at": "2026-08-17T07:14:52.259152"
     },
     {
       "id": 634.0,
@@ -2295,10 +2295,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T03:59:29Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517355"
+      "created_at": "2026-08-17T07:14:52.259141"
     },
     {
       "id": 633.0,
@@ -2311,10 +2311,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-13T18:55:14Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517349"
+      "created_at": "2026-08-17T07:14:52.259131"
     },
     {
       "id": 632.0,
@@ -2327,10 +2327,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T16:53:00Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517343"
+      "created_at": "2026-08-17T07:14:52.259121"
     },
     {
       "id": 631.0,
@@ -2343,10 +2343,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-14T18:20:50Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517336"
+      "created_at": "2026-08-17T07:14:52.259111"
     },
     {
       "id": 630.0,
@@ -2359,10 +2359,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T13:41:00Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517330"
+      "created_at": "2026-08-17T07:14:52.259100"
     },
     {
       "id": 629.0,
@@ -2375,10 +2375,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T16:37:00Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517323"
+      "created_at": "2026-08-17T07:14:52.259090"
     },
     {
       "id": 628.0,
@@ -2393,10 +2393,10 @@
       ],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T04:00:05Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517317"
+      "created_at": "2026-08-17T07:14:52.259079"
     },
     {
       "id": 627.0,
@@ -2409,10 +2409,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T02:16:27Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517310"
+      "created_at": "2026-08-17T07:14:52.259068"
     },
     {
       "id": 626.0,
@@ -2425,10 +2425,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T02:34:38Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517303"
+      "created_at": "2026-08-17T07:14:52.259058"
     },
     {
       "id": 625.0,
@@ -2441,29 +2441,13 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T05:35:29Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517297"
+      "created_at": "2026-08-17T07:14:52.259047"
     },
     {
       "id": 624.0,
-      "date": "2026-08-17",
-      "title": "[NVDA - NVIDIA] Michael Burry Says \u2018You Could Have Heard It First\u2019 \u2014 As Big Tech\u2019s $3T AI Spending Risk Comes Into Focus",
-      "summary": "The total includes $1.2 trillion in unstarted leases and $1.9 trillion in purchase commitments.",
-      "source": "Yahoo Finance (NVDA)",
-      "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-says-you-could-have-heard-it-first-as-big-tech-s-3-t-ai-spending-risk-comes-into-focus/cZo6sZzRJKV",
-      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-08-17T05:52:11Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517290"
-    },
-    {
-      "id": 623.0,
       "date": "2026-08-17",
       "title": "[NVDA - NVIDIA] What Nvidia's $500 billion Wall Street deal signals about the AI boom",
       "summary": "Nvidia and six of the world's largest investment firms announced plans last week to channel more than $500 billion (\u20ac433bn) into AI infrastructure, an arrangement designed to let tech companies build ",
@@ -2473,13 +2457,13 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T06:05:19Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517284"
+      "created_at": "2026-08-17T07:14:52.259036"
     },
     {
-      "id": 622.0,
+      "id": 623.0,
       "date": "2026-08-17",
       "title": "[NVDA - NVIDIA] 3 Critical Things Investors Overlooked in Rivian's Strong Q2",
       "summary": "Rivian topped Wall Street estimates in the second quarter, but there were several positive developments.",
@@ -2489,10 +2473,26 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T06:35:00Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517276"
+      "created_at": "2026-08-17T07:14:52.259026"
+    },
+    {
+      "id": 622.0,
+      "date": "2026-08-17",
+      "title": "[NVDA - NVIDIA] 3 Nuclear Stocks With Real Revenue vs. 3 That Are Still Pre-Revenue. Here's Where the Money Actually Is.",
+      "summary": "Nuclear is booming, and the smartest money may be flowing to the companies already selling the power, equipment, and fuel.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/08/17/3-nuclear-stocks-with-real-revenue-vs-3-that-are-s/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "2026-08-17T07:05:00Z",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-08-17T07:14:52.259015"
     },
     {
       "id": 621.0,
@@ -2505,10 +2505,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T21:49:00Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517269"
+      "created_at": "2026-08-17T07:14:52.259004"
     },
     {
       "id": 620.0,
@@ -2521,10 +2521,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-16T22:13:14Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517263"
+      "created_at": "2026-08-17T07:14:52.258993"
     },
     {
       "id": 619.0,
@@ -2537,10 +2537,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "2026-08-17T02:34:38Z",
-      "retrieved_at": "2026-08-17T07:07:21.328328",
+      "retrieved_at": "2026-08-17T07:14:50.765112",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517257"
+      "created_at": "2026-08-17T07:14:52.258982"
     },
     {
       "id": 618.0,
@@ -2553,10 +2553,10 @@
       "topic_tags": [],
       "interpretation_status": "uninterpreted",
       "published_at": "Mon, 17 Aug 2026 02:25:53 GMT",
-      "retrieved_at": "2026-08-17T07:07:18.369678",
+      "retrieved_at": "2026-08-17T07:14:48.257477",
       "impact_score": null,
       "sentiment": null,
-      "created_at": "2026-08-17T07:07:22.517250"
+      "created_at": "2026-08-17T07:14:52.258956"
     }
   ],
   "evidence_assessments": [
@@ -4997,7 +4997,7 @@
       "trailing_pe": 20.96,
       "forward_pe": 16.05,
       "ev_ebitda": 36.6,
-      "price_to_book": null,
+      "price_to_book": 24.33,
       "dist_from_52w_high_pct": -36.39,
       "return_30d_pct": -0.98,
       "relative_valuation_status": "Insufficient Comparable Peers",
@@ -5177,7 +5177,7 @@
       "trailing_pe": 55.51,
       "forward_pe": 31.0,
       "ev_ebitda": 44.17,
-      "price_to_book": 45.67,
+      "price_to_book": 41.92,
       "dist_from_52w_high_pct": -33.72,
       "return_30d_pct": -9.26,
       "relative_valuation_status": "Insufficient Relative History",
@@ -5192,7 +5192,7 @@
       "trailing_pe": 57.45,
       "forward_pe": 36.25,
       "ev_ebitda": 43.36,
-      "price_to_book": 20.85,
+      "price_to_book": 19.06,
       "dist_from_52w_high_pct": -14.17,
       "return_30d_pct": 22.41,
       "relative_valuation_status": "Insufficient Relative History",
@@ -5462,7 +5462,7 @@
       "trailing_pe": 36.77,
       "forward_pe": 23.48,
       "ev_ebitda": 10.47,
-      "price_to_book": null,
+      "price_to_book": 2.51,
       "dist_from_52w_high_pct": -9.29,
       "return_30d_pct": -4.59,
       "relative_valuation_status": "Insufficient Relative History",
@@ -5657,7 +5657,7 @@
       "trailing_pe": 12.33,
       "forward_pe": 11.04,
       "ev_ebitda": 8.64,
-      "price_to_book": 5.27,
+      "price_to_book": 6.22,
       "dist_from_52w_high_pct": -1.3,
       "return_30d_pct": 18.8,
       "relative_valuation_status": "Insufficient Comparable Peers",
@@ -5715,7 +5715,7 @@
       "peer_cohort": "Industrial Machinery",
       "price": 856.57,
       "trailing_pe": 36.91,
-      "forward_pe": 26.72,
+      "forward_pe": 26.75,
       "ev_ebitda": 26.64,
       "price_to_book": 20.3,
       "dist_from_52w_high_pct": -20.2,
@@ -6596,7 +6596,7 @@
       "missing_evidence": [
         "Only 2 valid historical relative observations are available; 60 are required."
       ],
-      "forward_pe_relative": 0.932,
+      "forward_pe_relative": 0.933,
       "historical_forward_pe_relative": null,
       "relative_fpe_discount_pct": null,
       "ev_ebitda_relative": 1.087,
@@ -6612,7 +6612,7 @@
       "missing_evidence": [
         "Only 2 valid historical relative observations are available; 60 are required."
       ],
-      "forward_pe_relative": 0.948,
+      "forward_pe_relative": 0.947,
       "historical_forward_pe_relative": null,
       "relative_fpe_discount_pct": null,
       "ev_ebitda_relative": 0.911,
@@ -6628,7 +6628,7 @@
       "missing_evidence": [
         "Only 2 valid historical relative observations are available; 60 are required."
       ],
-      "forward_pe_relative": 1.51,
+      "forward_pe_relative": 1.509,
       "historical_forward_pe_relative": null,
       "relative_fpe_discount_pct": null,
       "ev_ebitda_relative": 1.395,
@@ -8371,7 +8371,7 @@
       "source": "FRED",
       "fetch_key": "fed_total_assets",
       "observation_time": "2026-08-12",
-      "fetch_time": "2026-08-17T07:00:20.127869",
+      "fetch_time": "2026-08-17T07:14:19.268795",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 521,
@@ -8382,7 +8382,7 @@
       "source": "FRED",
       "fetch_key": "tga_balance",
       "observation_time": "2026-08-12",
-      "fetch_time": "2026-08-17T07:03:31.060371",
+      "fetch_time": "2026-08-17T07:14:24.578159",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 521,
@@ -8391,20 +8391,9 @@
     },
     {
       "source": "FRED",
-      "fetch_key": "iorb",
-      "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-17T07:04:54.941540",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 1846,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
       "fetch_key": "reverse_repo",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-17T07:06:38.819171",
+      "fetch_time": "2026-08-17T07:14:29.876362",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2489,
@@ -8413,9 +8402,20 @@
     },
     {
       "source": "FRED",
+      "fetch_key": "iorb",
+      "observation_time": "2026-08-17",
+      "fetch_time": "2026-08-17T07:14:35.158179",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 1846,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
       "fetch_key": "effr",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-17T07:06:41.551746",
+      "fetch_time": "2026-08-17T07:14:36.089582",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3647,
@@ -8426,7 +8426,7 @@
       "source": "FRED",
       "fetch_key": "dff",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-17T07:06:41.668971",
+      "fetch_time": "2026-08-17T07:14:36.118062",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3647,
@@ -8437,7 +8437,7 @@
       "source": "FRED",
       "fetch_key": "sofr",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-17T07:06:41.794068",
+      "fetch_time": "2026-08-17T07:14:36.141927",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2089,
@@ -8448,7 +8448,7 @@
       "source": "FRED",
       "fetch_key": "m2_money_supply",
       "observation_time": "2026-06-01",
-      "fetch_time": "2026-08-17T07:06:41.899937",
+      "fetch_time": "2026-08-17T07:14:36.162926",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 118,
@@ -8459,7 +8459,7 @@
       "source": "FRED",
       "fetch_key": "treasury_10y",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-17T07:06:42.053991",
+      "fetch_time": "2026-08-17T07:14:36.188158",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2495,
@@ -8470,7 +8470,7 @@
       "source": "FRED",
       "fetch_key": "treasury_2y",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-17T07:06:42.200595",
+      "fetch_time": "2026-08-17T07:14:36.214628",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2495,
@@ -8481,7 +8481,7 @@
       "source": "FRED",
       "fetch_key": "treasury_3m",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-17T07:06:42.308623",
+      "fetch_time": "2026-08-17T07:14:36.240233",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2495,
@@ -8492,7 +8492,18 @@
       "source": "FRED",
       "fetch_key": "spread_10y_2y",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-17T07:06:42.417114",
+      "fetch_time": "2026-08-17T07:14:36.265686",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 2496,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "spread_10y_3m",
+      "observation_time": "2026-08-14",
+      "fetch_time": "2026-08-17T07:14:36.291062",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2496,
@@ -8503,7 +8514,7 @@
       "source": "FRED",
       "fetch_key": "high_yield_oas",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-17T07:06:42.523388",
+      "fetch_time": "2026-08-17T07:14:36.314193",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 787,
@@ -8512,20 +8523,9 @@
     },
     {
       "source": "FRED",
-      "fetch_key": "spread_10y_3m",
-      "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-17T07:06:42.630570",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 2496,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
       "fetch_key": "invest_grade_oas",
       "observation_time": "2026-08-13",
-      "fetch_time": "2026-08-17T07:06:42.736601",
+      "fetch_time": "2026-08-17T07:14:36.337989",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 787,
@@ -8536,7 +8536,7 @@
       "source": "FRED",
       "fetch_key": "chicago_fed_nfci",
       "observation_time": "2026-08-07",
-      "fetch_time": "2026-08-17T07:06:42.841927",
+      "fetch_time": "2026-08-17T07:14:36.361502",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 521,
@@ -8547,7 +8547,7 @@
       "source": "FRED",
       "fetch_key": "nonfarm_payrolls",
       "observation_time": "2026-07-01",
-      "fetch_time": "2026-08-17T07:06:42.947315",
+      "fetch_time": "2026-08-17T07:14:36.383202",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 119,
@@ -8558,7 +8558,7 @@
       "source": "FRED",
       "fetch_key": "unemployment_rate",
       "observation_time": "2026-07-01",
-      "fetch_time": "2026-08-17T07:06:43.053665",
+      "fetch_time": "2026-08-17T07:14:36.404952",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 118,
@@ -8569,7 +8569,7 @@
       "source": "FRED",
       "fetch_key": "initial_claims",
       "observation_time": "2026-08-08",
-      "fetch_time": "2026-08-17T07:06:43.160670",
+      "fetch_time": "2026-08-17T07:14:36.427507",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 521,
@@ -8580,7 +8580,7 @@
       "source": "FRED",
       "fetch_key": "cpi",
       "observation_time": "2026-07-01",
-      "fetch_time": "2026-08-17T07:06:43.267661",
+      "fetch_time": "2026-08-17T07:14:36.449324",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 130,
@@ -8591,7 +8591,7 @@
       "source": "FRED",
       "fetch_key": "core_pce",
       "observation_time": "2026-06-01",
-      "fetch_time": "2026-08-17T07:06:43.373730",
+      "fetch_time": "2026-08-17T07:14:36.470830",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 118,
@@ -8602,18 +8602,7 @@
       "source": "FRED",
       "fetch_key": "breakeven_5y",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-17T07:06:43.483278",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 2496,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "breakeven_10y",
-      "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-17T07:06:43.591849",
+      "fetch_time": "2026-08-17T07:14:36.496338",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2496,
@@ -8624,7 +8613,7 @@
       "source": "FRED",
       "fetch_key": "nominal_gdp",
       "observation_time": "2026-04-01",
-      "fetch_time": "2026-08-17T07:06:43.697211",
+      "fetch_time": "2026-08-17T07:14:36.517798",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 39,
@@ -8633,9 +8622,20 @@
     },
     {
       "source": "FRED",
+      "fetch_key": "breakeven_10y",
+      "observation_time": "2026-08-14",
+      "fetch_time": "2026-08-17T07:14:36.543223",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 2496,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
       "fetch_key": "housing_starts",
       "observation_time": "2026-06-01",
-      "fetch_time": "2026-08-17T07:06:43.802962",
+      "fetch_time": "2026-08-17T07:14:36.564458",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 118,
@@ -8646,7 +8646,7 @@
       "source": "NY Fed HLW",
       "fetch_key": "rstar",
       "observation_time": "2026-01-01",
-      "fetch_time": "2026-08-17T07:06:49.489968",
+      "fetch_time": "2026-08-17T07:14:38.078738",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 261,
@@ -8657,7 +8657,7 @@
       "source": "NY Fed SME",
       "fetch_key": "nyfed_sme",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:06:50.757367",
+      "fetch_time": "2026-08-17T07:14:39.752991",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1,
@@ -8668,21 +8668,10 @@
       "source": "YAHOO",
       "fetch_key": "vix",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-17T07:07:11.983894",
+      "fetch_time": "2026-08-17T07:14:44.886944",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 248,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "YAHOO",
-      "fetch_key": "dxy",
-      "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-17T07:07:16.073132",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 248,
+      "record_count": 251,
       "error_category": null,
       "message": null
     },
@@ -8690,7 +8679,29 @@
       "source": "YAHOO",
       "fetch_key": "gold",
       "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-17T07:07:16.189872",
+      "fetch_time": "2026-08-17T07:14:44.909265",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 251,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "YAHOO",
+      "fetch_key": "dxy",
+      "observation_time": "2026-08-17",
+      "fetch_time": "2026-08-17T07:14:44.932668",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 251,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "YAHOO",
+      "fetch_key": "crude_oil",
+      "observation_time": "2026-08-17",
+      "fetch_time": "2026-08-17T07:14:44.975999",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 251,
@@ -8701,18 +8712,7 @@
       "source": "YAHOO",
       "fetch_key": "sp500",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-17T07:07:16.305180",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 248,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "YAHOO",
-      "fetch_key": "crude_oil",
-      "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-17T07:07:16.417877",
+      "fetch_time": "2026-08-17T07:14:45.907750",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 251,
@@ -8723,7 +8723,7 @@
       "source": "YAHOO",
       "fetch_key": "copper",
       "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-17T07:07:16.532320",
+      "fetch_time": "2026-08-17T07:14:45.929314",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 251,
@@ -8734,7 +8734,7 @@
       "source": "CNN",
       "fetch_key": "cnn_fear_greed_index",
       "observation_time": "2026-08-14",
-      "fetch_time": "2026-08-17T07:07:17.371608",
+      "fetch_time": "2026-08-17T07:14:47.137626",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1,
@@ -8745,7 +8745,7 @@
       "source": "Multpl",
       "fetch_key": "shiller_pe",
       "observation_time": "2026-08-17",
-      "fetch_time": "2026-08-17T07:07:18.354963",
+      "fetch_time": "2026-08-17T07:14:48.249963",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1,
@@ -8756,7 +8756,7 @@
       "source": "Google News",
       "fetch_key": "google_news:federal_reserve_liquidity",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:22.644770",
+      "fetch_time": "2026-08-17T07:14:52.288346",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8767,7 +8767,7 @@
       "source": "Google News",
       "fetch_key": "google_news:inflation_prices",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:22.756873",
+      "fetch_time": "2026-08-17T07:14:52.305110",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8778,7 +8778,7 @@
       "source": "Google News",
       "fetch_key": "google_news:labor_employment",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:22.869936",
+      "fetch_time": "2026-08-17T07:14:52.321620",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8789,7 +8789,7 @@
       "source": "Google News",
       "fetch_key": "google_news:credit_rates",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:22.997082",
+      "fetch_time": "2026-08-17T07:14:52.339169",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8800,7 +8800,7 @@
       "source": "Google News",
       "fetch_key": "google_news:geopolitics_oil",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:23.120010",
+      "fetch_time": "2026-08-17T07:14:52.356243",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8811,7 +8811,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:mu",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:23.233492",
+      "fetch_time": "2026-08-17T07:14:52.373743",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8822,7 +8822,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:nvda",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:23.384338",
+      "fetch_time": "2026-08-17T07:14:52.390822",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8833,7 +8833,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:aapl",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:23.501879",
+      "fetch_time": "2026-08-17T07:14:52.408041",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8844,7 +8844,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:jpm",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:23.615208",
+      "fetch_time": "2026-08-17T07:14:52.425473",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8855,7 +8855,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:xom",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:23.728244",
+      "fetch_time": "2026-08-17T07:14:52.442819",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8866,7 +8866,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:tsla",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:23.838752",
+      "fetch_time": "2026-08-17T07:14:52.460092",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8877,7 +8877,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:cat",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:23.948450",
+      "fetch_time": "2026-08-17T07:14:52.477329",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,
@@ -8888,7 +8888,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:unh",
       "observation_time": null,
-      "fetch_time": "2026-08-17T07:07:24.059056",
+      "fetch_time": "2026-08-17T07:14:52.494768",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 3,

@@ -164,13 +164,13 @@ Tracking valuation multiples and downstream physical dependencies across compute
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
 | **CBOE Volatility (VIX)** | `14.25` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `99.42` | Global Currency Tightness |
+| **US Dollar Index (DXY)** | `99.43` | Global Currency Tightness |
 | **S&P 500 Index** | `7,785.76` | US Equity Benchmark |
 | **CNN Fear & Greed Index** | `64.97` | `Greed risk-appetite overlay: risk appetite is firm, so avoid chasing weak valuation setups.` |
 | **Shiller PE Ratio** | `42.56` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$81.86` | Energy Cost Drivers |
-| **Gold** | `$4,458.30` | Monetary Protection / Safe Haven |
-| **Copper** | `$6.72` | Industrial Demand Indicator |
+| **WTI Crude Oil** | `$81.92` | Energy Cost Drivers |
+| **Gold** | `$4,457.60` | Monetary Protection / Safe Haven |
+| **Copper** | `$6.71` | Industrial Demand Indicator |
 
 ---
 *Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.*
