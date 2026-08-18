@@ -1,4 +1,4 @@
-# Daily Macro Evidence Report (2026-08-17)
+# Daily Macro Evidence Report (2026-08-18)
 *Automated Capture Engine & Institutional Research Framework (Defiant Gatekeeper)*
 > Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.
 
@@ -6,7 +6,7 @@
 ## Notable Summary
 
 - **Unchanged:** **Macro:** Active quadrant is `SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY` (Interest Rates: Accommodative (current level); Reserve Liquidity: Scarce (current level)). Policy is accommodative while reserve liquidity remains scarce; easing support is limited by the liquidity backdrop. Yield curve un-inversion is a caution signal.
-- **Unchanged:** **Valuation:** Shiller PE Ratio is `42.56` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
+- **Unchanged:** **Valuation:** Shiller PE Ratio is `42.35` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
 
 ---
 ## Current State
@@ -14,7 +14,7 @@
 - **Quadrant:** `Situation 2` — `SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY`.
 - **Policy level:** `ACCOMMODATIVE`. Real policy rate: `+0.343 pp`; neutral real rate (r-star): `+1.057 pp`; policy gap: `-0.714 pp`; classification threshold: `±0.50 pp`.
   - Current inputs — DFF: `+3.630 pp`; core PCE YoY: `3.287%`; r-star: `+1.057 pp`.
-  - Observation dates — DFF: `2026-08-13`; core PCE: `2026-06-01`; r-star: `2026-01-01`.
+  - Observation dates — DFF: `2026-08-14`; core PCE: `2026-06-01`; r-star: `2026-01-01`.
   - Historical sample: `2017-09-01` through `2026-06-01`; count `106`.
 - **Reserve-liquidity level:** `SCARCE`. Current normalized value: `17.859% of GDP`; historical percentile: `13.8th`; thresholds: P40 `20.260`, P60 `21.420`.
   - Current inputs — Fed assets: `6,759,955.00 M`; TGA: `959,405.00 M`; ON RRP: `0.72 B`; nominal GDP: `32,475.21 B`.
@@ -27,7 +27,7 @@ Momentum is a separate overlay and does not change the current level-based quadr
 - **Policy 30d:** `STABLE`; change `+0.000`; prior date `N/A`.
 - **Policy 90d:** `TIGHTENING`; change `+0.145`; prior date `N/A`.
 - **Liquidity 30d:** `DETERIORATING`; change `-0.453`; prior date `N/A`.
-- **Liquidity 90d:** `DETERIORATING`; change `-0.362`; prior date `N/A`.
+- **Liquidity 90d:** `DETERIORATING`; change `-0.329`; prior date `N/A`.
 
 ## Consensus
 
@@ -50,7 +50,7 @@ Market consensus is a forward-looking overlay and never changes the current quad
 ## Data Quality
 
 - **Overall quality:** `PARTIAL`; policy quality: `OK`; liquidity quality: `PARTIAL`.
-- **Input ages:** dff `0` days, core_pce `0` days, rstar `0` days, fed_assets `5` days, tga `5` days, rrp `5` days, nominal_gdp `138` days, effr `0` days, iorb `0` days, sofr `0` days.
+- **Input ages:** dff `0` days, core_pce `0` days, rstar `0` days, fed_assets `6` days, tga `6` days, rrp `6` days, nominal_gdp `139` days, effr `0` days, iorb `0` days, sofr `0` days.
 - **Reasons, missing inputs, and conflicts:** EFFR-IORB spread flags reserve pressure; EFFR-IORB spread flags reserve pressure; EFFR_IORB.
 
 ---
@@ -88,10 +88,10 @@ Reserve liquidity proxy is calculated as `Fed Total Assets - TGA Balance - Rever
 
 | Component | Value (Billions USD) | Notes / Description |
 | :--- | :--- | :--- |
-| **Reserve Liquidity Proxy** | **$5,800.30 B** | **30-Day Change: -185.27 B** |
+| **Reserve Liquidity Proxy** | **$5,800.30 B** | **30-Day Change: -185.28 B** |
 | Fed Total Assets | $6,759.95 B | Total Balance Sheet Size |
 | Treasury General Account (TGA) | $959.40 B | Treasury Cash Buffer at Fed |
-| Reverse Repo Facility (RRP) | $0.25 B | Overnight Liquidity Drain |
+| Reverse Repo Facility (RRP) | $0.26 B | Overnight Liquidity Drain |
 
 ---
 
@@ -103,11 +103,11 @@ The yield curve slope is a key indicator of economic cycle transitions and reces
 | :--- | :--- | :--- |
 | **Policy Rate** | `3.63%` | Source: `dff` / Stance: `HOLDING_RESTRICTIVE` |
 | **Policy Rate 30d Change** | `+0.00%` | Momentum diagnostic overlay; the matrix uses the real-policy gap level |
-| **10Y Real Yield Proxy** | `+2.36%` | 10Y Treasury minus 10Y breakeven |
-| **10-Year Treasury Yield** | `4.63%` | Benchmark Long Rate |
-| **2-Year Treasury Yield** | `4.15%` | Short Rate / Fed Expectations |
-| **10Y - 2Y Spread** | `+0.51%` | **Regime: Normal (Steep)** |
-| **10Y - 3M Spread** | `+0.82%` | Classic Recession Gauge |
+| **10Y Real Yield Proxy** | `+2.40%` | 10Y Treasury minus 10Y breakeven |
+| **10-Year Treasury Yield** | `4.68%` | Benchmark Long Rate |
+| **2-Year Treasury Yield** | `4.17%` | Short Rate / Fed Expectations |
+| **10Y - 2Y Spread** | `+0.53%` | **Regime: Normal (Steep)** |
+| **10Y - 3M Spread** | `+0.85%` | Classic Recession Gauge |
 
 ---
 
@@ -117,7 +117,7 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 
 | Metric | Current Value | Threshold Benchmark |
 | :--- | :--- | :--- |
-| **ICE BofA High Yield OAS** | `2.71%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
+| **ICE BofA High Yield OAS** | `2.67%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
 | **Investment Grade OAS** | `0.41%` | High Quality Corporate Premium |
 | **Chicago Fed Financial Conditions** | `-0.58` | Negative = Loose, Positive = Tight |
 
@@ -139,7 +139,7 @@ Constituents evaluated: `72`
 
 Current inputs do not support company-level differentiation yet. In other words, no company-level differentiation is supported yet.
 
-- Dominant missing input: Only 2 valid historical relative observations are available; 60 are required. (`52` of `72` constituents)
+- Dominant missing input: Only 3 valid historical relative observations are available; 60 are required. (`52` of `72` constituents)
 
 ---
 
@@ -149,13 +149,13 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Ecosystem Sub-Group | Key Tickers | Avg Forward P/E | Avg EV / EBITDA | Historical Norm (P/E) | Supply Chain & Valuation Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.64x` | `42.47x` | `28.0x` | `Fairly Valued` |
-| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `11.16x` | `26.20x` | `16.0x` | `Undervalued / Discounted Super-Cycle` |
-| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `38.59x` | `59.84x` | `30.0x` | `Rich Multiple / Growth Premium` |
-| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `26.50x` | `31.54x` | `22.0x` | `Fairly Valued` |
-| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `19.50x` | `26.38x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
-| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `29.68x` | `43.84x` | `26.0x` | `Fairly Valued` |
-| **7. Critical Materials & Magnets** | `FCX`, `MP` | `41.49x` | `11.92x` | `18.0x` | `Rich Multiple / Growth Premium` |
+| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `22.54x` | `42.11x` | `28.0x` | `Fairly Valued` |
+| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `11.72x` | `27.51x` | `16.0x` | `Undervalued / Discounted Super-Cycle` |
+| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `38.84x` | `59.85x` | `30.0x` | `Rich Multiple / Growth Premium` |
+| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `26.59x` | `31.79x` | `22.0x` | `Fairly Valued` |
+| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `19.57x` | `26.49x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
+| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `30.50x` | `45.27x` | `26.0x` | `Fairly Valued` |
+| **7. Critical Materials & Magnets** | `FCX`, `MP` | `41.62x` | `12.20x` | `18.0x` | `Rich Multiple / Growth Premium` |
 
 ---
 
@@ -163,14 +163,14 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
-| **CBOE Volatility (VIX)** | `14.93` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `99.45` | Global Currency Tightness |
+| **CBOE Volatility (VIX)** | `15.88` | `Low Volatility (Complacency)` |
+| **US Dollar Index (DXY)** | `99.64` | Global Currency Tightness |
 | **S&P 500 Index** | `7,785.76` | US Equity Benchmark |
-| **CNN Fear & Greed Index** | `64.97` | `Greed risk-appetite overlay: risk appetite is firm, so avoid chasing weak valuation setups.` |
-| **Shiller PE Ratio** | `42.56` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$82.86` | Energy Cost Drivers |
-| **Gold** | `$4,454.80` | Monetary Protection / Safe Haven |
-| **Copper** | `$6.69` | Industrial Demand Indicator |
+| **CNN Fear & Greed Index** | `59.49` | `Greed risk-appetite overlay: risk appetite is firm, so avoid chasing weak valuation setups.` |
+| **Shiller PE Ratio** | `42.35` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
+| **WTI Crude Oil** | `$83.97` | Energy Cost Drivers |
+| **Gold** | `$4,455.90` | Monetary Protection / Safe Haven |
+| **Copper** | `$6.55` | Industrial Demand Indicator |
 
 ---
 *Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.*
