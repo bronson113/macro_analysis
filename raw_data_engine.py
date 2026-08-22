@@ -26,7 +26,9 @@ class RawDataEngine:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.verbose = verbose
 
-    def _download_30d_histories(self, tickers: List[str]) -> Dict[str, pd.DataFrame]:
+    def _download_price_histories(
+        self, tickers: List[str], period: str = "1y"
+    ) -> Dict[str, pd.DataFrame]:
         unique_tickers = list(dict.fromkeys(tickers))
         if not unique_tickers:
             return {}
@@ -34,14 +36,14 @@ class RawDataEngine:
         try:
             data = yf.download(
                 unique_tickers,
-                period="1mo",
+                period=period,
                 group_by="ticker",
                 progress=False,
                 threads=True,
                 auto_adjust=False,
             )
         except Exception as e:
-            logging.debug(f"Error fetching batched 30-day histories: {e}")
+            logging.debug(f"Error fetching batched price histories ({period}): {e}")
             return {}
 
         if data is None or data.empty:
@@ -68,6 +70,10 @@ class RawDataEngine:
 
         return histories
 
+    def _download_30d_histories(self, tickers: List[str]) -> Dict[str, pd.DataFrame]:
+        """Download historical prices in one request to calculate performance and relative history."""
+        return self._download_price_histories(tickers, period="1y")
+
     def fetch_individual_stock_metrics(self) -> List[Dict[str, Any]]:
         """Fetch constituent metrics with their business-model peer cohort."""
         stock_metrics = []
@@ -76,7 +82,8 @@ class RawDataEngine:
             for tickers in PEER_COHORTS.values()
             for ticker in tickers
         ]
-        histories_30d = self._download_30d_histories(all_tickers)
+        histories_1y = self._download_30d_histories(all_tickers)
+        self._last_price_histories = histories_1y
 
         for cohort_name, tickers in PEER_COHORTS.items():
             group_stocks = []
@@ -97,11 +104,17 @@ class RawDataEngine:
                         dist_52h = round(((price - high_52) / high_52) * 100.0, 2)
 
                     # Fetch 30-day performance
-                    hist_30d = histories_30d.get(t, pd.DataFrame())
+                    hist = histories_1y.get(t, pd.DataFrame())
                     perf_30d = None
-                    if not hist_30d.empty and len(hist_30d) >= 2:
-                        p_start = hist_30d["Close"].iloc[0]
-                        p_end = hist_30d["Close"].iloc[-1]
+                    if not hist.empty and len(hist) >= 2:
+                        cutoff_30d = hist.index.max() - pd.Timedelta(days=30)
+                        sub_30d = hist[hist.index >= cutoff_30d]
+                        if not sub_30d.empty and len(sub_30d) >= 2:
+                            p_start = sub_30d["Close"].iloc[0]
+                            p_end = sub_30d["Close"].iloc[-1]
+                        else:
+                            p_start = hist["Close"].iloc[0]
+                            p_end = hist["Close"].iloc[-1]
                         perf_30d = round(((p_end - p_start) / p_start) * 100.0, 2)
 
                     group_stocks.append({
@@ -124,13 +137,105 @@ class RawDataEngine:
 
         return stock_metrics
 
-    def save_relative_multiple_observations(self, stock_metrics: List[Dict[str, Any]], today_str: str) -> int:
-        """Persist current stock multiples as ratios to their cohort median."""
+    def save_relative_multiple_observations(
+        self,
+        stock_metrics: List[Dict[str, Any]],
+        today_str: str,
+        price_histories: Optional[Dict[str, pd.DataFrame]] = None,
+    ) -> int:
+        """Persist current and historical stock multiples as ratios to their cohort median."""
         grouped = {}
         for stock in stock_metrics:
             grouped.setdefault(stock.get("peer_cohort") or stock.get("group", "Other"), []).append(stock)
 
         saved = 0
+        price_histories = price_histories or {}
+
+        # If price histories are supplied, calculate historical relative ratios across all dates
+        if price_histories:
+            for group_name, group_stocks in grouped.items():
+                tickers = [s.get("ticker") for s in group_stocks if s.get("ticker")]
+                cohort_histories = {
+                    t: price_histories.get(t)
+                    for t in tickers
+                    if t in price_histories and price_histories[t] is not None and not price_histories[t].empty
+                }
+
+                all_dates = set()
+                for df in cohort_histories.values():
+                    if "Close" in df.columns:
+                        all_dates.update(df.index)
+                sorted_dates = sorted(all_dates)
+
+                ticker_fpe_records: Dict[str, List[Dict[str, Any]]] = {t: [] for t in tickers}
+                ticker_eve_records: Dict[str, List[Dict[str, Any]]] = {t: [] for t in tickers}
+
+                stock_by_ticker = {s.get("ticker"): s for s in group_stocks}
+
+                for dt in sorted_dates:
+                    date_str = dt.strftime("%Y-%m-%d")
+                    fpes: Dict[str, float] = {}
+                    eves: Dict[str, float] = {}
+
+                    for t in tickers:
+                        stock = stock_by_ticker.get(t, {})
+                        curr_p = stock.get("price")
+                        curr_fpe = stock.get("forward_pe")
+                        curr_eve = stock.get("ev_ebitda")
+
+                        df = cohort_histories.get(t)
+                        if df is None or dt not in df.index or not curr_p or curr_p <= 0:
+                            continue
+
+                        hist_p = df.loc[dt, "Close"]
+                        if isinstance(hist_p, pd.Series):
+                            hist_p = hist_p.iloc[0]
+                        if pd.isna(hist_p) or hist_p <= 0:
+                            continue
+
+                        ratio = float(hist_p) / float(curr_p)
+                        if curr_fpe and 0 < curr_fpe < 150:
+                            hist_fpe = curr_fpe * ratio
+                            if 0 < hist_fpe < 150:
+                                fpes[t] = hist_fpe
+
+                        if curr_eve and 0 < curr_eve < 150:
+                            hist_eve = curr_eve * ratio
+                            if 0 < hist_eve < 150:
+                                eves[t] = hist_eve
+
+                    for t in tickers:
+                        peers_fpe = [v for k, v in fpes.items() if k != t]
+                        peers_eve = [v for k, v in eves.items() if k != t]
+
+                        median_fpe = statistics.median(peers_fpe) if len(peers_fpe) >= 3 else None
+                        median_eve = statistics.median(peers_eve) if len(peers_eve) >= 3 else None
+
+                        if t in fpes and median_fpe is not None:
+                            rel_fpe = safe_ratio(fpes[t], median_fpe)
+                            if rel_fpe is not None and 0 < rel_fpe < 5:
+                                ticker_fpe_records[t].append({"date": date_str, "value": rel_fpe})
+
+                        if t in eves and median_eve is not None:
+                            rel_eve = safe_ratio(eves[t], median_eve)
+                            if rel_eve is not None and 0 < rel_eve < 5:
+                                ticker_eve_records[t].append({"date": date_str, "value": rel_eve})
+
+                for t in tickers:
+                    if ticker_fpe_records[t]:
+                        res_fpe = self.storage.save_observations(
+                            relative_multiple_key(group_name, t, "fpe"),
+                            pd.DataFrame(ticker_fpe_records[t]),
+                        )
+                        saved += res_fpe if res_fpe is not None else len(ticker_fpe_records[t])
+                    if ticker_eve_records[t]:
+                        res_eve = self.storage.save_observations(
+                            relative_multiple_key(group_name, t, "eve"),
+                            pd.DataFrame(ticker_eve_records[t]),
+                        )
+                        saved += res_eve if res_eve is not None else len(ticker_eve_records[t])
+
+        # Always save today's observation
         for group_name, group_stocks in grouped.items():
             for stock in group_stocks:
                 ticker = stock.get("ticker")
@@ -153,17 +258,19 @@ class RawDataEngine:
 
                 rel_fpe = safe_ratio(stock.get("forward_pe"), median_fpe)
                 if rel_fpe is not None and 0 < rel_fpe < 5:
-                    saved += self.storage.save_observations(
+                    res_fpe = self.storage.save_observations(
                         relative_multiple_key(group_name, ticker, "fpe"),
                         pd.DataFrame([{"date": today_str, "value": rel_fpe}]),
                     )
+                    saved += res_fpe if res_fpe is not None else 1
 
                 rel_eve = safe_ratio(stock.get("ev_ebitda"), median_eve)
                 if rel_eve is not None and 0 < rel_eve < 5:
-                    saved += self.storage.save_observations(
+                    res_eve = self.storage.save_observations(
                         relative_multiple_key(group_name, ticker, "eve"),
                         pd.DataFrame([{"date": today_str, "value": rel_eve}]),
                     )
+                    saved += res_eve if res_eve is not None else 1
 
         return saved
 
@@ -258,7 +365,10 @@ class RawDataEngine:
 
         # 3. Individual Stock Level Granular Metrics
         stock_constituents = self.fetch_individual_stock_metrics()
-        self.save_relative_multiple_observations(stock_constituents, today_str)
+        price_histories = getattr(self, "_last_price_histories", None)
+        self.save_relative_multiple_observations(
+            stock_constituents, today_str, price_histories=price_histories
+        )
 
         payload = {
             "metadata": {

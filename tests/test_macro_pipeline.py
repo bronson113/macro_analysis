@@ -1173,6 +1173,34 @@ class TestMacroPipeline(unittest.TestCase):
         self.assertIsNotNone(latest_eve)
         self.assertAlmostEqual(latest_eve["value"], 10.0 / 30.0)
 
+    def test_04c_raw_payload_persists_multi_day_historical_relative_multiples(self):
+        """When price histories are available, relative multiples must be saved across all historical dates."""
+        with tempfile.TemporaryDirectory() as tmp:
+            storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
+            raw_engine = RawDataEngine(storage, output_dir=self.tmp_path / "raw_relative_output_hist", verbose=False)
+            
+            dates = pd.date_range("2025-08-01", periods=65, freq="4D")
+            price_histories = {
+                "AMD": pd.DataFrame({"Close": [100.0 + i for i in range(65)]}, index=dates),
+                "AVGO": pd.DataFrame({"Close": [150.0 + i for i in range(65)]}, index=dates),
+                "QCOM": pd.DataFrame({"Close": [120.0 + i for i in range(65)]}, index=dates),
+                "NVDA": pd.DataFrame({"Close": [80.0 + i for i in range(65)]}, index=dates),
+            }
+            stock_metrics = [
+                {"ticker": "AMD", "name": "AMD", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 164.0, "forward_pe": 30.0, "ev_ebitda": 20.0},
+                {"ticker": "AVGO", "name": "Broadcom", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 214.0, "forward_pe": 40.0, "ev_ebitda": 30.0},
+                {"ticker": "QCOM", "name": "Qualcomm", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 184.0, "forward_pe": 50.0, "ev_ebitda": 40.0},
+                {"ticker": "NVDA", "name": "Nvidia", "group": "Fabless Accelerators", "peer_cohort": "Fabless Accelerators", "price": 144.0, "forward_pe": 12.0, "ev_ebitda": 10.0},
+            ]
+
+            saved = raw_engine.save_relative_multiple_observations(stock_metrics, "2026-08-21", price_histories=price_histories)
+            self.assertGreaterEqual(saved, 65)
+
+            nvda_fpe_series = storage.get_indicator_series(relative_multiple_key("Fabless Accelerators", "NVDA", "fpe"))
+            self.assertGreaterEqual(len(nvda_fpe_series), 65)
+            span_days = int((pd.to_datetime(nvda_fpe_series["date"]).max() - pd.to_datetime(nvda_fpe_series["date"]).min()).days)
+            self.assertGreaterEqual(span_days, 180)
+
     def test_05_technology_business_models_are_not_one_peer_group(self):
         """Comparable cohorts distinguish technology companies with different economics."""
         mapping = ticker_to_cohort()

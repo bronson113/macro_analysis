@@ -93,5 +93,28 @@ def backfill():
         
     print(f"Backfilled {inserted} daily snapshots.")
 
+def backfill_valuations():
+    """Backfill 1-year historical peer-cohort relative multiples and sector valuations."""
+    print("Backfilling historical valuations (cohort-relative multiples and sector aggregates)...")
+    from raw_data_engine import RawDataEngine
+    from valuation import SectorValuationEngine
+    from storage import MacroStorage
+
+    storage = MacroStorage()
+    raw_engine = RawDataEngine(storage, verbose=False)
+    metrics = raw_engine.fetch_individual_stock_metrics()
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    price_histories = getattr(raw_engine, "_last_price_histories", None)
+    rel_count = raw_engine.save_relative_multiple_observations(
+        metrics, today_str, price_histories=price_histories
+    )
+    print(f"Saved {rel_count} cohort-relative valuation records.")
+
+    val_engine = SectorValuationEngine(storage)
+    sec_count = val_engine.save_historical_sector_valuations(price_histories=price_histories)
+    print(f"Saved {sec_count} historical sector valuation records.")
+
+
 if __name__ == '__main__':
+    backfill_valuations()
     backfill()

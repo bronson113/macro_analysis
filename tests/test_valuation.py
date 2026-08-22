@@ -157,3 +157,35 @@ class TestValuationPersistence(unittest.TestCase):
         self.assertEqual(
             storage.saved_observations["val_v2_forward_pe_xlp"][0]["value"], 15.0
         )
+
+    def test_save_historical_sector_valuations_persists_multi_day_aggregates(self):
+        """Historical sector valuation saves observations across multiple dates."""
+        storage = RecordingStorage()
+        engine = SectorValuationEngine(storage)
+        dates = pd.date_range("2025-08-01", periods=65, freq="4D")
+        
+        from valuation import SECTOR_CONSTITUENTS
+        all_tickers = sorted(list(set(t for tickers in SECTOR_CONSTITUENTS.values() for t in tickers)))
+        price_histories = {
+            t: pd.DataFrame({"Close": [100.0 + i for i in range(65)]}, index=dates)
+            for t in all_tickers
+        }
+        ticker_infos = {
+            t: {
+                "shortName": t,
+                "currentPrice": 164.0,
+                "forwardPE": 20.0,
+                "trailingPE": 25.0,
+                "enterpriseToEbitda": 15.0,
+                "marketCap": 500.0,
+                "enterpriseValue": 550.0,
+            }
+            for t in all_tickers
+        }
+        
+        saved = engine.save_historical_sector_valuations(
+            price_histories=price_histories, ticker_infos=ticker_infos
+        )
+        self.assertGreater(saved, 0)
+        self.assertIn("val_v2_forward_pe_xlk", storage.saved_observations)
+        self.assertEqual(len(storage.saved_observations["val_v2_forward_pe_xlk"]), 65)

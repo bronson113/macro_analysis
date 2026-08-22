@@ -191,7 +191,109 @@ class SectorValuationEngine:
 
         return sector_results
 
-    def save_valuations_to_storage(self, sector_results: List[Dict[str, Any]]):
+    def save_historical_sector_valuations(
+        self,
+        price_histories: Optional[Dict[str, pd.DataFrame]] = None,
+        ticker_infos: Optional[Dict[str, Dict[str, Any]]] = None,
+    ) -> int:
+        """Download price histories and save 1-year historical sector valuation aggregates."""
+        all_tickers = sorted(list(set(
+            ticker
+            for tickers in SECTOR_CONSTITUENTS.values()
+            for ticker in tickers
+        )))
+        if ticker_infos is None:
+            ticker_infos = get_many_ticker_info(all_tickers)
+
+        if not price_histories:
+            try:
+                import yfinance as yf
+                from config import configure_yfinance_cache
+                configure_yfinance_cache(yf)
+                data = yf.download(all_tickers, period="1y", group_by="ticker", progress=False, auto_adjust=False)
+                price_histories = {}
+                if data is not None and not data.empty:
+                    if isinstance(data.columns, pd.MultiIndex):
+                        level_zero = set(data.columns.get_level_values(0))
+                        level_one = set(data.columns.get_level_values(1))
+                        for t in all_tickers:
+                            if t in level_zero:
+                                price_histories[t] = data[t].dropna(how="all")
+                            elif t in level_one:
+                                price_histories[t] = data.xs(t, axis=1, level=1).dropna(how="all")
+            except Exception:
+                price_histories = {}
+
+        if not price_histories:
+            return 0
+
+        saved = 0
+        all_dates = set()
+        for df in price_histories.values():
+            if df is not None and not df.empty and "Close" in df.columns:
+                all_dates.update(df.index)
+        sorted_dates = sorted(all_dates)
+
+        for sector, tickers in SECTOR_CONSTITUENTS.items():
+            sector_hist: Dict[str, List[Dict[str, Any]]] = {m: [] for m in MULTIPLE_STORAGE_PREFIXES}
+            for dt in sorted_dates:
+                date_str = dt.strftime("%Y-%m-%d")
+                rows = []
+                for t in tickers:
+                    info = ticker_infos.get(t) or {}
+                    curr_p = info.get("currentPrice") or info.get("regularMarketPrice")
+                    df = price_histories.get(t)
+                    if df is None or dt not in df.index or not curr_p or curr_p <= 0:
+                        continue
+                    hist_p = df.loc[dt, "Close"]
+                    if isinstance(hist_p, pd.Series):
+                        hist_p = hist_p.iloc[0]
+                    if pd.isna(hist_p) or hist_p <= 0:
+                        continue
+
+                    ratio = float(hist_p) / float(curr_p)
+                    mc = info.get("marketCap")
+                    ev = info.get("enterpriseValue")
+                    tpe = info.get("trailingPE")
+                    fpe = info.get("forwardPE")
+                    eve = info.get("enterpriseToEbitda")
+
+                    mc_hist = mc * ratio if mc else None
+                    ev_hist = (ev - mc + mc_hist) if (ev and mc) else (ev * ratio if ev else None)
+                    tpe_hist = tpe * ratio if tpe else None
+                    fpe_hist = fpe * ratio if fpe else None
+                    eve_hist = eve * (ev_hist / ev) if (eve and ev and ev_hist) else (eve * ratio if eve else None)
+
+                    rows.append({
+                        "ticker": t,
+                        "marketCap": mc_hist,
+                        "enterpriseValue": ev_hist,
+                        "trailingPE": tpe_hist,
+                        "forwardPE": fpe_hist,
+                        "enterpriseToEbitda": eve_hist,
+                    })
+
+                agg = aggregate_sector_fundamentals(rows)
+                for m in MULTIPLE_STORAGE_PREFIXES:
+                    val = agg.get(m)
+                    if val is not None:
+                        sector_hist[m].append({"date": date_str, "value": val})
+
+            for m in MULTIPLE_STORAGE_PREFIXES:
+                if sector_hist[m]:
+                    res_count = self.storage.save_observations(
+                        self._storage_key(sector, m),
+                        pd.DataFrame(sector_hist[m]),
+                    )
+                    saved += res_count if res_count is not None else len(sector_hist[m])
+
+        return saved
+
+    def save_valuations_to_storage(
+        self,
+        sector_results: List[Dict[str, Any]],
+        price_histories: Optional[Dict[str, pd.DataFrame]] = None,
+    ):
         """Save each positive aggregate multiple as a dated CSV observation."""
         today_str = pd.Timestamp.now().strftime("%Y-%m-%d")
         for res in sector_results:
@@ -202,3 +304,5 @@ class SectorValuationEngine:
                     self.storage.save_observations(
                         self._storage_key(res["sector"], multiple), observation
                     )
+        if price_histories:
+            self.save_historical_sector_valuations(price_histories=price_histories)

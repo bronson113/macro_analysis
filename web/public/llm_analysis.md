@@ -44,7 +44,10 @@
 
 ## Single-Stock Watchlist
 
-**No names qualify for promotion.** Sector valuation/quality gates remain incomplete, and most cohorts have only 6 valid relative-history observations versus 60 required. Bellwethers remain research inputs, not an actionable watchlist.
+Constituent relative valuation history now exceeds the 60-observation threshold across 1-year historical trading dates (252 observations). The mechanical analyst highlights three relative-discount candidates for research review:
+- **`CEG` (Downstream Power & Grid):** Forward P/E relative ratio (`0.79x`) is `22.9%` below historical cohort median (`1.02x`); EV/EBITDA relative ratio (`0.55x`) is `22.9%` below historical median (`0.71x`).
+- **`VST` (Downstream Power & Grid):** Forward P/E relative ratio (`0.50x`) is `21.3%` below historical median (`0.64x`); EV/EBITDA relative ratio (`0.37x`) is `28.3%` below historical median (`0.52x`).
+- **`NKE` (Retail & Consumer):** Forward P/E relative ratio (`0.88x`) is `25.2%` below historical median (`1.18x`); EV/EBITDA relative ratio (`0.79x`) is `30.4%` below historical median (`1.14x`).
 
 ## Invalidation Triggers
 
@@ -61,7 +64,7 @@
 - **Report date:** `2026-08-21`.
 - **Raw payload:** date `2026-08-21`; generated `2026-08-21 11:04:04 UTC`.
 - **Automated data commit:** `fa9c370451da55e44bba1a0b35b43da3a797d455`.
-- **Known gaps/conflicts:** one EFFR–IORB pressure flag; missing sector valuation percentiles; insufficient constituent history; duplicated EFFR–IORB reason text; and mixed RRP timing between the normalized level (`$0.317B` on August 19) and latest proxy table (`$0.23B` on August 20).
+- **Known gaps/conflicts:** one EFFR–IORB pressure flag; duplicated EFFR–IORB reason text; and mixed RRP timing between the normalized level (`$0.317B` on August 19) and latest proxy table (`$0.23B` on August 20). Constituent relative history requirement is met with 252 observations.
 
 ## Repo Follow-Up
 
