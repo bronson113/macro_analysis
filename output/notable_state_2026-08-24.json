@@ -1,0 +1,12 @@
+[
+  {
+    "key": "macro:regime",
+    "fingerprint": "macro:regime|SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY|Interest Rates: Accommodative (current level)|Reserve Liquidity: Scarce (current level)|PARTIAL",
+    "body": "**Macro:** Active quadrant is `SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY` (Interest Rates: Accommodative (current level); Reserve Liquidity: Scarce (current level)). Policy is accommodative while reserve liquidity remains scarce; easing support is limited by the liquidity backdrop. Yield curve un-inversion is a caution signal."
+  },
+  {
+    "key": "valuation:shiller_pe",
+    "fingerprint": "valuation:shiller_pe|Very Expensive",
+    "body": "**Valuation:** Shiller PE Ratio is `41.96` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta."
+  }
+]
