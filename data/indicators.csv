@@ -1,51 +1,51 @@
 key,name,source,category,frequency,unit,last_updated
-fed_total_assets,Fed Total Assets (Millions of USD),FRED,Federal Reserve & Liquidity,weekly,millions,2026-08-25T11:01:02.313329
-reverse_repo,Overnight Reverse Repo (Billions of USD),FRED,Federal Reserve & Liquidity,daily,billions,2026-08-25T11:01:02.337262
-tga_balance,Treasury General Account (Millions of USD),FRED,Federal Reserve & Liquidity,weekly,millions,2026-08-25T11:01:02.318295
-effr,Daily Effective Federal Funds Rate (%),FRED,Federal Reserve & Liquidity,daily,percent,2026-08-25T11:01:02.358630
-dff,Daily Effective Federal Funds Rate (%),FRED,Federal Reserve & Liquidity,daily,percent,2026-08-25T11:01:02.382834
-m2_money_supply,M2 Money Supply (Billions of USD),FRED,Federal Reserve & Liquidity,monthly,,2026-08-25T11:01:20.126876
-bank_deposits,"Deposits, All Commercial Banks (Billions)",FRED,Federal Reserve & Liquidity,weekly,,2026-08-25T11:00:44.894685
-treasury_10y,10-Year Treasury Constant Maturity Rate (%),FRED,Rates & Yield Curve,daily,,2026-08-25T11:01:20.156942
-treasury_2y,2-Year Treasury Constant Maturity Rate (%),FRED,Rates & Yield Curve,daily,,2026-08-25T11:01:20.169996
-treasury_3m,3-Month Treasury Constant Maturity Rate (%),FRED,Rates & Yield Curve,daily,,2026-08-25T11:01:20.185355
-treasury_30y,30-Year Treasury Constant Maturity Rate (%),FRED,Rates & Yield Curve,daily,,2026-08-25T11:00:44.894685
-spread_10y_2y,10-Year minus 2-Year Treasury Spread (%),FRED,Rates & Yield Curve,daily,,2026-08-25T11:01:20.202747
-spread_10y_3m,10-Year minus 3-Month Treasury Spread (%),FRED,Rates & Yield Curve,daily,,2026-08-25T11:01:38.284665
-high_yield_oas,ICE BofA US High Yield Option-Adjusted Spread (%),FRED,Credit & Financial Conditions,daily,,2026-08-25T11:01:38.289132
-invest_grade_oas,ICE BofA AAA US Corporate Option-Adjusted Spread (%),FRED,Credit & Financial Conditions,daily,,2026-08-25T11:01:38.305744
-ccc_below_oas,ICE BofA CCC & Lower US High Yield OAS (%),FRED,Credit & Financial Conditions,daily,,2026-08-25T11:00:44.894685
-chicago_fed_nfci,Chicago Fed National Financial Conditions Index,FRED,Federal Reserve & Liquidity,weekly,,2026-08-25T11:01:38.319881
-nonfarm_payrolls,Total Nonfarm Payroll Employment (Thousands),FRED,Labor Market,monthly,,2026-08-25T11:01:38.334741
-unemployment_rate,Unemployment Rate (%),FRED,Labor Market,monthly,,2026-08-25T11:01:38.355933
-initial_claims,Initial Jobless Claims,FRED,Labor Market,weekly,,2026-08-25T11:01:56.633611
-continued_claims,Continued Jobless Claims,FRED,Labor Market,weekly,,2026-08-25T11:00:44.894685
-wage_growth,Average Hourly Earnings of All Employees ($/hr),FRED,Labor Market,monthly,,2026-08-25T11:00:44.894685
-job_openings,JOLTS Total Job Openings (Thousands),FRED,Labor Market,monthly,,2026-08-25T11:00:44.894685
-cpi,Consumer Price Index All Urban Consumers,FRED,Inflation,monthly,,2026-08-25T11:01:56.647957
-core_cpi,Core CPI (Less Food and Energy),FRED,Inflation,monthly,,2026-08-25T11:00:44.894685
-pce,Personal Consumption Expenditures Price Index,FRED,Inflation,monthly,,2026-08-25T11:00:44.894685
-core_pce,Core PCE Price Index,FRED,Inflation,monthly,index,2026-08-25T11:01:56.651693
-breakeven_5y,5-Year Breakeven Inflation Rate (%),FRED,Inflation,daily,,2026-08-25T11:01:56.656241
-breakeven_10y,10-Year Breakeven Inflation Rate (%),FRED,Inflation,daily,,2026-08-25T11:01:56.659952
+fed_total_assets,Fed Total Assets (Millions of USD),FRED,Federal Reserve & Liquidity,weekly,millions,2026-08-26T11:03:17.347743
+reverse_repo,Overnight Reverse Repo (Billions of USD),FRED,Federal Reserve & Liquidity,daily,billions,2026-08-26T11:03:17.371969
+tga_balance,Treasury General Account (Millions of USD),FRED,Federal Reserve & Liquidity,weekly,millions,2026-08-26T11:03:17.352566
+effr,Daily Effective Federal Funds Rate (%),FRED,Federal Reserve & Liquidity,daily,percent,2026-08-26T11:03:17.407528
+dff,Daily Effective Federal Funds Rate (%),FRED,Federal Reserve & Liquidity,daily,percent,2026-08-26T11:03:17.444042
+m2_money_supply,M2 Money Supply (Billions of USD),FRED,Federal Reserve & Liquidity,monthly,,2026-08-26T11:03:36.852908
+bank_deposits,"Deposits, All Commercial Banks (Billions)",FRED,Federal Reserve & Liquidity,weekly,,2026-08-26T11:02:58.121132
+treasury_10y,10-Year Treasury Constant Maturity Rate (%),FRED,Rates & Yield Curve,daily,,2026-08-26T11:03:36.875169
+treasury_2y,2-Year Treasury Constant Maturity Rate (%),FRED,Rates & Yield Curve,daily,,2026-08-26T11:03:36.894878
+treasury_3m,3-Month Treasury Constant Maturity Rate (%),FRED,Rates & Yield Curve,daily,,2026-08-26T11:03:36.909856
+treasury_30y,30-Year Treasury Constant Maturity Rate (%),FRED,Rates & Yield Curve,daily,,2026-08-26T11:02:58.121132
+spread_10y_2y,10-Year minus 2-Year Treasury Spread (%),FRED,Rates & Yield Curve,daily,,2026-08-26T11:03:36.928237
+spread_10y_3m,10-Year minus 3-Month Treasury Spread (%),FRED,Rates & Yield Curve,daily,,2026-08-26T11:03:56.840462
+high_yield_oas,ICE BofA US High Yield Option-Adjusted Spread (%),FRED,Credit & Financial Conditions,daily,,2026-08-26T11:03:56.844708
+invest_grade_oas,ICE BofA AAA US Corporate Option-Adjusted Spread (%),FRED,Credit & Financial Conditions,daily,,2026-08-26T11:03:56.861234
+ccc_below_oas,ICE BofA CCC & Lower US High Yield OAS (%),FRED,Credit & Financial Conditions,daily,,2026-08-26T11:02:58.121132
+chicago_fed_nfci,Chicago Fed National Financial Conditions Index,FRED,Federal Reserve & Liquidity,weekly,,2026-08-26T11:03:56.882185
+nonfarm_payrolls,Total Nonfarm Payroll Employment (Thousands),FRED,Labor Market,monthly,,2026-08-26T11:03:56.887854
+unemployment_rate,Unemployment Rate (%),FRED,Labor Market,monthly,,2026-08-26T11:03:56.909571
+initial_claims,Initial Jobless Claims,FRED,Labor Market,weekly,,2026-08-26T11:04:17.044703
+continued_claims,Continued Jobless Claims,FRED,Labor Market,weekly,,2026-08-26T11:02:58.121132
+wage_growth,Average Hourly Earnings of All Employees ($/hr),FRED,Labor Market,monthly,,2026-08-26T11:02:58.121132
+job_openings,JOLTS Total Job Openings (Thousands),FRED,Labor Market,monthly,,2026-08-26T11:02:58.121132
+cpi,Consumer Price Index All Urban Consumers,FRED,Inflation,monthly,,2026-08-26T11:04:17.049112
+core_cpi,Core CPI (Less Food and Energy),FRED,Inflation,monthly,,2026-08-26T11:02:58.121132
+pce,Personal Consumption Expenditures Price Index,FRED,Inflation,monthly,,2026-08-26T11:02:58.121132
+core_pce,Core PCE Price Index,FRED,Inflation,monthly,index,2026-08-26T11:04:17.061420
+breakeven_5y,5-Year Breakeven Inflation Rate (%),FRED,Inflation,daily,,2026-08-26T11:04:17.065090
+breakeven_10y,10-Year Breakeven Inflation Rate (%),FRED,Inflation,daily,,2026-08-26T11:04:17.068772
 gdp,Real Gross Domestic Product (Billions),FRED,Economic Growth,quarterly,,2026-08-15T11:34:33.331157
-retail_sales,Advance Retail Sales (Millions),FRED,Economic Growth,monthly,,2026-08-25T11:00:44.894685
-industrial_production,Industrial Production Index,FRED,Economic Growth,monthly,,2026-08-25T11:00:44.894685
-housing_starts,Housing Starts: Total New Privately Owned,FRED,Economic Growth,monthly,,2026-08-25T11:01:59.816740
-sp500,SP500 (^GSPC),YAHOO,Market Prices,daily,,2026-08-25T11:02:22.579726
-nasdaq,NASDAQ (^IXIC),YAHOO,Market Prices,daily,,2026-08-25T11:00:44.894685
-vix,VIX (^VIX),YAHOO,Market Prices,daily,,2026-08-25T11:02:22.572322
-dxy,DXY (DX-Y.NYB),YAHOO,Market Prices,daily,,2026-08-25T11:02:22.576074
-crude_oil,CRUDE_OIL (CL=F),YAHOO,Market Prices,daily,,2026-08-25T11:02:22.562217
-gold,GOLD (GC=F),YAHOO,Market Prices,daily,,2026-08-25T11:02:22.568292
-copper,COPPER (HG=F),YAHOO,Market Prices,daily,,2026-08-25T11:02:25.702640
-hyg_etf,HYG_ETF (HYG),YAHOO,Market Prices,daily,,2026-08-25T11:00:44.894685
-lqd_etf,LQD_ETF (LQD),YAHOO,Market Prices,daily,,2026-08-25T11:00:44.894685
-treasury_20y_etf,TREASURY_20Y_ETF (TLT),YAHOO,Market Prices,daily,,2026-08-25T11:00:44.894685
-cnn_fear_greed_index,CNN Fear & Greed Index,CNN,Market Sentiment,daily,,2026-08-25T11:02:29.214795
-shiller_pe,Shiller PE Ratio,Multpl,Market Valuation,daily,,2026-08-25T11:02:32.499339
-iorb,Interest on Reserve Balances (%),FRED,Economic Growth,daily,percent,2026-08-25T11:01:02.351247
-sofr,Secured Overnight Financing Rate (%),FRED,Economic Growth,daily,percent,2026-08-25T11:01:20.122380
-nominal_gdp,Nominal Gross Domestic Product (Billions of USD),FRED,Economic Growth,quarterly,billions,2026-08-25T11:01:56.663706
-real_gdp,Real Gross Domestic Product (Billions of Chained 2017 Dollars),FRED,Economic Growth,quarterly,billions,2026-08-25T11:00:44.894685
-rstar,Holston-Laubach-Williams Natural Rate of Interest,NY Fed HLW,Federal Reserve & Liquidity,quarterly,percent,2026-08-25T11:02:04.478209
+retail_sales,Advance Retail Sales (Millions),FRED,Economic Growth,monthly,,2026-08-26T11:02:58.121132
+industrial_production,Industrial Production Index,FRED,Economic Growth,monthly,,2026-08-26T11:02:58.121132
+housing_starts,Housing Starts: Total New Privately Owned,FRED,Economic Growth,monthly,,2026-08-26T11:04:20.473679
+sp500,SP500 (^GSPC),YAHOO,Market Prices,daily,,2026-08-26T11:04:44.257230
+nasdaq,NASDAQ (^IXIC),YAHOO,Market Prices,daily,,2026-08-26T11:02:58.121132
+vix,VIX (^VIX),YAHOO,Market Prices,daily,,2026-08-26T11:04:44.260903
+dxy,DXY (DX-Y.NYB),YAHOO,Market Prices,daily,,2026-08-26T11:04:44.249879
+crude_oil,CRUDE_OIL (CL=F),YAHOO,Market Prices,daily,,2026-08-26T11:04:44.253623
+gold,GOLD (GC=F),YAHOO,Market Prices,daily,,2026-08-26T11:04:44.243925
+copper,COPPER (HG=F),YAHOO,Market Prices,daily,,2026-08-26T11:04:47.622062
+hyg_etf,HYG_ETF (HYG),YAHOO,Market Prices,daily,,2026-08-26T11:02:58.121132
+lqd_etf,LQD_ETF (LQD),YAHOO,Market Prices,daily,,2026-08-26T11:02:58.121132
+treasury_20y_etf,TREASURY_20Y_ETF (TLT),YAHOO,Market Prices,daily,,2026-08-26T11:02:58.121132
+cnn_fear_greed_index,CNN Fear & Greed Index,CNN,Market Sentiment,daily,,2026-08-26T11:04:51.377116
+shiller_pe,Shiller PE Ratio,Multpl,Market Valuation,daily,,2026-08-26T11:04:54.961932
+iorb,Interest on Reserve Balances (%),FRED,Economic Growth,daily,percent,2026-08-26T11:03:17.387008
+sofr,Secured Overnight Financing Rate (%),FRED,Economic Growth,daily,percent,2026-08-26T11:03:36.848787
+nominal_gdp,Nominal Gross Domestic Product (Billions of USD),FRED,Economic Growth,quarterly,billions,2026-08-26T11:04:17.073338
+real_gdp,Real Gross Domestic Product (Billions of Chained 2017 Dollars),FRED,Economic Growth,quarterly,billions,2026-08-26T11:02:58.121132
+rstar,Holston-Laubach-Williams Natural Rate of Interest,NY Fed HLW,Federal Reserve & Liquidity,quarterly,percent,2026-08-26T11:04:25.389448
