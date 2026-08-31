@@ -1,73 +1,83 @@
-# 2026-08-26 — FRESH
+# 2026-08-31 — FRESH
 
-*LLM macro risk review for a tax-aware 3-month to 1-year horizon. Research posture only; not personalized financial advice.*
+*LLM macro risk review for a tax-aware 3-month to 1-year horizon. Research posture only; not personalized financial advice. Per the controlling Defiant Gatekeeper skill, execution-style BUY/SELL/ACCUMULATE/TRIM labels are suppressed; WATCH/NEUTRAL/AVOID are research-priority states only.*
 
 ## Macro Read
 
-- **Current State:** **Situation 2 — accommodative policy + scarce reserve liquidity.** Policy is classified from the real-policy gap, not the yield curve: DFF is `3.63%`, core PCE YoY `3.287%`, r-star `1.057%`, and the gap is `-0.714 pp` (accommodative). Normalized reserve liquidity is `17.887% of GDP`, at the `14.4th` historical percentile versus P40 `20.253` and P60 `21.420`; the level remains scarce.
-- **Momentum:** Policy is `STABLE` over 30 days (`0.000 pp`) and `TIGHTENING` over 90 days (`+0.145 pp`). Liquidity remains `DETERIORATING` over 30 days (`-0.316 pp of GDP`) and 90 days (`-0.157 pp`). The latest dollar proxy is `$5,808.89B`, down `$138.13B` over 30 days. Fed assets are `$6,745.70B`, TGA `$936.41B`, and latest RRP `$0.41B`. This is reserve-liquidity contraction, not QE.
-- **Market Consensus:** The July 15 NY Fed SME survey expects DFF at `3.63%` around six months ahead (`STABLE`) and Fed assets at `$6,836B` (`EXPANDING`). This is a balance-sheet forecast—not a TGA/RRP-adjusted liquidity forecast—and does not change Situation 2.
-- **Interpretation:** The published 10Y–2Y spread is `+47 bp` and 10Y–3M is `+78 bp`; un-inversion is a cycle-risk diagnostic, not the policy axis. Credit remains benign—HY OAS `2.69%`, IG OAS `0.42%`, NFCI `-0.59`—and VIX remains low at `15.69`. Unemployment is `4.1%`, the 5Y breakeven is `2.31%`, and the `2.38%` real-yield proxy plus Shiller P/E `41.97` still constrain expensive duration.
-- **Data Quality:** Overall `PARTIAL`. Core level inputs pass freshness/history gates. EFFR–IORB is `-2 bp` and triggers one reserve-pressure flag; SOFR–IORB at `-1.0 bp` does not. One flag lowers confidence without withholding the quadrant. Sector valuation coverage is usable for six ETFs but missing for Staples and four themes.
+### Current State
+- **Situation 2 — ACCOMMODATIVE policy + SCARCE reserve liquidity.** Policy is classified from the real-policy gap, not the yield curve: DFF `3.63%`, core PCE YoY `3.344%`, r-star `1.009%`, real policy rate `0.286%`, and policy gap `-0.723 pp`.
+- **Reserve liquidity:** `$5,770.78B` on the level-gate calculation, equal to `17.764% of GDP`, at the `13.0th` historical percentile versus P40 `20.251` and P60 `21.420`. This is scarce. The proxy is Fed assets minus TGA minus RRP; it is a reserve-supply heuristic, not QE.
 
-**Research posture:** selective defense only. Slightly lower real yields and tighter credit are constructive, but scarce/deteriorating liquidity, expensive sector valuations, and complacent volatility do not support broad accumulation.
+### Momentum
+- **Policy:** `STABLE` over 30 days (`+0.000 pp`) and `STABLE` over 90 days (`+0.009 pp`).
+- **Liquidity:** `STABLE` over 30 days (`+0.017 pp of GDP`) but `DETERIORATING` over 90 days (`-0.274 pp`). The report's latest dollar proxy is `$5,771.30B`, down `$139.28B` over 30 days.
+
+### Market Consensus
+- July 15 NY Fed SME survey: DFF around six months ahead `3.63%` (`STABLE`) and Fed assets `$6,836B` (`EXPANDING`). The balance-sheet forecast does **not** forecast TGA or RRP and does not change Situation 2.
+
+### Interpretation
+- **Yield curve:** 10Y `4.67%`, 2Y `4.20%`, published 10Y–2Y spread `+39 bp`, 10Y–3M `+83 bp`; un-inversion remains a cycle-risk diagnostic, not a policy-stance input. The real-yield proxy is `2.36%`, still restrictive for expensive duration assets.
+- **Credit / volatility:** HY OAS `2.60%`, IG OAS `0.41%`, NFCI `-0.58`, VIX `15.18`. Financial stress is low, but low volatility alongside scarce liquidity and a Shiller P/E of `42.17` argues against treating benign credit as an all-clear.
+- **Labor / inflation:** unemployment is `4.1%`; 5Y breakeven is `2.30%`; core PCE YoY remains `3.344%`. The backdrop is not recessionary enough to force defense, but inflation and valuation still limit duration upside.
+
+### Data Quality
+- **Overall:** `PARTIAL`; policy `OK`, liquidity `PARTIAL`.
+- Core level freshness/history gates pass. One EFFR–IORB reserve-pressure flag is active; that lowers confidence without withholding the quadrant.
+- Sector evidence gate states: **“No meaningful sector differentiation from current evidence.”** Eleven sector assessments are usable, but all are constrained by macro input quality.
 
 ## What Changed
 
-- The quadrant, normalized liquidity level, and 30/90-day momentum are unchanged. The latest proxy fell about `$0.03B` as RRP rose from `$0.38B` to `$0.405B`; Fed assets and TGA were unchanged. The 30-day contraction moved from `-$138.11B` to `-$138.13B`.
-- The 10Y yield fell `4 bp` to `4.70%`; the 2Y held at `4.24%`. The real-yield proxy fell `4 bp` to `2.38%`, while the published 10Y–2Y series widened `1 bp` to `+47 bp`.
-- HY OAS tightened `1 bp` to `2.69%`; IG OAS tightened `1 bp` to `0.42%`. VIX fell `0.15` to `15.69`, reinforcing the low-stress/complacency reading.
-- S&P 500 rose about `0.32%` to `7,677.28`; Fear & Greed rose from `54.63` to `59.09`; Shiller P/E rose to `41.97`.
-- WTI fell another `$2.17` to `$80.38`; gold fell to `$4,678.30`; copper rose about `2.6%` to `$6.81`.
-- The relative-value screen narrowed to `VST` and `NKE`. `ORCL` fell below the 20% threshold; VST now qualifies only through EV/EBITDA, while NKE's discounts widened.
+- Versus August 28, the **quadrant and current levels are unchanged**: policy gap remains `-0.723 pp`, normalized liquidity `17.764% of GDP`, percentile `13.0th`.
+- Policy 90-day momentum improved from `TIGHTENING (+0.130 pp)` to `STABLE (+0.009 pp)`. Liquidity remains `STABLE` over 30 days and `DETERIORATING` over 90 days.
+- Credit tightened modestly: HY OAS `2.63% → 2.60%`; IG OAS `0.42% → 0.41%`. Shiller P/E eased `42.27 → 42.17`, still extremely expensive.
+- Current market snapshots show VIX `15.18`, DXY `99.42`, WTI `$85.67`, gold `$4,480.10`, copper `$6.684`, and S&P 500 `7,677.57`.
+- The automated constituent screen still flags `VST` and `NKE` on relative valuation, but neither clears the full quality/structural gate required for promotion.
 
 ## Sector Actions
 
-| Sector / theme | Research action | Confidence | Judgment |
+**Execution labels are intentionally withheld under the controlling skill. Evidence posture:**
+
+| Sector / theme | Posture | Confidence | Judgment |
 |---|---|---:|---|
-| Consumer Staples (XLP) | **HOLD / SELECTIVE BUY** | Low-Moderate | Situation 2 favors defensive demand, but the sector valuation percentile remains missing. |
-| Power / Grid | **HOLD** | Moderate-Low | Theme multiples are `24.17x` FPE and `28.45x` EV/EBITDA; only VST's EV/EBITDA relative discount clears the screen, and quality checks remain incomplete. |
-| Healthcare (XLV) | **HOLD / CAUTION** | High | The defensive macro fit cannot override a `100th` valuation percentile. |
-| Energy (XLE) | **HOLD / CAUTION** | High | The `96.9th` valuation percentile and WTI near `$80.38` argue against incremental exposure. |
-| Financials (XLF) | **HOLD / CAUTION** | High | The `95.7th` valuation percentile is rich, while funding, deposit, and credit-quality evidence remain incomplete. |
-| Technology (XLK) | **HOLD / CAUTION** | High | The `89.8th` valuation percentile, `2.38%` real yield, and scarce liquidity remain a poor setup for incremental beta. |
-| Industrials (XLI) | **HOLD / CAUTION** | Moderate-High | Valuation rose to the `61.6th` percentile; scarce liquidity and weak housing evidence offset stronger copper. |
-| Consumer Discretionary (XLY) | **HOLD / CAUTION** | Moderate-High | Valuation is nearer neutral at the `43.9th` percentile, but Situation 2 and cyclical-demand risk limit conviction. |
-| AI Compute / HBM / Cooling | **HOLD / CAUTION** | High | Forward P/E discounts conflict with EV/EBITDA near `23.6x–39.5x`; theme percentiles and quality/catalyst confirmation are missing. |
-| Physical AI / Robotics | **SELL / TRIM** | Moderate-High | `35.84x` forward P/E and `57.69x` EV/EBITDA remain poor compensation for scarce liquidity; account for tax friction. |
-| Critical Materials / Magnets | **HOLD / CAUTION** | Moderate | Copper strength helps, but `43.69x` forward P/E and incomplete quality evidence cap conviction. |
+| Consumer Staples | `NEUTRAL` | Low-Moderate | Situation 2 is directionally supportive, but the sector evidence gate does not validate differentiation. |
+| Healthcare | `NEUTRAL` | Moderate | Defensive macro fit is not enough by itself; valuation and revisions must confirm. |
+| Power / Grid | `NEUTRAL` | Moderate-Low | VST has relative-value evidence, but sector-level confirmation and structural checks are incomplete. |
+| Energy | `NEUTRAL` | Moderate | Higher WTI helps cash-flow context, but the current evidence gate does not support a stronger posture. |
+| Financials | `NEUTRAL` | Moderate | Benign credit helps, but funding/deposit evidence and sector differentiation remain insufficient. |
+| Technology / AI infrastructure | `NEUTRAL` | Moderate-High | Scarce liquidity, `2.36%` real yield, and broad valuation require stronger earnings/valuation evidence before upgrading. |
+| Consumer Discretionary | `NEUTRAL` | Moderate-High | Situation 2 is a cyclical headwind; no sector-level evidence justifies a directional call. |
+| Industrials | `NEUTRAL` | Moderate | Copper is supportive, but scarce liquidity and the sector gate prevent promotion. |
+| Physical AI / Robotics | `NEUTRAL` | Low | Comparable-peer evidence is insufficient; do not convert thematic enthusiasm or expensive headline multiples into an action signal. |
 
 ### Mechanical Recommendation Overrides
 
-1. The yield table again labels the `3.63%` policy rate **“HOLDING_RESTRICTIVE.”** The framework requires classification from the `-0.714 pp` real-policy gap. **Corrected view: ACCOMMODATIVE current policy; the `2.38%` real yield is a separate duration diagnostic.**
-2. The report favors Healthcare as a quadrant hypothesis while XLV's valuation factor is at the `100th` percentile. A macro hypothesis cannot override valuation. **Corrected view: HOLD / CAUTION.**
-3. AI Compute, HBM, and Datacenter Cooling remain labeled **“Undervalued / Discounted Super-Cycle”** despite EV/EBITDA of `39.48x`, `23.78x`, and `23.61x`, plus missing theme percentiles and quality/catalyst confirmation. **Corrected view: HOLD / CAUTION.**
-4. Several constituent rows describe ratios above historical medians as “relative discounts.” That reverses the sign. **Corrected view: above-median relationships are premiums.**
-5. The report says **“No meaningful sector differentiation”** while publishing favored/disfavored lists. **Corrected view: those lists are unvalidated quadrant hypotheses only.**
+1. The yield table labels the `3.63%` policy rate **`HOLDING_RESTRICTIVE`**. That violates the framework rule that policy stance comes from the real-policy gap. **Corrected view: current policy is ACCOMMODATIVE (`-0.723 pp` gap); the yield curve and real yield are separate diagnostics.**
+2. The automated report lists Healthcare and Staples as “favored sector hypotheses” while its own sector gate says **“No meaningful sector differentiation from current evidence.”** **Corrected view: those are quadrant hypotheses, not validated sector recommendations.**
+3. Several constituent rows describe cohort ratios **above** historical medians as “relative discounts” (for example AMD and AMZN). That reverses the sign. **Corrected view: above-median relative multiples are premiums, not discounts.**
 
 ## Single-Stock Watchlist
 
-**No names are promoted.** The automated screen flags `VST` (24.4% EV/EBITDA relative discount; FPE discount only 17.7%) and `NKE` (27.0% FPE and 32.7% EV/EBITDA discounts). VST lacks sector valuation and explicit balance-sheet/regulatory/catalyst checks. NKE sits in a macro-cautioned sector and lacks integrated margin, inventory, earnings, balance-sheet, legal, and structural-break confirmation. `ORCL` dropped below the screen at 18.6% and 19.2% discounts.
+**No names pass the full Gatekeeper promotion test.** `VST` is `WATCH` on the automated relative-value screen because EV/EBITDA is `23.8%` below its historical cohort relationship, but forward P/E is only `16.7%` below and the report does not independently establish the required balance-sheet, earnings, legal/regulatory, catalyst, and structural-break checks. `NKE` clears the valuation threshold (`25.8%` FPE and `30.9%` EVE relative discounts) but belongs to a cyclically vulnerable discretionary cohort and likewise lacks the integrated quality/structural confirmation required for inclusion.
 
 ## Invalidation Triggers
 
-- **Upgrade risk posture** if 30-day normalized liquidity turns `IMPROVING`, the level rises above P40, the reserve-pressure flag clears, credit stays benign, and sector valuation/earnings evidence improves.
-- **Downgrade risk posture** if HY OAS rises above `4.5%` or widens rapidly, NFCI turns positive, VIX sustains above `25`, labor weakens materially, or liquidity deterioration accelerates.
-- **Policy reclassification** requires the real-policy gap to move above `-0.50 pp`; nominal-rate and curve moves alone do not change the state.
-- **Healthcare/Energy upgrade** requires valuation percentiles to normalize and earnings revisions/cash-flow evidence to confirm the macro hypothesis.
-- **VST/NKE promotion** requires balance-sheet, earnings-revision, cash-flow, catalyst, legal/regulatory, and structural-break checks.
-- **AI/HBM/cooling upgrade** requires consistent forward P/E and EV/EBITDA evidence, theme history/percentiles, strong balance sheets, and improving revisions/catalysts.
+- **Macro upgrade:** normalized liquidity rises above P40 (`20.251% of GDP`) or 30-day liquidity turns `IMPROVING`, reserve-pressure corroboration clears, and credit remains benign.
+- **Macro downgrade:** HY OAS moves above `4.5%` or widens rapidly, NFCI turns positive, VIX sustains above `25`, labor weakens materially, or liquidity deterioration accelerates.
+- **Policy-state change:** real-policy gap must cross above `-0.50 pp` to leave accommodative territory; nominal-rate or curve changes alone do not reclassify policy.
+- **Sector upgrade:** require sector valuation, earnings revisions, and sector-specific quality evidence to create meaningful differentiation rather than relying on the quadrant mapping.
+- **Single-stock promotion:** require the ≥20% relative valuation gate plus explicit balance-sheet, earnings, legal/regulatory, catalyst, and structural-break checks.
 
 ## Freshness Check
 
-- **Daily GitHub Action:** [run `32961272828`](https://github.com/bronson113/macro_analysis/actions/runs/32961272828) completed successfully for the August 26 scheduled publication.
-- **Report date:** `2026-08-26`.
-- **Raw payload:** date `2026-08-26`; generated `2026-08-26 11:17:15 UTC`.
-- **Automated data commit:** `cc33110cb80629362e23a8dfb29f822cb69bba14`.
-- **Known gaps/conflicts:** one EFFR–IORB pressure flag; duplicated pressure-reason text; four theme and Staples valuation percentiles missing; quality/catalyst checks absent from constituent `WATCH` promotion; the 10Y–2Y spread series (`+47 bp`, August 25) is mixed with 10Y/2Y components (`4.70%/4.24%`, August 24); and the core liquidity level uses RRP `$0.317B` from August 19 while the latest proxy table uses `$0.405B` from August 25.
+- **Daily GitHub Action:** run `33420871251` completed successfully on `2026-08-31`.
+- **Report date:** `2026-08-31`.
+- **Raw payload:** date `2026-08-31`; generated `2026-08-31T17:55:43.560052`.
+- **Automated data commit:** `a92940e474b8ee1f07f7851f9ae2df4a86713abb`.
+- **Key observation dates:** DFF `2026-08-27`; Fed assets/TGA `2026-08-26`; RRP `2026-08-28`; HY/IG OAS `2026-08-28`; VIX/market snapshots `2026-08-31`; nominal GDP `2026-04-01`.
+- **Known gaps/conflicts:** one EFFR–IORB reserve-pressure flag; duplicated pressure-reason text in the report; favored/disfavored quadrant hypotheses conflict with the sector evidence gate's no-differentiation conclusion; sign-inverted “relative discount” wording remains in multiple constituent rows; and the proxy table (`$5,771.30B`) differs slightly from the level-gate calculation (`$5,770.78B`) because the presentations use different RRP observations.
 
 ## Repo Follow-Up
 
-**Issue:** deterministic presentation contradicts the controlling policy state, lets macro hypotheses outrun valuation evidence, overstates thematic valuation confidence, reverses premium/discount wording, and mixes observation dates.
+**Issue:** deterministic presentation still contradicts the controlling policy state, reverses premium/discount wording for above-median cohort relationships, duplicates liquidity-quality reasons, and presents favored/disfavored sector hypotheses next to a gate that says no meaningful sector differentiation.
 
-**Proposed Codex task:** make the yield-table stance reuse `current_state.policy`; gate favored-sector presentation on sector valuation evidence; gate “Undervalued / Discounted Super-Cycle” and constituent promotion on multiple consistency plus quality/catalyst checks; render signed cohort differences correctly; label favored/disfavored lists as unvalidated hypotheses when the sector gate finds no differentiation; deduplicate quality reasons; and align or explicitly date the curve and RRP presentations.
+**Proposed Codex task:** make the yield-table stance reuse `macro_regime.current_state.policy`; calculate and render signed cohort-relative valuation language from the ratio direction; deduplicate liquidity-quality reasons; label favored/disfavored lists explicitly as unvalidated quadrant hypotheses when the sector evidence gate suppresses ranking; and align the reserve-liquidity proxy table with the same point-in-time RRP observation used by the level gate (or clearly date both calculations).
