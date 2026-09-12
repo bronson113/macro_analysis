@@ -9,17 +9,18 @@ const formatRefreshTime = (lastRefresh) => {
   }).format(lastRefresh);
 };
 
-const Header = ({ metadata, reports = [], lastRefresh, onOpenCheatSheet }) => {
+const Header = ({ metadata, reports = [], weeklyDigests = [], lastRefresh, onOpenCheatSheet }) => {
   const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
   const newestReport = reports[0]?.date || metadata?.date || 'Unavailable';
   const oldestReport = reports[reports.length - 1]?.date || metadata?.date || 'Unavailable';
   const archiveRange = reports.length > 1 ? `${oldestReport}–${newestReport}` : newestReport;
+  const latestWeek = weeklyDigests[0]?.label || '';
 
   return (
     <header className="dashboard-header masthead animate-fade-in stagger-1">
       <div className="masthead-brand">
         <h1 className="masthead-wordmark">MACRO / SIGNAL</h1>
-        <p className="masthead-descriptor">Daily market intelligence</p>
+        <p className="masthead-descriptor">Daily & weekly market intelligence</p>
       </div>
 
       <div className="masthead-utilities">
@@ -30,9 +31,15 @@ const Header = ({ metadata, reports = [], lastRefresh, onOpenCheatSheet }) => {
             <strong>{freshness.label} · {freshness.ageLabel}</strong>
           </span>
           <span className="metadata-chip">
-            <span>Report</span>
+            <span>Daily</span>
             <strong>{newestReport}</strong>
           </span>
+          {latestWeek && (
+            <span className="metadata-chip">
+              <span>Week</span>
+              <strong>{latestWeek}</strong>
+            </span>
+          )}
           <span className="metadata-chip">
             <span>Archive</span>
             <strong>{archiveRange}</strong>

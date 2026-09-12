@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect, useId, useRef } from 'react';
-import { splitReportSections } from '../utils/dashboardPresentation';
+import { splitReportSections, splitWeeklyDigestSections } from '../utils/dashboardPresentation';
 import { useDialogFocus } from '../hooks/useDialogFocus';
 import { getNextTabIndex } from '../utils/keyboardNavigation';
 import { buildMarkdownUrl } from '../utils/markdownSource';
@@ -7,12 +7,21 @@ import MarkdownContent from './MarkdownComponents';
 import RegimeOverview from './RegimeOverview';
 
 const latestReport = { date: '', path: '/latest_report.md' };
+const latestWeeklyDigest = { date: '', path: '/latest_weekly_digest.md' };
 
-const BigUpdate = ({ reports = [], macroRegime, macroSituation, macroRegimeSections }) => {
+const BigUpdate = ({
+  reports = [],
+  weeklyDigests = [],
+  macroRegime,
+  macroSituation,
+  macroRegimeSections,
+}) => {
+  const [reportMode, setReportMode] = useState('daily');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
+  const [selectedWeekDate, setSelectedWeekDate] = useState('');
   const [reportError, setReportError] = useState('');
   const [activeTab, setActiveTab] = useState('summary');
   const dateInputRef = useRef(null);
@@ -30,14 +39,24 @@ const BigUpdate = ({ reports = [], macroRegime, macroSituation, macroRegimeSecti
   });
 
   useEffect(() => {
-    const selectedReport = reports.find(report => report.date === selectedDate) || latestReport;
-    const isLatest = !selectedDate;
+    let reportPath = '';
+    let isLatest = true;
+
+    if (reportMode === 'daily') {
+      const selectedReport = reports.find(report => report.date === selectedDate) || latestReport;
+      reportPath = selectedReport.path;
+      isLatest = !selectedDate;
+    } else {
+      const activeWeek = weeklyDigests.find(w => w.date === selectedWeekDate) || weeklyDigests[0] || latestWeeklyDigest;
+      reportPath = activeWeek.path;
+      isLatest = !selectedWeekDate || (weeklyDigests[0] && selectedWeekDate === weeklyDigests[0].date);
+    }
 
     const fetchReport = () => {
       setReportError('');
-      fetch(buildMarkdownUrl(import.meta.env.BASE_URL, selectedReport.path, Date.now()))
+      fetch(buildMarkdownUrl(import.meta.env.BASE_URL, reportPath, Date.now()))
         .then(res => {
-          if (!res.ok) throw new Error('Failed to load the selected report.');
+          if (!res.ok) throw new Error(`Failed to load the selected ${reportMode === 'weekly' ? 'weekly digest' : 'daily report'}.`);
           return res.text();
         })
         .then(text => {
@@ -56,22 +75,40 @@ const BigUpdate = ({ reports = [], macroRegime, macroSituation, macroRegimeSecti
     fetchReport();
     if (!isLatest) return undefined;
 
-    const interval = setInterval(fetchReport, 60000); // refresh every minute
+    const interval = setInterval(fetchReport, 60000);
     return () => clearInterval(interval);
-  }, [reports, selectedDate]);
+  }, [reports, weeklyDigests, selectedDate, selectedWeekDate, reportMode]);
 
-  if (loading) return <div className="glass-panel text-muted">Loading Big Update...</div>;
+  if (loading && !content) return <div className="glass-panel text-muted">Loading Big Update...</div>;
 
   const newestDate = reports[0]?.date || '';
   const oldestDate = reports[reports.length - 1]?.date || '';
   const displayedDate = selectedDate || newestDate;
-  const reportSections = splitReportSections(content);
-  const reportTabs = [
-    { id: 'summary', label: 'Summary', content: reportSections.summary },
-    { id: 'active', label: 'Active Situation', content: reportSections.active },
-    { id: 'risks', label: 'Risks', content: reportSections.risks },
-    { id: 'full', label: 'Full Report', content: reportSections.full },
-  ].filter(tab => tab.content);
+
+  const newestWeekDate = weeklyDigests[0]?.date || '';
+  const displayedWeekDate = selectedWeekDate || newestWeekDate;
+  const currentWeeklyDigest = weeklyDigests.find(w => w.date === displayedWeekDate) || weeklyDigests[0];
+
+  let reportTabs = [];
+  if (reportMode === 'daily') {
+    const reportSections = splitReportSections(content);
+    reportTabs = [
+      { id: 'summary', label: 'Summary', content: reportSections.summary },
+      { id: 'active', label: 'Active Situation', content: reportSections.active },
+      { id: 'risks', label: 'Risks', content: reportSections.risks },
+      { id: 'full', label: 'Full Report', content: reportSections.full },
+    ].filter(tab => tab.content);
+  } else {
+    const weeklySections = splitWeeklyDigestSections(content);
+    reportTabs = [
+      { id: 'summary', label: 'Summary', content: weeklySections.summary },
+      { id: 'active', label: 'Active Situation', content: weeklySections.active },
+      { id: 'deltas', label: 'Weekly Deltas', content: weeklySections.deltas },
+      { id: 'catalysts', label: 'Catalysts & Outlook', content: weeklySections.catalysts },
+      { id: 'full', label: 'Full Digest', content: weeklySections.full },
+    ].filter(tab => tab.content);
+  }
+
   const visibleTab = reportTabs.some(tab => tab.id === activeTab) ? activeTab : reportTabs[0]?.id;
 
   const selectReportDate = nextDate => {
@@ -97,6 +134,10 @@ const BigUpdate = ({ reports = [], macroRegime, macroSituation, macroRegimeSecti
     selectReportDate(dateInputRef.current?.value || '');
   };
 
+  const handleWeekChange = event => {
+    setSelectedWeekDate(event.target.value);
+  };
+
   const handleTabKeyDown = (event, currentIndex) => {
     const nextIndex = getNextTabIndex({
       key: event.key,
@@ -115,43 +156,113 @@ const BigUpdate = ({ reports = [], macroRegime, macroSituation, macroRegimeSecti
       <section className="section animate-fade-in stagger-2" aria-labelledby="big-update-heading">
         <div className="section-header big-update-header">
           <div>
-            <p className="section-kicker">Daily Brief</p>
-            <h2 id="big-update-heading">The Big Update</h2>
+            <p className="section-kicker">
+              {reportMode === 'weekly' ? 'Weekly Digest' : 'Daily Brief'}
+            </p>
+            <h2 id="big-update-heading">
+              {reportMode === 'weekly' ? 'The Weekly Digest' : 'The Big Update'}
+            </h2>
           </div>
-          <div className="report-date-picker">
-            <label htmlFor="report-date">Date</label>
-            <input
-              id="report-date"
-              ref={dateInputRef}
-              type="date"
-              value={displayedDate}
-              min={oldestDate}
-              max={newestDate}
-              onInput={handleDateChange}
-              onChange={handleDateChange}
-              disabled={!reports.length}
-            />
-            <button className="range-btn" type="button" onClick={handleLoadSelectedDate} disabled={!reports.length}>
-              Load
-            </button>
-            {selectedDate && (
-              <button className="range-btn" type="button" onClick={() => setSelectedDate('')}>
-                Latest
+
+          <div className="report-controls-bar">
+            <div className="report-mode-toggle" role="group" aria-label="Report view mode">
+              <button
+                type="button"
+                className={`mode-btn ${reportMode === 'daily' ? 'active' : ''}`}
+                onClick={() => { setReportMode('daily'); setActiveTab('summary'); }}
+              >
+                Daily Brief
               </button>
+              <button
+                type="button"
+                className={`mode-btn ${reportMode === 'weekly' ? 'active' : ''}`}
+                onClick={() => { setReportMode('weekly'); setActiveTab('summary'); }}
+              >
+                Weekly Digest
+              </button>
+            </div>
+
+            {reportMode === 'daily' ? (
+              <div className="report-date-picker">
+                <label htmlFor="report-date">Date</label>
+                <input
+                  id="report-date"
+                  ref={dateInputRef}
+                  type="date"
+                  value={displayedDate}
+                  min={oldestDate}
+                  max={newestDate}
+                  onInput={handleDateChange}
+                  onChange={handleDateChange}
+                  disabled={!reports.length}
+                />
+                <button className="range-btn" type="button" onClick={handleLoadSelectedDate} disabled={!reports.length}>
+                  Load
+                </button>
+                {selectedDate && (
+                  <button className="range-btn" type="button" onClick={() => setSelectedDate('')}>
+                    Latest
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="report-date-picker week-picker">
+                <label htmlFor="week-select">Week</label>
+                <select
+                  id="week-select"
+                  value={displayedWeekDate}
+                  onChange={handleWeekChange}
+                  disabled={!weeklyDigests.length}
+                >
+                  {weeklyDigests.map((w, idx) => (
+                    <option key={w.date} value={w.date}>
+                      {w.label} {idx === 0 ? '(Latest)' : ''}
+                    </option>
+                  ))}
+                </select>
+                {selectedWeekDate && weeklyDigests[0] && selectedWeekDate !== weeklyDigests[0].date && (
+                  <button className="range-btn" type="button" onClick={() => setSelectedWeekDate(weeklyDigests[0].date)}>
+                    Latest
+                  </button>
+                )}
+              </div>
             )}
           </div>
         </div>
+
+        {reportMode === 'weekly' && currentWeeklyDigest && (
+          <div className="weekly-summary-chips animate-fade-in" aria-label="Weekly summary indicators">
+            <span className="metadata-chip">
+              <span>Reserve Liquidity</span>
+              <strong>{currentWeeklyDigest.net_liquidity_change || 'N/A'}</strong>
+            </span>
+            <span className="metadata-chip">
+              <span>10Y Treasury</span>
+              <strong>{currentWeeklyDigest.treasury_10y_change || 'N/A'}</strong>
+            </span>
+            <span className="metadata-chip">
+              <span>S&P 500</span>
+              <strong>{currentWeeklyDigest.sp500_change || 'N/A'}</strong>
+            </span>
+            <span className="metadata-chip">
+              <span>High Yield OAS</span>
+              <strong>{currentWeeklyDigest.hy_oas_change || 'N/A'}</strong>
+            </span>
+          </div>
+        )}
+
         <RegimeOverview
           regime={macroRegime}
           situation={macroSituation}
           sections={macroRegimeSections}
         />
+
         <div className="glass-panel">
           {reportError ? (
             <p className="text-secondary">{reportError}</p>
           ) : (
             <>
-              <div className="report-tabs" role="tablist" aria-label="Big Update report sections" aria-orientation="horizontal">
+              <div className="report-tabs" role="tablist" aria-label={`${reportMode === 'weekly' ? 'Weekly Digest' : 'Big Update'} report sections`} aria-orientation="horizontal">
                 {reportTabs.map((tab, index) => (
                   <button
                     key={tab.id}
@@ -183,7 +294,7 @@ const BigUpdate = ({ reports = [], macroRegime, macroSituation, macroRegimeSecti
                 </div>
               ))}
               <button className="link-button" type="button" onClick={() => setIsModalOpen(true)}>
-                Open Expanded Report &rarr;
+                Open Expanded {reportMode === 'weekly' ? 'Digest' : 'Report'} &rarr;
               </button>
             </>
           )}
@@ -193,10 +304,10 @@ const BigUpdate = ({ reports = [], macroRegime, macroSituation, macroRegimeSecti
       {isModalOpen && !reportError && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" ref={dialogRef} tabIndex="-1" role="dialog" aria-modal="true" aria-labelledby={`${reportId}-expanded-title`} onClick={e => e.stopPropagation()}>
-            <button className="modal-close" ref={closeButtonRef} type="button" aria-label="Close expanded report" onClick={closeModal}>
+            <button className="modal-close" ref={closeButtonRef} type="button" aria-label={`Close expanded ${reportMode === 'weekly' ? 'digest' : 'report'}`} onClick={closeModal}>
               &#x2715;
             </button>
-            <h2 id={`${reportId}-expanded-title`} className="sr-only">Expanded Big Update report</h2>
+            <h2 id={`${reportId}-expanded-title`} className="sr-only">Expanded {reportMode === 'weekly' ? 'Weekly Digest' : 'Big Update report'}</h2>
             <div className="markdown-body">
               <MarkdownContent content={content} />
             </div>
@@ -208,3 +319,4 @@ const BigUpdate = ({ reports = [], macroRegime, macroSituation, macroRegimeSecti
 };
 
 export default BigUpdate;
+

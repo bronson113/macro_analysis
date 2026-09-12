@@ -26,6 +26,13 @@ The system exposes a CLI through `main.py` with several sub-commands:
   python main.py report
   ```
 
+- **Generate weekly macro digests** (synthesize daily snapshots into weekly summaries):
+  ```bash
+  python main.py digest
+  # or backfill all historical weeks
+  python main.py digest --backfill
+  ```
+
 - **View the terminal dashboard**:
   ```bash
   python main.py dashboard
@@ -94,4 +101,5 @@ When run, the system generates and maintains local state in the following direct
 - **`storage.py`**: Manages CSV-backed time-series ledgers and the legacy SQLite compatibility artifact.
 - **`analyzer.py`**: Synthesizes the raw data into macro regime categorizations.
 - **`reporter.py`**: Formats the analysis into Terminal Dashboards and Markdown reports.
+- **`weekly_digest.py`**: Synthesizes daily observations, regime state, and news into institutional weekly macro digests.
 - **`scheduler.py`**: Manages daily execution logic.

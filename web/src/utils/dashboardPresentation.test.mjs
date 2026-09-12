@@ -6,6 +6,7 @@ import {
   buildRegimePresentation,
   DASHBOARD_SECTIONS,
   splitReportSections,
+  splitWeeklyDigestSections,
 } from './dashboardPresentation.js';
 import { descriptions } from './descriptions.js';
 
@@ -189,3 +190,38 @@ test('buildFreshnessStatus reports fresh, aging, and stale data using exact time
   assert.equal(stale.tone, 'stale');
   assert.equal(stale.label, 'Stale');
 });
+
+test('splitWeeklyDigestSections extracts summary, active situation, deltas, and catalysts', () => {
+  const markdown = [
+    '# Weekly Macro Digest (Aug 17 – Aug 21, 2026)',
+    '',
+    '## Notable Summary',
+    '- Weekly summary item',
+    '',
+    '## 1. Active Macro Situation (Weekly Review)',
+    'Active situation weekly content',
+    '',
+    '## 2. Weekly Indicator Movements (Start vs. End of Week)',
+    'Delta table content',
+    '',
+    '## 3. Federal Reserve & Reserve Liquidity Proxy Flow',
+    'Liquidity flow content',
+    '',
+    '## 4. Key Catalysts, Data Releases & Headlines',
+    'Catalysts headlines content',
+    '',
+    '## 5. Forward Outlook & Key Invalidation Triggers',
+    'Forward outlook content',
+  ].join('\n');
+
+  const sections = splitWeeklyDigestSections(markdown);
+
+  assert.equal(sections.summary.includes('- Weekly summary item'), true);
+  assert.equal(sections.active.includes('Active situation weekly content'), true);
+  assert.equal(sections.deltas.includes('Delta table content'), true);
+  assert.equal(sections.deltas.includes('Liquidity flow content'), true);
+  assert.equal(sections.catalysts.includes('Catalysts headlines content'), true);
+  assert.equal(sections.catalysts.includes('Forward outlook content'), true);
+  assert.equal(sections.full, markdown);
+});
+

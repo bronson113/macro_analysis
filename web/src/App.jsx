@@ -65,6 +65,7 @@ function App() {
   const [error, setError] = useState(null);
   const [isCheatSheetOpen, setIsCheatSheetOpen] = useState(false);
   const [reports, setReports] = useState([]);
+  const [weeklyDigests, setWeeklyDigests] = useState([]);
   const [lastRefresh, setLastRefresh] = useState(null);
 
   useEffect(() => {
@@ -106,6 +107,21 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    fetch(import.meta.env.BASE_URL + 'digests/index.json?t=' + new Date().getTime())
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load weekly digests.');
+        return res.json();
+      })
+      .then(json => {
+        setWeeklyDigests(Array.isArray(json) ? json : []);
+      })
+      .catch(err => {
+        console.error(err);
+        setWeeklyDigests([]);
+      });
+  }, []);
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -140,11 +156,13 @@ function App() {
     dailyBrief: (
       <BigUpdate
         reports={reports}
+        weeklyDigests={weeklyDigests}
         macroRegime={macroRegime}
         macroSituation={macroSituation}
         macroRegimeSections={macroRegimeSections}
       />
     ),
+
     trends: <TrendGraphs />,
     indicators: mq ? (
       <div className="section animate-fade-in stagger-4" id="indicators-heading">
@@ -178,6 +196,7 @@ function App() {
       <Header
         metadata={metadata}
         reports={reports}
+        weeklyDigests={weeklyDigests}
         lastRefresh={lastRefresh}
         onOpenCheatSheet={() => setIsCheatSheetOpen(true)}
       />
@@ -200,12 +219,17 @@ function App() {
                 <dd className={`status-${freshness.tone}`}>{freshness.label} · {freshness.ageLabel}</dd>
               </div>
               <div>
-                <dt>Archive</dt>
+                <dt>Daily</dt>
                 <dd>{reports.length ? `${reports.length} reports` : 'Unavailable'}</dd>
+              </div>
+              <div>
+                <dt>Weekly</dt>
+                <dd>{weeklyDigests.length ? `${weeklyDigests.length} digests` : 'Unavailable'}</dd>
               </div>
             </dl>
           </section>
         </aside>
+
 
         <main className="dashboard-content">
           {DASHBOARD_SECTIONS.map(({ key }) => (

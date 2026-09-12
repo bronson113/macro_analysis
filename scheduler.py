@@ -41,6 +41,13 @@ def run_daily_job():
         reporter.print_terminal_dashboard(analysis)
         report_path = reporter.generate_markdown_report(analysis)
 
+        # 4. Weekly Macro Digest
+        try:
+            from weekly_digest import run_weekly_digest
+            run_weekly_digest()
+        except Exception as e:
+            logging.warning("Failed to generate weekly digest during daily job: %s", e)
+
         logging.info(f"Daily macro job completed successfully. Report: {report_path}")
         print(f"--> Daily Job Successfully Completed! Report: {report_path}")
 

@@ -140,6 +140,13 @@ def main():
         "evaluate", help="Evaluate matured outcomes from prospective sector assessments"
     )
 
+    # digest command
+    digest_parser = subparsers.add_parser(
+        "digest", help="Generate weekly macro digest"
+    )
+    digest_parser.add_argument("--backfill", action="store_true", help="Backfill all historical weeks")
+    digest_parser.add_argument("--min-date", default="2026-07-01", help="Earliest date to include")
+
     args = parser.parse_args()
 
     try:
@@ -155,6 +162,15 @@ def main():
             reporter = MacroReporter()
             analysis = analyzer.generate_full_snapshot()
             reporter.generate_markdown_report(analysis)
+            try:
+                from weekly_digest import run_weekly_digest
+                run_weekly_digest()
+            except Exception as e:
+                print(f"Weekly digest note: {e}")
+        elif args.command == "digest":
+            from weekly_digest import run_weekly_digest
+            results = run_weekly_digest(backfill=args.backfill, min_date=args.min_date)
+            print(f"Generated {len(results)} weekly macro digests.")
         elif args.command == "schedule":
             if args.cron:
                 install_cron_job(hour=args.hour, minute=args.minute)
@@ -178,6 +194,7 @@ def main():
             reporter = MacroReporter()
             analysis = analyzer.generate_full_snapshot()
             reporter.print_terminal_dashboard(analysis)
+
     except Exception as e:
         print(f"\n[ERROR] System fault encountered: {e}")
         sys.exit(1)

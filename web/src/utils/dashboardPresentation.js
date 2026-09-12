@@ -49,6 +49,40 @@ export function splitReportSections(markdown) {
   };
 }
 
+export function splitWeeklyDigestSections(markdown) {
+  const activeStart = findSectionStart(markdown, 'active macro situation');
+  const deltasStart = findSectionStart(markdown, 'weekly indicator movements');
+  const summary = activeStart === -1 ? markdown : markdown.slice(0, activeStart).trim();
+
+  let deltas = '';
+  if (deltasStart !== -1) {
+    deltas = sliceSection(markdown, deltasStart);
+    const flowStart = findSectionStart(markdown, 'reserve liquidity proxy flow');
+    if (flowStart !== -1) {
+      deltas += '\n\n---\n\n' + sliceSection(markdown, flowStart);
+    }
+  }
+
+  let catalysts = '';
+  const catalystsStart = findSectionStart(markdown, 'key catalysts');
+  if (catalystsStart !== -1) {
+    catalysts = sliceSection(markdown, catalystsStart);
+    const outlookStart = findSectionStart(markdown, 'forward outlook');
+    if (outlookStart !== -1) {
+      catalysts += '\n\n---\n\n' + sliceSection(markdown, outlookStart);
+    }
+  }
+
+  return {
+    summary: summary || markdown,
+    active: sliceSection(markdown, activeStart),
+    deltas: deltas,
+    catalysts: catalysts,
+    full: markdown,
+  };
+}
+
+
 function formatDateTime(date) {
   if (!date || Number.isNaN(date.getTime())) return 'Unavailable';
 
