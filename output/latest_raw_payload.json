@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-26T08:09:42.211207",
+    "generated_at": "2026-09-26T08:23:41.185160",
     "date": "2026-09-26",
     "engine_version": "3.0-EvidenceRawPayload"
   },
@@ -14,7 +14,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WALCL",
       "unit": "millions",
-      "updated_at": "2026-09-26T08:09:20.370340"
+      "updated_at": "2026-09-26T08:23:20.700061"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
@@ -25,7 +25,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WDTGAL",
       "unit": "millions",
-      "updated_at": "2026-09-26T08:09:20.385034"
+      "updated_at": "2026-09-26T08:23:20.731869"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
@@ -36,7 +36,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RRPONTSYD",
       "unit": "billions",
-      "updated_at": "2026-09-26T08:09:20.420097"
+      "updated_at": "2026-09-26T08:23:20.706847"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
@@ -47,7 +47,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
       "unit": null,
-      "updated_at": "2026-09-26T08:09:20.800572"
+      "updated_at": "2026-09-26T08:23:21.200988"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
@@ -58,7 +58,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS2",
       "unit": null,
-      "updated_at": "2026-09-26T08:09:20.838343"
+      "updated_at": "2026-09-26T08:23:21.278724"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
@@ -69,7 +69,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y2Y",
       "unit": null,
-      "updated_at": "2026-09-26T08:09:21.216536"
+      "updated_at": "2026-09-26T08:23:21.652155"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
@@ -80,7 +80,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A0HYM2",
       "unit": null,
-      "updated_at": "2026-09-26T08:09:21.485423"
+      "updated_at": "2026-09-26T08:23:21.919353"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
@@ -91,7 +91,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A1CAAA",
       "unit": null,
-      "updated_at": "2026-09-26T08:09:21.649251"
+      "updated_at": "2026-09-26T08:23:21.996131"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
@@ -102,7 +102,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ANFCI",
       "unit": null,
-      "updated_at": "2026-09-26T08:09:21.717279"
+      "updated_at": "2026-09-26T08:23:22.167733"
     },
     "vix": {
       "indicator_key": "vix",
@@ -113,7 +113,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-09-26T08:09:26.263498"
+      "updated_at": "2026-09-26T08:23:26.137964"
     },
     "dxy": {
       "indicator_key": "dxy",
@@ -124,7 +124,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-09-26T08:09:26.178304"
+      "updated_at": "2026-09-26T08:23:26.115279"
     },
     "sp500": {
       "indicator_key": "sp500",
@@ -135,7 +135,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-09-26T08:09:26.219837"
+      "updated_at": "2026-09-26T08:23:26.070773"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
@@ -146,7 +146,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-09-26T08:09:26.209687"
+      "updated_at": "2026-09-26T08:23:26.100222"
     },
     "gold": {
       "indicator_key": "gold",
@@ -157,7 +157,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-09-26T08:09:26.240598"
+      "updated_at": "2026-09-26T08:23:26.097407"
     },
     "copper": {
       "indicator_key": "copper",
@@ -168,7 +168,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-09-26T08:09:26.503508"
+      "updated_at": "2026-09-26T08:23:26.315420"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
@@ -179,7 +179,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE",
       "unit": null,
-      "updated_at": "2026-09-26T08:09:21.999873"
+      "updated_at": "2026-09-26T08:23:22.339195"
     },
     "cpi": {
       "indicator_key": "cpi",
@@ -190,7 +190,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL",
       "unit": null,
-      "updated_at": "2026-09-26T08:09:22.128478"
+      "updated_at": "2026-09-26T08:23:22.451898"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
@@ -201,7 +201,7 @@
       "vintage_date": "2026-09-26",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T5YIE",
       "unit": null,
-      "updated_at": "2026-09-26T08:09:22.236648"
+      "updated_at": "2026-09-26T08:23:22.691569"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
@@ -212,7 +212,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-09-26T08:09:26.998161"
+      "updated_at": "2026-09-26T08:23:26.957207"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
@@ -223,7 +223,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-09-26T08:09:27.114530"
+      "updated_at": "2026-09-26T08:23:27.265389"
     }
   },
   "macro_regime": {
@@ -2139,6 +2139,70 @@
   },
   "recent_news_events": [
     {
+      "id": 1606.0,
+      "date": "2026-09-26",
+      "title": "[NVDA - NVIDIA] The Biggest Risk to Palantir Stock Has Nothing to Do With Its Valuation",
+      "summary": "The AI data analytics company's business has been growing like wildfire.",
+      "source": "Yahoo Finance (NVDA)",
+      "link": "https://www.fool.com/investing/2026/09/26/the-biggest-risk-to-palantir-stock-has-nothing-to/",
+      "category": "Sector Bellwether: NVDA (Technology / AI Hardware)",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "2026-09-26T08:15:00Z",
+      "retrieved_at": "2026-09-26T08:23:29.570631",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-09-26T08:23:30.475756"
+    },
+    {
+      "id": 1605.0,
+      "date": "2026-09-26",
+      "title": "[MU - Micron Technology] 3 Stocks to Load Up on Before 2026 Is Over",
+      "summary": "The artificial intelligence race is far from over.",
+      "source": "Yahoo Finance (MU)",
+      "link": "https://www.fool.com/investing/2026/09/26/3-stocks-to-load-up-on-before-2026-is-over/",
+      "category": "Sector Bellwether: MU (Technology / Semiconductors)",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "2026-09-26T08:05:00Z",
+      "retrieved_at": "2026-09-26T08:23:29.570631",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-09-26T08:23:30.475704"
+    },
+    {
+      "id": 1604.0,
+      "date": "2026-09-26",
+      "title": "Jobless claims near 57-year lows as labor market shows renewed strength - sjvsun.com",
+      "summary": "Jobless claims near 57-year lows as labor market shows renewed strength&nbsp;&nbsp;sjvsun.com",
+      "source": "sjvsun.com",
+      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNTUdfZURueEluWU1rVzZpV3lOY21BSFkwenBwOW5KZXVDU0ZOUTQ1X0VmQ2ZfQjhLek9ycDhpc1N6UDlqYkdkbEtDMWY0Sk5VWG5Xd3Z0TFlIanc1ZG9JSmM3cC15M24yV0dMbE9DbDkyRlBWdDg1Z1pmWUtyaS1nT3FBWEE1OW5oZXRsOUdndmFaS29WTXRsREpNTQ?oc=5",
+      "category": "Labor & Employment",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Sat, 26 Sep 2026 02:26:05 GMT",
+      "retrieved_at": "2026-09-26T08:23:27.298106",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-09-26T08:23:30.475591"
+    },
+    {
+      "id": 1603.0,
+      "date": "2026-09-26",
+      "title": "Consumer Price Index, New York-Newark-Jersey City \u2014 August 2026 - bls.gov",
+      "summary": "Consumer Price Index, New York-Newark-Jersey City \u2014 August 2026&nbsp;&nbsp;bls.gov",
+      "source": "bls.gov",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNdDRtRUUwYXI4YWYyclVPQncxVllMOGM5bnV5QUhkRF9heTcwa2JUV3VtOVgtSzBXTGNiOHh2LUQ1Z1l5eUN6WmJ1QTQzOUc3emNmNk1lbWFFOE1QX1F3d05hUFVjQ0ItVjBTVTFUSzV4Q2ltaWJxZEhMNjhjT3FUMmNCQzB4SEl6?oc=5",
+      "category": "Inflation & Prices",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Fri, 11 Sep 2026 07:00:00 GMT",
+      "retrieved_at": "2026-09-26T08:23:27.298106",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-09-26T08:23:30.475537"
+    },
+    {
       "id": 1602.0,
       "date": "2026-09-26",
       "title": "[CAT - Caterpillar] China agrees to buy 10 million tons of U.S. coal in 2027 and 2028",
@@ -2477,72 +2541,6 @@
       "impact_score": null,
       "sentiment": null,
       "created_at": "2026-09-26T07:16:59.142448"
-    },
-    {
-      "id": 1581.0,
-      "date": "2026-09-26",
-      "title": "[JPM - JPMorgan Chase] Bank of America Says Stocks Are Overdue for a Pullback. These 2 Financial Stocks Are Built for One.",
-      "summary": "Banking giants are sending warning signals, suggesting that long-term investors should look at resilient businesses built to last.",
-      "source": "Yahoo Finance (JPM)",
-      "link": "https://www.fool.com/investing/2026/09/25/bank-of-america-says-stocks-are-overdue-for-a-pull/",
-      "category": "Sector Bellwether: JPM (Financials / Banking System)",
-      "topic_tags": [
-        "corporate_fundamentals"
-      ],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-09-25T21:35:00Z",
-      "retrieved_at": "2026-09-26T07:16:58.288742",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-09-26T07:16:59.142437"
-    },
-    {
-      "id": 1580.0,
-      "date": "2026-09-26",
-      "title": "[JPM - JPMorgan Chase] Citigroup targets over $3 billion Banamex IPO for January - Bloomberg",
-      "summary": "Investing.com -- Citigroup (NYSE:C) is lining up major Wall Street banks for an initial public offering of Mexico\u2019s Grupo Financiero Banamex that could raise more than $3 billion, Bloomberg reported e",
-      "source": "Yahoo Finance (JPM)",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/citigroup-targets-over-3-billion-000135525.html",
-      "category": "Sector Bellwether: JPM (Financials / Banking System)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-09-26T00:01:35Z",
-      "retrieved_at": "2026-09-26T07:16:58.288742",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-09-26T07:16:59.142426"
-    },
-    {
-      "id": 1579.0,
-      "date": "2026-09-26",
-      "title": "[JPM - JPMorgan Chase] Morgan Stanley public finance co-head Zach Solomon leaves for TD - Bloomberg",
-      "summary": "Investing.com -- Morgan Stanley (NYSE:MS) co-head of public finance investment banking Zach Solomon has left the Wall Street firm to join TD Securities, Bloomberg reported exclusively, citing people f",
-      "source": "Yahoo Finance (JPM)",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/morgan-stanley-public-finance-co-011333015.html",
-      "category": "Sector Bellwether: JPM (Financials / Banking System)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-09-26T01:13:33Z",
-      "retrieved_at": "2026-09-26T07:16:58.288742",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-09-26T07:16:59.142415"
-    },
-    {
-      "id": 1578.0,
-      "date": "2026-09-26",
-      "title": "[AAPL - Apple] Qualcomm (QCOM) Shares Skyrocket, What You Need To Know",
-      "summary": "Shares of wireless chipmaker Qualcomm (NASDAQ:QCOM) jumped 5.7% in the afternoon session after the stock rebounded from the previous session as the company announced the renewal of its global patent l",
-      "source": "Yahoo Finance (AAPL)",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/qualcomm-qcom-shares-skyrocket-know-020837289.html",
-      "category": "Sector Bellwether: AAPL (Technology / Consumer Hardware)",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "2026-09-26T02:08:37Z",
-      "retrieved_at": "2026-09-26T07:16:58.288742",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-09-26T07:16:59.142404"
     }
   ],
   "evidence_assessments": [
@@ -3014,7 +3012,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 96.6542750929368,
+          "observed_value": 97.02602230483272,
           "unit": "percentile",
           "observed_at": "2026-09-26",
           "source": "sector_valuations",
@@ -3146,7 +3144,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 96.6542750929368,
+          "observed_value": 97.02602230483272,
           "unit": "percentile",
           "observed_at": "2026-09-26",
           "source": "sector_valuations",
@@ -3233,7 +3231,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 83.27137546468401,
+          "observed_value": 80.66914498141264,
           "unit": "percentile",
           "observed_at": "2026-09-26",
           "source": "sector_valuations",
@@ -3365,7 +3363,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 83.27137546468401,
+          "observed_value": 80.66914498141264,
           "unit": "percentile",
           "observed_at": "2026-09-26",
           "source": "sector_valuations",
@@ -3468,7 +3466,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 49.814126394052046,
+          "observed_value": 49.44237918215613,
           "unit": "percentile",
           "observed_at": "2026-09-26",
           "source": "sector_valuations",
@@ -3584,7 +3582,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 49.814126394052046,
+          "observed_value": 49.44237918215613,
           "unit": "percentile",
           "observed_at": "2026-09-26",
           "source": "sector_valuations",
@@ -3642,29 +3640,14 @@
       "as_of_date": "2026-09-26"
     },
     {
-      "score": 1.0,
+      "score": -1.0,
       "score_range": [
         -10.0,
         10.0
       ],
       "coverage_pct": 71.4,
       "posture": "NEUTRAL",
-      "positive_factors": [
-        {
-          "factor_id": "valuation_percentile",
-          "category": "valuation",
-          "direction": "positive",
-          "contribution": 2,
-          "weight": 1.0,
-          "observed_value": 24.53531598513011,
-          "unit": "percentile",
-          "observed_at": "2026-09-26",
-          "source": "sector_valuations",
-          "quality": "current",
-          "explanation": "Historical valuation percentile is discount, rich, or typical.",
-          "missing_reason": null
-        }
-      ],
+      "positive_factors": [],
       "negative_factors": [
         {
           "factor_id": "liquidity",
@@ -3694,6 +3677,20 @@
           "source": "credit",
           "quality": "current",
           "explanation": "High-yield option-adjusted spread is assessed for credit stress.",
+          "missing_reason": null
+        },
+        {
+          "factor_id": "valuation_percentile",
+          "category": "valuation",
+          "direction": "neutral",
+          "contribution": 0,
+          "weight": 1.0,
+          "observed_value": 26.022304832713754,
+          "unit": "percentile",
+          "observed_at": "2026-09-26",
+          "source": "sector_valuations",
+          "quality": "current",
+          "explanation": "Historical valuation percentile is discount, rich, or typical.",
           "missing_reason": null
         },
         {
@@ -3801,10 +3798,10 @@
         {
           "factor_id": "valuation_percentile",
           "category": "valuation",
-          "direction": "positive",
-          "contribution": 2,
+          "direction": "neutral",
+          "contribution": 0,
           "weight": 1.0,
-          "observed_value": 24.53531598513011,
+          "observed_value": 26.022304832713754,
           "unit": "percentile",
           "observed_at": "2026-09-26",
           "source": "sector_valuations",
@@ -4982,7 +4979,7 @@
       "trailing_pe": 16.96,
       "forward_pe": 14.39,
       "ev_ebitda": 32.85,
-      "price_to_book": 21.84,
+      "price_to_book": null,
       "dist_from_52w_high_pct": -42.89,
       "return_30d_pct": -2.57,
       "relative_valuation_status": "Insufficient Comparable Peers",
@@ -5039,7 +5036,7 @@
       "group": "Fabless Accelerators",
       "peer_cohort": "Fabless Accelerators",
       "price": 352.81,
-      "trailing_pe": 44.94,
+      "trailing_pe": 45.58,
       "forward_pe": 18.2,
       "ev_ebitda": 32.91,
       "price_to_book": 16.9,
@@ -5072,7 +5069,7 @@
       "trailing_pe": 33.4,
       "forward_pe": 20.55,
       "ev_ebitda": 5.14,
-      "price_to_book": 92.53,
+      "price_to_book": 92.17,
       "dist_from_52w_high_pct": -5.93,
       "return_30d_pct": 7.88,
       "relative_valuation_status": "Insufficient Comparable Peers",
@@ -5115,7 +5112,7 @@
       "peer_cohort": "Semiconductor Equipment",
       "price": 1743.94,
       "trailing_pe": 59.91,
-      "forward_pe": 29.64,
+      "forward_pe": 29.45,
       "ev_ebitda": 2758.53,
       "price_to_book": 1499.02,
       "dist_from_52w_high_pct": -12.8,
@@ -5144,7 +5141,7 @@
       "group": "Semiconductor Equipment",
       "peer_cohort": "Semiconductor Equipment",
       "price": 315.21,
-      "trailing_pe": 54.82,
+      "trailing_pe": 54.63,
       "forward_pe": 26.85,
       "ev_ebitda": 45.48,
       "price_to_book": 31.63,
@@ -5177,7 +5174,7 @@
       "trailing_pe": 54.65,
       "forward_pe": 34.19,
       "ev_ebitda": 41.24,
-      "price_to_book": 18.14,
+      "price_to_book": 19.84,
       "dist_from_52w_high_pct": -18.35,
       "return_30d_pct": 9.72,
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
@@ -5189,7 +5186,7 @@
       "group": "Software & Cloud",
       "peer_cohort": "Software & Cloud",
       "price": 516.17,
-      "trailing_pe": 28.72,
+      "trailing_pe": 28.79,
       "forward_pe": 21.8,
       "ev_ebitda": 20.0,
       "price_to_book": 8.67,
@@ -5207,7 +5204,7 @@
       "trailing_pe": 21.49,
       "forward_pe": 12.47,
       "ev_ebitda": 16.03,
-      "price_to_book": 10.51,
+      "price_to_book": 6.71,
       "dist_from_52w_high_pct": -57.49,
       "return_30d_pct": -7.91,
       "relative_valuation_status": "Discounted vs Historical Cohort Relationship",
@@ -5219,7 +5216,7 @@
       "group": "Software & Cloud",
       "peer_cohort": "Software & Cloud",
       "price": 234.02,
-      "trailing_pe": 21.41,
+      "trailing_pe": 21.35,
       "forward_pe": 14.62,
       "ev_ebitda": 17.33,
       "price_to_book": 5.02,
@@ -5295,7 +5292,7 @@
       "peer_cohort": "Banks",
       "price": 343.06,
       "trailing_pe": 14.7,
-      "forward_pe": 13.73,
+      "forward_pe": 13.7,
       "ev_ebitda": null,
       "price_to_book": 2.58,
       "dist_from_52w_high_pct": -6.4,
@@ -5370,7 +5367,7 @@
       "peer_cohort": "Capital Markets",
       "price": 935.45,
       "trailing_pe": 14.45,
-      "forward_pe": 12.64,
+      "forward_pe": 12.72,
       "ev_ebitda": null,
       "price_to_book": 2.58,
       "dist_from_52w_high_pct": -18.94,
@@ -5384,8 +5381,8 @@
       "group": "Capital Markets",
       "peer_cohort": "Capital Markets",
       "price": 196.31,
-      "trailing_pe": 15.86,
-      "forward_pe": 14.39,
+      "trailing_pe": 15.84,
+      "forward_pe": 14.42,
       "ev_ebitda": null,
       "price_to_book": 2.9,
       "dist_from_52w_high_pct": -15.47,
@@ -5520,7 +5517,7 @@
       "peer_cohort": "Pharmaceuticals",
       "price": 1183.46,
       "trailing_pe": 39.74,
-      "forward_pe": 24.89,
+      "forward_pe": 25.0,
       "ev_ebitda": 26.39,
       "price_to_book": 31.14,
       "dist_from_52w_high_pct": -8.45,
@@ -5535,7 +5532,7 @@
       "peer_cohort": "Pharmaceuticals",
       "price": 264.34,
       "trailing_pe": 74.46,
-      "forward_pe": 16.25,
+      "forward_pe": 16.26,
       "ev_ebitda": 17.28,
       "price_to_book": -78.7,
       "dist_from_52w_high_pct": -1.87,
@@ -5549,7 +5546,7 @@
       "group": "Pharmaceuticals",
       "peer_cohort": "Pharmaceuticals",
       "price": 148.78,
-      "trailing_pe": 119.02,
+      "trailing_pe": 119.98,
       "forward_pe": 15.61,
       "ev_ebitda": 14.34,
       "price_to_book": 8.76,
@@ -5594,8 +5591,8 @@
       "group": "Energy Producers",
       "peer_cohort": "Energy Producers",
       "price": 204.45,
-      "trailing_pe": 19.66,
-      "forward_pe": 15.07,
+      "trailing_pe": 19.64,
+      "forward_pe": 14.46,
       "ev_ebitda": 8.59,
       "price_to_book": 2.11,
       "dist_from_52w_high_pct": -6.12,
@@ -5715,7 +5712,7 @@
       "peer_cohort": "Industrial Machinery",
       "price": 212.55,
       "trailing_pe": 8.17,
-      "forward_pe": 21.39,
+      "forward_pe": 21.49,
       "ev_ebitda": 10.98,
       "price_to_book": 3.63,
       "dist_from_52w_high_pct": -18.34,
@@ -5760,7 +5757,7 @@
       "peer_cohort": "Retail & Consumer",
       "price": 249.67,
       "trailing_pe": 20.1,
-      "forward_pe": 24.02,
+      "forward_pe": 24.03,
       "ev_ebitda": 16.7,
       "price_to_book": 4.88,
       "dist_from_52w_high_pct": -13.07,
@@ -5774,11 +5771,11 @@
       "group": "Retail & Consumer",
       "peer_cohort": "Retail & Consumer",
       "price": 293.2,
-      "trailing_pe": 20.5,
+      "trailing_pe": 20.82,
       "forward_pe": 18.3,
       "ev_ebitda": 14.35,
       "price_to_book": 17.61,
-      "dist_from_52w_high_pct": -28.73,
+      "dist_from_52w_high_pct": -28.65,
       "return_30d_pct": -12.44,
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "relative_posture": "NEUTRAL"
@@ -5894,7 +5891,7 @@
       "group": "Physical AI & Robotics",
       "peer_cohort": "Physical AI & Robotics",
       "price": 405.18,
-      "trailing_pe": 46.47,
+      "trailing_pe": 46.52,
       "forward_pe": 33.51,
       "ev_ebitda": 33.02,
       "price_to_book": 7.89,
@@ -5969,7 +5966,7 @@
       "group": "Datacenter Cooling",
       "peer_cohort": "Datacenter Cooling",
       "price": 253.28,
-      "trailing_pe": 57.3,
+      "trailing_pe": 57.17,
       "forward_pe": 27.76,
       "ev_ebitda": 36.49,
       "price_to_book": 20.49,
@@ -6084,15 +6081,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (1.30x) is 6.9% above its historical median (1.21x) across 60+ observations.",
-        "The 6.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
+        "Current FPE cohort-relative ratio (1.29x) is 6.8% above its historical median (1.21x) across 60+ observations.",
+        "The 6.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [
         "No valid current EVE multiple is available."
       ],
-      "forward_pe_relative": 1.297,
-      "historical_forward_pe_relative": 1.214,
-      "relative_fpe_discount_pct": -6.9,
+      "forward_pe_relative": 1.294,
+      "historical_forward_pe_relative": 1.211,
+      "relative_fpe_discount_pct": -6.8,
       "ev_ebitda_relative": null,
       "historical_ev_ebitda_relative": null,
       "relative_ev_ebitda_discount_pct": null
@@ -6147,8 +6144,8 @@
       "missing_evidence": [
         "No valid current EVE multiple is available."
       ],
-      "forward_pe_relative": 1.064,
-      "historical_forward_pe_relative": 1.258,
+      "forward_pe_relative": 1.062,
+      "historical_forward_pe_relative": 1.255,
       "relative_fpe_discount_pct": 15.4,
       "ev_ebitda_relative": null,
       "historical_ev_ebitda_relative": null,
@@ -6160,14 +6157,14 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (1.17x) is 6.6% below its historical median (1.26x) across 60+ observations.",
+        "Current FPE cohort-relative ratio (1.17x) is 6.6% below its historical median (1.25x) across 60+ observations.",
         "The 6.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [
         "Fewer than 3 valid comparable peers are available for EVE."
       ],
-      "forward_pe_relative": 1.174,
-      "historical_forward_pe_relative": 1.257,
+      "forward_pe_relative": 1.172,
+      "historical_forward_pe_relative": 1.255,
       "relative_fpe_discount_pct": 6.6,
       "ev_ebitda_relative": null,
       "historical_ev_ebitda_relative": null,
@@ -6185,8 +6182,8 @@
       "missing_evidence": [
         "No valid current EVE multiple is available."
       ],
-      "forward_pe_relative": 0.826,
-      "historical_forward_pe_relative": 0.757,
+      "forward_pe_relative": 0.831,
+      "historical_forward_pe_relative": 0.762,
       "relative_fpe_discount_pct": -9.0,
       "ev_ebitda_relative": null,
       "historical_ev_ebitda_relative": null,
@@ -6204,8 +6201,8 @@
       "missing_evidence": [
         "No valid current EVE multiple is available."
       ],
-      "forward_pe_relative": 0.94,
-      "historical_forward_pe_relative": 0.801,
+      "forward_pe_relative": 0.942,
+      "historical_forward_pe_relative": 0.803,
       "relative_fpe_discount_pct": -17.3,
       "ev_ebitda_relative": null,
       "historical_ev_ebitda_relative": null,
@@ -6428,15 +6425,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (0.91x) is 1.1% above its historical median (0.90x) across 60+ observations.",
-        "The 1.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current FPE cohort-relative ratio (0.91x) is 0.2% below its historical median (0.91x) across 60+ observations.",
+        "The 0.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (0.73x) is 0.7% above its historical median (0.73x) across 60+ observations.",
         "The 0.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 0.909,
-      "historical_forward_pe_relative": 0.899,
-      "relative_fpe_discount_pct": -1.1,
+      "forward_pe_relative": 0.911,
+      "historical_forward_pe_relative": 0.913,
+      "relative_fpe_discount_pct": 0.2,
       "ev_ebitda_relative": 0.732,
       "historical_ev_ebitda_relative": 0.727,
       "relative_ev_ebitda_discount_pct": -0.7
@@ -6447,14 +6444,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (1.14x) is 0.7% below its historical median (1.15x) across 60+ observations.",
-        "The 0.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
-        "Current EVE cohort-relative ratio (1.37x) is 0.7% below its historical median (1.38x) across 60+ observations."
+        "Current FPE cohort-relative ratio (1.10x) is 0.8% below its historical median (1.11x) across 60+ observations.",
+        "The 0.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current EVE cohort-relative ratio (1.37x) is 0.7% below its historical median (1.38x) across 60+ observations.",
+        "The 0.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 1.143,
-      "historical_forward_pe_relative": 1.152,
-      "relative_fpe_discount_pct": 0.7,
+      "forward_pe_relative": 1.097,
+      "historical_forward_pe_relative": 1.106,
+      "relative_fpe_discount_pct": 0.8,
       "ev_ebitda_relative": 1.366,
       "historical_ev_ebitda_relative": 1.376,
       "relative_ev_ebitda_discount_pct": 0.7
@@ -6465,15 +6463,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (0.65x) is 3.7% below its historical median (0.67x) across 60+ observations.",
-        "The 3.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current FPE cohort-relative ratio (0.65x) is 4.9% below its historical median (0.68x) across 60+ observations.",
+        "The 4.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (0.62x) is 4.0% below its historical median (0.64x) across 60+ observations.",
         "The 4.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 0.649,
-      "historical_forward_pe_relative": 0.674,
-      "relative_fpe_discount_pct": 3.7,
+      "forward_pe_relative": 0.651,
+      "historical_forward_pe_relative": 0.684,
+      "relative_fpe_discount_pct": 4.9,
       "ev_ebitda_relative": 0.618,
       "historical_ev_ebitda_relative": 0.644,
       "relative_ev_ebitda_discount_pct": 4.0
@@ -6629,15 +6627,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (0.85x) is 0.0% below its historical median (0.85x) across 60+ observations.",
-        "The 0.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current FPE cohort-relative ratio (0.85x) is 0.1% above its historical median (0.85x) across 60+ observations.",
+        "The 0.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (0.97x) is 0.2% below its historical median (0.97x) across 60+ observations.",
         "The 0.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
       "forward_pe_relative": 0.854,
       "historical_forward_pe_relative": 0.854,
-      "relative_fpe_discount_pct": 0.0,
+      "relative_fpe_discount_pct": -0.1,
       "ev_ebitda_relative": 0.97,
       "historical_ev_ebitda_relative": 0.971,
       "relative_ev_ebitda_discount_pct": 0.2
@@ -6648,15 +6646,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (1.11x) is 20.3% above its historical median (0.92x) across 60+ observations.",
-        "The 20.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current FPE cohort-relative ratio (1.11x) is 20.5% above its historical median (0.92x) across 60+ observations.",
+        "The 20.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (1.13x) is 12.8% above its historical median (1.00x) across 60+ observations.",
         "The 12.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
       "forward_pe_relative": 1.108,
-      "historical_forward_pe_relative": 0.921,
-      "relative_fpe_discount_pct": -20.3,
+      "historical_forward_pe_relative": 0.92,
+      "relative_fpe_discount_pct": -20.5,
       "ev_ebitda_relative": 1.13,
       "historical_ev_ebitda_relative": 1.001,
       "relative_ev_ebitda_discount_pct": -12.8
@@ -6674,7 +6672,7 @@
       ],
       "missing_evidence": [],
       "forward_pe_relative": 1.319,
-      "historical_forward_pe_relative": 1.428,
+      "historical_forward_pe_relative": 1.427,
       "relative_fpe_discount_pct": 7.6,
       "ev_ebitda_relative": 1.214,
       "historical_ev_ebitda_relative": 1.339,
@@ -6692,8 +6690,8 @@
         "The 20.4% relative discount meets the 20.0% WATCH threshold."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 0.72,
-      "historical_forward_pe_relative": 0.88,
+      "forward_pe_relative": 0.723,
+      "historical_forward_pe_relative": 0.884,
       "relative_fpe_discount_pct": 18.2,
       "ev_ebitda_relative": 0.407,
       "historical_ev_ebitda_relative": 0.511,
@@ -6705,15 +6703,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (1.05x) is 7.0% below its historical median (1.13x) across 60+ observations.",
-        "The 7.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current FPE cohort-relative ratio (1.05x) is 6.9% below its historical median (1.13x) across 60+ observations.",
+        "The 6.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (0.91x) is 9.2% below its historical median (1.00x) across 60+ observations.",
         "The 9.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
       "forward_pe_relative": 1.05,
-      "historical_forward_pe_relative": 1.129,
-      "relative_fpe_discount_pct": 7.0,
+      "historical_forward_pe_relative": 1.127,
+      "relative_fpe_discount_pct": 6.9,
       "ev_ebitda_relative": 0.909,
       "historical_ev_ebitda_relative": 1.001,
       "relative_ev_ebitda_discount_pct": 9.2
@@ -6876,8 +6874,8 @@
         "The 3.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 0.856,
-      "historical_forward_pe_relative": 0.887,
+      "forward_pe_relative": 0.857,
+      "historical_forward_pe_relative": 0.888,
       "relative_fpe_discount_pct": 3.5,
       "ev_ebitda_relative": 1.02,
       "historical_ev_ebitda_relative": 1.057,
@@ -6896,7 +6894,7 @@
       ],
       "missing_evidence": [],
       "forward_pe_relative": 1.402,
-      "historical_forward_pe_relative": 1.44,
+      "historical_forward_pe_relative": 1.439,
       "relative_fpe_discount_pct": 2.6,
       "ev_ebitda_relative": 1.237,
       "historical_ev_ebitda_relative": 1.268,
@@ -6908,14 +6906,14 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (1.56x) is 5.7% below its historical median (1.66x) across 60+ observations.",
+        "Current FPE cohort-relative ratio (1.57x) is 5.7% below its historical median (1.66x) across 60+ observations.",
         "The 5.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (1.67x) is 5.4% below its historical median (1.76x) across 60+ observations.",
         "The 5.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 1.562,
-      "historical_forward_pe_relative": 1.656,
+      "forward_pe_relative": 1.569,
+      "historical_forward_pe_relative": 1.663,
       "relative_fpe_discount_pct": 5.7,
       "ev_ebitda_relative": 1.669,
       "historical_ev_ebitda_relative": 1.765,
@@ -6945,15 +6943,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (0.51x) is 8.5% below its historical median (0.56x) across 60+ observations.",
-        "The 8.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current FPE cohort-relative ratio (0.51x) is 8.4% below its historical median (0.56x) across 60+ observations.",
+        "The 8.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (0.46x) is 8.2% below its historical median (0.50x) across 60+ observations.",
         "The 8.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
       "forward_pe_relative": 0.513,
       "historical_forward_pe_relative": 0.56,
-      "relative_fpe_discount_pct": 8.5,
+      "relative_fpe_discount_pct": 8.4,
       "ev_ebitda_relative": 0.461,
       "historical_ev_ebitda_relative": 0.502,
       "relative_ev_ebitda_discount_pct": 8.2
@@ -7072,8 +7070,8 @@
         "The 43.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 1.446,
-      "historical_forward_pe_relative": 1.03,
+      "forward_pe_relative": 1.447,
+      "historical_forward_pe_relative": 1.031,
       "relative_fpe_discount_pct": -40.4,
       "ev_ebitda_relative": 1.258,
       "historical_ev_ebitda_relative": 0.878,
@@ -7199,15 +7197,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (0.91x) is 8.1% above its historical median (0.84x) across 60+ observations.",
-        "The 8.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current FPE cohort-relative ratio (0.91x) is 8.2% above its historical median (0.84x) across 60+ observations.",
+        "The 8.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (0.91x) is 7.4% above its historical median (0.85x) across 60+ observations.",
         "The 7.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 0.911,
-      "historical_forward_pe_relative": 0.843,
-      "relative_fpe_discount_pct": -8.1,
+      "forward_pe_relative": 0.914,
+      "historical_forward_pe_relative": 0.844,
+      "relative_fpe_discount_pct": -8.2,
       "ev_ebitda_relative": 0.915,
       "historical_ev_ebitda_relative": 0.851,
       "relative_ev_ebitda_discount_pct": -7.4
@@ -7218,14 +7216,14 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (1.08x) is 4.7% below its historical median (1.13x) across 60+ observations.",
+        "Current FPE cohort-relative ratio (1.07x) is 4.7% below its historical median (1.13x) across 60+ observations.",
         "The 4.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [
         "No valid current EVE multiple is available."
       ],
-      "forward_pe_relative": 1.08,
-      "historical_forward_pe_relative": 1.133,
+      "forward_pe_relative": 1.073,
+      "historical_forward_pe_relative": 1.126,
       "relative_fpe_discount_pct": 4.7,
       "ev_ebitda_relative": null,
       "historical_ev_ebitda_relative": null,
@@ -7237,14 +7235,14 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (0.99x) is 11.1% below its historical median (1.12x) across 60+ observations.",
+        "Current FPE cohort-relative ratio (1.00x) is 11.1% below its historical median (1.12x) across 60+ observations.",
         "The 11.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (0.99x) is 10.2% below its historical median (1.10x) across 60+ observations.",
         "The 10.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 0.992,
-      "historical_forward_pe_relative": 1.117,
+      "forward_pe_relative": 0.996,
+      "historical_forward_pe_relative": 1.12,
       "relative_fpe_discount_pct": 11.1,
       "ev_ebitda_relative": 0.988,
       "historical_ev_ebitda_relative": 1.101,
@@ -7256,15 +7254,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (0.93x) is 7.2% above its historical median (0.87x) across 60+ observations.",
-        "The 7.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current FPE cohort-relative ratio (0.93x) is 7.3% above its historical median (0.87x) across 60+ observations.",
+        "The 7.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (1.12x) is 3.2% below its historical median (1.15x) across 60+ observations.",
         "The 3.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
-      "forward_pe_relative": 0.931,
-      "historical_forward_pe_relative": 0.869,
-      "relative_fpe_discount_pct": -7.2,
+      "forward_pe_relative": 0.934,
+      "historical_forward_pe_relative": 0.871,
+      "relative_fpe_discount_pct": -7.3,
       "ev_ebitda_relative": 1.116,
       "historical_ev_ebitda_relative": 1.153,
       "relative_ev_ebitda_discount_pct": 3.2
@@ -7275,15 +7273,15 @@
       "relative_valuation_status": "Fair vs Historical Cohort Relationship",
       "posture": "NEUTRAL",
       "evidence": [
-        "Current FPE cohort-relative ratio (1.25x) is 12.4% above its historical median (1.11x) across 60+ observations.",
-        "The 12.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
+        "Current FPE cohort-relative ratio (1.25x) is 12.1% above its historical median (1.11x) across 60+ observations.",
+        "The 12.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.",
         "Current EVE cohort-relative ratio (1.01x) is 16.3% above its historical median (0.87x) across 60+ observations.",
         "The 16.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL."
       ],
       "missing_evidence": [],
       "forward_pe_relative": 1.246,
-      "historical_forward_pe_relative": 1.108,
-      "relative_fpe_discount_pct": -12.4,
+      "historical_forward_pe_relative": 1.111,
+      "relative_fpe_discount_pct": -12.1,
       "ev_ebitda_relative": 1.012,
       "historical_ev_ebitda_relative": 0.87,
       "relative_ev_ebitda_discount_pct": -16.3
