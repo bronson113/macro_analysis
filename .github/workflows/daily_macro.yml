@@ -51,8 +51,21 @@ jobs:
       - name: Pre-fetch FRED Data via Akamai Cookie Handshake
         run: python prefetch_fred.py
 
+      - name: Compact repeated observation vintages
+        run: python compact_observations.py
+
       - name: Run macro analysis pipeline
         run: python main.py run
+
+      - name: Compact new observations and check GitHub size limit
+        run: |
+          python compact_observations.py
+          MAX_OBSERVATIONS_BYTES=1000000
+          actual_bytes=$(wc -c < data/macro_observations.csv.gz)
+          if [ "$actual_bytes" -gt "$MAX_OBSERVATIONS_BYTES" ]; then
+            echo "Observation ledger is too large to push: $actual_bytes bytes" >&2
+            exit 1
+          fi
 
       - name: Validate fresh macro gate data
         run: python validate_fresh_macro_data.py
@@ -77,7 +90,7 @@ jobs:
         with:
           commit_message: "Automated daily macro data update"
           branch: ${{ github.head_ref || github.ref_name }}
-          file_pattern: "data/*.csv output/*.md output/*.json web/public/* web/public/digests/* web/public/reports/*"
+          file_pattern: "data/*.csv data/*.csv.gz output/*.md output/*.json web/public/* web/public/digests/* web/public/reports/*"
 
       - name: Setup Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5

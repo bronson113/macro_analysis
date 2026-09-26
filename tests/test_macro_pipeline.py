@@ -612,7 +612,7 @@ class TestMacroPipeline(unittest.TestCase):
 
         try:
             with tempfile.TemporaryDirectory() as tmp, \
-                 patch("raw_data_engine.get_ticker_info", side_effect=fake_info), \
+                 patch("raw_data_engine.get_many_ticker_info", return_value={ticker: fake_info(ticker) for ticker in ("AAA", "BBB")}) as info_fetch, \
                  patch("raw_data_engine.yf.download", return_value=hist) as download:
                 storage = MacroStorage(indicators_csv=f"{tmp}/ind.csv", observations_csv=f"{tmp}/obs.csv", snapshots_csv=f"{tmp}/snap.csv", news_csv=f"{tmp}/news.csv", run_logs_csv=f"{tmp}/logs.csv")
                 metrics = RawDataEngine(storage, output_dir=Path(tmp), verbose=False).fetch_individual_stock_metrics()
@@ -622,6 +622,7 @@ class TestMacroPipeline(unittest.TestCase):
         returns = {m["ticker"]: m["return_30d_pct"] for m in metrics}
         self.assertEqual(returns, {"AAA": 50.0, "BBB": -10.0})
         download.assert_called_once()
+        info_fetch.assert_called_once_with(["AAA", "BBB"])
 
     def test_01h_sector_valuations_use_aggregate_fundamentals_and_historical_status(self):
         """Sector output must expose weighted fundamentals, coverage, and available history."""

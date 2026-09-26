@@ -58,7 +58,7 @@ The system exposes a CLI through `main.py` with several sub-commands:
 ## Generated Outputs & State
 
 When run, the system generates and maintains local state in the following directories:
-- `data/`: CSV ledgers for indicators, observations, snapshots, news, run logs, prospective signal assessments, and source-health results. `data/macro_data.db` is a legacy SQLite artifact retained only for compatibility; current storage is CSV-backed.
+- `data/`: CSV ledgers for indicators, snapshots, news, run logs, prospective signal assessments, and source-health results. The observation ledger is compressed as `macro_observations.csv.gz` and remains readable as CSV. `data/macro_data.db` is a legacy SQLite artifact retained only for compatibility.
 - `output/`: Generated Markdown reports, raw and unified dashboard JSON, and `outcome_evaluation.json` after `python main.py evaluate` runs.
 - `logs/`: System logs and execution audits.
 - `cache/`: Local cache to minimize redundant API requests.

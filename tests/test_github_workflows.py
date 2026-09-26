@@ -59,5 +59,11 @@ class TestGitHubWorkflows(unittest.TestCase):
         )
         self.assertNotIn("./output/latest_raw_payload.json", compose)
 
+    def test_daily_workflow_compacts_observations_and_checks_push_size(self):
+        workflow = DAILY_WORKFLOW.read_text(encoding="utf-8")
+        self.assertLess(workflow.index("python compact_observations.py"), workflow.index("python main.py run"))
+        self.assertIn("python compact_observations.py", workflow)
+        self.assertIn("MAX_OBSERVATIONS_BYTES", workflow)
+
 if __name__ == "__main__":
     unittest.main()

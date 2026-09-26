@@ -1,6 +1,7 @@
 """Durable CSV persistence for the macro-analysis pipeline."""
 
 import fcntl
+import gzip
 import json
 import os
 import tempfile
@@ -149,16 +150,20 @@ def atomic_write_csv(path: Union[str, Path], frame: pd.DataFrame) -> None:
     temporary_path: Optional[Path] = None
     try:
         with tempfile.NamedTemporaryFile(
-            mode="w",
-            encoding="utf-8",
-            newline="",
+            mode="wb" if destination.suffix == ".gz" else "w",
+            encoding=None if destination.suffix == ".gz" else "utf-8",
+            newline=None if destination.suffix == ".gz" else "",
             prefix=f".{destination.name}.",
             suffix=".tmp",
             dir=destination.parent,
             delete=False,
         ) as temporary_file:
             temporary_path = Path(temporary_file.name)
-            frame.to_csv(temporary_file, index=False)
+            if destination.suffix == ".gz":
+                with gzip.GzipFile(fileobj=temporary_file, mode="wb", compresslevel=9, mtime=0) as compressed:
+                    frame.to_csv(compressed, index=False)
+            else:
+                frame.to_csv(temporary_file, index=False)
             temporary_file.flush()
             os.fsync(temporary_file.fileno())
         os.replace(temporary_path, destination)

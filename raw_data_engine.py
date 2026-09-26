@@ -13,7 +13,7 @@ from storage import MacroStorage
 from config import OUTPUT_DIR, configure_yfinance_cache
 from peer_cohorts import PEER_COHORTS
 from stock_relative_valuation import relative_multiple_key, safe_ratio
-from stock_data import get_ticker_info
+from stock_data import get_many_ticker_info
 
 configure_yfinance_cache(yf)
 
@@ -84,12 +84,13 @@ class RawDataEngine:
         ]
         histories_1y = self._download_30d_histories(all_tickers)
         self._last_price_histories = histories_1y
+        ticker_info = get_many_ticker_info(all_tickers)
 
         for cohort_name, tickers in PEER_COHORTS.items():
             group_stocks = []
             for t in tickers:
                 try:
-                    info = get_ticker_info(t)
+                    info = ticker_info.get(t, {})
                     
                     price = info.get("currentPrice") or info.get("regularMarketPrice")
                     pe = info.get("trailingPE")
