@@ -1,38 +1,38 @@
-# Daily Macro Evidence Report (2026-09-11)
+# Daily Macro Evidence Report (2026-09-26)
 *Automated Capture Engine & Institutional Research Framework (Defiant Gatekeeper)*
 > Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.
 
 ---
 ## Notable Summary
 
-- **Unchanged:** **Macro:** Active quadrant is `SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY` (Interest Rates: Accommodative (current level); Reserve Liquidity: Scarce (current level)). Policy is accommodative while reserve liquidity remains scarce; easing support is limited by the liquidity backdrop. Yield curve un-inversion is a caution signal.
-- **Unchanged:** **Valuation:** Shiller PE Ratio is `40.73` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
+- **Changed:** **Macro:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT` (Interest Rates: Neutral / unavailable; Reserve Liquidity: Scarce). The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted. Previously: **Macro:** Active quadrant is `SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY` (Interest Rates: Accommodative (current level); Reserve Liquidity: Scarce (current level)). Policy is accommodative while reserve liquidity remains scarce; easing support is limited by the liquidity backdrop. Yield curve un-inversion is a caution signal.
+- **Unchanged:** **Valuation:** Shiller PE Ratio is `41.48` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
 
 ---
 ## Current State
 
-- **Quadrant:** `Situation 2` — `SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY`.
-- **Policy level:** `ACCOMMODATIVE`. Real policy rate: `+0.286 pp`; neutral real rate (r-star): `+1.009 pp`; policy gap: `-0.723 pp`; classification threshold: `±0.50 pp`.
-  - Current inputs — DFF: `+3.630 pp`; core PCE YoY: `3.344%`; r-star: `+1.009 pp`.
-  - Observation dates — DFF: `2026-09-09`; core PCE: `2026-07-01`; r-star: `2026-04-01`.
+- **Quadrant:** `Situation 0` — `NO ACTIONABLE MACRO QUADRANT`.
+- **Policy level:** `NEUTRAL`. Real policy rate: `+0.536 pp`; neutral real rate (r-star): `+1.009 pp`; policy gap: `-0.473 pp`; classification threshold: `±0.50 pp`.
+  - Current inputs — DFF: `+3.880 pp`; core PCE YoY: `3.344%`; r-star: `+1.009 pp`.
+  - Observation dates — DFF: `2026-09-24`; core PCE: `2026-07-01`; r-star: `2026-04-01`.
   - Historical sample: `2017-09-01` through `2026-07-01`; count `107`.
-- **Reserve-liquidity level:** `SCARCE`. Current normalized value: `18.151% of GDP`; historical percentile: `19.7th`; thresholds: P40 `20.210`, P60 `21.393`.
-  - Current inputs — Fed assets: `6,740,619.00 M`; TGA: `843,705.00 M`; ON RRP: `0.43 B`; nominal GDP: `32,486.07 B`.
-  - Observation dates — Fed assets: `2026-09-09`; TGA: `2026-09-09`; ON RRP: `2026-09-09`; nominal GDP: `2026-04-01`.
-  - Historical sample: `2016-10-05` through `2026-09-02`; count `518`.
+- **Reserve-liquidity level:** `SCARCE`. Current normalized value: `17.854% of GDP`; historical percentile: `14.4th`; thresholds: P40 `20.198`, P60 `21.379`.
+  - Current inputs — Fed assets: `6,747,704.00 M`; TGA: `947,317.00 M`; ON RRP: `0.46 B`; nominal GDP: `32,486.07 B`.
+  - Observation dates — Fed assets: `2026-09-23`; TGA: `2026-09-23`; ON RRP: `2026-09-23`; nominal GDP: `2026-04-01`.
+  - Historical sample: `2016-10-05` through `2026-09-16`; count `520`.
 
 ## Momentum
 
 Momentum is a separate overlay and does not change the current level-based quadrant.
-- **Policy 30d:** `STABLE`; change `+0.000`; prior date `N/A`.
-- **Policy 90d:** `STABLE`; change `+0.009`; prior date `N/A`.
-- **Liquidity 30d:** `IMPROVING`; change `+0.298`; prior date `N/A`.
-- **Liquidity 90d:** `DETERIORATING`; change `-0.084`; prior date `N/A`.
+- **Policy 30d:** `TIGHTENING`; change `+0.250`; prior date `N/A`.
+- **Policy 90d:** `TIGHTENING`; change `+0.249`; prior date `N/A`.
+- **Liquidity 30d:** `IMPROVING`; change `+0.090`; prior date `N/A`.
+- **Liquidity 90d:** `DETERIORATING`; change `-0.090`; prior date `N/A`.
 
 ## Consensus
 
 Market consensus is a forward-looking overlay and never changes the current quadrant.
-- **Policy consensus:** `STABLE`; expected DFF `3.630 pp`.
+- **Policy consensus:** `EASING`; expected DFF `3.630 pp`.
 - **Fed balance-sheet consensus:** `EXPANDING`; expected Fed assets `6,836.00 B`.
 - **Survey reference/publication:** `2026-07-15` / `2026-07-15`; target date: `2027-01-27`; horizon: `6` months; quality: `OK`.
 - **Metric / unit:** `FED_FUNDS_RATE_AND_FED_BALANCE_SHEET_ASSETS` / `percent_and_billions_usd`; parsing status: `OK`; provider: `NY Fed Survey of Market Expectations`.
@@ -41,44 +41,38 @@ Market consensus is a forward-looking overlay and never changes the current quad
 
 ## Interpretation
 
-- **Macro interpretation:** Policy is accommodative while reserve liquidity remains scarce; easing support is limited by the liquidity backdrop. Yield curve un-inversion is a caution signal.
-- **Favored sector hypotheses:** Healthcare (XLV), Consumer Staples (XLP).
-- **Preferred company characteristics:** Defensive cash flow, Low debt.
-- **Disfavored sector hypotheses:** Technology (XLK), Consumer Discretionary (XLY), Industrials (XLI), AI Compute & Accelerators, Physical AI & Robotics.
+- **Macro interpretation:** The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.
+- **Favored sector hypotheses:** None listed.
+- **Preferred company characteristics:** None listed.
+- **Disfavored sector hypotheses:** None listed.
 - **Quality caveat:** sector mappings are research hypotheses; independent evidence factors remain visible below.
 
 ## Data Quality
 
 - **Overall quality:** `PARTIAL`; policy quality: `OK`; liquidity quality: `PARTIAL`.
-- **Input ages:** dff `0` days, core_pce `0` days, rstar `0` days, fed_assets `2` days, tga `2` days, rrp `2` days, nominal_gdp `163` days, effr `0` days, iorb `0` days, sofr `0` days.
-- **Reasons, missing inputs, and conflicts:** EFFR-IORB spread flags reserve pressure; EFFR-IORB spread flags reserve pressure; EFFR_IORB.
+- **Input ages:** dff `0` days, core_pce `0` days, rstar `0` days, fed_assets `3` days, tga `3` days, rrp `3` days, nominal_gdp `178` days, effr `0` days, iorb `0` days, sofr `0` days.
+- **Reasons, missing inputs, and conflicts:** Policy is neutral inside the neutral band; EFFR-IORB spread flags reserve pressure; Policy is neutral inside the neutral band; EFFR-IORB spread flags reserve pressure; Policy is neutral inside the neutral band; EFFR_IORB.
 
 ---
 
 ## 1. Active Macro Situation (2x2 Matrix Analysis)
 
 > [!IMPORTANT]
-> **Active Quadrant**: `SITUATION 2: ACCOMMODATIVE POLICY + SCARCE RESERVE LIQUIDITY`
-> - **Rates Stance**: `Interest Rates: Accommodative (current level)`
-> - **Reserve Liquidity Level**: `Reserve Liquidity: Scarce (current level)`
-> - **Macro Environment**: Policy is accommodative while reserve liquidity remains scarce; easing support is limited by the liquidity backdrop. Yield curve un-inversion is a caution signal.
+> **Active Quadrant**: `NO ACTIONABLE MACRO QUADRANT`
+> - **Rates Stance**: `Interest Rates: Neutral / unavailable`
+> - **Reserve Liquidity Level**: `Reserve Liquidity: Scarce`
+> - **Macro Environment**: The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.
 
 ### Sector & Company Type Alignment for Current Situation
 
 #### Favored Sectors
-- Healthcare (XLV)
-- Consumer Staples (XLP)
+
 
 #### Preferred Company Characteristics
-- Defensive cash flow
-- Low debt
+
 
 #### Disfavored / High Risk Sectors
-- Technology (XLK)
-- Consumer Discretionary (XLY)
-- Industrials (XLI)
-- AI Compute & Accelerators
-- Physical AI & Robotics
+
 
 ---
 
@@ -88,10 +82,10 @@ Reserve liquidity proxy is calculated as `Fed Total Assets - TGA Balance - Rever
 
 | Component | Value (Billions USD) | Notes / Description |
 | :--- | :--- | :--- |
-| **Reserve Liquidity Proxy** | **$5,892.18 B** | **30-Day Change: +73.91 B** |
-| Fed Total Assets | $6,740.62 B | Total Balance Sheet Size |
-| Treasury General Account (TGA) | $843.71 B | Treasury Cash Buffer at Fed |
-| Reverse Repo Facility (RRP) | $4.74 B | Overnight Liquidity Drain |
+| **Reserve Liquidity Proxy** | **$5,799.81 B** | **30-Day Change: -9.10 B** |
+| Fed Total Assets | $6,747.70 B | Total Balance Sheet Size |
+| Treasury General Account (TGA) | $947.32 B | Treasury Cash Buffer at Fed |
+| Reverse Repo Facility (RRP) | $0.58 B | Overnight Liquidity Drain |
 
 ---
 
@@ -101,13 +95,13 @@ The yield curve slope is a key indicator of economic cycle transitions and reces
 
 | Rate / Spread | Current Level | Institutional Signal |
 | :--- | :--- | :--- |
-| **Policy Rate** | `3.63%` | Source: `dff` / Stance: `HOLDING_RESTRICTIVE` |
-| **Policy Rate 30d Change** | `+0.00%` | Momentum diagnostic overlay; the matrix uses the real-policy gap level |
-| **10Y Real Yield Proxy** | `+2.43%` | 10Y Treasury minus 10Y breakeven |
-| **10-Year Treasury Yield** | `4.83%` | Benchmark Long Rate |
-| **2-Year Treasury Yield** | `4.43%` | Short Rate / Fed Expectations |
-| **10Y - 2Y Spread** | `+0.39%` | **Regime: Normal (Steep)** |
-| **10Y - 3M Spread** | `+0.95%` | Classic Recession Gauge |
+| **Policy Rate** | `3.88%` | Source: `dff` / Stance: `RAISING` |
+| **Policy Rate 30d Change** | `+0.25%` | Momentum diagnostic overlay; the matrix uses the real-policy gap level |
+| **10Y Real Yield Proxy** | `+2.84%` | 10Y Treasury minus 10Y breakeven |
+| **10-Year Treasury Yield** | `5.18%` | Benchmark Long Rate |
+| **2-Year Treasury Yield** | `4.87%` | Short Rate / Fed Expectations |
+| **10Y - 2Y Spread** | `+0.36%` | **Regime: Normal (Steep)** |
+| **10Y - 3M Spread** | `+0.93%` | Classic Recession Gauge |
 
 ---
 
@@ -117,9 +111,9 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 
 | Metric | Current Value | Threshold Benchmark |
 | :--- | :--- | :--- |
-| **ICE BofA High Yield OAS** | `2.70%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
-| **Investment Grade OAS** | `0.42%` | High Quality Corporate Premium |
-| **Chicago Fed Financial Conditions** | `-0.59` | Negative = Loose, Positive = Tight |
+| **ICE BofA High Yield OAS** | `2.80%` | Normal: <4.5%, Stress: >5.0%, Panic: >8.0% |
+| **Investment Grade OAS** | `0.40%` | High Quality Corporate Premium |
+| **Chicago Fed Financial Conditions** | `-0.57` | Negative = Loose, Positive = Tight |
 
 ---
 ## 5. Sector Evidence Ranking
@@ -127,8 +121,8 @@ Credit spreads measure corporate risk premiums and systemic financial tightness.
 > **No meaningful sector differentiation from current evidence.** All sector views remain research-neutral or the score dispersion is too small to support a useful ranking.
 
 - Usable assessments: `11`
-- Score spread: `7.0` points
-- Dominant missing input: Macro input quality is insufficient. (`11` of `11` sectors)
+- Score spread: `3.0` points
+- Dominant missing input: Macro quadrant is unavailable. (`11` of `11` sectors)
 
 > Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.
 
@@ -140,15 +134,15 @@ Constituent review compares each company with its focused peer cohort and requir
 
 | Ticker | Peer Cohort | Relative Valuation Status | Research Posture | Evidence | Missing Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `BAC` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.94x) is 8.5% above its historical median (0.87x) across 60+ observations.<br>The 8.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
-| `C` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.84x) is 8.2% above its historical median (0.78x) across 60+ observations.<br>The 8.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
-| `JPM` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.23x) is 1.7% above its historical median (1.21x) across 60+ observations.<br>The 1.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
-| `SCHW` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.18x) is 0.1% below its historical median (1.18x) across 60+ observations.<br>The 0.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
-| `WFC` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.89x) is 6.7% below its historical median (0.96x) across 60+ observations.<br>The 6.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
-| `AXP` | Capital Markets | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.03x) is 19.4% below its historical median (1.28x) across 60+ observations.<br>The 19.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
-| `BLK` | Capital Markets | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.09x) is 14.2% below its historical median (1.26x) across 60+ observations.<br>The 14.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | Fewer than 3 valid comparable peers are available for EVE. |
-| `GS` | Capital Markets | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.86x) is 14.8% above its historical median (0.75x) across 60+ observations.<br>The 14.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
-| `MS` | Capital Markets | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.97x) is 21.9% above its historical median (0.80x) across 60+ observations.<br>The 21.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
+| `BAC` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.93x) is 6.1% above its historical median (0.87x) across 60+ observations.<br>The 6.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
+| `C` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.89x) is 12.9% above its historical median (0.79x) across 60+ observations.<br>The 12.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
+| `JPM` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.29x) is 6.8% above its historical median (1.21x) across 60+ observations.<br>The 6.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
+| `SCHW` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.20x) is 1.1% above its historical median (1.18x) across 60+ observations.<br>The 1.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
+| `WFC` | Banks | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.89x) is 6.2% below its historical median (0.95x) across 60+ observations.<br>The 6.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
+| `AXP` | Capital Markets | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.06x) is 15.4% below its historical median (1.26x) across 60+ observations.<br>The 15.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
+| `BLK` | Capital Markets | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.17x) is 6.6% below its historical median (1.25x) across 60+ observations.<br>The 6.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | Fewer than 3 valid comparable peers are available for EVE. |
+| `GS` | Capital Markets | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.83x) is 9.0% above its historical median (0.76x) across 60+ observations.<br>The 9.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
+| `MS` | Capital Markets | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.94x) is 17.3% above its historical median (0.80x) across 60+ observations.<br>The 17.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
 | `AAPL` | Consumer Hardware & Platforms | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `GOOGL` | Consumer Hardware & Platforms | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `META` | Consumer Hardware & Platforms | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
@@ -157,61 +151,61 @@ Constituent review compares each company with its focused peer cohort and requir
 | `MOD` | Datacenter Cooling | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `SMCI` | Datacenter Cooling | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `VRT` | Datacenter Cooling | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `CEG` | Downstream Power & Grid | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.83x) is 14.8% below its historical median (0.97x) across 60+ observations.<br>The 14.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.58x) is 14.8% below its historical median (0.69x) across 60+ observations. | — |
-| `ETN` | Downstream Power & Grid | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.21x) is 15.3% above its historical median (1.05x) across 60+ observations.<br>The 15.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.71x) is 17.3% above its historical median (1.46x) across 60+ observations.<br>The 17.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `GEV` | Downstream Power & Grid | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.74x) is 14.4% above its historical median (1.52x) across 60+ observations.<br>The 14.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (3.84x) is 18.5% above its historical median (3.24x) across 60+ observations.<br>The 18.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `VST` | Downstream Power & Grid | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.54x) is 14.5% below its historical median (0.64x) across 60+ observations.<br>The 14.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.40x) is 20.7% below its historical median (0.50x) across 60+ observations.<br>The 20.7% relative discount meets the 20.0% WATCH threshold. | — |
-| `COP` | Energy Producers | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.92x) is 4.9% above its historical median (0.88x) across 60+ observations.<br>The 4.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.76x) is 3.1% above its historical median (0.73x) across 60+ observations.<br>The 3.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `CVX` | Energy Producers | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.13x) is 3.0% below its historical median (1.17x) across 60+ observations.<br>The 3.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.32x) is 3.0% below its historical median (1.37x) across 60+ observations. | — |
-| `EOG` | Energy Producers | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.66x) is 3.0% below its historical median (0.68x) across 60+ observations.<br>The 3.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.63x) is 4.6% below its historical median (0.66x) across 60+ observations.<br>The 4.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `XOM` | Energy Producers | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.09x) is 5.1% below its historical median (1.15x) across 60+ observations.<br>The 5.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.57x) is 5.1% below its historical median (1.65x) across 60+ observations. | — |
-| `AMD` | Fabless Accelerators | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.85x) is 82.9% above its historical median (1.01x) across 60+ observations.<br>The 82.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (3.27x) is 83.5% above its historical median (1.78x) across 60+ observations.<br>The 83.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `AVGO` | Fabless Accelerators | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.05x) is 15.9% below its historical median (1.25x) across 60+ observations.<br>The 15.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.30x) is 11.2% below its historical median (1.46x) across 60+ observations.<br>The 11.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `NVDA` | Fabless Accelerators | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.75x) is 5.1% above its historical median (0.72x) across 60+ observations.<br>The 5.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.77x) is 11.9% above its historical median (0.69x) across 60+ observations.<br>The 11.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `QCOM` | Fabless Accelerators | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.95x) is 7.8% below its historical median (1.03x) across 60+ observations.<br>The 7.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.48x) is 6.1% above its historical median (0.45x) across 60+ observations.<br>The 6.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `CEG` | Downstream Power & Grid | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.72x) is 23.3% below its historical median (0.94x) across 60+ observations.<br>The 23.3% relative discount meets the 20.0% WATCH threshold.<br>Current EVE cohort-relative ratio (0.51x) is 23.3% below its historical median (0.67x) across 60+ observations. | — |
+| `ETN` | Downstream Power & Grid | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.38x) is 29.2% above its historical median (1.07x) across 60+ observations.<br>The 29.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.95x) is 30.3% above its historical median (1.50x) across 60+ observations.<br>The 30.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `GEV` | Downstream Power & Grid | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.93x) is 23.5% above its historical median (1.56x) across 60+ observations.<br>The 23.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (4.26x) is 28.5% above its historical median (3.31x) across 60+ observations.<br>The 28.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `VST` | Downstream Power & Grid | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.49x) is 22.3% below its historical median (0.63x) across 60+ observations.<br>The 22.3% relative discount meets the 20.0% WATCH threshold.<br>Current EVE cohort-relative ratio (0.36x) is 25.6% below its historical median (0.48x) across 60+ observations.<br>The 25.6% relative discount meets the 20.0% WATCH threshold. | — |
+| `COP` | Energy Producers | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.91x) is 0.2% below its historical median (0.91x) across 60+ observations.<br>The 0.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.73x) is 0.7% above its historical median (0.73x) across 60+ observations.<br>The 0.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `CVX` | Energy Producers | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.10x) is 0.8% below its historical median (1.11x) across 60+ observations.<br>The 0.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.37x) is 0.7% below its historical median (1.38x) across 60+ observations.<br>The 0.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `EOG` | Energy Producers | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.65x) is 4.9% below its historical median (0.68x) across 60+ observations.<br>The 4.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.62x) is 4.0% below its historical median (0.64x) across 60+ observations.<br>The 4.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `XOM` | Energy Producers | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.10x) is 1.1% below its historical median (1.11x) across 60+ observations.<br>The 1.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.64x) is 1.1% below its historical median (1.65x) across 60+ observations. | — |
+| `AMD` | Fabless Accelerators | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (2.22x) is 114.9% above its historical median (1.03x) across 60+ observations.<br>The 114.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (3.98x) is 115.9% above its historical median (1.84x) across 60+ observations.<br>The 115.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `AVGO` | Fabless Accelerators | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.92x) is 26.2% below its historical median (1.25x) across 60+ observations.<br>The 26.2% relative discount meets the 20.0% WATCH threshold.<br>Current EVE cohort-relative ratio (1.23x) is 15.7% below its historical median (1.45x) across 60+ observations.<br>The 15.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `NVDA` | Fabless Accelerators | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.73x) is 1.5% above its historical median (0.71x) across 60+ observations.<br>The 1.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.82x) is 17.8% above its historical median (0.69x) across 60+ observations.<br>The 17.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `QCOM` | Fabless Accelerators | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.09x) is 5.4% above its historical median (1.03x) across 60+ observations.<br>The 5.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.55x) is 21.0% above its historical median (0.46x) across 60+ observations.<br>The 21.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
 | `GFS` | Foundries | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `INTC` | Foundries | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `TSM` | Foundries | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `CAT` | Industrial Machinery | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.85x) is 0.1% below its historical median (0.85x) across 60+ observations.<br>The 0.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.01x) is 0.1% below its historical median (1.01x) across 60+ observations. | — |
-| `DE` | Industrial Machinery | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.11x) is 20.5% above its historical median (0.92x) across 60+ observations.<br>The 20.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.05x) is 13.6% above its historical median (0.93x) across 60+ observations.<br>The 13.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `GE` | Industrial Machinery | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.31x) is 8.5% below its historical median (1.43x) across 60+ observations.<br>The 8.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.23x) is 12.7% below its historical median (1.41x) across 60+ observations.<br>The 12.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `HON` | Industrial Machinery | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.68x) is 22.4% below its historical median (0.88x) across 60+ observations.<br>The 22.4% relative discount meets the 20.0% WATCH threshold.<br>Current EVE cohort-relative ratio (0.41x) is 23.9% below its historical median (0.55x) across 60+ observations.<br>The 23.9% relative discount meets the 20.0% WATCH threshold. | — |
-| `ROK` | Industrial Machinery | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.05x) is 7.2% below its historical median (1.13x) across 60+ observations.<br>The 7.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.94x) is 9.2% below its historical median (1.03x) across 60+ observations.<br>The 9.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `CI` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.54x) is 14.3% below its historical median (0.63x) across 60+ observations.<br>The 14.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.71x) is 19.0% below its historical median (0.88x) across 60+ observations.<br>The 19.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `CVS` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.72x) is 1.0% below its historical median (0.72x) across 60+ observations.<br>The 1.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.06x) is 8.5% below its historical median (1.15x) across 60+ observations.<br>The 8.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `ELV` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.01x) is 7.0% above its historical median (0.95x) across 60+ observations.<br>The 7.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.92x) is 0.2% above its historical median (0.92x) across 60+ observations.<br>The 0.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `HUM` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.93x) is 26.4% above its historical median (1.53x) across 60+ observations.<br>The 26.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.03x) is 26.6% above its historical median (0.81x) across 60+ observations.<br>The 26.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `UNH` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.33x) is 6.3% below its historical median (1.42x) across 60+ observations.<br>The 6.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.42x) is 12.8% below its historical median (1.63x) across 60+ observations.<br>The 12.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `CAT` | Industrial Machinery | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.85x) is 0.1% above its historical median (0.85x) across 60+ observations.<br>The 0.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.97x) is 0.2% below its historical median (0.97x) across 60+ observations.<br>The 0.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `DE` | Industrial Machinery | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.11x) is 20.5% above its historical median (0.92x) across 60+ observations.<br>The 20.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.13x) is 12.8% above its historical median (1.00x) across 60+ observations.<br>The 12.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `GE` | Industrial Machinery | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.32x) is 7.6% below its historical median (1.43x) across 60+ observations.<br>The 7.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.21x) is 9.3% below its historical median (1.34x) across 60+ observations.<br>The 9.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `HON` | Industrial Machinery | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.72x) is 18.2% below its historical median (0.88x) across 60+ observations.<br>The 18.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.41x) is 20.4% below its historical median (0.51x) across 60+ observations.<br>The 20.4% relative discount meets the 20.0% WATCH threshold. | — |
+| `ROK` | Industrial Machinery | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.05x) is 6.9% below its historical median (1.13x) across 60+ observations.<br>The 6.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.91x) is 9.2% below its historical median (1.00x) across 60+ observations.<br>The 9.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `CI` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.54x) is 13.3% below its historical median (0.62x) across 60+ observations.<br>The 13.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.71x) is 17.9% below its historical median (0.87x) across 60+ observations.<br>The 17.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `CVS` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.70x) is 3.7% below its historical median (0.72x) across 60+ observations.<br>The 3.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.04x) is 10.6% below its historical median (1.16x) across 60+ observations.<br>The 10.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `ELV` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.99x) is 3.6% above its historical median (0.96x) across 60+ observations.<br>The 3.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.90x) is 2.2% below its historical median (0.92x) across 60+ observations.<br>The 2.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `HUM` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (2.01x) is 31.0% above its historical median (1.54x) across 60+ observations.<br>The 31.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.07x) is 31.4% above its historical median (0.81x) across 60+ observations.<br>The 31.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `UNH` | Managed Care | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.40x) is 1.2% below its historical median (1.41x) across 60+ observations.<br>The 1.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.44x) is 9.2% below its historical median (1.59x) across 60+ observations.<br>The 9.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
 | `MU` | Memory | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `STX` | Memory | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `WDC` | Memory | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `ABBV` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.86x) is 5.3% below its historical median (0.91x) across 60+ observations.<br>The 5.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.01x) is 5.4% below its historical median (1.07x) across 60+ observations.<br>The 5.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `JNJ` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.40x) is 1.1% below its historical median (1.41x) across 60+ observations.<br>The 1.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.25x) is 0.9% below its historical median (1.26x) across 60+ observations.<br>The 0.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `LLY` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.53x) is 8.9% below its historical median (1.68x) across 60+ observations.<br>The 8.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.63x) is 8.4% below its historical median (1.78x) across 60+ observations.<br>The 8.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `MRK` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.81x) is 8.9% above its historical median (0.74x) across 60+ observations.<br>The 8.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.78x) is 9.1% above its historical median (0.71x) across 60+ observations.<br>The 9.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `PFE` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.51x) is 10.9% below its historical median (0.57x) across 60+ observations.<br>The 10.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.46x) is 10.6% below its historical median (0.51x) across 60+ observations.<br>The 10.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `ABBV` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.86x) is 3.5% below its historical median (0.89x) across 60+ observations.<br>The 3.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.02x) is 3.6% below its historical median (1.06x) across 60+ observations.<br>The 3.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `JNJ` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.40x) is 2.6% below its historical median (1.44x) across 60+ observations.<br>The 2.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.24x) is 2.5% below its historical median (1.27x) across 60+ observations.<br>The 2.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `LLY` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.57x) is 5.7% below its historical median (1.66x) across 60+ observations.<br>The 5.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.67x) is 5.4% below its historical median (1.76x) across 60+ observations.<br>The 5.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `MRK` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.81x) is 10.0% above its historical median (0.74x) across 60+ observations.<br>The 10.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.78x) is 10.0% above its historical median (0.71x) across 60+ observations. | — |
+| `PFE` | Pharmaceuticals | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.51x) is 8.4% below its historical median (0.56x) across 60+ observations.<br>The 8.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.46x) is 8.2% below its historical median (0.50x) across 60+ observations.<br>The 8.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
 | `ISRG` | Physical AI & Robotics | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `SYM` | Physical AI & Robotics | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `TSLA` | Physical AI & Robotics | Insufficient Comparable Peers | `NEUTRAL` | — | No valid current FPE multiple is available.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `MPC` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `PSX` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
 | `VLO` | Refiners | Insufficient Comparable Peers | `NEUTRAL` | — | Fewer than 3 valid comparable peers are available for FPE.<br>Fewer than 3 valid comparable peers are available for EVE. |
-| `AMZN` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.44x) is 40.9% above its historical median (1.02x) across 60+ observations.<br>The 40.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.21x) is 39.7% above its historical median (0.87x) across 60+ observations.<br>The 39.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `BKNG` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.75x) is 5.0% above its historical median (0.71x) across 60+ observations.<br>The 5.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.85x) is 2.8% above its historical median (0.83x) across 60+ observations.<br>The 2.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `HD` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.13x) is 7.2% above its historical median (1.05x) across 60+ observations.<br>The 7.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.04x) is 0.1% above its historical median (1.04x) across 60+ observations.<br>The 0.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `LOW` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.81x) is 2.3% below its historical median (0.83x) across 60+ observations.<br>The 2.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.77x) is 4.9% below its historical median (0.81x) across 60+ observations.<br>The 4.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `MCD` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.02x) is 2.3% above its historical median (1.00x) across 60+ observations.<br>The 2.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.12x) is 2.1% below its historical median (1.15x) across 60+ observations.<br>The 2.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `NKE` | Retail & Consumer | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.86x) is 25.5% below its historical median (1.15x) across 60+ observations.<br>The 25.5% relative discount meets the 20.0% WATCH threshold.<br>Current EVE cohort-relative ratio (0.75x) is 31.9% below its historical median (1.10x) across 60+ observations.<br>The 31.9% relative discount meets the 20.0% WATCH threshold. | — |
-| `SBUX` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.85x) is 29.0% above its historical median (1.44x) across 60+ observations.<br>The 29.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.68x) is 19.7% above its historical median (1.41x) across 60+ observations.<br>The 19.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `AMAT` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.90x) is 6.6% above its historical median (0.85x) across 60+ observations.<br>The 6.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.92x) is 8.5% above its historical median (0.85x) across 60+ observations.<br>The 8.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `ASML` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.08x) is 2.2% below its historical median (1.11x) across 60+ observations.<br>The 2.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
-| `KLAC` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.99x) is 12.0% below its historical median (1.13x) across 60+ observations.<br>The 12.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.00x) is 10.6% below its historical median (1.12x) across 60+ observations.<br>The 10.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `LRCX` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.93x) is 5.3% above its historical median (0.88x) across 60+ observations.<br>The 5.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.12x) is 4.4% below its historical median (1.17x) across 60+ observations.<br>The 4.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `TER` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.25x) is 15.1% above its historical median (1.09x) across 60+ observations.<br>The 15.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.00x) is 19.0% above its historical median (0.84x) across 60+ observations.<br>The 19.0% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `ADBE` | Software & Cloud | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.58x) is 6.3% below its historical median (0.62x) across 60+ observations.<br>The 6.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.54x) is 22.1% below its historical median (0.69x) across 60+ observations.<br>The 22.1% relative discount meets the 20.0% WATCH threshold. | — |
-| `CRM` | Software & Cloud | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.11x) is 36.7% above its historical median (0.81x) across 60+ observations.<br>The 36.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.94x) is 5.6% above its historical median (0.89x) across 60+ observations.<br>The 5.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `MSFT` | Software & Cloud | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.50x) is 3.9% above its historical median (1.44x) across 60+ observations.<br>The 3.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.07x) is 5.2% below its historical median (1.12x) across 60+ observations.<br>The 5.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
-| `ORCL` | Software & Cloud | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.90x) is 26.8% below its historical median (1.23x) across 60+ observations.<br>The 26.8% relative discount meets the 20.0% WATCH threshold.<br>Current EVE cohort-relative ratio (1.06x) is 27.0% below its historical median (1.46x) across 60+ observations.<br>The 27.0% relative discount meets the 20.0% WATCH threshold. | — |
+| `AMZN` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.45x) is 40.4% above its historical median (1.03x) across 60+ observations.<br>The 40.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.26x) is 43.4% above its historical median (0.88x) across 60+ observations.<br>The 43.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `BKNG` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.75x) is 5.1% above its historical median (0.71x) across 60+ observations.<br>The 5.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.84x) is 2.8% above its historical median (0.81x) across 60+ observations.<br>The 2.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `HD` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.10x) is 4.7% above its historical median (1.05x) across 60+ observations.<br>The 4.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.06x) is 1.6% above its historical median (1.05x) across 60+ observations.<br>The 1.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `LOW` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.82x) is 0.5% below its historical median (0.83x) across 60+ observations.<br>The 0.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.78x) is 3.2% below its historical median (0.81x) across 60+ observations.<br>The 3.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `MCD` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.99x) is 0.5% below its historical median (0.99x) across 60+ observations.<br>The 0.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.12x) is 2.5% below its historical median (1.15x) across 60+ observations.<br>The 2.5% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `NKE` | Retail & Consumer | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.91x) is 22.9% below its historical median (1.19x) across 60+ observations.<br>The 22.9% relative discount meets the 20.0% WATCH threshold.<br>Current EVE cohort-relative ratio (0.77x) is 29.5% below its historical median (1.09x) across 60+ observations.<br>The 29.5% relative discount meets the 20.0% WATCH threshold. | — |
+| `SBUX` | Retail & Consumer | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.83x) is 26.6% above its historical median (1.44x) across 60+ observations.<br>The 26.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.70x) is 17.8% above its historical median (1.44x) across 60+ observations.<br>The 17.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `AMAT` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.91x) is 8.2% above its historical median (0.84x) across 60+ observations.<br>The 8.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.91x) is 7.4% above its historical median (0.85x) across 60+ observations.<br>The 7.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `ASML` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.07x) is 4.7% below its historical median (1.13x) across 60+ observations.<br>The 4.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | No valid current EVE multiple is available. |
+| `KLAC` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.00x) is 11.1% below its historical median (1.12x) across 60+ observations.<br>The 11.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.99x) is 10.2% below its historical median (1.10x) across 60+ observations.<br>The 10.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `LRCX` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.93x) is 7.3% above its historical median (0.87x) across 60+ observations.<br>The 7.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.12x) is 3.2% below its historical median (1.15x) across 60+ observations.<br>The 3.2% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `TER` | Semiconductor Equipment | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.25x) is 12.1% above its historical median (1.11x) across 60+ observations.<br>The 12.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.01x) is 16.3% above its historical median (0.87x) across 60+ observations.<br>The 16.3% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `ADBE` | Software & Cloud | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (0.58x) is 5.6% below its historical median (0.62x) across 60+ observations.<br>The 5.6% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (0.54x) is 18.4% below its historical median (0.66x) across 60+ observations.<br>The 18.4% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `CRM` | Software & Cloud | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.17x) is 43.7% above its historical median (0.82x) across 60+ observations.<br>The 43.7% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.08x) is 18.8% above its historical median (0.91x) across 60+ observations.<br>The 18.8% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `MSFT` | Software & Cloud | Fair vs Historical Cohort Relationship | `NEUTRAL` | Current FPE cohort-relative ratio (1.75x) is 21.1% above its historical median (1.44x) across 60+ observations.<br>The 21.1% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL.<br>Current EVE cohort-relative ratio (1.25x) is 11.9% above its historical median (1.12x) across 60+ observations.<br>The 11.9% relative discount does not meet the 20.0% WATCH threshold; posture remains NEUTRAL. | — |
+| `ORCL` | Software & Cloud | Discounted vs Historical Cohort Relationship | `WATCH` | Current FPE cohort-relative ratio (0.85x) is 30.5% below its historical median (1.23x) across 60+ observations.<br>The 30.5% relative discount meets the 20.0% WATCH threshold.<br>Current EVE cohort-relative ratio (0.92x) is 30.6% below its historical median (1.33x) across 60+ observations.<br>The 30.6% relative discount meets the 20.0% WATCH threshold. | — |
 
 ---
 
@@ -221,13 +215,13 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Ecosystem Sub-Group | Key Tickers | Avg Forward P/E | Avg EV / EBITDA | Historical Norm (P/E) | Supply Chain & Valuation Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `21.41x` | `37.41x` | `28.0x` | `Undervalued / Discounted Super-Cycle` |
-| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `10.26x` | `24.52x` | `16.0x` | `Undervalued / Discounted Super-Cycle` |
-| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `36.84x` | `58.79x` | `30.0x` | `Fairly Valued` |
-| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `25.05x` | `28.58x` | `22.0x` | `Fairly Valued` |
-| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `17.67x` | `23.00x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
-| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `26.36x` | `38.91x` | `26.0x` | `Fairly Valued` |
-| **7. Critical Materials & Magnets** | `FCX`, `MP` | `37.09x` | `12.63x` | `18.0x` | `Rich Multiple / Growth Premium` |
+| **1. AI Compute & Accelerators** | `NVDA`, `AMD`, `AVGO`, `TSM` | `23.40x` | `42.91x` | `28.0x` | `Fairly Valued` |
+| **2. High-Bandwidth Memory (HBM)** | `MU`, `WDC` | `10.59x` | `25.24x` | `16.0x` | `Undervalued / Discounted Super-Cycle` |
+| **3. Physical AI & Robotics** | `TSLA`, `SYM`, `TER`, `ROK`, `ISRG` | `38.31x` | `61.98x` | `30.0x` | `Rich Multiple / Growth Premium` |
+| **4. Downstream Power & Grid** | `CEG`, `VST`, `ETN`, `GEV` | `24.63x` | `29.25x` | `22.0x` | `Fairly Valued` |
+| **5. Downstream Datacenter Cooling** | `VRT`, `MOD`, `SMCI` | `17.96x` | `24.45x` | `25.0x` | `Undervalued / Discounted Super-Cycle` |
+| **6. Semiconductor EUV Equipment** | `ASML`, `AMAT`, `LRCX`, `KLAC` | `27.65x` | `41.32x` | `26.0x` | `Fairly Valued` |
+| **7. Critical Materials & Magnets** | `FCX`, `MP` | `36.67x` | `12.79x` | `18.0x` | `Rich Multiple / Growth Premium` |
 
 ---
 
@@ -235,14 +229,14 @@ Tracking valuation multiples and downstream physical dependencies across compute
 
 | Asset / Risk Gauge | Current Price / Level | Signal |
 | :--- | :--- | :--- |
-| **CBOE Volatility (VIX)** | `15.81` | `Low Volatility (Complacency)` |
-| **US Dollar Index (DXY)** | `99.03` | Global Currency Tightness |
-| **S&P 500 Index** | `7,659.58` | US Equity Benchmark |
-| **CNN Fear & Greed Index** | `31.83` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
-| **Shiller PE Ratio** | `40.73` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
-| **WTI Crude Oil** | `$99.61` | Energy Cost Drivers |
-| **Gold** | `$4,420.10` | Monetary Protection / Safe Haven |
-| **Copper** | `$6.55` | Industrial Demand Indicator |
+| **CBOE Volatility (VIX)** | `14.87` | `Low Volatility (Complacency)` |
+| **US Dollar Index (DXY)** | `100.97` | Global Currency Tightness |
+| **S&P 500 Index** | `7,743.41` | US Equity Benchmark |
+| **CNN Fear & Greed Index** | `37.00` | `Fear risk-appetite overlay: sentiment is cautious, so require confirmation from credit, liquidity, and valuation.` |
+| **Shiller PE Ratio** | `41.48` | `Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.` |
+| **WTI Crude Oil** | `$92.41` | Energy Cost Drivers |
+| **Gold** | `$4,321.20` | Monetary Protection / Safe Haven |
+| **Copper** | `$6.70` | Industrial Demand Indicator |
 
 ---
 *Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.*
