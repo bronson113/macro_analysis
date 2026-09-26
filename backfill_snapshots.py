@@ -1,16 +1,18 @@
 import pandas as pd
 import os
 from datetime import datetime, timedelta
-from config import DASHBOARD_HISTORY_DAYS, OBSERVATIONS_CSV
+from config import DASHBOARD_HISTORY_DAYS, INDICATORS_CSV, OBSERVATIONS_DB, OBSERVATIONS_CSV
 from storage import MacroStorage
+from observation_sqlite import read_observations
 
 def backfill():
-    if not os.path.exists(OBSERVATIONS_CSV):
-        print("No observations CSV found. Cannot backfill.")
+    observations_path = OBSERVATIONS_DB if os.path.exists(OBSERVATIONS_DB) else OBSERVATIONS_CSV
+    if not os.path.exists(observations_path):
+        print("No observations database found. Cannot backfill.")
         return
 
     print("Loading observations...")
-    df = pd.read_csv(OBSERVATIONS_CSV)
+    df = read_observations(observations_path)
     df['date'] = pd.to_datetime(df['date'])
     
     cutoff = datetime.now() - timedelta(days=DASHBOARD_HISTORY_DAYS)
@@ -21,7 +23,12 @@ def backfill():
     print(f"Found {len(dates)} dates to backfill.")
     
     from config import SNAPSHOTS_CSV
-    storage = MacroStorage(snapshots_csv=SNAPSHOTS_CSV)
+    storage = MacroStorage(
+        indicators_csv=INDICATORS_CSV,
+        snapshots_csv=SNAPSHOTS_CSV,
+        observations_csv=None,
+        observations_db=OBSERVATIONS_DB,
+    )
     inserted = 0
     
     for d_str in dates:

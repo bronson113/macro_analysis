@@ -20,10 +20,11 @@ import pandas as pd
 from config import (
     DATA_DIR,
     NEWS_CSV,
-    OBSERVATIONS_CSV,
+    OBSERVATIONS_DB,
     OUTPUT_DIR,
     SNAPSHOTS_CSV,
 )
+from observation_sqlite import read_observations
 
 logger = logging.getLogger(__name__)
 
@@ -95,7 +96,7 @@ class WeeklyDigestGenerator:
     def __init__(
         self,
         snapshots_path: Path = SNAPSHOTS_CSV,
-        observations_path: Path = OBSERVATIONS_CSV,
+        observations_path: Path = OBSERVATIONS_DB,
         news_path: Path = NEWS_CSV,
         output_dir: Path = OUTPUT_DIR,
     ):
@@ -126,7 +127,7 @@ class WeeklyDigestGenerator:
         if self._observations_df is None:
             if self.observations_path.exists():
                 try:
-                    df = pd.read_csv(self.observations_path, low_memory=False)
+                    df = read_observations(self.observations_path)
                     df["datetime"] = pd.to_datetime(df["date"], errors="coerce")
                     df = df.dropna(subset=["datetime", "indicator_key", "value"])
                     self._observations_df = df

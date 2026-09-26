@@ -1202,6 +1202,49 @@ class TestMacroPipeline(unittest.TestCase):
             span_days = int((pd.to_datetime(nvda_fpe_series["date"]).max() - pd.to_datetime(nvda_fpe_series["date"]).min()).days)
             self.assertGreaterEqual(span_days, 180)
 
+    def test_04d_relative_stock_histories_and_today_are_written_in_one_batch(self):
+        class BatchStorage:
+            def __init__(self):
+                self.batches = []
+
+            def save_observation_batches(self, batches):
+                self.batches.append(batches)
+                return sum(len(frame) for frame in batches.values())
+
+            def save_observations(self, *args, **kwargs):
+                raise AssertionError("relative valuations must use one batch write")
+
+        storage = BatchStorage()
+        engine = RawDataEngine(storage, output_dir=self.tmp_path / "raw_batch_output", verbose=False)
+        dates = pd.date_range("2026-08-18", periods=2, freq="D")
+        tickers = ["AMD", "AVGO", "QCOM", "NVDA"]
+        metrics = [
+            {
+                "ticker": ticker,
+                "peer_cohort": "Fabless Accelerators",
+                "price": 100.0 + index,
+                "forward_pe": 20.0 + index,
+                "ev_ebitda": 10.0 + index,
+            }
+            for index, ticker in enumerate(tickers)
+        ]
+        histories = {
+            ticker: pd.DataFrame({"Close": [100.0, 101.0]}, index=dates)
+            for ticker in tickers
+        }
+
+        saved = engine.save_relative_multiple_observations(
+            metrics, "2026-08-21", price_histories=histories
+        )
+
+        self.assertEqual(len(storage.batches), 1)
+        fpe_key = relative_multiple_key("Fabless Accelerators", "NVDA", "fpe")
+        self.assertEqual(
+            storage.batches[0][fpe_key]["date"].tolist(),
+            ["2026-08-18", "2026-08-19", "2026-08-21"],
+        )
+        self.assertEqual(saved, sum(len(frame) for frame in storage.batches[0].values()))
+
     def test_05_technology_business_models_are_not_one_peer_group(self):
         """Comparable cohorts distinguish technology companies with different economics."""
         mapping = ticker_to_cohort()

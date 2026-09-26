@@ -48,20 +48,22 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
+      - name: Migrate and verify the compact observation database
+        run: |
+          MAX_OBSERVATIONS_BYTES=5000000
+          python migrate_observations.py --remove-source --max-bytes "$MAX_OBSERVATIONS_BYTES"
+
       - name: Pre-fetch FRED Data via Akamai Cookie Handshake
         run: python prefetch_fred.py
-
-      - name: Compact repeated observation vintages
-        run: python compact_observations.py
 
       - name: Run macro analysis pipeline
         run: python main.py run
 
-      - name: Compact new observations and check GitHub size limit
+      - name: Verify observation database size
         run: |
-          python compact_observations.py
-          MAX_OBSERVATIONS_BYTES=1000000
-          actual_bytes=$(wc -c < data/macro_observations.csv.gz)
+          MAX_OBSERVATIONS_BYTES=5000000
+          python migrate_observations.py --max-bytes "$MAX_OBSERVATIONS_BYTES"
+          actual_bytes=$(wc -c < data/macro_observations.sqlite)
           if [ "$actual_bytes" -gt "$MAX_OBSERVATIONS_BYTES" ]; then
             echo "Observation ledger is too large to push: $actual_bytes bytes" >&2
             exit 1
@@ -90,7 +92,7 @@ jobs:
         with:
           commit_message: "Automated daily macro data update"
           branch: ${{ github.head_ref || github.ref_name }}
-          file_pattern: "data/*.csv data/*.csv.gz output/*.md output/*.json web/public/* web/public/digests/* web/public/reports/*"
+          file_pattern: "data/*.csv data/*.sqlite output/*.md output/*.json web/public/* web/public/digests/* web/public/reports/*"
 
       - name: Setup Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5

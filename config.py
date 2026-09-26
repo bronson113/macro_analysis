@@ -18,7 +18,10 @@ for d in [DATA_DIR, LOG_DIR, OUTPUT_DIR, YFINANCE_CACHE_DIR]:
 
 DB_PATH_LEGACY = DATA_DIR / "macro_data.db"
 INDICATORS_CSV = DATA_DIR / "indicators.csv"
+# `OBSERVATIONS_CSV` is retained as the one-time migration source and for
+# backwards-compatible CSV fixtures. Production observations live in SQLite.
 OBSERVATIONS_CSV = DATA_DIR / "macro_observations.csv.gz"
+OBSERVATIONS_DB = DATA_DIR / "macro_observations.sqlite"
 SNAPSHOTS_CSV = DATA_DIR / "daily_snapshots.csv"
 NEWS_CSV = DATA_DIR / "macro_news.csv"
 RUN_LOGS_CSV = DATA_DIR / "run_logs.csv"

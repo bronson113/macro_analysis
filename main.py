@@ -10,9 +10,10 @@ import json
 import tempfile
 from pathlib import Path
 from config import (
-    DATA_DIR, INDICATORS_CSV, OBSERVATIONS_CSV, SNAPSHOTS_CSV, RUN_LOGS_CSV,
+    DATA_DIR, INDICATORS_CSV, OBSERVATIONS_DB, OBSERVATIONS_CSV, SNAPSHOTS_CSV, RUN_LOGS_CSV,
     OUTCOMES_JSON,
 )
+from observation_sqlite import count_observations
 from outcome_evaluation import evaluate_signals
 from storage import MacroStorage
 from analyzer import MacroAnalyzer
@@ -23,7 +24,8 @@ from scheduler import run_daily_job, install_cron_job, run_daemon
 def print_status():
     """Prints system status, indicator record counts, and last run log."""
     ind_count = len(pd.read_csv(INDICATORS_CSV)) if os.path.exists(INDICATORS_CSV) else 0
-    obs_count = len(pd.read_csv(OBSERVATIONS_CSV)) if os.path.exists(OBSERVATIONS_CSV) else 0
+    observations_path = OBSERVATIONS_DB if os.path.exists(OBSERVATIONS_DB) else OBSERVATIONS_CSV
+    obs_count = count_observations(observations_path) if os.path.exists(observations_path) else 0
     snap_count = len(pd.read_csv(SNAPSHOTS_CSV)) if os.path.exists(SNAPSHOTS_CSV) else 0
     
     logs = []

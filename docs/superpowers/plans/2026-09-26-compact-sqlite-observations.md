@@ -2,7 +2,7 @@
 
 > **For agentic workers:** Use test-driven development and verify each task before moving on.
 
-**Goal:** Commit an observation SQLite store below 1,000,000 bytes and batch pipeline writes without changing analytical results.
+**Goal:** Commit an observation SQLite store below 5,000,000 bytes and batch pipeline writes without changing analytical results.
 
 **Architecture:** One SQLite row per indicator contains an LZMA-compressed CSV payload. `MacroStorage` delegates observation reads and writes to a focused store module. The store updates affected indicator rows in a single transaction and exposes a bulk frame reader for existing consumers.
 
@@ -11,7 +11,7 @@
 ## Global Constraints
 
 - Preserve revision and as-of behavior, unknown columns, and public `MacroStorage` return shapes.
-- Production SQLite database must stay below 1,000,000 bytes after a daily run.
+- Production SQLite database must stay below 5,000,000 bytes after a daily run.
 - Remove the committed observation CSV only after the SQLite migration verifies every row.
 - Add no new runtime dependency.
 

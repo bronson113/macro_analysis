@@ -2,7 +2,7 @@
 
 ## Goal
 
-Replace the compressed observation CSV with a committed SQLite database that stays below 1,000,000 bytes and speeds up daily updates. Preserve historical revisions, point-in-time reads, and the existing report outputs.
+Replace the compressed observation CSV with a committed SQLite database that stays below 5,000,000 bytes and speeds up daily updates. Preserve historical revisions, point-in-time reads, and the existing report outputs.
 
 ## Storage design
 

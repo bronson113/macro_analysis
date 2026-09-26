@@ -149,7 +149,7 @@ class RawDataEngine:
         for stock in stock_metrics:
             grouped.setdefault(stock.get("peer_cohort") or stock.get("group", "Other"), []).append(stock)
 
-        saved = 0
+        observations_by_key: Dict[str, List[Dict[str, Any]]] = {}
         price_histories = price_histories or {}
 
         # If price histories are supplied, calculate historical relative ratios across all dates
@@ -224,17 +224,11 @@ class RawDataEngine:
 
                 for t in tickers:
                     if ticker_fpe_records[t]:
-                        res_fpe = self.storage.save_observations(
-                            relative_multiple_key(group_name, t, "fpe"),
-                            pd.DataFrame(ticker_fpe_records[t]),
-                        )
-                        saved += res_fpe if res_fpe is not None else len(ticker_fpe_records[t])
+                        key = relative_multiple_key(group_name, t, "fpe")
+                        observations_by_key.setdefault(key, []).extend(ticker_fpe_records[t])
                     if ticker_eve_records[t]:
-                        res_eve = self.storage.save_observations(
-                            relative_multiple_key(group_name, t, "eve"),
-                            pd.DataFrame(ticker_eve_records[t]),
-                        )
-                        saved += res_eve if res_eve is not None else len(ticker_eve_records[t])
+                        key = relative_multiple_key(group_name, t, "eve")
+                        observations_by_key.setdefault(key, []).extend(ticker_eve_records[t])
 
         # Always save today's observation
         for group_name, group_stocks in grouped.items():
@@ -259,21 +253,26 @@ class RawDataEngine:
 
                 rel_fpe = safe_ratio(stock.get("forward_pe"), median_fpe)
                 if rel_fpe is not None and 0 < rel_fpe < 5:
-                    res_fpe = self.storage.save_observations(
-                        relative_multiple_key(group_name, ticker, "fpe"),
-                        pd.DataFrame([{"date": today_str, "value": rel_fpe}]),
+                    key = relative_multiple_key(group_name, ticker, "fpe")
+                    observations_by_key.setdefault(key, []).append(
+                        {"date": today_str, "value": rel_fpe}
                     )
-                    saved += res_fpe if res_fpe is not None else 1
 
                 rel_eve = safe_ratio(stock.get("ev_ebitda"), median_eve)
                 if rel_eve is not None and 0 < rel_eve < 5:
-                    res_eve = self.storage.save_observations(
-                        relative_multiple_key(group_name, ticker, "eve"),
-                        pd.DataFrame([{"date": today_str, "value": rel_eve}]),
+                    key = relative_multiple_key(group_name, ticker, "eve")
+                    observations_by_key.setdefault(key, []).append(
+                        {"date": today_str, "value": rel_eve}
                     )
-                    saved += res_eve if res_eve is not None else 1
 
-        return saved
+        batches = {
+            key: pd.DataFrame(records)
+            for key, records in observations_by_key.items()
+        }
+        if not batches:
+            return 0
+        result = self.storage.save_observation_batches(batches)
+        return result if result is not None else sum(len(frame) for frame in batches.values())
 
     @staticmethod
     def _clean_for_json(obj):

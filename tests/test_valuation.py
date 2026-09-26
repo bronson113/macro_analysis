@@ -26,9 +26,18 @@ class RecordingStorage:
 
     def __init__(self):
         self.saved_observations = {}
+        self.saved_batches = []
 
     def save_observations(self, indicator_key, observations):
         self.saved_observations[indicator_key] = observations.to_dict("records")
+
+    def save_observation_batches(self, batches):
+        self.saved_batches.append({
+            key: observations.to_dict("records")
+            for key, observations in batches.items()
+        })
+        self.saved_observations.update(self.saved_batches[-1])
+        return sum(len(observations) for observations in batches.values())
 
 
 class TestAggregateSectorFundamentals(unittest.TestCase):
@@ -134,6 +143,8 @@ class TestValuationPersistence(unittest.TestCase):
         self.assertEqual(
             storage.saved_observations["val_v2_trailing_pe_xlk"][0]["value"], 25.0
         )
+        self.assertEqual(len(storage.saved_batches), 1)
+        self.assertEqual(len(storage.saved_batches[0]), 3)
 
     def test_save_valuations_keeps_consumer_sector_histories_distinct(self):
         """Consumer Discretionary and Staples must not overwrite each other's history."""
@@ -189,3 +200,5 @@ class TestValuationPersistence(unittest.TestCase):
         self.assertGreater(saved, 0)
         self.assertIn("val_v2_forward_pe_xlk", storage.saved_observations)
         self.assertEqual(len(storage.saved_observations["val_v2_forward_pe_xlk"]), 65)
+        self.assertEqual(len(storage.saved_batches), 1)
+        self.assertEqual(len(storage.saved_batches[0]), 24)

@@ -130,7 +130,7 @@ class TestDashboardHistory(unittest.TestCase):
     def test_backfill_builds_snapshots_for_dates_inside_ten_year_window(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             tmp_path = Path(tmpdir)
-            obs_csv = tmp_path / "macro_observations.csv"
+            observations_db = tmp_path / "macro_observations.sqlite"
             snapshots_csv = tmp_path / "daily_snapshots.csv"
 
             old_date = (datetime.now() - timedelta(days=365 * 8)).strftime("%Y-%m-%d")
@@ -140,22 +140,28 @@ class TestDashboardHistory(unittest.TestCase):
                 {"indicator_key": "treasury_10y", "date": old_date, "value": 2.0},
                 {"indicator_key": "treasury_10y", "date": recent_date, "value": 4.5},
             ])
-            obs.to_csv(obs_csv, index=False)
+            from observation_sqlite import ObservationSQLiteStore
+            ObservationSQLiteStore(observations_db).replace_all({
+                "treasury_10y": obs,
+            })
             
             # create empty snapshots
             pd.DataFrame(columns=['date', 'treasury_10y']).to_csv(snapshots_csv, index=False)
 
             import storage
-            old_obs_csv = backfill_snapshots.OBSERVATIONS_CSV
+            old_obs_db = backfill_snapshots.OBSERVATIONS_DB
+            old_indicators_csv = backfill_snapshots.INDICATORS_CSV
             old_snapshots_csv_config = config.SNAPSHOTS_CSV
             old_snapshots_csv_storage = storage.SNAPSHOTS_CSV
             try:
-                backfill_snapshots.OBSERVATIONS_CSV = str(obs_csv)
+                backfill_snapshots.OBSERVATIONS_DB = observations_db
+                backfill_snapshots.INDICATORS_CSV = tmp_path / "indicators.csv"
                 config.SNAPSHOTS_CSV = str(snapshots_csv)
                 storage.SNAPSHOTS_CSV = str(snapshots_csv)
                 backfill_snapshots.backfill()
             finally:
-                backfill_snapshots.OBSERVATIONS_CSV = old_obs_csv
+                backfill_snapshots.OBSERVATIONS_DB = old_obs_db
+                backfill_snapshots.INDICATORS_CSV = old_indicators_csv
                 config.SNAPSHOTS_CSV = old_snapshots_csv_config
                 storage.SNAPSHOTS_CSV = old_snapshots_csv_storage
 

@@ -227,7 +227,7 @@ class SectorValuationEngine:
         if not price_histories:
             return 0
 
-        saved = 0
+        observations_by_key: Dict[str, List[Dict[str, Any]]] = {}
         all_dates = set()
         for df in price_histories.values():
             if df is not None and not df.empty and "Close" in df.columns:
@@ -281,13 +281,16 @@ class SectorValuationEngine:
 
             for m in MULTIPLE_STORAGE_PREFIXES:
                 if sector_hist[m]:
-                    res_count = self.storage.save_observations(
-                        self._storage_key(sector, m),
-                        pd.DataFrame(sector_hist[m]),
-                    )
-                    saved += res_count if res_count is not None else len(sector_hist[m])
+                    observations_by_key[self._storage_key(sector, m)] = sector_hist[m]
 
-        return saved
+        batches = {
+            key: pd.DataFrame(records)
+            for key, records in observations_by_key.items()
+        }
+        if not batches:
+            return 0
+        result = self.storage.save_observation_batches(batches)
+        return result if result is not None else sum(len(frame) for frame in batches.values())
 
     def save_valuations_to_storage(
         self,
@@ -296,13 +299,19 @@ class SectorValuationEngine:
     ):
         """Save each positive aggregate multiple as a dated CSV observation."""
         today_str = pd.Timestamp.now().strftime("%Y-%m-%d")
+        observations_by_key: Dict[str, List[Dict[str, Any]]] = {}
         for res in sector_results:
             for multiple in MULTIPLE_STORAGE_PREFIXES:
                 value = _positive_finite(res.get(multiple))
                 if value is not None:
-                    observation = pd.DataFrame([{"date": today_str, "value": value}])
-                    self.storage.save_observations(
-                        self._storage_key(res["sector"], multiple), observation
+                    key = self._storage_key(res["sector"], multiple)
+                    observations_by_key.setdefault(key, []).append(
+                        {"date": today_str, "value": value}
                     )
+        if observations_by_key:
+            self.storage.save_observation_batches({
+                key: pd.DataFrame(records)
+                for key, records in observations_by_key.items()
+            })
         if price_histories:
             self.save_historical_sector_valuations(price_histories=price_histories)

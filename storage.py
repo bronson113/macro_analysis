@@ -1,4 +1,4 @@
-"""Durable CSV persistence for the macro-analysis pipeline."""
+"""Durable CSV persistence and compact SQLite observation storage."""
 
 import fcntl
 import gzip
@@ -9,7 +9,7 @@ import threading
 from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Callable, Dict, Iterator, List, Mapping, Optional, Union
+from typing import Any, Callable, Dict, Iterator, List, Mapping, Optional, Tuple, Union
 
 import pandas as pd
 
@@ -19,6 +19,7 @@ from config import (
     INDICATORS_CSV,
     MARKET_SENTIMENT_INDICATORS,
     NEWS_CSV,
+    OBSERVATIONS_DB,
     OBSERVATIONS_CSV,
     RUN_LOGS_CSV,
     SIGNALS_CSV,
@@ -27,10 +28,12 @@ from config import (
     YAHOO_TICKERS,
 )
 from outcome_evaluation import SignalRecord
+from observation_sqlite import ObservationSQLiteStore
 from source_health import SOURCE_HEALTH_COLUMNS, SourceHealth
 
 
 CSV_SCHEMA_VERSION = 1
+_DEFAULT_OBSERVATIONS_CSV = object()
 
 OBSERVATION_METADATA_COLUMNS = [
     "release_date",
@@ -187,12 +190,13 @@ def atomic_write_csv(path: Union[str, Path], frame: pd.DataFrame) -> None:
 
 
 class MacroStorage:
-    """Read and mutate all CSV ledgers with schema and atomic-write guarantees."""
+    """Read and mutate CSV ledgers and the SQLite observation store."""
 
     def __init__(
         self,
         indicators_csv=INDICATORS_CSV,
-        observations_csv=OBSERVATIONS_CSV,
+        observations_csv=_DEFAULT_OBSERVATIONS_CSV,
+        observations_db=OBSERVATIONS_DB,
         snapshots_csv=SNAPSHOTS_CSV,
         news_csv=NEWS_CSV,
         run_logs_csv=RUN_LOGS_CSV,
@@ -203,7 +207,21 @@ class MacroStorage:
         # RLock allows one public mutation to update multiple files without self-deadlock.
         self._lock = threading.RLock()
         self.indicators_csv = str(indicators_csv)
-        self.observations_csv = str(observations_csv)
+        self._uses_sqlite_observations = (
+            observations_csv is _DEFAULT_OBSERVATIONS_CSV or observations_csv is None
+        )
+        legacy_observations_path = (
+            OBSERVATIONS_CSV
+            if observations_csv is _DEFAULT_OBSERVATIONS_CSV or observations_csv is None
+            else observations_csv
+        )
+        self.observations_csv = str(legacy_observations_path)
+        self.observations_db = str(observations_db)
+        self._observation_store = (
+            ObservationSQLiteStore(self.observations_db)
+            if self._uses_sqlite_observations
+            else None
+        )
         self.snapshots_csv = str(snapshots_csv)
         self.news_csv = str(news_csv)
         self.run_logs_csv = str(run_logs_csv)
@@ -233,6 +251,13 @@ class MacroStorage:
             "consensus": Path(self.consensus_csv),
         }
         self._read_cache: Dict[str, Tuple[int, pd.DataFrame]] = {}
+        if (
+            observations_csv is _DEFAULT_OBSERVATIONS_CSV
+            and Path(self.observations_csv).exists()
+            and self._observation_store is not None
+            and self._observation_store.is_empty
+        ):
+            self.migrate_observations_csv(self.observations_csv)
         self._init_csvs()
 
     @staticmethod
@@ -392,6 +417,8 @@ class MacroStorage:
     def _init_csvs(self) -> None:
         """Create and migrate every managed CSV through the same atomic writer."""
         for schema_name, path in self._csv_paths.items():
+            if schema_name == "observations" and self._uses_sqlite_observations:
+                continue
             self._ensure_schema(path, schema_name)
         self._seed_indicator_metadata()
 
@@ -477,6 +504,94 @@ class MacroStorage:
             return "Market Sentiment"
         return "Economic Growth"
 
+    def _prepare_observations(
+        self,
+        indicator_key: str,
+        df_obs: pd.DataFrame,
+        metadata: Optional[Mapping[str, Any]] = None,
+    ) -> pd.DataFrame:
+        """Normalize one writer frame while retaining its additional columns."""
+        if df_obs is None or df_obs.empty:
+            return pd.DataFrame()
+        to_save = df_obs.copy()
+        to_save["indicator_key"] = indicator_key
+        metadata_defaults = {
+            "release_date": None,
+            "publication_date": None,
+            "vintage_date": None,
+            "source_url": None,
+            "unit": None,
+        }
+        metadata_defaults.update(metadata or {})
+        for column, default in metadata_defaults.items():
+            if column not in to_save.columns:
+                to_save[column] = default
+        for column in ("date", *OBSERVATION_METADATA_COLUMNS[:3]):
+            if column in to_save.columns:
+                parsed = pd.to_datetime(to_save[column], errors="coerce")
+                to_save[column] = parsed.dt.strftime("%Y-%m-%d")
+        to_save["updated_at"] = datetime.now().isoformat()
+        canonical = self._schema_columns("observations")
+        for column in canonical:
+            if column not in to_save.columns:
+                to_save[column] = pd.NA
+        unknown = [column for column in to_save.columns if column not in canonical]
+        return to_save[canonical + unknown]
+
+    def _merge_observation_rows(
+        self, existing: pd.DataFrame, incoming: pd.DataFrame
+    ) -> pd.DataFrame:
+        existing = self._normalize_schema(existing, "observations")
+        updated = self._upsert_rows(
+            existing,
+            incoming,
+            ["indicator_key", "date", *OBSERVATION_METADATA_COLUMNS[:3]],
+        )
+        return self._normalize_schema(updated, "observations")
+
+    def save_observation_batches(
+        self, batches: Mapping[str, pd.DataFrame]
+    ) -> int:
+        """Save multiple indicator frames with one ledger write or DB transaction."""
+        prepared = {}
+        for key, observations in batches.items():
+            frame = self._prepare_observations(key, observations)
+            if not frame.empty:
+                prepared[key] = frame
+        return self._save_prepared_observation_batches(prepared)
+
+    def _save_prepared_observation_batches(
+        self, prepared: Mapping[str, pd.DataFrame]
+    ) -> int:
+        """Persist normalized frames without repeating timestamp/schema work."""
+        if not prepared:
+            return 0
+
+        if self._observation_store is not None:
+            self._observation_store.update_batches(prepared, self._merge_observation_rows)
+        else:
+            def save(existing: pd.DataFrame) -> pd.DataFrame:
+                updated = self._normalize_schema(existing, "observations")
+                for indicator_key, incoming in prepared.items():
+                    matched = updated["indicator_key"].astype("string").eq(indicator_key)
+                    current = updated.loc[matched]
+                    other = updated.loc[~matched]
+                    merged = self._merge_observation_rows(current, incoming)
+                    updated = self._safe_concat([other, merged])
+                return updated
+
+            self._mutate_csv(self._csv_paths["observations"], "observations", save)
+
+        updated_keys = set(prepared)
+
+        def update_metadata(existing: pd.DataFrame) -> pd.DataFrame:
+            now = datetime.now().isoformat()
+            existing.loc[existing["key"].isin(updated_keys), "last_updated"] = now
+            return existing
+
+        self._mutate_csv(self._csv_paths["indicators"], "indicators", update_metadata)
+        return sum(len(frame) for frame in prepared.values())
+
     def save_observations(
         self,
         indicator_key: str,
@@ -488,52 +603,77 @@ class MacroStorage:
         source_url: Optional[str] = None,
         unit: Optional[str] = None,
     ) -> int:
-        """Persist observations without collapsing distinct source vintages.
-
-        ``date`` is the economic observation date.  Release/publication/vintage
-        fields describe when that value became available.  Rows carrying a
-        vintage are therefore keyed by that metadata in addition to the
-        observation date; legacy rows with no availability metadata remain
-        readable but cannot be used for strict point-in-time reads.
-        """
-        if df_obs.empty:
-            return 0
-        to_save = df_obs.copy()
-        to_save["indicator_key"] = indicator_key
-        metadata_defaults = {
+        """Persist observations without collapsing distinct source vintages."""
+        metadata = {
             "release_date": release_date,
             "publication_date": publication_date,
             "vintage_date": vintage_date,
             "source_url": source_url,
             "unit": unit,
         }
-        for column, default in metadata_defaults.items():
-            if column not in to_save.columns:
-                to_save[column] = default
-        for column in ("date", *OBSERVATION_METADATA_COLUMNS[:3]):
-            if column in to_save.columns:
-                parsed = pd.to_datetime(to_save[column], errors="coerce")
-                to_save[column] = parsed.dt.strftime("%Y-%m-%d")
-        to_save["updated_at"] = datetime.now().isoformat()
-        to_save = to_save[
-            ["indicator_key", "date", "value", *OBSERVATION_METADATA_COLUMNS, "updated_at"]
-        ]
+        prepared = self._prepare_observations(indicator_key, df_obs, metadata)
+        if prepared.empty:
+            return 0
+        return self._save_prepared_observation_batches({indicator_key: prepared})
 
-        def save(existing: pd.DataFrame) -> pd.DataFrame:
-            return self._upsert_rows(
-                existing,
-                to_save,
-                ["indicator_key", "date", *OBSERVATION_METADATA_COLUMNS[:3]],
+    def migrate_observations_csv(self, source: Union[str, Path]) -> int:
+        """Import a legacy CSV, verify its rows, and leave the source untouched."""
+        if self._observation_store is None:
+            raise ValueError("CSV migration requires the SQLite observation backend")
+        source_path = Path(source)
+        frame = pd.read_csv(source_path, low_memory=False)
+        if "indicator_key" not in frame.columns:
+            raise ValueError(f"Observation source has no indicator_key column: {source_path}")
+        expected = self._normalize_schema(frame, "observations")
+        expected_keys = expected["indicator_key"].dropna().astype(str).unique().tolist()
+        if expected["indicator_key"].isna().any():
+            raise ValueError("Observation source contains rows without indicator_key")
+        by_indicator = {
+            key: expected.loc[expected["indicator_key"].astype(str) == key].reset_index(drop=True)
+            for key in expected_keys
+        }
+
+        if self._observation_store.is_empty:
+            imported = self._observation_store.replace_all(by_indicator)
+            if imported != len(expected):
+                raise RuntimeError(
+                    f"SQLite migration imported {imported} rows; expected {len(expected)}"
+                )
+
+        # Verify each source series as an exact prefix. This also permits a
+        # repeat migration after newer rows have been appended to SQLite.
+        for key, source_rows in by_indicator.items():
+            stored_rows = self._normalize_schema(
+                self._observation_store.read_indicator(key), "observations"
             )
+            if len(stored_rows) < len(source_rows):
+                raise RuntimeError(f"SQLite migration is missing rows for {key}")
+            columns = list(source_rows.columns)
+            source_csv = source_rows[columns].to_csv(index=False, lineterminator="\n")
+            stored_csv = stored_rows[columns].iloc[: len(source_rows)].to_csv(
+                index=False, lineterminator="\n"
+            )
+            if source_csv != stored_csv:
+                raise RuntimeError(f"SQLite migration verification failed for {key}")
 
-        self._mutate_csv(self._csv_paths["observations"], "observations", save)
+        if self._observation_store.row_count < len(expected):
+            raise RuntimeError("SQLite migration row count is smaller than the source")
+        return len(expected)
 
-        def update_metadata(existing: pd.DataFrame) -> pd.DataFrame:
-            existing.loc[existing["key"] == indicator_key, "last_updated"] = datetime.now().isoformat()
-            return existing
+    def _read_observation_indicator(self, indicator_key: str) -> pd.DataFrame:
+        if self._observation_store is not None:
+            frame = self._observation_store.read_indicator(indicator_key)
+            return self._normalize_schema(frame, "observations")
+        frame = self._read_csv_unlocked(self._csv_paths["observations"], "observations")
+        return frame.loc[frame["indicator_key"] == indicator_key].copy()
 
-        self._mutate_csv(self._csv_paths["indicators"], "indicators", update_metadata)
-        return len(to_save)
+    def get_all_observations(self) -> pd.DataFrame:
+        """Bulk-read all observations for reporting and validation tools."""
+        if self._observation_store is not None:
+            frame = self._observation_store.read_all()
+            return self._normalize_schema(frame, "observations")
+        with self._lock:
+            return self._read_csv_unlocked(self._csv_paths["observations"], "observations")
 
     def save_news_events(self, news_items: List[Dict[str, Any]]) -> int:
         if not news_items:
@@ -636,9 +776,7 @@ class MacroStorage:
         )
 
     def get_latest_observation(self, indicator_key: str) -> Optional[Dict[str, Any]]:
-        with self._lock:
-            frame = self._read_csv_unlocked(self._csv_paths["observations"], "observations")
-        filtered = frame[frame["indicator_key"] == indicator_key]
+        filtered = self._read_observation_indicator(indicator_key)
         if filtered.empty:
             return None
         filtered = filtered.copy()
@@ -667,9 +805,7 @@ class MacroStorage:
         self, indicator_key: str, date: Optional[Any] = None
     ) -> pd.DataFrame:
         """Return all stored vintages for an indicator, including legacy rows."""
-        with self._lock:
-            frame = self._read_csv_unlocked(self._csv_paths["observations"], "observations")
-        filtered = frame[frame["indicator_key"] == indicator_key].copy()
+        filtered = self._read_observation_indicator(indicator_key)
         if date is not None:
             target = pd.Timestamp(date).normalize()
             dates = pd.to_datetime(filtered["date"], errors="coerce").dt.normalize()
@@ -698,9 +834,7 @@ class MacroStorage:
         requested; even then they are used only when the indicator has no
         metadata-bearing rows, preserving a conservative mixed-vintage read.
         """
-        with self._lock:
-            frame = self._read_csv_unlocked(self._csv_paths["observations"], "observations")
-        filtered = frame[frame["indicator_key"] == indicator_key]
+        filtered = self._read_observation_indicator(indicator_key)
         if filtered.empty:
             columns = ["date", "value"]
             if include_metadata:

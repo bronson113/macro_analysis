@@ -8,7 +8,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from config import OBSERVATIONS_CSV, SOURCE_HEALTH_CSV
+from config import OBSERVATIONS_DB, SOURCE_HEALTH_CSV
+from observation_sqlite import read_observations
 
 
 CORE_SERIES_MAX_AGE_DAYS = {
@@ -50,7 +51,7 @@ def validate_observations(
     if not path.exists():
         return [f"Missing observations file: {path}"]
 
-    frame = pd.read_csv(path, low_memory=False)
+    frame = read_observations(path)
     required_columns = {"indicator_key", "date", "value"}
     missing_columns = required_columns - set(frame.columns)
     if missing_columns:
@@ -151,8 +152,8 @@ def main() -> int:
     parser.add_argument(
         "--observations",
         type=Path,
-        default=OBSERVATIONS_CSV,
-        help="Path to macro observations CSV",
+        default=OBSERVATIONS_DB,
+        help="Path to macro observations SQLite database or legacy CSV",
     )
     args = parser.parse_args()
 
