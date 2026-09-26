@@ -15,6 +15,7 @@ const BigUpdate = ({
   macroRegime,
   macroSituation,
   macroRegimeSections,
+  showRegimeOverview = true,
 }) => {
   const [reportMode, setReportMode] = useState('daily');
   const [content, setContent] = useState('');
@@ -251,11 +252,13 @@ const BigUpdate = ({
           </div>
         )}
 
-        <RegimeOverview
-          regime={macroRegime}
-          situation={macroSituation}
-          sections={macroRegimeSections}
-        />
+        {showRegimeOverview && (
+          <RegimeOverview
+            regime={macroRegime}
+            situation={macroSituation}
+            sections={macroRegimeSections}
+          />
+        )}
 
         <div className="glass-panel">
           {reportError ? (
@@ -319,4 +322,3 @@ const BigUpdate = ({
 };
 
 export default BigUpdate;
-

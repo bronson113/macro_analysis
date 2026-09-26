@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId, useRef } from 'react';
 import Header from './components/Header';
 import StatCard from './components/StatCard';
 import NewsFeed from './components/NewsFeed';
@@ -7,13 +7,22 @@ import BigUpdate from './components/BigUpdate';
 import EditorialReview from './components/EditorialReview';
 import TrendGraphs from './components/TrendGraphs';
 import CheatSheet from './components/CheatSheet';
+import RegimeOverview from './components/RegimeOverview';
 import { descriptions } from './utils/descriptions';
-import { buildFreshnessStatus, DASHBOARD_SECTIONS } from './utils/dashboardPresentation';
+import { buildFreshnessStatus } from './utils/dashboardPresentation';
 import { buildSourceHealthView } from './utils/sourceHealthPresentation';
+import { getNextTabIndex } from './utils/keyboardNavigation';
+
+const DASHBOARD_TABS = [
+  { id: 'snapshot', label: 'Snapshot' },
+  { id: 'trends', label: 'Trends' },
+  { id: 'research', label: 'Research' },
+  { id: 'quality', label: 'Data quality' },
+];
 
 function SourceHealthSection({ records = [] }) {
   return (
-    <section className="section source-health-section animate-fade-in" id="source-health-heading" aria-labelledby="source-health-heading-title">
+    <section className="section source-health-section animate-fade-in" aria-labelledby="source-health-heading-title">
       <div className="section-header">
         <div>
           <p className="section-kicker">Data provenance</p>
@@ -67,6 +76,9 @@ function App() {
   const [reports, setReports] = useState([]);
   const [weeklyDigests, setWeeklyDigests] = useState([]);
   const [lastRefresh, setLastRefresh] = useState(null);
+  const [activeView, setActiveView] = useState('snapshot');
+  const dashboardTabRefs = useRef([]);
+  const dashboardId = useId();
 
   useEffect(() => {
     const loadData = () => {
@@ -151,44 +163,79 @@ function App() {
     source_health: sourceHealth,
   } = data || {};
   const freshness = buildFreshnessStatus({ generatedAt: metadata?.generated_at });
-  const sectionContent = {
-    editorial: <EditorialReview />,
-    dailyBrief: (
-      <BigUpdate
-        reports={reports}
-        weeklyDigests={weeklyDigests}
-        macroRegime={macroRegime}
-        macroSituation={macroSituation}
-        macroRegimeSections={macroRegimeSections}
-      />
-    ),
+  const indicators = mq ? (
+    <section className="section indicators-section" aria-labelledby="indicators-heading">
+      <div className="section-header">
+        <div>
+          <p className="section-kicker">Key indicators</p>
+          <h2 id="indicators-heading">Current Indicators</h2>
+        </div>
+      </div>
+      <div className="grid grid-cols-4">
+        <StatCard title="Fed Total Assets" value={mq.fed_total_assets?.value} date={mq.fed_total_assets?.date} unit="M" format="currency" description={descriptions.fed_total_assets} />
+        <StatCard title="TGA Balance" value={mq.tga_balance?.value} date={mq.tga_balance?.date} unit="M" format="currency" description={descriptions.tga_balance} />
+        <StatCard title="10Y Treasury Yield" value={mq.treasury_10y?.value} date={mq.treasury_10y?.date} format="percent" description={descriptions.treasury_10y} />
+        <StatCard title="10Y-2Y Spread" value={mq.spread_10y_2y?.value} date={mq.spread_10y_2y?.date} format="percent" description={descriptions.spread_10y_2y} />
+      </div>
+    </section>
+  ) : null;
 
-    trends: <TrendGraphs />,
-    indicators: mq ? (
-      <div className="section animate-fade-in stagger-4" id="indicators-heading">
-        <div className="section-header">
-          <h2>Current Indicators</h2>
+  const report = (
+    <BigUpdate
+      reports={reports}
+      weeklyDigests={weeklyDigests}
+      macroRegime={macroRegime}
+      macroSituation={macroSituation}
+      macroRegimeSections={macroRegimeSections}
+      showRegimeOverview={false}
+    />
+  );
+
+  const handleDashboardTabKeyDown = (event, index) => {
+    const nextIndex = getNextTabIndex({ key: event.key, currentIndex: index, tabCount: DASHBOARD_TABS.length });
+    if (nextIndex === null) return;
+    event.preventDefault();
+    setActiveView(DASHBOARD_TABS[nextIndex].id);
+    dashboardTabRefs.current[nextIndex]?.focus();
+  };
+
+  const renderDashboardPanel = tabId => {
+    if (tabId === 'snapshot') {
+      return (
+        <div className="tab-panel-content snapshot-view">
+          <section className="snapshot-status paper-panel" aria-label="Snapshot freshness">
+            <div>
+              <p className="section-kicker">Current evidence</p>
+              <h2>Macro snapshot</h2>
+            </div>
+            <dl>
+              <div><dt>Data feed</dt><dd className={`status-${freshness.tone}`}>{freshness.label} · {freshness.ageLabel}</dd></div>
+              <div><dt>Generated</dt><dd>{freshness.generatedLabel}</dd></div>
+              <div><dt>Last synced</dt><dd>{lastRefresh ? lastRefresh.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }) : 'Not refreshed yet'}</dd></div>
+            </dl>
+          </section>
+          <RegimeOverview regime={macroRegime} situation={macroSituation} sections={macroRegimeSections} />
+          {report}
+          {indicators}
         </div>
-        <div className="grid grid-cols-4">
-          <StatCard title="Fed Total Assets" value={mq.fed_total_assets?.value} date={mq.fed_total_assets?.date} unit="M" format="currency" description={descriptions.fed_total_assets} />
-          <StatCard title="TGA Balance" value={mq.tga_balance?.value} date={mq.tga_balance?.date} unit="M" format="currency" description={descriptions.tga_balance} />
-          <StatCard title="10Y Treasury Yield" value={mq.treasury_10y?.value} date={mq.treasury_10y?.date} format="percent" description={descriptions.treasury_10y} />
-          <StatCard title="10Y-2Y Spread" value={mq.spread_10y_2y?.value} date={mq.spread_10y_2y?.date} format="percent" description={descriptions.spread_10y_2y} />
+      );
+    }
+    if (tabId === 'trends') return <div className="tab-panel-content"><TrendGraphs /></div>;
+    if (tabId === 'research') {
+      return (
+        <div className="tab-panel-content research-view">
+          <EditorialReview />
+          <details className="supporting-disclosure paper-panel">
+            <summary>News and constituent detail</summary>
+            <div className="grid grid-cols-2 deep-dive-grid">
+              <NewsFeed newsEvents={recent_news_events} />
+              <StockMatrix stocks={individual_stock_constituents} />
+            </div>
+          </details>
         </div>
-      </div>
-    ) : null,
-    deepDive: (
-      <div className="section" id="deep-dive-heading">
-        <div className="section-header">
-          <h2>Deep Dive</h2>
-        </div>
-        <div className="grid grid-cols-2 deep-dive-grid">
-          <NewsFeed newsEvents={recent_news_events} />
-          <StockMatrix stocks={individual_stock_constituents} />
-        </div>
-      </div>
-    ),
-    sourceHealth: <SourceHealthSection records={sourceHealth || []} />,
+      );
+    }
+    return <div className="tab-panel-content"><SourceHealthSection records={sourceHealth || []} /></div>;
   };
 
   return (
@@ -201,42 +248,32 @@ function App() {
         onOpenCheatSheet={() => setIsCheatSheetOpen(true)}
       />
 
-      <div className="dashboard-shell">
-        <aside className="section-rail">
-          <nav className="dashboard-toc" aria-label="Dashboard sections">
-            {DASHBOARD_SECTIONS.map(({ key, headingId, navLabel }, index) => (
-              <a href={`#${headingId}`} key={key}>
-                <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{navLabel}
-              </a>
-            ))}
-          </nav>
-
-          <section className="data-status" aria-label="Data status">
-            <p className="rail-label">Data status</p>
-            <dl>
-              <div>
-                <dt>Feed</dt>
-                <dd className={`status-${freshness.tone}`}>{freshness.label} · {freshness.ageLabel}</dd>
-              </div>
-              <div>
-                <dt>Daily</dt>
-                <dd>{reports.length ? `${reports.length} reports` : 'Unavailable'}</dd>
-              </div>
-              <div>
-                <dt>Weekly</dt>
-                <dd>{weeklyDigests.length ? `${weeklyDigests.length} digests` : 'Unavailable'}</dd>
-              </div>
-            </dl>
-          </section>
-        </aside>
-
-
-        <main className="dashboard-content">
-          {DASHBOARD_SECTIONS.map(({ key }) => (
-            <React.Fragment key={key}>{sectionContent[key]}</React.Fragment>
+      <main className="dashboard-content">
+        <div className="dashboard-tabs" role="tablist" aria-label="Macro dashboard views" aria-orientation="horizontal">
+          {DASHBOARD_TABS.map((tab, index) => (
+            <button
+              key={tab.id}
+              ref={element => { dashboardTabRefs.current[index] = element; }}
+              className={`dashboard-tab ${activeView === tab.id ? 'active' : ''}`}
+              type="button"
+              role="tab"
+              id={`${dashboardId}-${tab.id}-tab`}
+              aria-selected={activeView === tab.id}
+              aria-controls={`${dashboardId}-${tab.id}-panel`}
+              tabIndex={activeView === tab.id ? 0 : -1}
+              onClick={() => setActiveView(tab.id)}
+              onKeyDown={event => handleDashboardTabKeyDown(event, index)}
+            >
+              {tab.label}
+            </button>
           ))}
-        </main>
-      </div>
+        </div>
+        {DASHBOARD_TABS.map(tab => (
+          <section key={tab.id} className="dashboard-panel" id={`${dashboardId}-${tab.id}-panel`} role="tabpanel" aria-labelledby={`${dashboardId}-${tab.id}-tab`} hidden={activeView !== tab.id} tabIndex="0">
+            {activeView === tab.id ? renderDashboardPanel(tab.id) : null}
+          </section>
+        ))}
+      </main>
 
       <CheatSheet isOpen={isCheatSheetOpen} onClose={() => setIsCheatSheetOpen(false)} />
     </div>

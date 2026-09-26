@@ -150,14 +150,14 @@ h3 { font-size: 1.2rem; margin: 0; }
   padding: 5px 8px;
   border: 1px solid #43505a;
   border-radius: var(--radius-sm);
-  color: #bdc7cc;
   font-size: 0.72rem;
   line-height: 1.1;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
-.metadata-chip strong { color: var(--paper); font-weight: 600; }
+.masthead .metadata-chip { color: #bdc7cc; }
+.masthead .metadata-chip strong { color: var(--paper); font-weight: 600; }
 .freshness-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .freshness-chip.fresh { color: #79b697; }
 .freshness-chip.aging { color: #d8ae5d; }
@@ -237,6 +237,66 @@ h3 { font-size: 1.2rem; margin: 0; }
 .status-stale { color: var(--brick); }
 
 .dashboard-content { min-width: 0; }
+.dashboard-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  margin: 0 0 28px;
+  padding: 0 0 9px;
+  border-bottom: 1px solid var(--stone);
+  scrollbar-width: thin;
+}
+.dashboard-tab {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--slate);
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+.dashboard-tab:hover { background: #e8e4da; color: var(--ink); }
+.dashboard-tab.active { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+.dashboard-panel { min-width: 0; }
+.tab-panel-content { min-width: 0; }
+.snapshot-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+  padding: 20px 22px;
+  border-left: 4px solid var(--cobalt);
+  box-shadow: none;
+}
+.snapshot-status h2 { font-size: clamp(1.7rem, 2.6vw, 2.25rem); }
+.snapshot-status dl { display: flex; flex-wrap: wrap; gap: 22px; margin: 0; }
+.snapshot-status dl > div { display: grid; gap: 2px; }
+.snapshot-status dt { color: var(--slate); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.snapshot-status dd { margin: 0; color: var(--ink); font-size: 0.8rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.snapshot-status dd.status-fresh { color: var(--forest); }
+.snapshot-status dd.status-aging { color: var(--ochre); }
+.snapshot-status dd.status-stale { color: var(--brick); }
+.supporting-disclosure { margin: 0 0 36px; box-shadow: none; }
+.supporting-disclosure summary { min-height: 44px; color: var(--ink); cursor: pointer; font-weight: 700; }
+.supporting-disclosure[open] summary { margin-bottom: 20px; }
+.research-view > .section { margin-bottom: 24px; }
+.weekly-summary-chips .metadata-chip {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 140px;
+  min-height: 58px;
+  padding: 9px 11px;
+  border-color: #a9a398;
+  background: #f0ede5;
+  color: #35414a;
+  white-space: normal;
+}
+.weekly-summary-chips .metadata-chip strong { color: var(--ink); font-size: 0.88rem; font-weight: 700; }
 .section { margin-bottom: 48px; scroll-margin-top: 18px; }
 .section-header { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 14px; }
 .section-kicker { color: var(--cobalt); }
@@ -547,6 +607,8 @@ h3 { font-size: 1.2rem; margin: 0; }
   .masthead-utilities { width: 100%; justify-content: space-between; }
   .metadata-chips { justify-content: flex-start; }
   .dashboard-shell { display: block; }
+  .snapshot-status { align-items: flex-start; flex-direction: column; }
+  .snapshot-status dl { width: 100%; justify-content: flex-start; }
   .section-rail { position: static; gap: 12px; margin-bottom: 28px; }
   .dashboard-toc { display: flex; overflow-x: auto; border: 0; padding-bottom: 4px; }
   .dashboard-toc a { flex: 0 0 auto; align-items: center; min-height: 40px; border: 1px solid var(--stone); border-right: 0; padding: 8px 10px; }
@@ -566,6 +628,10 @@ h3 { font-size: 1.2rem; margin: 0; }
   .masthead-utilities { align-items: stretch; flex-direction: column; }
   .metadata-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .metadata-chip { min-width: 0; white-space: normal; }
+  .weekly-summary-chips .metadata-chip { min-width: 0; }
+  .snapshot-status dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .dashboard-tabs { margin-bottom: 20px; }
+  .dashboard-tab { min-height: 42px; padding: 7px 12px; }
   .cheat-sheet-button { width: 100%; }
   .grid-cols-4 { grid-template-columns: 1fr; }
   .section { margin-bottom: 36px; }
