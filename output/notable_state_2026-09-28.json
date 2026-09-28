@@ -1,0 +1,12 @@
+[
+  {
+    "key": "macro:regime",
+    "fingerprint": "macro:regime|NO ACTIONABLE MACRO QUADRANT|Interest Rates: Neutral / unavailable|Reserve Liquidity: Scarce|PARTIAL",
+    "body": "**Macro:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT` (Interest Rates: Neutral / unavailable; Reserve Liquidity: Scarce). The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted."
+  },
+  {
+    "key": "valuation:shiller_pe",
+    "fingerprint": "valuation:shiller_pe|Very Expensive",
+    "body": "**Valuation:** Shiller PE Ratio is `41.48` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta."
+  }
+]
