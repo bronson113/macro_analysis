@@ -1,22 +1,5 @@
 [
   {
-    "date": "2016-09-11",
-    "net_liquidity": 4142.4580000000005,
-    "fed_assets": 4459394.0,
-    "tga": 238152.0,
-    "rrp": 78.784,
-    "treasury_10y": 1.67,
-    "treasury_2y": 0.79,
-    "spread_10y_2y": 0.88,
-    "high_yield_oas": null,
-    "sp500": 2127.81005859375,
-    "vix": 17.5,
-    "dxy": 95.33999633789062,
-    "cpi_yoy": 1.5486446201652182,
-    "policy_rate": 0.4,
-    "real_yield_10y": 0.1213553798347817
-  },
-  {
     "date": "2016-09-12",
     "net_liquidity": 4135.186000000001,
     "fed_assets": 4459394.0,
@@ -62048,5 +62031,22 @@
     "cpi_yoy": 3.71,
     "policy_rate": 3.88,
     "real_yield_10y": 2.84
+  },
+  {
+    "date": "2026-09-29",
+    "net_liquidity": 5799.54,
+    "fed_assets": 6747.7,
+    "tga": 947.32,
+    "rrp": 0.85,
+    "treasury_10y": 5.17,
+    "treasury_2y": 4.81,
+    "spread_10y_2y": 0.32,
+    "high_yield_oas": 3.02,
+    "sp500": 7663.77,
+    "vix": 16.24,
+    "dxy": 101.49,
+    "cpi_yoy": 3.71,
+    "policy_rate": 3.88,
+    "real_yield_10y": 2.83
   }
 ]
