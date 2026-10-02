@@ -1,75 +1,81 @@
-# 2026-09-30 — FRESH RETROACTIVE BACKFILL
+# 2026-10-02 — FRESH
 
-*LLM macro risk review for a tax-aware 3-month to 1-year horizon, reconstructed from the successfully published 2026-09-30 automated state. Research posture only; not personalized financial advice. Under the controlling Defiant Gatekeeper skill, WATCH/NEUTRAL/AVOID are research-review states rather than execution instructions.*
+*LLM macro risk review for a tax-aware 3-month to 1-year horizon. Research posture only; not personalized financial advice. The controlling Defiant Gatekeeper skill treats WATCH/NEUTRAL/AVOID as research-review states, not execution instructions.*
 
 ## Macro Read
 
 ### Current State
-- **Situation 0 — NO ACTIONABLE MACRO QUADRANT.** Policy is **NEUTRAL**, while reserve liquidity is **SCARCE**. Because one axis is neutral, the framework withholds Situations 1–4.
-- **Policy:** DFF `3.88%`, core PCE YoY `3.008%`, r-star `1.009%`, real policy rate `0.872%`, and real-policy gap `-0.136 pp`. This is inside the Gatekeeper neutral band of `-0.50` to `+0.50 pp`. The `5.24%` 10Y yield and `2.89%` real-yield proxy are financial-condition diagnostics, not policy-classification inputs.
-- **Reserve liquidity:** `$6,747.704B Fed assets - $947.317B TGA - $0.46B aligned RRP = ~$5,799.927B`, normalized to `17.811% of GDP` in the level model. That is the `14.4th` historical percentile, below P40 `20.112%`, so the level is **SCARCE**. The daily market table shows fresher RRP at `$11.45B` and reserve liquidity `$5,788.94B`; this is contraction from higher RRP usage, not QE.
-- **Momentum:** policy is `TIGHTENING` over 30 days (`+0.250 pp`) and 90 days (`+0.226 pp`). Normalized liquidity is `IMPROVING` over 30 days (`+0.090 pp of GDP`) but `DETERIORATING` over 90 days (`-0.357 pp`). Momentum does not override the level gate.
-- **Yield curve:** 10Y `5.24%`, 2Y `4.92%`, 10Y–2Y `+37 bp`, and 10Y–3M `+101 bp`. The curve is positively sloped, but high absolute and real yields remain a valuation/duration headwind.
-- **Credit / volatility:** HY OAS `3.08%`, IG OAS `0.41%`, NFCI `-0.57`, and VIX `15.86`. Credit and broad financial conditions remain non-stressed, but the report flags EFFR–IORB reserve pressure and therefore liquidity quality is `PARTIAL`.
-- **Valuation / inflation context:** Shiller P/E `41.08` is stretched; WTI `$91.35` and a `2.89%` real-yield proxy raise the hurdle for long-duration equity exposure.
+- **Situation 0 — NO ACTIONABLE MACRO QUADRANT.** Policy is **NEUTRAL** and reserve liquidity is **SCARCE**. Situation 0 reflects the neutral policy axis, not missing core data.
+- **Policy:** DFF `3.88%`, core PCE YoY `3.008%`, r-star `1.009%`, real policy rate `0.872%`, and policy gap `-0.136 pp`. The gap is inside the skill's neutral band of `-0.50` to `+0.50 pp`. The yield curve is not used to classify policy.
+- **Reserve liquidity:** the aligned level model uses `$6,743.031B` Fed assets, `$984.046B` TGA, and `$11.54B` ON RRP, giving roughly `$5,747.445B`, or `17.650% of GDP`. That is the `11.9th` historical percentile, below P40 `20.094%`, so liquidity is **SCARCE**.
+- **Fresh daily proxy:** October 1 RRP is `$0.35B`; using it produces approximately `$5,758.635B` of reserve liquidity. The difference is a timestamp/alignment issue and does not change the SCARCE classification. The move is not QE: Fed assets declined while TGA rose.
 
-**Research posture:** selective and valuation-sensitive. Scarce reserve liquidity, a neutral policy gate, tightening policy momentum, high real yields, and stretched broad valuation argue against broad-beta enthusiasm even though credit and volatility remain benign.
+### Momentum
+- Policy is **TIGHTENING** over 30 days (`+0.250 pp`) and 90 days (`+0.226 pp`).
+- Normalized liquidity is **DETERIORATING** over 30 days (`-0.138 pp of GDP`) and 90 days (`-0.518 pp`). Momentum is an overlay and does not replace the level-based quadrant.
+
+### Market Consensus
+- The July 15 New York Fed Survey of Market Expectations points to **EASING** policy, with expected DFF of `3.63%`, and an **EXPANDING** Fed balance sheet at `$6,836B` around January 2027.
+- This is a non-blocking overlay. It forecasts Fed assets, not TGA or ON RRP, so it is not a net-liquidity forecast.
+
+### Interpretation
+- **Yield curve:** 10Y `5.29%`, 2Y `4.88%`, 10Y–2Y `+46 bp`, and 10Y–3M `+107 bp`. The curve is positively sloped, but the `2.93%` real-yield proxy remains a valuation and duration headwind.
+- **Credit / volatility:** HY OAS `3.24%`, IG OAS `0.42%`, NFCI `-0.57`, and VIX `15.59`. Credit is still below stress thresholds and financial conditions remain loose, but HY spreads widened and EFFR–IORB continues to flag reserve pressure.
+- **Valuation / inflation context:** Shiller P/E `41.07` remains extreme. WTI `$90.63` and high real yields raise the hurdle for broad equity beta and long-duration growth.
+- **Research posture:** more defensive than September 30. Scarce and worsening liquidity, tightening policy momentum, high real yields, and stretched valuation outweigh the benign credit/volatility backdrop for broad directional exposure.
+
+### Data Quality
+- Overall quality is **PARTIAL**: policy quality is OK; liquidity quality is partial because EFFR–IORB flags reserve pressure.
+- Core inputs are within freshness limits. Fed assets and TGA are dated September 30; daily ON RRP is dated October 1; GDP is dated April 1 and remains within its 240-day limit.
+- The level calculation aligns components to September 30 RRP (`$11.54B`), while the daily table has October 1 RRP (`$0.35B`). Both should remain separately labeled.
 
 ## What Changed
 
-- The real-policy gap moved to `-0.136 pp` as the latest core-PCE update lowered YoY inflation to `3.008%`; policy remains **NEUTRAL**, so Situation 0 remains in force.
-- Daily reserve liquidity fell about `$10.60B` from September 29 to September 30, driven by RRP rising from roughly `$0.85B` to `$11.45B`. Fed assets and TGA were unchanged in the daily table.
-- 10Y Treasury yield rose `7 bp` to `5.24%`; 2Y rose `11 bp` to `4.92%`; the 10Y–2Y spread widened to `+37 bp`.
-- HY OAS widened `6 bp` to `3.08%`, while VIX fell to `15.86`. This is modest credit deterioration without a volatility stress signal.
-- S&P 500 rose to `7,711.46`; Shiller P/E eased slightly to `41.08` but remains an important broad-valuation headwind.
-- The constituent screen identifies `CEG`, `VST`, `HON`, `NKE`, and `ORCL` as valuation WATCH candidates, but the macro sector layer still reports **no meaningful sector differentiation**.
+- Versus the September 30 LLM note, normalized liquidity fell `0.161 pp`, from `17.811%` to `17.650% of GDP`; its percentile dropped from `14.4th` to `11.9th`.
+- The aligned liquidity proxy fell about `$52.5B`: Fed assets declined `$4.7B`, TGA rose `$36.7B`, and aligned RRP rose about `$11.1B`. This is a reserve-liquidity contraction, not QE.
+- Thirty-day liquidity momentum flipped from **IMPROVING** (`+0.090 pp`) to **DETERIORATING** (`-0.138 pp`); 90-day deterioration deepened from `-0.357 pp` to `-0.518 pp`.
+- The 10Y yield rose `5 bp` to `5.29%`, the 2Y fell `4 bp` to `4.88%`, and the 10Y–2Y slope widened from `+37 bp` to `+46 bp`.
+- HY OAS widened from `3.08%` to `3.24%`; IG OAS rose from `0.41%` to `0.42%`. This is deterioration, but not a stress regime. VIX eased from `15.86` to `15.59`.
+- Sector evidence still does not clear the presentation gate.
 
 ## Sector Actions
 
-The controlling skill does not permit BUY/SELL/ACCUMULATE/TRIM execution labels. The closest compliant research postures are:
-
-| Sector / theme | Evidence posture | Confidence | Judgment |
-|---|---|---:|---|
-| Power / Grid | **WATCH / selective review** | Moderate | CEG and VST pass the mechanical relative-valuation screen, but Situation 0 prevents a sector-level directional call. |
-| Healthcare | **NEUTRAL** | Moderate | Defensive characteristics are useful under scarce liquidity, but the current evidence does not establish sector differentiation. |
-| Energy | **NEUTRAL** | Moderate | WTI above `$90` supports cash-flow context, but high real yields and no actionable quadrant limit conviction. |
-| Financials | **NEUTRAL** | Moderate | Credit and NFCI are benign, but reserve-pressure evidence and incomplete funding evidence argue against promotion. |
-| Technology / AI | **NEUTRAL / caution on valuation** | High | High real yields, scarce liquidity and stretched broad valuation raise the hurdle for duration-heavy growth. |
-| Consumer Discretionary | **NEUTRAL / caution** | Moderate | Scarce liquidity and high oil/rates offset isolated stock-level valuation discounts. |
-| HBM / Datacenter Cooling | **NEUTRAL** | Low-Moderate | Mechanical “Undervalued / Discounted Super-Cycle” wording is not sufficiently supported by the Gatekeeper evidence contract. |
+The controlling skill prohibits BUY/SELL/ACCUMULATE/TRIM execution labels. The compliant evidence posture is:
 
 **No meaningful sector differentiation from current evidence.**
 
+- **Power / Grid — NEUTRAL sector, selective stock review:** CEG and VST retain WATCH-level relative-valuation evidence, but there is no actionable macro quadrant.
+- **Technology / AI — NEUTRAL with duration caution:** high real yields, scarce liquidity, and extreme broad valuation raise the hurdle despite isolated stock discounts.
+- **Consumer Discretionary — NEUTRAL / caution:** NKE is mechanically discounted, but operating-turnaround risk prevents promotion.
+- **Healthcare, Staples, Energy, Financials, Industrials — NEUTRAL:** current evidence does not support a differentiated sector posture.
+
 ## Single-Stock Watchlist
 
-Only valuation-review candidates are included; none is promoted to an execution recommendation.
+Only names meeting the mechanical 20% relative-valuation threshold, belonging to a non-AVOID sector, and lacking an established structural break are retained for research review.
 
-- **CEG:** FPE cohort-relative ratio is `25.0%` below its historical median and EVE ratio is also `25.0%` below. Power/Grid is not an AVOID posture, but full quality/catalyst checks are not established here.
-- **VST:** FPE discount `21.4%`; EVE discount `24.6%`. Passes the mechanical 20% relative-valuation threshold on both measures.
-- **HON:** EVE discount `20.3%`, but FPE discount is only `18.4%`; review rather than promotion.
-- **NKE:** FPE discount `21.9%`; EVE discount `28.2%`. Macro consumer conditions remain a constraint.
-- **ORCL:** FPE and EVE cohort-relative discounts are both `29.0%`; Technology's duration sensitivity and the absent actionable quadrant keep this at WATCH.
+- **VST — WATCH:** FPE relative discount `22.5%`; EVE discount `25.7%`. Contracted power demand and cash generation support continued review, while leverage remains the principal risk.
+- **CEG — WATCH:** FPE and EVE relative discounts are both `25.1%`. Contracted nuclear demand supports review; integration, capital intensity, and execution remain the key risks.
+- **ORCL — WATCH:** FPE and EVE discounts are `28.2%` and `28.3%`. Cloud backlog supports review, but financing, capex, dilution, and duration sensitivity prevent a stronger posture here.
+- **Excluded:** HON remains below the 20% threshold; NKE passes the valuation screen but fails the quality/turnaround gate for promotion.
 
 ## Invalidation Triggers
 
-- **Macro upgrade:** policy gap moves outside the neutral band while liquidity also establishes a valid non-neutral state; a Situation 1–4 call requires both level axes.
-- **Liquidity improvement:** normalized reserve liquidity rises above P40 (`20.112% of GDP`) with corroborating money-market pressure clearing. A 30-day improvement alone is insufficient.
-- **Risk deterioration:** HY OAS moves above `4.5%` or widens rapidly, NFCI turns positive, VIX sustains above `25`, or labor/earnings weaken materially.
-- **Duration relief:** falling real yields with stable inflation expectations and improving earnings would reduce the current valuation hurdle for Technology/AI.
-- **Stock promotion:** requires acceptable sector evidence plus valuation, balance-sheet quality, revisions, cash flow, catalyst, legal/regulatory, and structural-break checks.
+- **Quadrant activation:** the policy gap moves outside `±0.50 pp` while liquidity retains a valid non-neutral level.
+- **Liquidity upgrade:** normalized liquidity rises above P40 (`20.094% of GDP`) and money-market pressure clears. A short-term improvement alone is insufficient.
+- **Risk downgrade:** HY OAS exceeds `4.5%` or widens rapidly, NFCI turns positive, VIX sustains above `25`, or labor/earnings deteriorate materially.
+- **Duration relief:** falling real yields with stable inflation expectations and intact earnings would lower the hurdle for Technology and other long-duration assets.
+- **Stock removal:** deterioration in balance-sheet quality, earnings revisions, cash flow, contracted demand, legal/regulatory exposure, or structural competitiveness.
 
 ## Freshness Check
 
-- **Automated data commit:** `f40bc7f7367d6b138e49c6cf77902bcd1ba01ead`, committed 2026-09-30 after the daily data run.
-- **Report date:** `2026-09-30`.
-- **Raw payload date:** `2026-09-30`; generated `2026-09-30 16:29:40 UTC`.
-- **Core observations:** DFF `2026-09-28`; core PCE `2026-08-01`; r-star `2026-04-01`; Fed assets/TGA/aligned RRP `2026-09-23`; nominal GDP `2026-04-01`.
-- **Quality:** `PARTIAL`. Policy quality is OK; liquidity quality is partial because EFFR–IORB flags reserve pressure.
-- **Known conflict:** the level model aligns RRP to `2026-09-23` (`$0.46B`), while the daily table contains fresher September 30 RRP (`$11.45B`). The fresher value reduces dollar liquidity by roughly `$11B` but does not come close to changing the SCARCE classification.
-- **Consensus:** July 15 NY Fed SME expects DFF `3.63%` (EASING versus current) and Fed assets `$6,836B` (EXPANDING). This is a non-blocking overlay, not a net-liquidity forecast.
+- **Upstream Action:** successful — daily workflow [37033200521](https://github.com/bronson113/macro_analysis/actions/runs/37033200521).
+- **Automated data commit:** [8982e2e](https://github.com/bronson113/macro_analysis/commit/8982e2eade33941adf23a23908848cdaced014be).
+- **Report date:** `2026-10-02`.
+- **Raw payload date:** `2026-10-02`; generated `2026-10-02 16:20:55 UTC`.
+- **Missing/stale inputs:** no core freshness breach. Liquidity quality remains partial because of reserve-pressure corroboration; consensus is dated July 15 but within the skill's 120-day limit.
 
 ## Repo Follow-Up
 
-**Issue:** several deterministic presentation strings remain mechanically misleading. The yield table calls the policy rate `RAISING` even though the level state is **NEUTRAL**; constituent rows describe above-median cohort ratios as “relative discounts”; HBM and Datacenter Cooling are labeled “Undervalued / Discounted Super-Cycle” without the full valuation/quality evidence required by the Gatekeeper framework; and the liquidity level uses an older aligned RRP while a fresher valid daily RRP exists.
+**Questionable mechanics:** the yield table labels policy as `RAISING` even though the Gatekeeper level state is **NEUTRAL**; multiple constituent rows still describe above-median relative multiples as “discounts”; HBM and Datacenter Cooling retain “Discounted Super-Cycle” wording without the required full evidence; and the weekly aligned RRP value is not clearly distinguished from the fresher daily RRP observation.
 
-**Proposed Codex task:** make policy presentation reuse the classified real-policy state; render positive cohort-relative deviations as premiums rather than discounts; require historical percentile plus quality/catalyst evidence before “Discounted Super-Cycle” labels; and explicitly reconcile or separately label aligned weekly liquidity inputs versus fresher daily RRP so the website cannot imply they are the same timestamp.
+**Proposed Codex task:** reuse the classified real-policy state in presentation; fix the premium/discount sign wording and tests; require historical/quality confirmation before “Super-Cycle” labels; and render aligned level inputs and fresh daily inputs in separate, timestamped fields.
