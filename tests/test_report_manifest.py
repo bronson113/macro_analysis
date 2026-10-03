@@ -1,12 +1,16 @@
 import json
 import tempfile
 import unittest
+from typing import get_type_hints
 from pathlib import Path
 
-from report_manifest import build_report_manifest
+from report_manifest import build_report_manifest, build_weekly_digest_manifest
 
 
 class TestReportManifest(unittest.TestCase):
+    def test_weekly_manifest_annotations_resolve_on_ci_python(self):
+        self.assertIn("return", get_type_hints(build_weekly_digest_manifest))
+
     def test_build_report_manifest_copies_reports_and_writes_newest_first_index(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)

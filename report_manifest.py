@@ -2,7 +2,7 @@ import json
 import re
 import shutil
 from pathlib import Path
-from typing import List, Dict
+from typing import Any, List, Dict
 
 from config import OUTPUT_DIR
 

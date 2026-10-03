@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Ensure we are in the project root
 if [ ! -d "web" ] || [ ! -d "output" ]; then
