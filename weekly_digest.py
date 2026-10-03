@@ -589,7 +589,8 @@ class WeeklyDigestGenerator:
 ## Current State
 
 - **Quadrant:** `{sit_label}`.
-- **Policy level:** `{policy_stance}`. Policy gap remains within gate boundaries.
+- **Policy level:** `{policy_stance}`. This stance measures the nominal policy rate minus core PCE inflation minus the estimated neutral real rate (r-star). Neutral means the gap is within ±0.50 percentage points; it does not mean nominal interest rates are low. Unavailable means the required evidence cannot support a classification.
+- **Nominal policy rate (DFF):** `{fmt_val(rates.get("policy_rate", {}).get("end"), ":.3f", suffix="%", default="Unavailable")}` at the week end (`{end_date}`).
 - **Reserve-liquidity level:** `{liq_stance}`. Normalized reserve liquidity at `{fmt_val(liq.get('normalized_pct_gdp', {}).get('end'), ':.2f')}% of GDP` (historical percentile: `{fmt_val(liq.get('percentile', {}).get('end'), ':.1f')}th`).
 - **Week timeframe:** {start_date} to {end_date} ({week_info['trading_days']} captured trading sessions).
 

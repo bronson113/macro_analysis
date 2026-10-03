@@ -128,6 +128,9 @@ class TestWeeklyDigest(unittest.TestCase):
 
         content_21 = file_21.read_text(encoding="utf-8")
         self.assertIn("Weekly Macro Digest", content_21)
+        self.assertIn("Nominal policy rate (DFF)", content_21)
+        self.assertIn("it does not mean nominal interest rates are low", content_21)
+        self.assertNotIn("Policy gap remains within gate boundaries", content_21)
         self.assertIn("## 1. Active Macro Situation", content_21)
         self.assertIn("## 2. Weekly Indicator Movements", content_21)
         self.assertIn("Reserve Liquidity Proxy", content_21)

@@ -160,19 +160,19 @@ class MacroMatrixEngine:
                 "situation_id": 0,
                 "name": "NO ACTIONABLE MACRO QUADRANT",
                 "rates_label": (
-                    "Interest Rates: Neutral / unavailable"
-                    if normalized_policy in {None, "NEUTRAL"}
-                    else f"Interest Rates: {normalized_policy.title()}"
+                    "Policy stance: Unavailable"
+                    if normalized_policy is None
+                    else "Policy stance: Neutral (relative to inflation and r-star)"
+                    if normalized_policy == "NEUTRAL"
+                    else f"Policy stance: {normalized_policy.title()}"
                 ),
                 "bs_label": (
-                    "Reserve Liquidity: Neutral / unavailable"
-                    if normalized_liquidity in {None, "NEUTRAL"}
+                    "Reserve Liquidity: Unavailable"
+                    if normalized_liquidity is None
                     else f"Reserve Liquidity: {normalized_liquidity.title()}"
                 ),
                 "description": (
-                    "The macro framework is withheld because at least one current "
-                    "policy or reserve-liquidity level is neutral, missing, stale, "
-                    "or materially conflicted."
+                    "The macro framework is withheld: " + "; ".join(reasons + conflicts) + "."
                 ),
                 "favored_sectors": [],
                 "favored_company_types": [],
