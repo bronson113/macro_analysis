@@ -5,15 +5,17 @@
 ---
 ## Notable Summary
 
-- **Unchanged:** **Macro:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT` (Interest Rates: Neutral / unavailable; Reserve Liquidity: Scarce). The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.
+- **Changed:** **Macro:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT` (Policy stance: Neutral (relative to inflation and r-star); Reserve Liquidity: Scarce). The macro framework is withheld: Policy is neutral inside the neutral band. Previously: **Macro:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT` (Interest Rates: Neutral / unavailable; Reserve Liquidity: Scarce). The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.
 - **Unchanged:** **Valuation:** Shiller PE Ratio is `41.38` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta.
 
 ---
 ## Current State
 
+Policy stance measures the nominal policy rate minus core PCE inflation minus the estimated neutral real rate (r-star). Neutral means this gap is within ±0.50 percentage points; it does not mean nominal interest rates are low. Unavailable means the required evidence cannot support a classification.
+
 - **Quadrant:** `Situation 0` — `NO ACTIONABLE MACRO QUADRANT`.
 - **Policy level:** `NEUTRAL`. Real policy rate: `+0.872 pp`; neutral real rate (r-star): `+1.009 pp`; policy gap: `-0.136 pp`; classification threshold: `±0.50 pp`.
-  - Current inputs — DFF: `+3.880 pp`; core PCE YoY: `3.008%`; r-star: `+1.009 pp`.
+  - Current inputs — Nominal policy rate (DFF): `3.880%`; core PCE YoY: `3.008%`; r-star: `+1.009 pp`.
   - Observation dates — DFF: `2026-10-01`; core PCE: `2026-08-01`; r-star: `2026-04-01`.
   - Historical sample: `2017-09-01` through `2026-08-01`; count `108`.
 - **Reserve-liquidity level:** `SCARCE`. Current normalized value: `17.650% of GDP`; historical percentile: `11.9th`; thresholds: P40 `20.094`, P60 `21.354`.
@@ -41,7 +43,7 @@ Market consensus is a forward-looking overlay and never changes the current quad
 
 ## Interpretation
 
-- **Macro interpretation:** The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.
+- **Macro interpretation:** The macro framework is withheld: Policy is neutral inside the neutral band.
 - **Favored sector hypotheses:** None listed.
 - **Preferred company characteristics:** None listed.
 - **Disfavored sector hypotheses:** None listed.
@@ -59,9 +61,9 @@ Market consensus is a forward-looking overlay and never changes the current quad
 
 > [!IMPORTANT]
 > **Active Quadrant**: `NO ACTIONABLE MACRO QUADRANT`
-> - **Rates Stance**: `Interest Rates: Neutral / unavailable`
+> - **Rates Stance**: `Policy stance: Neutral (relative to inflation and r-star)`
 > - **Reserve Liquidity Level**: `Reserve Liquidity: Scarce`
-> - **Macro Environment**: The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.
+> - **Macro Environment**: The macro framework is withheld: Policy is neutral inside the neutral band.
 
 ### Sector & Company Type Alignment for Current Situation
 

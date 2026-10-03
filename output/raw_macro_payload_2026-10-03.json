@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-03T18:25:33.509495",
+    "generated_at": "2026-10-03T18:39:15.453034",
     "date": "2026-10-03",
     "engine_version": "3.0-EvidenceRawPayload"
   },
@@ -14,7 +14,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WALCL",
       "unit": "millions",
-      "updated_at": "2026-10-03T18:25:07.241785"
+      "updated_at": "2026-10-03T18:38:49.841998"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
@@ -25,7 +25,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WDTGAL",
       "unit": "millions",
-      "updated_at": "2026-10-03T18:25:07.265164"
+      "updated_at": "2026-10-03T18:38:49.839754"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
@@ -36,7 +36,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RRPONTSYD",
       "unit": "billions",
-      "updated_at": "2026-10-03T18:25:07.308377"
+      "updated_at": "2026-10-03T18:38:49.843547"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
@@ -47,7 +47,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:07.905259"
+      "updated_at": "2026-10-03T18:38:50.422909"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
@@ -58,7 +58,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS2",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:08.178523"
+      "updated_at": "2026-10-03T18:38:50.813063"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
@@ -69,7 +69,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y2Y",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:08.661228"
+      "updated_at": "2026-10-03T18:38:51.582365"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
@@ -80,7 +80,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A0HYM2",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:09.372042"
+      "updated_at": "2026-10-03T18:38:52.204138"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
@@ -91,7 +91,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A1CAAA",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:09.495570"
+      "updated_at": "2026-10-03T18:38:52.356463"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
@@ -102,7 +102,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ANFCI",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:09.928016"
+      "updated_at": "2026-10-03T18:38:52.499460"
     },
     "vix": {
       "indicator_key": "vix",
@@ -113,7 +113,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.339056"
+      "updated_at": "2026-10-03T18:38:58.130242"
     },
     "dxy": {
       "indicator_key": "dxy",
@@ -124,7 +124,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.306553"
+      "updated_at": "2026-10-03T18:38:58.165100"
     },
     "sp500": {
       "indicator_key": "sp500",
@@ -135,7 +135,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.291364"
+      "updated_at": "2026-10-03T18:38:58.195785"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
@@ -146,7 +146,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.364372"
+      "updated_at": "2026-10-03T18:38:58.185558"
     },
     "gold": {
       "indicator_key": "gold",
@@ -157,7 +157,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.263809"
+      "updated_at": "2026-10-03T18:38:58.124440"
     },
     "copper": {
       "indicator_key": "copper",
@@ -168,7 +168,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.516156"
+      "updated_at": "2026-10-03T18:38:58.380975"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
@@ -179,7 +179,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:10.097586"
+      "updated_at": "2026-10-03T18:38:52.999514"
     },
     "cpi": {
       "indicator_key": "cpi",
@@ -190,7 +190,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:10.589073"
+      "updated_at": "2026-10-03T18:38:53.167102"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
@@ -201,7 +201,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T5YIE",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:10.770035"
+      "updated_at": "2026-10-03T18:38:54.032128"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
@@ -212,7 +212,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.978511"
+      "updated_at": "2026-10-03T18:38:58.822671"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
@@ -223,7 +223,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:16.148449"
+      "updated_at": "2026-10-03T18:38:58.975476"
     }
   },
   "macro_regime": {
@@ -816,9 +816,9 @@
         "quality": "PARTIAL",
         "situation_id": 0,
         "name": "NO ACTIONABLE MACRO QUADRANT",
-        "rates_label": "Interest Rates: Neutral / unavailable",
+        "rates_label": "Policy stance: Neutral (relative to inflation and r-star)",
         "bs_label": "Reserve Liquidity: Scarce",
-        "description": "The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.",
+        "description": "The macro framework is withheld: Policy is neutral inside the neutral band.",
         "favored_sectors": [],
         "favored_company_types": [],
         "disfavored_sectors": []
@@ -1755,9 +1755,9 @@
       "quality": "PARTIAL",
       "situation_id": 0,
       "name": "NO ACTIONABLE MACRO QUADRANT",
-      "rates_label": "Interest Rates: Neutral / unavailable",
+      "rates_label": "Policy stance: Neutral (relative to inflation and r-star)",
       "bs_label": "Reserve Liquidity: Scarce",
-      "description": "The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.",
+      "description": "The macro framework is withheld: Policy is neutral inside the neutral band.",
       "favored_sectors": [],
       "favored_company_types": [],
       "disfavored_sectors": []
@@ -2128,9 +2128,9 @@
       "quality": "PARTIAL",
       "situation_id": 0,
       "name": "NO ACTIONABLE MACRO QUADRANT",
-      "rates_label": "Interest Rates: Neutral / unavailable",
+      "rates_label": "Policy stance: Neutral (relative to inflation and r-star)",
       "bs_label": "Reserve Liquidity: Scarce",
-      "description": "The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.",
+      "description": "The macro framework is withheld: Policy is neutral inside the neutral band.",
       "favored_sectors": [],
       "favored_company_types": [],
       "disfavored_sectors": []
@@ -2138,6 +2138,22 @@
     "quality": "PARTIAL"
   },
   "recent_news_events": [
+    {
+      "id": 1799.0,
+      "date": "2026-10-03",
+      "title": "Global Supply Risks Underpin Crude Oil Prices - Yahoo Finance",
+      "summary": "Global Supply Risks Underpin Crude Oil Prices&nbsp;&nbsp;Yahoo Finance",
+      "source": "Yahoo Finance",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQa2k1RGlTM0VWYWJKUnBad1JBT1VCUFlDaFBoRzM5YWpRUUl5dGpDc1AyOVZqZ0Zub1NzY0hjTFkzV01fTXJPS252ajRYVzNvY3FhQmZidE9HNG4yWXJ2WjF1MDRtSU9mNHhiUzhqTXFrWHF1ak1KM0MyTXF0VU4xWlFUZlNmY2d6MURVUzZoNWxDb3BIQVE?oc=5",
+      "category": "Geopolitics & Oil",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Thu, 01 Oct 2026 15:42:40 GMT",
+      "retrieved_at": "2026-10-03T18:38:59.008589",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-10-03T18:39:02.887448"
+    },
     {
       "id": 1798.0,
       "date": "2026-10-03",
@@ -2533,22 +2549,6 @@
       "impact_score": null,
       "sentiment": null,
       "created_at": "2026-10-02T16:20:43.745282"
-    },
-    {
-      "id": 1774.0,
-      "date": "2026-10-02",
-      "title": "Bond market bust: A key rate just blew through another decades-old record - CNN",
-      "summary": "Bond market bust: A key rate just blew through another decades-old record&nbsp;&nbsp;CNN",
-      "source": "CNN",
-      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9qREZfSFZmVExqZUtNRTd2UXZucS13d3pYOTd3ZXZROVlaLXVXYjVvZmtXclNJSWN1enNYX0JaQXZpdzJEMnREM01GU1VMczFYSFdNYWQ2eGtBT1MtRE9ZM2JqYkY3YnpGWG1Ud25lY2xaWjZIRHc?oc=5",
-      "category": "Credit & Rates",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "Thu, 01 Oct 2026 10:22:21 GMT",
-      "retrieved_at": "2026-10-02T16:20:39.699287",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-10-02T16:20:43.745272"
     }
   ],
   "evidence_assessments": [
@@ -2582,7 +2582,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 89.05109489051095,
+          "observed_value": 89.0909090909091,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -2714,7 +2714,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 89.05109489051095,
+          "observed_value": 89.0909090909091,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -2817,7 +2817,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 62.77372262773723,
+          "observed_value": 62.909090909090914,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -2933,7 +2933,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 62.77372262773723,
+          "observed_value": 62.909090909090914,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3020,7 +3020,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 86.4963503649635,
+          "observed_value": 86.54545454545455,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3152,7 +3152,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 86.4963503649635,
+          "observed_value": 86.54545454545455,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3239,7 +3239,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 78.83211678832117,
+          "observed_value": 78.9090909090909,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3371,7 +3371,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 78.83211678832117,
+          "observed_value": 78.9090909090909,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3474,7 +3474,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 50.0,
+          "observed_value": 50.18181818181818,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3590,7 +3590,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 50.0,
+          "observed_value": 50.18181818181818,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3662,7 +3662,7 @@
           "direction": "positive",
           "contribution": 2,
           "weight": 1.0,
-          "observed_value": 24.087591240875913,
+          "observed_value": 24.363636363636363,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3810,7 +3810,7 @@
           "direction": "positive",
           "contribution": 2,
           "weight": 1.0,
-          "observed_value": 24.087591240875913,
+          "observed_value": 24.363636363636363,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",

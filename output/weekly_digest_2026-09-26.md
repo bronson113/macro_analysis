@@ -14,7 +14,8 @@
 ## Current State
 
 - **Quadrant:** `Situation 0: No Actionable Macro Quadrant (Gated / Insufficient Data)`.
-- **Policy level:** `NEUTRAL`. Policy gap remains within gate boundaries.
+- **Policy level:** `NEUTRAL`. This stance measures the nominal policy rate minus core PCE inflation minus the estimated neutral real rate (r-star). Neutral means the gap is within ±0.50 percentage points; it does not mean nominal interest rates are low. Unavailable means the required evidence cannot support a classification.
+- **Nominal policy rate (DFF):** `3.880%` at the week end (`2026-09-26`).
 - **Reserve-liquidity level:** `SCARCE`. Normalized reserve liquidity at `17.85% of GDP` (historical percentile: `14.4th`).
 - **Week timeframe:** 2026-09-26 to 2026-09-26 (1 captured trading sessions).
 

@@ -1,8 +1,8 @@
 [
   {
     "key": "macro:regime",
-    "fingerprint": "macro:regime|NO ACTIONABLE MACRO QUADRANT|Interest Rates: Neutral / unavailable|Reserve Liquidity: Scarce|PARTIAL",
-    "body": "**Macro:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT` (Interest Rates: Neutral / unavailable; Reserve Liquidity: Scarce). The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted."
+    "fingerprint": "macro:regime|NO ACTIONABLE MACRO QUADRANT|Policy stance: Neutral (relative to inflation and r-star)|Reserve Liquidity: Scarce|PARTIAL",
+    "body": "**Macro:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT` (Policy stance: Neutral (relative to inflation and r-star); Reserve Liquidity: Scarce). The macro framework is withheld: Policy is neutral inside the neutral band."
   },
   {
     "key": "valuation:shiller_pe",

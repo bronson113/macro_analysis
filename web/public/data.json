@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-03T18:25:33.509495",
+    "generated_at": "2026-10-03T18:39:15.453034",
     "date": "2026-10-03",
     "engine_version": "3.0-EvidenceRawPayload"
   },
@@ -14,7 +14,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WALCL",
       "unit": "millions",
-      "updated_at": "2026-10-03T18:25:07.241785"
+      "updated_at": "2026-10-03T18:38:49.841998"
     },
     "tga_balance": {
       "indicator_key": "tga_balance",
@@ -25,7 +25,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=WDTGAL",
       "unit": "millions",
-      "updated_at": "2026-10-03T18:25:07.265164"
+      "updated_at": "2026-10-03T18:38:49.839754"
     },
     "reverse_repo": {
       "indicator_key": "reverse_repo",
@@ -36,7 +36,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=RRPONTSYD",
       "unit": "billions",
-      "updated_at": "2026-10-03T18:25:07.308377"
+      "updated_at": "2026-10-03T18:38:49.843547"
     },
     "treasury_10y": {
       "indicator_key": "treasury_10y",
@@ -47,7 +47,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:07.905259"
+      "updated_at": "2026-10-03T18:38:50.422909"
     },
     "treasury_2y": {
       "indicator_key": "treasury_2y",
@@ -58,7 +58,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS2",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:08.178523"
+      "updated_at": "2026-10-03T18:38:50.813063"
     },
     "spread_10y_2y": {
       "indicator_key": "spread_10y_2y",
@@ -69,7 +69,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T10Y2Y",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:08.661228"
+      "updated_at": "2026-10-03T18:38:51.582365"
     },
     "high_yield_oas": {
       "indicator_key": "high_yield_oas",
@@ -80,7 +80,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLH0A0HYM2",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:09.372042"
+      "updated_at": "2026-10-03T18:38:52.204138"
     },
     "invest_grade_oas": {
       "indicator_key": "invest_grade_oas",
@@ -91,7 +91,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A1CAAA",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:09.495570"
+      "updated_at": "2026-10-03T18:38:52.356463"
     },
     "chicago_fed_nfci": {
       "indicator_key": "chicago_fed_nfci",
@@ -102,7 +102,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ANFCI",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:09.928016"
+      "updated_at": "2026-10-03T18:38:52.499460"
     },
     "vix": {
       "indicator_key": "vix",
@@ -113,7 +113,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.339056"
+      "updated_at": "2026-10-03T18:38:58.130242"
     },
     "dxy": {
       "indicator_key": "dxy",
@@ -124,7 +124,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.306553"
+      "updated_at": "2026-10-03T18:38:58.165100"
     },
     "sp500": {
       "indicator_key": "sp500",
@@ -135,7 +135,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.291364"
+      "updated_at": "2026-10-03T18:38:58.195785"
     },
     "crude_oil": {
       "indicator_key": "crude_oil",
@@ -146,7 +146,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.364372"
+      "updated_at": "2026-10-03T18:38:58.185558"
     },
     "gold": {
       "indicator_key": "gold",
@@ -157,7 +157,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.263809"
+      "updated_at": "2026-10-03T18:38:58.124440"
     },
     "copper": {
       "indicator_key": "copper",
@@ -168,7 +168,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.516156"
+      "updated_at": "2026-10-03T18:38:58.380975"
     },
     "unemployment_rate": {
       "indicator_key": "unemployment_rate",
@@ -179,7 +179,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=UNRATE",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:10.097586"
+      "updated_at": "2026-10-03T18:38:52.999514"
     },
     "cpi": {
       "indicator_key": "cpi",
@@ -190,7 +190,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCSL",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:10.589073"
+      "updated_at": "2026-10-03T18:38:53.167102"
     },
     "breakeven_5y": {
       "indicator_key": "breakeven_5y",
@@ -201,7 +201,7 @@
       "vintage_date": "2026-10-03",
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=T5YIE",
       "unit": null,
-      "updated_at": "2026-10-03T18:25:10.770035"
+      "updated_at": "2026-10-03T18:38:54.032128"
     },
     "cnn_fear_greed_index": {
       "indicator_key": "cnn_fear_greed_index",
@@ -212,7 +212,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:15.978511"
+      "updated_at": "2026-10-03T18:38:58.822671"
     },
     "shiller_pe": {
       "indicator_key": "shiller_pe",
@@ -223,7 +223,7 @@
       "vintage_date": null,
       "source_url": null,
       "unit": null,
-      "updated_at": "2026-10-03T18:25:16.148449"
+      "updated_at": "2026-10-03T18:38:58.975476"
     }
   },
   "macro_regime": {
@@ -816,9 +816,9 @@
         "quality": "PARTIAL",
         "situation_id": 0,
         "name": "NO ACTIONABLE MACRO QUADRANT",
-        "rates_label": "Interest Rates: Neutral / unavailable",
+        "rates_label": "Policy stance: Neutral (relative to inflation and r-star)",
         "bs_label": "Reserve Liquidity: Scarce",
-        "description": "The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.",
+        "description": "The macro framework is withheld: Policy is neutral inside the neutral band.",
         "favored_sectors": [],
         "favored_company_types": [],
         "disfavored_sectors": []
@@ -1755,9 +1755,9 @@
       "quality": "PARTIAL",
       "situation_id": 0,
       "name": "NO ACTIONABLE MACRO QUADRANT",
-      "rates_label": "Interest Rates: Neutral / unavailable",
+      "rates_label": "Policy stance: Neutral (relative to inflation and r-star)",
       "bs_label": "Reserve Liquidity: Scarce",
-      "description": "The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.",
+      "description": "The macro framework is withheld: Policy is neutral inside the neutral band.",
       "favored_sectors": [],
       "favored_company_types": [],
       "disfavored_sectors": []
@@ -2128,9 +2128,9 @@
       "quality": "PARTIAL",
       "situation_id": 0,
       "name": "NO ACTIONABLE MACRO QUADRANT",
-      "rates_label": "Interest Rates: Neutral / unavailable",
+      "rates_label": "Policy stance: Neutral (relative to inflation and r-star)",
       "bs_label": "Reserve Liquidity: Scarce",
-      "description": "The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.",
+      "description": "The macro framework is withheld: Policy is neutral inside the neutral band.",
       "favored_sectors": [],
       "favored_company_types": [],
       "disfavored_sectors": []
@@ -2138,6 +2138,22 @@
     "quality": "PARTIAL"
   },
   "recent_news_events": [
+    {
+      "id": 1799.0,
+      "date": "2026-10-03",
+      "title": "Global Supply Risks Underpin Crude Oil Prices - Yahoo Finance",
+      "summary": "Global Supply Risks Underpin Crude Oil Prices&nbsp;&nbsp;Yahoo Finance",
+      "source": "Yahoo Finance",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQa2k1RGlTM0VWYWJKUnBad1JBT1VCUFlDaFBoRzM5YWpRUUl5dGpDc1AyOVZqZ0Zub1NzY0hjTFkzV01fTXJPS252ajRYVzNvY3FhQmZidE9HNG4yWXJ2WjF1MDRtSU9mNHhiUzhqTXFrWHF1ak1KM0MyTXF0VU4xWlFUZlNmY2d6MURVUzZoNWxDb3BIQVE?oc=5",
+      "category": "Geopolitics & Oil",
+      "topic_tags": [],
+      "interpretation_status": "uninterpreted",
+      "published_at": "Thu, 01 Oct 2026 15:42:40 GMT",
+      "retrieved_at": "2026-10-03T18:38:59.008589",
+      "impact_score": null,
+      "sentiment": null,
+      "created_at": "2026-10-03T18:39:02.887448"
+    },
     {
       "id": 1798.0,
       "date": "2026-10-03",
@@ -2533,22 +2549,6 @@
       "impact_score": null,
       "sentiment": null,
       "created_at": "2026-10-02T16:20:43.745282"
-    },
-    {
-      "id": 1774.0,
-      "date": "2026-10-02",
-      "title": "Bond market bust: A key rate just blew through another decades-old record - CNN",
-      "summary": "Bond market bust: A key rate just blew through another decades-old record&nbsp;&nbsp;CNN",
-      "source": "CNN",
-      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9qREZfSFZmVExqZUtNRTd2UXZucS13d3pYOTd3ZXZROVlaLXVXYjVvZmtXclNJSWN1enNYX0JaQXZpdzJEMnREM01GU1VMczFYSFdNYWQ2eGtBT1MtRE9ZM2JqYkY3YnpGWG1Ud25lY2xaWjZIRHc?oc=5",
-      "category": "Credit & Rates",
-      "topic_tags": [],
-      "interpretation_status": "uninterpreted",
-      "published_at": "Thu, 01 Oct 2026 10:22:21 GMT",
-      "retrieved_at": "2026-10-02T16:20:39.699287",
-      "impact_score": null,
-      "sentiment": null,
-      "created_at": "2026-10-02T16:20:43.745272"
     }
   ],
   "evidence_assessments": [
@@ -2582,7 +2582,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 89.05109489051095,
+          "observed_value": 89.0909090909091,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -2714,7 +2714,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 89.05109489051095,
+          "observed_value": 89.0909090909091,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -2817,7 +2817,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 62.77372262773723,
+          "observed_value": 62.909090909090914,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -2933,7 +2933,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 62.77372262773723,
+          "observed_value": 62.909090909090914,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3020,7 +3020,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 86.4963503649635,
+          "observed_value": 86.54545454545455,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3152,7 +3152,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 86.4963503649635,
+          "observed_value": 86.54545454545455,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3239,7 +3239,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 78.83211678832117,
+          "observed_value": 78.9090909090909,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3371,7 +3371,7 @@
           "direction": "negative",
           "contribution": -2,
           "weight": 1.0,
-          "observed_value": 78.83211678832117,
+          "observed_value": 78.9090909090909,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3474,7 +3474,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 50.0,
+          "observed_value": 50.18181818181818,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3590,7 +3590,7 @@
           "direction": "neutral",
           "contribution": 0,
           "weight": 1.0,
-          "observed_value": 50.0,
+          "observed_value": 50.18181818181818,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3662,7 +3662,7 @@
           "direction": "positive",
           "contribution": 2,
           "weight": 1.0,
-          "observed_value": 24.087591240875913,
+          "observed_value": 24.363636363636363,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -3810,7 +3810,7 @@
           "direction": "positive",
           "contribution": 2,
           "weight": 1.0,
-          "observed_value": 24.087591240875913,
+          "observed_value": 24.363636363636363,
           "unit": "percentile",
           "observed_at": "2026-10-03",
           "source": "sector_valuations",
@@ -7962,9 +7962,9 @@
           "quality": "PARTIAL",
           "situation_id": 0,
           "name": "NO ACTIONABLE MACRO QUADRANT",
-          "rates_label": "Interest Rates: Neutral / unavailable",
+          "rates_label": "Policy stance: Neutral (relative to inflation and r-star)",
           "bs_label": "Reserve Liquidity: Scarce",
-          "description": "The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.",
+          "description": "The macro framework is withheld: Policy is neutral inside the neutral band.",
           "favored_sectors": [],
           "favored_company_types": [],
           "disfavored_sectors": []
@@ -8429,9 +8429,9 @@
         "quality": "PARTIAL",
         "situation_id": 0,
         "name": "NO ACTIONABLE MACRO QUADRANT",
-        "rates_label": "Interest Rates: Neutral / unavailable",
+        "rates_label": "Policy stance: Neutral (relative to inflation and r-star)",
         "bs_label": "Reserve Liquidity: Scarce",
-        "description": "The macro framework is withheld because at least one current policy or reserve-liquidity level is neutral, missing, stale, or materially conflicted.",
+        "description": "The macro framework is withheld: Policy is neutral inside the neutral band.",
         "favored_sectors": [],
         "favored_company_types": [],
         "disfavored_sectors": []
@@ -8495,7 +8495,7 @@
       "source": "FRED",
       "fetch_key": "fed_total_assets",
       "observation_time": "2026-09-30",
-      "fetch_time": "2026-10-03T18:25:07.474267",
+      "fetch_time": "2026-10-03T18:38:50.052523",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 522,
@@ -8504,23 +8504,12 @@
     },
     {
       "source": "FRED",
-      "fetch_key": "reverse_repo",
-      "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:07.921630",
+      "fetch_key": "tga_balance",
+      "observation_time": "2026-09-30",
+      "fetch_time": "2026-10-03T18:38:50.146004",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 2491,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "m2_money_supply",
-      "observation_time": "2026-08-01",
-      "fetch_time": "2026-10-03T18:25:07.948562",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 118,
+      "record_count": 522,
       "error_category": null,
       "message": null
     },
@@ -8528,7 +8517,7 @@
       "source": "FRED",
       "fetch_key": "sofr",
       "observation_time": "2026-10-01",
-      "fetch_time": "2026-10-03T18:25:08.207410",
+      "fetch_time": "2026-10-03T18:38:50.448024",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2123,
@@ -8537,9 +8526,9 @@
     },
     {
       "source": "FRED",
-      "fetch_key": "treasury_2y",
+      "fetch_key": "treasury_10y",
       "observation_time": "2026-10-01",
-      "fetch_time": "2026-10-03T18:25:08.610151",
+      "fetch_time": "2026-10-03T18:38:50.854899",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2497,
@@ -8548,12 +8537,12 @@
     },
     {
       "source": "FRED",
-      "fetch_key": "tga_balance",
-      "observation_time": "2026-09-30",
-      "fetch_time": "2026-10-03T18:25:08.663949",
+      "fetch_key": "treasury_2y",
+      "observation_time": "2026-10-01",
+      "fetch_time": "2026-10-03T18:38:51.239998",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 522,
+      "record_count": 2497,
       "error_category": null,
       "message": null
     },
@@ -8561,7 +8550,7 @@
       "source": "FRED",
       "fetch_key": "treasury_3m",
       "observation_time": "2026-10-01",
-      "fetch_time": "2026-10-03T18:25:09.048234",
+      "fetch_time": "2026-10-03T18:38:51.631553",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2497,
@@ -8570,111 +8559,12 @@
     },
     {
       "source": "FRED",
-      "fetch_key": "spread_10y_2y",
+      "fetch_key": "reverse_repo",
       "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:09.455821",
+      "fetch_time": "2026-10-03T18:38:52.135516",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 2498,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "high_yield_oas",
-      "observation_time": "2026-10-01",
-      "fetch_time": "2026-10-03T18:25:09.514749",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 786,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "dff",
-      "observation_time": "2026-10-01",
-      "fetch_time": "2026-10-03T18:25:10.026084",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 3649,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "invest_grade_oas",
-      "observation_time": "2026-10-01",
-      "fetch_time": "2026-10-03T18:25:10.083127",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 786,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "nonfarm_payrolls",
-      "observation_time": "2026-09-01",
-      "fetch_time": "2026-10-03T18:25:10.118250",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 119,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "effr",
-      "observation_time": "2026-10-01",
-      "fetch_time": "2026-10-03T18:25:10.558242",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 3649,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "chicago_fed_nfci",
-      "observation_time": "2026-09-25",
-      "fetch_time": "2026-10-03T18:25:10.629755",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 521,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "initial_claims",
-      "observation_time": "2026-09-26",
-      "fetch_time": "2026-10-03T18:25:10.723310",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 521,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "core_pce",
-      "observation_time": "2026-08-01",
-      "fetch_time": "2026-10-03T18:25:10.773982",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 118,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "spread_10y_3m",
-      "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:11.249665",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 2498,
+      "record_count": 2491,
       "error_category": null,
       "message": null
     },
@@ -8682,7 +8572,7 @@
       "source": "FRED",
       "fetch_key": "iorb",
       "observation_time": "2026-10-05",
-      "fetch_time": "2026-10-03T18:25:11.388192",
+      "fetch_time": "2026-10-03T18:38:52.298846",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1895,
@@ -8691,9 +8581,97 @@
     },
     {
       "source": "FRED",
+      "fetch_key": "high_yield_oas",
+      "observation_time": "2026-10-01",
+      "fetch_time": "2026-10-03T18:38:52.378323",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 786,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "invest_grade_oas",
+      "observation_time": "2026-10-01",
+      "fetch_time": "2026-10-03T18:38:52.518816",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 786,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "chicago_fed_nfci",
+      "observation_time": "2026-09-25",
+      "fetch_time": "2026-10-03T18:38:52.652846",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 521,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "spread_10y_3m",
+      "observation_time": "2026-10-02",
+      "fetch_time": "2026-10-03T18:38:53.110698",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 2498,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "unemployment_rate",
+      "observation_time": "2026-09-01",
+      "fetch_time": "2026-10-03T18:38:53.135320",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 118,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "initial_claims",
+      "observation_time": "2026-09-26",
+      "fetch_time": "2026-10-03T18:38:53.182241",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 521,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "dff",
+      "observation_time": "2026-10-01",
+      "fetch_time": "2026-10-03T18:38:53.783263",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 3649,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "spread_10y_2y",
+      "observation_time": "2026-10-02",
+      "fetch_time": "2026-10-03T18:38:54.100130",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 2498,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
       "fetch_key": "cpi",
       "observation_time": "2026-08-01",
-      "fetch_time": "2026-10-03T18:25:11.428883",
+      "fetch_time": "2026-10-03T18:38:54.197524",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 129,
@@ -8702,9 +8680,20 @@
     },
     {
       "source": "FRED",
+      "fetch_key": "breakeven_5y",
+      "observation_time": "2026-10-02",
+      "fetch_time": "2026-10-03T18:38:54.549457",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 2498,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
       "fetch_key": "nominal_gdp",
       "observation_time": "2026-04-01",
-      "fetch_time": "2026-10-03T18:25:11.466634",
+      "fetch_time": "2026-10-03T18:38:54.576620",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 38,
@@ -8713,9 +8702,20 @@
     },
     {
       "source": "FRED",
+      "fetch_key": "m2_money_supply",
+      "observation_time": "2026-08-01",
+      "fetch_time": "2026-10-03T18:38:54.600359",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 118,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
       "fetch_key": "housing_starts",
       "observation_time": "2026-08-01",
-      "fetch_time": "2026-10-03T18:25:11.489566",
+      "fetch_time": "2026-10-03T18:38:54.632763",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 118,
@@ -8724,34 +8724,12 @@
     },
     {
       "source": "FRED",
-      "fetch_key": "unemployment_rate",
-      "observation_time": "2026-09-01",
-      "fetch_time": "2026-10-03T18:25:11.508748",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 118,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "breakeven_5y",
-      "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:11.885981",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 2498,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "FRED",
-      "fetch_key": "treasury_10y",
+      "fetch_key": "effr",
       "observation_time": "2026-10-01",
-      "fetch_time": "2026-10-03T18:25:12.233611",
+      "fetch_time": "2026-10-03T18:38:55.037751",
       "status": "CURRENT",
       "is_stale": false,
-      "record_count": 2497,
+      "record_count": 3649,
       "error_category": null,
       "message": null
     },
@@ -8759,7 +8737,7 @@
       "source": "FRED",
       "fetch_key": "breakeven_10y",
       "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:12.603853",
+      "fetch_time": "2026-10-03T18:38:55.417635",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 2498,
@@ -8767,10 +8745,32 @@
       "message": null
     },
     {
+      "source": "FRED",
+      "fetch_key": "nonfarm_payrolls",
+      "observation_time": "2026-09-01",
+      "fetch_time": "2026-10-03T18:38:55.438230",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 119,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "FRED",
+      "fetch_key": "core_pce",
+      "observation_time": "2026-08-01",
+      "fetch_time": "2026-10-03T18:38:55.489329",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 118,
+      "error_category": null,
+      "message": null
+    },
+    {
       "source": "NY Fed HLW",
       "fetch_key": "rstar",
       "observation_time": "2026-04-01",
-      "fetch_time": "2026-10-03T18:25:13.339081",
+      "fetch_time": "2026-10-03T18:38:56.231965",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 262,
@@ -8781,7 +8781,7 @@
       "source": "NY Fed SME",
       "fetch_key": "nyfed_sme",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:14.905201",
+      "fetch_time": "2026-10-03T18:38:57.712946",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1,
@@ -8790,20 +8790,9 @@
     },
     {
       "source": "YAHOO",
-      "fetch_key": "gold",
-      "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:15.380155",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 251,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "YAHOO",
       "fetch_key": "vix",
       "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:15.472548",
+      "fetch_time": "2026-10-03T18:38:58.282298",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 254,
@@ -8812,9 +8801,9 @@
     },
     {
       "source": "YAHOO",
-      "fetch_key": "crude_oil",
+      "fetch_key": "dxy",
       "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:15.545207",
+      "fetch_time": "2026-10-03T18:38:58.410011",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 251,
@@ -8825,7 +8814,29 @@
       "source": "YAHOO",
       "fetch_key": "copper",
       "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:15.566815",
+      "fetch_time": "2026-10-03T18:38:58.448272",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 251,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "YAHOO",
+      "fetch_key": "crude_oil",
+      "observation_time": "2026-10-02",
+      "fetch_time": "2026-10-03T18:38:58.484381",
+      "status": "CURRENT",
+      "is_stale": false,
+      "record_count": 251,
+      "error_category": null,
+      "message": null
+    },
+    {
+      "source": "YAHOO",
+      "fetch_key": "gold",
+      "observation_time": "2026-10-02",
+      "fetch_time": "2026-10-03T18:38:58.507016",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 251,
@@ -8836,18 +8847,7 @@
       "source": "YAHOO",
       "fetch_key": "sp500",
       "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:15.714461",
-      "status": "CURRENT",
-      "is_stale": false,
-      "record_count": 251,
-      "error_category": null,
-      "message": null
-    },
-    {
-      "source": "YAHOO",
-      "fetch_key": "dxy",
-      "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:15.820612",
+      "fetch_time": "2026-10-03T18:38:58.605735",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 251,
@@ -8858,7 +8858,7 @@
       "source": "CNN",
       "fetch_key": "cnn_fear_greed_index",
       "observation_time": "2026-10-02",
-      "fetch_time": "2026-10-03T18:25:15.999083",
+      "fetch_time": "2026-10-03T18:38:58.843677",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1,
@@ -8869,7 +8869,7 @@
       "source": "Multpl",
       "fetch_key": "shiller_pe",
       "observation_time": "2026-10-03",
-      "fetch_time": "2026-10-03T18:25:16.168197",
+      "fetch_time": "2026-10-03T18:38:58.996345",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 1,
@@ -8880,7 +8880,7 @@
       "source": "Google News",
       "fetch_key": "google_news:federal_reserve_liquidity",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.661784",
+      "fetch_time": "2026-10-03T18:39:02.931164",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8891,7 +8891,7 @@
       "source": "Google News",
       "fetch_key": "google_news:inflation_prices",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.675440",
+      "fetch_time": "2026-10-03T18:39:02.944786",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8902,7 +8902,7 @@
       "source": "Google News",
       "fetch_key": "google_news:labor_employment",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.688555",
+      "fetch_time": "2026-10-03T18:39:02.958140",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8913,7 +8913,7 @@
       "source": "Google News",
       "fetch_key": "google_news:credit_rates",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.701787",
+      "fetch_time": "2026-10-03T18:39:02.971340",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8924,7 +8924,7 @@
       "source": "Google News",
       "fetch_key": "google_news:geopolitics_oil",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.715068",
+      "fetch_time": "2026-10-03T18:39:02.984544",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 4,
@@ -8935,7 +8935,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:mu",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.728409",
+      "fetch_time": "2026-10-03T18:39:02.997816",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 0,
@@ -8946,7 +8946,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:nvda",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.741984",
+      "fetch_time": "2026-10-03T18:39:03.010992",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 0,
@@ -8957,7 +8957,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:aapl",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.755272",
+      "fetch_time": "2026-10-03T18:39:03.024468",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 0,
@@ -8968,7 +8968,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:jpm",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.768625",
+      "fetch_time": "2026-10-03T18:39:03.037856",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 0,
@@ -8979,7 +8979,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:xom",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.781993",
+      "fetch_time": "2026-10-03T18:39:03.051212",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 0,
@@ -8990,7 +8990,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:tsla",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.795658",
+      "fetch_time": "2026-10-03T18:39:03.064583",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 0,
@@ -9001,7 +9001,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:cat",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.809129",
+      "fetch_time": "2026-10-03T18:39:03.078054",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 0,
@@ -9012,7 +9012,7 @@
       "source": "Yahoo Finance",
       "fetch_key": "bellwether:unh",
       "observation_time": null,
-      "fetch_time": "2026-10-03T18:25:20.823632",
+      "fetch_time": "2026-10-03T18:39:03.091493",
       "status": "CURRENT",
       "is_stale": false,
       "record_count": 0,

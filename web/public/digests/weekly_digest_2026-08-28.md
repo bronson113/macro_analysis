@@ -14,7 +14,8 @@
 ## Current State
 
 - **Quadrant:** `Situation 2: Accommodative Policy + Scarce Liquidity (Late-Cycle Caution)`.
-- **Policy level:** `ACCOMMODATIVE`. Policy gap remains within gate boundaries.
+- **Policy level:** `ACCOMMODATIVE`. This stance measures the nominal policy rate minus core PCE inflation minus the estimated neutral real rate (r-star). Neutral means the gap is within ±0.50 percentage points; it does not mean nominal interest rates are low. Unavailable means the required evidence cannot support a classification.
+- **Nominal policy rate (DFF):** `3.630%` at the week end (`2026-08-28`).
 - **Reserve-liquidity level:** `SCARCE`. Normalized reserve liquidity at `17.76% of GDP` (historical percentile: `13.0th`).
 - **Week timeframe:** 2026-08-24 to 2026-08-28 (5 captured trading sessions).
 
