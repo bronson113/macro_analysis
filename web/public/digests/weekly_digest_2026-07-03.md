@@ -54,7 +54,7 @@ Comparison of market and macroeconomic indicators from **2026-07-01** to **2026-
 | **CBOE Volatility (VIX)** | `16.59` | `16.15` | `-0.44` | Equity Risk Pricing |
 | **US Dollar Index (DXY)** | `101.39` | `100.86` | `-0.52%` | FX & Global Liquidity |
 | **WTI Crude Oil** | `$68.58` | `$68.69` | `+0.16%` | Energy Input Costs |
-| **Gold** | `$4,068.30` | `$4,112.70` | `+1.09%` | Monetary Hedge / Safe Haven |
+| **Gold** | `$4,082.40` | `$4,125.70` | `+1.06%` | Monetary Hedge / Safe Haven |
 | **Copper** | `$6.12` | `$6.11` | `-0.15%` | Industrial Demand Gauge |
 | **Shiller P/E Ratio** | `N/A` | `N/A` | `N/A` | Long-Term Equity Multiple |
 | **CNN Fear & Greed Index** | `N/A` | `N/A` | `N/A` | Retail Sentiment Overlay |
