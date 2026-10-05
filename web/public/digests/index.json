@@ -1,5 +1,21 @@
 [
   {
+    "week_id": "2026-W41",
+    "date": "2026-10-05",
+    "start_date": "2026-10-05",
+    "end_date": "2026-10-05",
+    "label": "Oct 05 \u2013 Oct 05, 2026",
+    "trading_days": 1,
+    "path": "digests/weekly_digest_2026-10-05.md",
+    "filename": "weekly_digest_2026-10-05.md",
+    "situation_id": 0,
+    "situation_label": "Situation 0: No Actionable Macro Quadrant (Gated / Insufficient Data)",
+    "net_liquidity_change": "$+0.00 B",
+    "sp500_change": "+0.00%",
+    "treasury_10y_change": "+0.0 bps",
+    "hy_oas_change": "+0.0 bps"
+  },
+  {
     "week_id": "2026-W40",
     "date": "2026-10-02",
     "start_date": "2026-09-28",
