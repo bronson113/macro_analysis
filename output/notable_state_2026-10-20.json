@@ -1,0 +1,17 @@
+[
+  {
+    "key": "macro:regime",
+    "fingerprint": "macro:regime|NO ACTIONABLE MACRO QUADRANT|Policy stance: Neutral (relative to inflation and r-star)|Reserve Liquidity: Scarce|PARTIAL",
+    "body": "**Macro:** Active quadrant is `NO ACTIONABLE MACRO QUADRANT` (Policy stance: Neutral (relative to inflation and r-star); Reserve Liquidity: Scarce). The macro framework is withheld: Policy is neutral inside the neutral band."
+  },
+  {
+    "key": "sentiment:cnn_fear_greed",
+    "fingerprint": "sentiment:cnn_fear_greed|Extreme Fear",
+    "body": "**Sentiment:** CNN Fear & Greed Index is `20.35` (`Extreme Fear`). Extreme fear risk-appetite overlay: panic conditions may create selective opportunities only if credit and liquidity confirm."
+  },
+  {
+    "key": "valuation:shiller_pe",
+    "fingerprint": "valuation:shiller_pe|Very Expensive",
+    "body": "**Valuation:** Shiller PE Ratio is `40.72` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta."
+  }
+]
