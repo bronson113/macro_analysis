@@ -1,4 +1,4 @@
-# Weekly Macro Digest (Oct 19 – Oct 23, 2026)
+# Weekly Macro Digest (Oct 26 – Oct 26, 2026)
 *Automated Weekly Synthesis & Institutional Research Framework (Defiant Gatekeeper)*
 > Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.
 
@@ -6,18 +6,18 @@
 ## Notable Summary
 
 - **Regime Stability:** Active quadrant is `Situation 0: No Actionable Macro Quadrant (Gated / Insufficient Data)` throughout the week. Rates stance is `NEUTRAL`, and reserve liquidity is `SCARCE`.
-- **Liquidity Flow:** Weekly reserve liquidity moved `$-61.62 B` (ending at `$5,808.10 B`).
-- **Rates & Yield Curve:** 10Y Treasury yield moved `+3.0 bps` to finish at `5.13%`. The 10Y-2Y spread ended at `+0.31%`.
-- **Credit & Equities:** High Yield OAS moved `+9.0 bps` (at `3.40%`). S&P 500 delivered `-0.65%` over the week with VIX at `19.23 (+1.12 pts)`.
+- **Liquidity Flow:** Weekly reserve liquidity moved `$+0.00 B` (ending at `$5,808.25 B`).
+- **Rates & Yield Curve:** 10Y Treasury yield moved `+0.0 bps` to finish at `4.96%`. The 10Y-2Y spread ended at `+0.31%`.
+- **Credit & Equities:** High Yield OAS moved `+0.0 bps` (at `3.38%`). S&P 500 delivered `+0.00%` over the week with VIX at `18.42 (+0.00 pts)`.
 
 ---
 ## Current State
 
 - **Quadrant:** `Situation 0: No Actionable Macro Quadrant (Gated / Insufficient Data)`.
 - **Policy level:** `NEUTRAL`. This stance measures the nominal policy rate minus core PCE inflation minus the estimated neutral real rate (r-star). Neutral means the gap is within ±0.50 percentage points; it does not mean nominal interest rates are low. Unavailable means the required evidence cannot support a classification.
-- **Nominal policy rate (DFF):** `3.880%` at the week end (`2026-10-23`).
+- **Nominal policy rate (DFF):** `3.880%` at the week end (`2026-10-26`).
 - **Reserve-liquidity level:** `SCARCE`. Normalized reserve liquidity at `17.84% of GDP` (historical percentile: `14.8th`).
-- **Week timeframe:** 2026-10-19 to 2026-10-23 (4 captured trading sessions).
+- **Week timeframe:** 2026-10-26 to 2026-10-26 (1 captured trading sessions).
 
 ---
 
@@ -38,27 +38,27 @@
 
 ## 2. Weekly Indicator Movements (Start vs. End of Week)
 
-Comparison of market and macroeconomic indicators from **2026-10-19** to **2026-10-23**:
+Comparison of market and macroeconomic indicators from **2026-10-26** to **2026-10-26**:
 
-| Category / Indicator | Start of Week (2026-10-19) | End of Week (2026-10-23) | Weekly Change (Δ) | Description / Direction |
+| Category / Indicator | Start of Week (2026-10-26) | End of Week (2026-10-26) | Weekly Change (Δ) | Description / Direction |
 | :--- | :--- | :--- | :--- | :--- |
-| **Reserve Liquidity Proxy** | `$5,869.72 B` | `$5,808.10 B` | `$-61.62 B` | Direction: Contracting |
-| **Fed Total Assets** | `$6,755.64 B` | `$6,753.60 B` | `$-2.04 B` | Balance Sheet Size |
-| **Treasury General Account (TGA)** | `$885.82 B` | `$945.15 B` | `$+59.33 B` | Treasury Cash Buffer |
-| **Reverse Repo Facility (RRP)** | `$0.10 B` | `$0.35 B` | `$+0.25 B` | Overnight Cash Drain |
-| **10-Year Treasury Yield** | `5.10%` | `5.13%` | `+3.0 bps` | Benchmark Long Rate |
-| **2-Year Treasury Yield** | `4.77%` | `4.81%` | `+4.0 bps` | Policy Expectations |
-| **10Y – 2Y Yield Spread** | `0.35%` | `0.31%` | `-4.0 bps` | Yield Curve Slope |
-| **10Y Real Yield Proxy** | `2.75%` | `2.81%` | `+6.0 bps` | TIPS Real Rate Benchmark |
-| **ICE BofA High Yield OAS** | `3.31%` | `3.40%` | `+9.0 bps` | Corporate Risk Premium |
-| **S&P 500 Index** | `7,700.34` | `7,650.31` | `-0.65%` | Equities (Negative) |
-| **CBOE Volatility (VIX)** | `18.11` | `19.23` | `+1.12` | Equity Risk Pricing |
-| **US Dollar Index (DXY)** | `101.98` | `101.74` | `-0.24%` | FX & Global Liquidity |
-| **WTI Crude Oil** | `$103.66` | `$102.32` | `-1.29%` | Energy Input Costs |
-| **Gold** | `$4,160.10` | `$4,010.30` | `-3.60%` | Monetary Hedge / Safe Haven |
-| **Copper** | `$6.54` | `$6.49` | `-0.71%` | Industrial Demand Gauge |
-| **Shiller P/E Ratio** | `40.54` | `40.58` | `+0.04` | Long-Term Equity Multiple |
-| **CNN Fear & Greed Index** | `25.22` | `20.96` | `-4.26` | Retail Sentiment Overlay |
+| **Reserve Liquidity Proxy** | `$5,808.25 B` | `$5,808.25 B` | `$+0.00 B` | Direction: Neutral |
+| **Fed Total Assets** | `$6,753.60 B` | `$6,753.60 B` | `$+0.00 B` | Balance Sheet Size |
+| **Treasury General Account (TGA)** | `$945.15 B` | `$945.15 B` | `$+0.00 B` | Treasury Cash Buffer |
+| **Reverse Repo Facility (RRP)** | `$0.20 B` | `$0.20 B` | `$+0.00 B` | Overnight Cash Drain |
+| **10-Year Treasury Yield** | `4.96%` | `4.96%` | `+0.0 bps` | Benchmark Long Rate |
+| **2-Year Treasury Yield** | `4.65%` | `4.65%` | `+0.0 bps` | Policy Expectations |
+| **10Y – 2Y Yield Spread** | `0.31%` | `0.31%` | `+0.0 bps` | Yield Curve Slope |
+| **10Y Real Yield Proxy** | `2.62%` | `2.62%` | `+0.0 bps` | TIPS Real Rate Benchmark |
+| **ICE BofA High Yield OAS** | `3.38%` | `3.38%` | `+0.0 bps` | Corporate Risk Premium |
+| **S&P 500 Index** | `7,672.66` | `7,672.66` | `+0.00%` | Equities (Flat) |
+| **CBOE Volatility (VIX)** | `18.42` | `18.42` | `+0.00` | Equity Risk Pricing |
+| **US Dollar Index (DXY)** | `101.96` | `101.96` | `+0.00%` | FX & Global Liquidity |
+| **WTI Crude Oil** | `$102.94` | `$102.94` | `+0.00%` | Energy Input Costs |
+| **Gold** | `$4,034.00` | `$4,034.00` | `+0.00%` | Monetary Hedge / Safe Haven |
+| **Copper** | `$6.54` | `$6.54` | `+0.00%` | Industrial Demand Gauge |
+| **Shiller P/E Ratio** | `40.36` | `40.36` | `+0.00` | Long-Term Equity Multiple |
+| **CNN Fear & Greed Index** | `27.05` | `27.05` | `+0.00` | Retail Sentiment Overlay |
 
 ---
 
@@ -66,10 +66,10 @@ Comparison of market and macroeconomic indicators from **2026-10-19** to **2026-
 
 Weekly changes across the banking reserve heuristic (`Fed Total Assets - TGA Balance - Reverse Repo Facility`):
 
-- **Reserve Liquidity Net Change:** `$-61.62 B`
-- **Fed Total Assets:** `$-2.04 B` (ended at `$6,753.60 B`)
-- **Treasury General Account (TGA):** `$+59.33 B` (ended at `$945.15 B`)
-- **Reverse Repo Facility (RRP):** `$+0.25 B` (ended at `$0.35 B`)
+- **Reserve Liquidity Net Change:** `$+0.00 B`
+- **Fed Total Assets:** `$+0.00 B` (ended at `$6,753.60 B`)
+- **Treasury General Account (TGA):** `$+0.00 B` (ended at `$945.15 B`)
+- **Reverse Repo Facility (RRP):** `$+0.00 B` (ended at `$0.20 B`)
 
 > [!NOTE]
 > Reserve liquidity expansion or contraction reflects the combined flow of open-market balance sheet actions, Treasury issuance/spending, and money market facility usage. It is a banking-system liquidity proxy, not a broad money measure.
@@ -80,22 +80,22 @@ Weekly changes across the banking reserve heuristic (`Fed Total Assets - TGA Bal
 
 Significant macroeconomic, central bank, and sector developments captured across the week:
 
-- **2026-10-23** — *[Federal Reserve & Liquidity]* **US Federal Reserve to Raise Rates Twice More in 2026, Says Bank of America - Morningstar**
-  > US Federal Reserve to Raise Rates Twice More in 2026, Says Bank of America&nbsp;&nbsp;Morningstar
-- **2026-10-23** — *[Federal Reserve & Liquidity]* **What the Fed’s Balance Sheet Could Mean for the Debt - Bipartisan Policy Center**
-  > What the Fed’s Balance Sheet Could Mean for the Debt&nbsp;&nbsp;Bipartisan Policy Center
-- **2026-10-23** — *[Federal Reserve & Liquidity]* **AI trade meets the Fed - Reuters**
-  > AI trade meets the Fed&nbsp;&nbsp;Reuters
-- **2026-10-23** — *[Federal Reserve & Liquidity]* **The Federal Reserve's Latest October Inflation Forecast Has Arrived, and It's Terrible News for Wall Street - Yahoo Finance**
-  > The Federal Reserve's Latest October Inflation Forecast Has Arrived, and It's Terrible News for Wall Street&nbsp;&nbsp;Yahoo Finance
-- **2026-10-23** — *[Inflation & Prices]* **Japan's core inflation exceeds BOJ target, cements near-term rate hike chance - Reuters**
-  > Japan's core inflation exceeds BOJ target, cements near-term rate hike chance&nbsp;&nbsp;Reuters
-- **2026-10-23** — *[Inflation & Prices]* **Consumer Price Index, New York-Newark-Jersey City — September 2026 - Bureau of Labor Statistics (.gov)**
+- **2026-10-26** — *[Federal Reserve & Liquidity]* **Fed to hit pause on rate hikes, but maybe not for long - Reuters**
+  > Fed to hit pause on rate hikes, but maybe not for long&nbsp;&nbsp;Reuters
+- **2026-10-26** — *[Federal Reserve & Liquidity]* **What To Expect From This Week’s Federal Reserve Meeting - Investopedia**
+  > What To Expect From This Week’s Federal Reserve Meeting&nbsp;&nbsp;Investopedia
+- **2026-10-26** — *[Federal Reserve & Liquidity]* **Why the Fed Is Expected to Hold Rates Steady Despite a Case for Raising Them - WSJ**
+  > Why the Fed Is Expected to Hold Rates Steady Despite a Case for Raising Them&nbsp;&nbsp;WSJ
+- **2026-10-26** — *[Federal Reserve & Liquidity]* **Why the Fed may hold off on another rate hike despite high inflation - USA Today**
+  > Why the Fed may hold off on another rate hike despite high inflation&nbsp;&nbsp;USA Today
+- **2026-10-26** — *[Inflation & Prices]* **Consumer Price Index, New York-Newark-Jersey City — September 2026 - Bureau of Labor Statistics (.gov)**
   > Consumer Price Index, New York-Newark-Jersey City — September 2026&nbsp;&nbsp;Bureau of Labor Statistics (.gov)
-- **2026-10-23** — *[Inflation & Prices]* **UK inflation: What is the rate and why are prices still rising? - BBC**
-  > UK inflation: What is the rate and why are prices still rising?&nbsp;&nbsp;BBC
-- **2026-10-23** — *[Inflation & Prices]* **U.S. Inflation Not Getting (Much) Worse, or Better, but Consumers are Fine - The Overshoot**
-  > U.S. Inflation Not Getting (Much) Worse, or Better, but Consumers are Fine&nbsp;&nbsp;The Overshoot
+- **2026-10-26** — *[Inflation & Prices]* **Japan's core inflation exceeds BOJ target, cements near-term rate hike chance - Reuters**
+  > Japan's core inflation exceeds BOJ target, cements near-term rate hike chance&nbsp;&nbsp;Reuters
+- **2026-10-26** — *[Inflation & Prices]* **Inflation worsened last month to 3.7% in sign that prices remain elevated as midterm elections near - AP News**
+  > Inflation worsened last month to 3.7% in sign that prices remain elevated as midterm elections near&nbsp;&nbsp;AP News
+- **2026-10-26** — *[Inflation & Prices]* **Consumer prices rose 3.7% annually in September as gas prices skyrocket - CNBC**
+  > Consumer prices rose 3.7% annually in September as gas prices skyrocket&nbsp;&nbsp;CNBC
 
 ---
 
@@ -104,9 +104,9 @@ Significant macroeconomic, central bank, and sector developments captured across
 Critical thresholds and signals to monitor entering the subsequent week:
 
 - **Liquidity Invalidation:** An upgrade in liquidity classification requires normalized reserves to break above the **40th percentile** (`~20.26% of GDP`), accompanied by easing 30-day momentum.
-- **Credit Stress Warning:** Any sharp widening in High Yield OAS above **4.50%** (currently `3.40%`) or positive shift in NFCI would trigger defensive de-risking.
+- **Credit Stress Warning:** Any sharp widening in High Yield OAS above **4.50%** (currently `3.38%`) or positive shift in NFCI would trigger defensive de-risking.
 - **Policy Reclassification:** Nominal rate and yield curve slope moves alone do not reclassify policy; a shift requires the real-policy gap (`DFF - Core PCE - r*`) to exceed `+0.50 pp`.
-- **Valuation Headwind:** Shiller P/E at `40.58` reinforces that broad market beta carries negative asymmetry without fundamental earnings beats.
+- **Valuation Headwind:** Shiller P/E at `40.36` reinforces that broad market beta carries negative asymmetry without fundamental earnings beats.
 
 ---
 *Deterministic outputs are research heuristics, not trade instructions or a validated strategy. WATCH and AVOID indicate research priority only.*
