@@ -7,7 +7,7 @@
   {
     "key": "sentiment:cnn_fear_greed",
     "fingerprint": "sentiment:cnn_fear_greed|Extreme Fear",
-    "body": "**Sentiment:** CNN Fear & Greed Index is `22.53` (`Extreme Fear`). Extreme fear risk-appetite overlay: panic conditions may create selective opportunities only if credit and liquidity confirm."
+    "body": "**Sentiment:** CNN Fear & Greed Index is `19.72` (`Extreme Fear`). Extreme fear risk-appetite overlay: panic conditions may create selective opportunities only if credit and liquidity confirm."
   },
   {
     "key": "valuation:shiller_pe",
