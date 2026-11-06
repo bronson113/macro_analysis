@@ -7,11 +7,11 @@
   {
     "key": "sentiment:cnn_fear_greed",
     "fingerprint": "sentiment:cnn_fear_greed|Extreme Fear",
-    "body": "**Sentiment:** CNN Fear & Greed Index is `20.40` (`Extreme Fear`). Extreme fear risk-appetite overlay: panic conditions may create selective opportunities only if credit and liquidity confirm."
+    "body": "**Sentiment:** CNN Fear & Greed Index is `24.08` (`Extreme Fear`). Extreme fear risk-appetite overlay: panic conditions may create selective opportunities only if credit and liquidity confirm."
   },
   {
     "key": "valuation:shiller_pe",
     "fingerprint": "valuation:shiller_pe|Very Expensive",
-    "body": "**Valuation:** Shiller PE Ratio is `40.62` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta."
+    "body": "**Valuation:** Shiller PE Ratio is `38.79` (`Very Expensive`). Very expensive secondary valuation overlay: broad equity valuations are stretched, so require stronger macro, credit, and earnings confirmation before adding index beta."
   }
 ]
