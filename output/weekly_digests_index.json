@@ -1,19 +1,19 @@
 [
   {
     "week_id": "2026-W47",
-    "date": "2026-11-16",
+    "date": "2026-11-17",
     "start_date": "2026-11-16",
-    "end_date": "2026-11-16",
-    "label": "Nov 16 \u2013 Nov 16, 2026",
-    "trading_days": 1,
-    "path": "digests/weekly_digest_2026-11-16.md",
-    "filename": "weekly_digest_2026-11-16.md",
+    "end_date": "2026-11-17",
+    "label": "Nov 16 \u2013 Nov 17, 2026",
+    "trading_days": 2,
+    "path": "digests/weekly_digest_2026-11-17.md",
+    "filename": "weekly_digest_2026-11-17.md",
     "situation_id": 0,
     "situation_label": "Situation 0: No Actionable Macro Quadrant (Gated / Insufficient Data)",
-    "net_liquidity_change": "$+0.00 B",
-    "sp500_change": "+0.00%",
-    "treasury_10y_change": "+0.0 bps",
-    "hy_oas_change": "+0.0 bps"
+    "net_liquidity_change": "$-0.17 B",
+    "sp500_change": "-0.89%",
+    "treasury_10y_change": "+5.0 bps",
+    "hy_oas_change": "+11.0 bps"
   },
   {
     "week_id": "2026-W46",
